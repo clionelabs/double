@@ -12,7 +12,7 @@ Meteor.startup(function() {
   }
 
   Accounts.validateNewUser(function (user) {
-    if (Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+    if (Users.isAdmin(Meteor.userId())) {
       return true;
     }
     throw new Meteor.Error(403, "Not authorized to create new user");
