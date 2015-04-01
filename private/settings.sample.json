@@ -1,0 +1,7 @@
+{
+  "defaultAccountPassword": "2",
+  "adminAccount": {
+    "email": "admin@askdouble.com",
+    "password": "1"
+  }
+}

@@ -1,2 +1,14 @@
+#meteor local build
 .meteor/local
-.meteor/meteorite
+
+#OS X system file
+.DS_Store
+#ide specific
+.tern_project
+.idea/
+
+#test build file
+ packages/
+
+#project specific
+/private/settings.json

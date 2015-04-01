@@ -1,0 +1,11 @@
+<Template name="layout">
+  <div class="navbar navbar-default" role="navigation">
+    <div class="navbar-header"></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+          {{> loginButtons }} <!-- here -->
+      </ul>
+    </div>
+  </div>
+  {{> yield}}
+</Template>
