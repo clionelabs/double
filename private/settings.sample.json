@@ -1,4 +1,16 @@
 {
+  "email" : {
+    "enableInNonProduction" : false,
+    "smtp" : {
+      "username": "<USER_NAME>",
+      "password": "<PASSWORD>",
+      "host": "<SMTP_HOST>",
+      "port": "<PORT>"
+    },
+    "mailgun" : {
+      "apiKey" : "<API_KEY>"
+    }
+  },
   "defaultAccountPassword": "2",
   "adminAccount": {
     "email": "admin@askdouble.com",
