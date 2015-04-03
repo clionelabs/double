@@ -1,1 +1,1 @@
-Bill = {};
+Bills = new Meteor.Collection("bills");
