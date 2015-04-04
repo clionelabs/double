@@ -1,0 +1,16 @@
+@import 'variables';
+
+.customer-header {
+  font-size: 1.414em;
+  padding:15px;
+
+  div {
+    line-height: 1.33;
+  }
+
+  .add-todo {
+    color: $pay-light-blue;
+  }
+
+  border-bottom: 1px $pay-grey solid;
+}
