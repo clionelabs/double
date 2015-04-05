@@ -12,8 +12,8 @@ Template.adminCreateAssistant.events({
   "submit #new-assistant-form": function (event) {
     event.preventDefault();
 
-    var form = event.target;
-    var data = {
+    let form = event.target;
+    let data = {
       email: form.email.value,
       firstname: form.firstname.value,
       lastname: form.lastname.value
@@ -28,8 +28,8 @@ Template.adminCreateCustomer.events({
   "submit #new-customer-form": function (event) {
     event.preventDefault();
 
-    var form = event.target;
-    var data = {
+    let form = event.target;
+    let data = {
       email: form.email.value,
       firstname: form.firstname.value,
       lastname: form.lastname.value
