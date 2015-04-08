@@ -3,13 +3,14 @@ Template.adminDashboard.helpers({
 
 Template.adminDashboardCustomerRow.helpers({
   assignedAssistantName: function() {
-    var placement = Placements.findOne({customerId: this._id});
+    // The default transform is not applied. Why?
+    var placement = Placements.findOne({customerId: this._id}, {transform: function(doc) {
+      return _.extend(doc, Placement);
+    }});
     if (!placement) {
-      return '--';
-    } else {
-      var assistant = Meteor.users.findOne(placement.assistantId);
-      return assistant.profile.firstname + ' ' + assistant.profile.lastname;
+      placement = EmptyPlacement;
     }
+    return placement.assistantDisplayName();
   },
 
   availableAssistants: function() {
