@@ -2,10 +2,10 @@
     <div class="row task-list-item">
       <div class="row">
         <label class="info-container col-md-12 col-xs-12">
-          <div class="col-md-1 col-xs-1 checkbox-container">
+          <div class="col-md-1 col-sm-1 col-xs-2 checkbox-container">
             <input type="checkbox" class="pull-right">
           </div>
-          <div class="name col-md-11 col-xs-11">
+          <div class="name col-md-11 col-sm-11 col-xs-10">
             {{ name }}
           </div>
         </label>
@@ -23,7 +23,7 @@
 
 <template name="taskRecurringCriteria">
   <div class="row">
-    <div class="attr col-md-11 col-xs-11 col-md-offset-1 col-xs-offset-1">
+    <div class="attr col-md-11 col-sm-11 col-xs-10 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">
       <i class="glyphicon glyphicon-refresh"></i>&nbsp;{{ getRecurringCriteriaString }}
     </div>
   </div>
@@ -31,7 +31,7 @@
 
 <template name="taskDeadline">
   <div class="row">
-    <div class="attr col-md-11 col-xs-11 col-md-offset-1 col-xs-offset-1">
+    <div class="attr col-md-11 col-sm-11 col-xs-10 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">
       <i class="glyphicon glyphicon-calendar"></i>&nbsp;{{ formatDate deadline }}
     </div>
   </div>
@@ -39,7 +39,7 @@
 
 <template name="taskStatus">
   <div class="row">
-    <div class="attr col-md-11 col-xs-11 col-md-offset-1 col-xs-offset-1">
+    <div class="attr col-md-11 col-sm-11 col-xs-10 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">
       <i class="glyphicon glyphicon-user"></i>&nbsp;{{ getLatestStatus }}
     </div>
   </div>
@@ -48,7 +48,7 @@
 <template name="taskReferences">
   {{#each references }}
     <div class="row">
-      <div class="attr col-md-11 col-xs-11 col-md-offset-1 col-xs-offset-1">
+      <div class="attr col-md-11 col-sm-11 col-xs-10 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">
         <i class="glyphicon glyphicon-file"></i>&nbsp;<a href="{{url}}">{{ name }}</a>
       </div>
     </div>
@@ -57,7 +57,7 @@
 
 <template name="taskCompleted">
   <div class="row">
-    <div class="attr col-md-11 col-xs-11 col-md-offset-1 col-xs-offset-1">
+    <div class="attr col-md-11 col-sm-11 col-xs-10 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">
       <i class="glyphicon glyphicon-time"></i>&nbsp;{{ formatDuration getTotalDuration }}
     </div>
   </div>
