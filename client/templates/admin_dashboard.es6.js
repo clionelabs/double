@@ -21,18 +21,20 @@ Template.adminDashboardCustomerRow.helpers({
   }
 });
 
+var customerRowUpdateCallback = function(error) {
+  if (error) {
+    Notifications.error("updated failed", "");
+  } else {
+    Notifications.success("updated successful", "");
+  }
+}
+
 Template.adminDashboardCustomerRow.events({
   "click .unassign-assistant": function() {
     var customerId = this._id;
     var placement = Placements.findOne({customerId: customerId});
     if (placement) {
-      Placements.remove(placement._id, function(error) {
-        if (error) {
-          Notifications.error("updated failed", "");
-        } else {
-          Notifications.success("updated successful", "");
-        }
-      });
+      Placements.remove(placement._id, customerRowUpdateCallback);
     }
   },
   "click .assign-assistant": function(event) {
@@ -40,21 +42,9 @@ Template.adminDashboardCustomerRow.events({
     var assistantId = this._id;
     var placement = Placements.findOne({customerId: customerId});
     if (placement) {
-      Placements.update(placement._id, {$set: {assistantId: assistantId}}, function(error) {
-        if (error) {
-          Notifications.error("updated failed", "");
-        } else {
-          Notifications.success("updated successful", "");
-        }
-      });
+      Placements.update(placement._id, {$set: {assistantId: assistantId}}, customerRowUpdateCallback);
     } else {
-      Placements.insert({customerId: customerId, assistantId: assistantId}, function(error) {
-        if (error) {
-          Notifications.error("updated failed", "");
-        } else {
-          Notifications.success("updated successful", "");
-        }
-      });
+      Placements.insert({customerId: customerId, assistantId: assistantId}, customerRowUpdateCallback);
     }
   }
 });
