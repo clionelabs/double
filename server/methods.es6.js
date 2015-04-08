@@ -1,10 +1,10 @@
 Meteor.methods({
   createAssistant: function(data) {
-    var email = data.email;
-    var firstname = data.firstname;
-    var lastname = data.lastname;
+    let email = data.email;
+    let firstname = data.firstname;
+    let lastname = data.lastname;
 
-    var userId = Users.createAssistant({
+    let userId = Users.createAssistant({
       email: email,
       password: Meteor.uuid(),
       profile: {
@@ -19,11 +19,11 @@ Meteor.methods({
   },
 
   createCustomer: function(data) {
-    var email = data.email;
-    var firstname = data.firstname;
-    var lastname = data.lastname;
+    let email = data.email;
+    let firstname = data.firstname;
+    let lastname = data.lastname;
 
-    var userId = Users.createCustomer({
+    let userId = Users.createCustomer({
       email: email,
       password: Meteor.uuid(),
       profile: {

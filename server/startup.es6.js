@@ -1,10 +1,10 @@
 Meteor.startup(function() {
   if (Meteor.settings.adminAccount) {
-    var email = Meteor.settings.adminAccount.email;
-    var password = Meteor.settings.adminAccount.password;
+    let email = Meteor.settings.adminAccount.email;
+    let password = Meteor.settings.adminAccount.password;
 
     if (!Meteor.users.findOne({emails: {$elemMatch: {address: email}}})) {
-      var userId = Users.createAdmin({
+      let userId = Users.createAdmin({
         email: email,
         password: password
       });
