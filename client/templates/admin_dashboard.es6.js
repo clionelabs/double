@@ -22,6 +22,19 @@ Template.adminDashboardCustomerRow.helpers({
 });
 
 Template.adminDashboardCustomerRow.events({
+  "click .unassign-assistant": function() {
+    var customerId = this._id;
+    var placement = Placements.findOne({customerId: customerId});
+    if (placement) {
+      Placements.remove(placement._id, function(error) {
+        if (error) {
+          Notifications.error("updated failed", "");
+        } else {
+          Notifications.success("updated successful", "");
+        }
+      });
+    }
+  },
   "click .assign-assistant": function(event) {
     var customerId = this.customerId;
     var assistantId = this._id;
