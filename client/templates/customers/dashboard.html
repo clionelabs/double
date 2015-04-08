@@ -1,4 +1,7 @@
 <Template name="customerDashboard">
     {{> customer_header }}
   <h1>Customer</h1>
+  {{#each tasks }}
+    {{> task }}
+  {{/each}}
 </Template>
