@@ -13,3 +13,5 @@ peppelg:bootstrap-3-modal
 alanning:roles
 grigio:babel
 email
+tap:i18n
+fourseven:scss
