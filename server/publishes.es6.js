@@ -13,3 +13,11 @@ Meteor.publish('customers', function() {
     this.ready();
   }
 });
+
+Meteor.publish('placements', function() {
+  if (Users.isAdmin(this.userId)) {
+    return Placements.find();
+  } else {
+    this.ready();
+  }
+});
