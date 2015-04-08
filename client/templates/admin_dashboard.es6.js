@@ -1,3 +1,51 @@
+Template.adminDashboard.helpers({
+});
+
+Template.adminDashboardCustomerRow.helpers({
+  assignedAssistantName: function() {
+    var placement = Placements.findOne({customerId: this._id});
+    if (!placement) {
+      return '--';
+    } else {
+      var assistant = Meteor.users.findOne(placement.assistantId);
+      return assistant.profile.firstname + ' ' + assistant.profile.lastname;
+    }
+  },
+
+  availableAssistants: function() {
+    var customerId = this._id;
+    var data = Router.current().data();
+    return data.assistants.map(function(assistant) {
+      return _.extend(assistant, {customerId: customerId});
+    });
+  }
+});
+
+Template.adminDashboardCustomerRow.events({
+  "click .assign-assistant": function(event) {
+    var customerId = this.customerId;
+    var assistantId = this._id;
+    var placement = Placements.findOne({customerId: customerId});
+    if (placement) {
+      Placements.update(placement._id, {$set: {assistantId: assistantId}}, function(error) {
+        if (error) {
+          Notifications.error("updated failed", "");
+        } else {
+          Notifications.success("updated successful", "");
+        }
+      });
+    } else {
+      Placements.insert({customerId: customerId, assistantId: assistantId}, function(error) {
+        if (error) {
+          Notifications.error("updated failed", "");
+        } else {
+          Notifications.success("updated successful", "");
+        }
+      });
+    }
+  }
+});
+
 Template.adminDashboard.events({
   "click #new-assistant-button": function() {
     Modal.show('adminCreateAssistant');
