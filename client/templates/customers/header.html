@@ -1,11 +1,15 @@
 <template name="customerHeader">
-  <section class="container-fluid customer-header">
-    <div class="row">
-      <div class="col-md-12 col-sm-12 text-center">
-        <div class="settings glyphicon glyphicon-cog pull-left"></div>
-        {{_ "task_header" count=numberOfTasks}}
-        <div class="add-todo glyphicon glyphicon-plus pull-right"></div>
-      </div>
+  <section class="row customer-header">
+    <div class="col-md-12 col-sm-12 text-center">
+      <div class="settings glyphicon glyphicon-cog pull-left"></div>
+      {{_ "task_header" count=numberOfTasks}}
+      <div class="add-todo action glyphicon glyphicon-plus pull-right"></div>
+      <div class="call-me action glyphicon glyphicon-earphone pull-right {{isCalling}}"></div>
+    </div>
+  </section>
+  <section class="alert-container row {{isCallingShowInvisible}}">
+    <div class="text-center call-alert col-xs-12 col-sm-12 col-md-12">
+      <p class="animated flash infinite">Your double will call you back shortly...</p>
     </div>
   </section>
 </template>

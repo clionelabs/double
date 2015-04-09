@@ -3,6 +3,5 @@ Template.registerHelper("formatDate", function(date) {
 });
 
 Template.registerHelper("formatDuration", function(duration) {
-  console.log(duration);
   return moment.duration(duration).humanize();
 });
