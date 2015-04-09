@@ -1,13 +1,13 @@
 <template name="customerHeader">
-  <div class="row customer-header">
+  <section class="row customer-header">
     <div class="col-md-12 col-sm-12 text-center">
       <div class="settings glyphicon glyphicon-cog pull-left"></div>
       {{_ "task_header" count=numberOfTasks}}
       <div class="add-todo action glyphicon glyphicon-plus pull-right"></div>
       <div class="call-me action glyphicon glyphicon-earphone pull-right {{isCalling}}"></div>
     </div>
-  </div>
-  <div class="alert-container row animated {{isCallingShowInvisible}}">
+  </section>
+  <section class="alert-container row animated {{isCallingShowInvisible}}">
     <div class="text-center call-alert col-xs-12 col-sm-12 col-md-12">Your double will call you back shortly...</div>
-  </div>
+  </section>
 </template>

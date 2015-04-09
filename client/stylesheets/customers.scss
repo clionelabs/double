@@ -10,6 +10,7 @@
     font-size: 1.414em;
     padding:15px;
     letter-spacing: 2px;
+    margin-bottom: 0px;
 
     div {
       line-height: 1.33;
@@ -19,6 +20,22 @@
       color:white;
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     }
+  border-bottom: 1px $pay-grey solid;
+}
+
+section {
+  margin-bottom: 20px;
+
+}
+
+.tabs {
+  font-size: 1.414em;
+  text-transform: uppercase;
+  .active span {
+    border-bottom: 5px solid $pay-light-blue;
+  }
+
+}
 
     .call-me {
       &.off {
@@ -79,12 +96,11 @@
       padding:0px 5px;
     }
 
-    .attr-container {
-      color: rgba(35,31,32,0.3);
-      margin-bottom:20px;
-      .attr {
-        padding:0px 30px;
-      }
+  .attr-container {
+    margin-bottom: 20px;
+    color: rgba(35,31,32,0.3);
+    .attr {
+      padding:0px 30px;
     }
   }
 }
