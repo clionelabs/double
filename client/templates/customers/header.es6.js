@@ -15,7 +15,7 @@ Template.customerHeader.helpers({
 
   isCallingShowInvisible : function() {
     //TODO change to customer.isCalling when integrated
-    return _toggleTwoClass(Session.get("isCalling"), "show flash infinite", "invisible");
+    return _toggleTwoClass(Session.get("isCalling"), "show ", "invisible");
   }
 });
 

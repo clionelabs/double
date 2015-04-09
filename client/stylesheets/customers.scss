@@ -61,7 +61,9 @@ section {
   }
 
   .alert-container {
-    &.animated {
+    p.animated {
+      padding:0px;
+      margin:0px;
       animation-duration: 3s;
     }
     margin-bottom: 20px;
