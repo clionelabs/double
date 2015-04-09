@@ -15,23 +15,49 @@
       line-height: 1.33;
     }
 
-    .action {
-      color: $pay-light-blue;
+    .settings {
+      color:white;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    }
+
+    .call-me {
+      &.off {
+        color:white;
+        text-shadow: -1px 0 $pay-light-blue, 0 1px $pay-light-blue, 1px 0 $pay-light-blue, 0 -1px $pay-light-blue;
+      }
+      &.on {
+        text-shadow: -1px 0 $pay-red, 0 1px $pay-red, 1px 0 $pay-red, 0 -1px $pay-red;
+        color:$pay-red;
+      }
+      &:active {
+        color:$pay-light-blue;
+      }
     }
 
     .add-todo {
+      color: $pay-light-blue;
       margin-left: 30px;
+      font-weight: 300;
     }
 
     border-bottom: 1px $pay-grey solid;
   }
 
-  .call-alert {
-    line-height: 1.33;
-    background-color: $pay-light-blue;
-    color: white;
-    margin-bottom:20px;
-    padding:5px 0px;
+  .alert-container {
+    margin-bottom: 20px;
+    &.show {
+      height: auto;
+    }
+    &.invisible {
+      height: 0px;
+      overflow: hidden;
+    }
+    .call-alert {
+      line-height: 1.33;
+      background-color: $pay-light-blue;
+      color: white;
+      padding: 5px 0px;
+    }
   }
 
   .task-list-item {
