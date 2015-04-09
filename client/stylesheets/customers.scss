@@ -9,12 +9,24 @@
     line-height: 1.33;
   }
 
-  .add-todo {
+  .action {
     color: $pay-light-blue;
   }
 
+  .add-todo {
+    margin-left: 30px;
+  }
+
   border-bottom: 1px $pay-grey solid;
+}
+
+.call-alert {
+  text-align: center;
+  line-height: 1.33;
+  background-color: $pay-light-blue;
+  color: white;
   margin-bottom:20px;
+  padding:5px 0px;
 }
 
 .task-list-item {

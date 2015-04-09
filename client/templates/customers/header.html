@@ -1,11 +1,13 @@
 <template name="customerHeader">
-    <div class="container-fluid customer-header">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 text-center">
-                <div class="settings glyphicon glyphicon-cog pull-left"></div>
-                {{_ "task_header" count=numberOfTasks}}
-                <div class="add-todo glyphicon glyphicon-plus pull-right"></div>
-            </div>
-        </div>
+  <div class="container-fluid customer-header">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 text-center">
+        <div class="settings glyphicon glyphicon-cog pull-left"></div>
+        {{_ "task_header" count=numberOfTasks}}
+        <div class="add-todo action glyphicon glyphicon-plus pull-right"></div>
+        <div class="call-me action glyphicon glyphicon-earphone pull-right"></div>
+      </div>
     </div>
+  </div>
+  {{> Template.dynamic template=showCallAlertComponent }}
 </template>
