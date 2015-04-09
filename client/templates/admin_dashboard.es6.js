@@ -6,10 +6,7 @@ Template.adminDashboardCustomerRow.helpers({
     // The default transform is not applied. Why?
     var placement = Placements.findOne({customerId: this._id}, {transform: function(doc) {
       return _.extend(doc, Placement);
-    }});
-    if (!placement) {
-      placement = EmptyPlacement;
-    }
+    }}) || EmptyPlacement;
     return placement.assistantDisplayName();
   },
 
