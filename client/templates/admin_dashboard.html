@@ -62,7 +62,9 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-          <li role="presentation"><a role="menuitem" href="" class="unassign-assistant">--</a></li>
+          {{#if hasAssignedAssistant}}
+            <li role="presentation"><a role="menuitem" href="" class="unassign-assistant">--</a></li>
+          {{/if}}
           {{#each availableAssistants}}
           <li role="presentation"><a role="menuitem" href="#" class="assign-assistant">{{displayName}}</a></li>
           {{/each}}

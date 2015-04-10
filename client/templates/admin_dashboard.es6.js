@@ -2,6 +2,10 @@ Template.adminDashboard.helpers({
 });
 
 Template.adminDashboardCustomerRow.helpers({
+  hasAssignedAssistant: function() {
+    var placement = Placements.findOne({customerId: this._id});
+    return !!placement;
+  },
   assignedAssistantName: function() {
     // The default transform is not applied. Why?
     var placement = Placements.findOne({customerId: this._id}, {transform: function(doc) {
@@ -30,20 +34,12 @@ var customerRowUpdateCallback = function(error) {
 Template.adminDashboardCustomerRow.events({
   "click .unassign-assistant": function() {
     var customerId = this._id;
-    var placement = Placements.findOne({customerId: customerId});
-    if (placement) {
-      Placements.remove(placement._id, customerRowUpdateCallback);
-    }
+    Placements.unassign(customerId, customerRowUpdateCallback);
   },
   "click .assign-assistant": function(event) {
     var customerId = this.customerId;
     var assistantId = this._id;
-    var placement = Placements.findOne({customerId: customerId});
-    if (placement) {
-      Placements.update(placement._id, {$set: {assistantId: assistantId}}, customerRowUpdateCallback);
-    } else {
-      Placements.insert({customerId: customerId, assistantId: assistantId}, customerRowUpdateCallback);
-    }
+    Placements.assign(customerId, assistantId, customerRowUpdateCallback);
   }
 });
 

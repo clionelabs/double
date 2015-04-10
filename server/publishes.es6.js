@@ -6,11 +6,13 @@ Meteor.publish('assistants', function() {
   }
 });
 
-Meteor.publish('customers', function() {
+Meteor.reactivePublish('customers', function() {
   if (Users.isAdmin(this.userId)) {
     return Users.findCustomers();
   } else if (Users.isAssistant(this.userId)) {
-    return Users.findCustomers();
+    var placements = Placements.find({assistantId: this.userId}, {fields: {customerId: 1}, reactive: true}).fetch();
+    var customerIds = _.pluck(placements, 'customerId');
+    return Users.findCustomers({_id: {$in: customerIds}});
   } else {
     return [];
   }
