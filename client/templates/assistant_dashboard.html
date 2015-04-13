@@ -1,8 +1,43 @@
 <Template name="assistantDashboard">
   <h1>Assistant</h1>
   {{#each myCustomers}}
-    <div>
-      {{displayName}}
-    </div>
+    {{> assistantDashboardCustomerTab}}
   {{/each}}
+</Template>
+
+<Template name="assistantDashboardCustomerTab">
+  <div class="well">
+    {{displayName}}
+    <ul>
+      {{#each tasks}}
+        <li>{{title}}</li>
+      {{/each}}
+    </ul>
+    <button class="new-task-button">+Task</button>
+  </div>
+</Template>
+
+<Template name="assistantCreateTask">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">New Task</h4>
+        </div>
+        <div class="modal-body">
+          <form id="new-task-form">
+            <input type="hidden" name="customerId" value="{{customerId}}"/>
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="title" class="form-control" id="title" placeholder="Title">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </Template>

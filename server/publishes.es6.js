@@ -6,6 +6,15 @@ Meteor.publish('assistants', function() {
   }
 });
 
+Meteor.publish('tasks', function() {
+  return Tasks.find({
+    $or: [
+      {responderId: this.userId},
+      {requestorId: this.userId}
+    ]
+  });
+});
+
 Meteor.reactivePublish('customers', function() {
   if (Users.isAdmin(this.userId)) {
     return Users.findCustomers();
