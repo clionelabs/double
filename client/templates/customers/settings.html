@@ -1,0 +1,35 @@
+<template name="customerSettings">
+  <section class="sidebar settings-sidebar {{showSidebar}}">
+    <div class="row top-button-container">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <button type="button" class="close pull-right" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+        <img class="img-circle portrait" src="{{ assistant.profile.url }}" alt="Portrait of the Double"/>
+      </div>
+    </div>
+
+    <div class="text-center double-name">{{ assistant.getNameWithInitial }}</div>
+    <div class="title text-capitalize text-center">Your Double</div>
+    <div class="hour-meter-container text-center">
+      <div class="word-rep">{{ user.hoursUsed }} / {{ user.totalHours }} Hours</div>
+      <div class="bar-rep"><div class="bar-fill" style="{ width: {{ user.percentageOfTimeLeft }} }"></div></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="promise">We work hard to serve you and welcome any feedback you have on our services. </div>
+      </div>
+    </div>
+    <div class="send-feedback action text-uppercase"><i class="glyphicon glyphicon-envelope"></i> feedback</div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="promise">When you log out, we will immediately send you another link via email for accessing these tasks. Previous links will no longer be accessible.</div>
+      </div>
+    </div>
+    <div class="logout action text-uppercase"><i class="glyphicon glyphicon-log-out"></i>log out</div>
+
+    <div class="promise">Crafted by Clione Labs</div>
+  </section>
+</template>
