@@ -1,8 +1,11 @@
 <Template name="customerDashboard">
+  <div class="content {{showBlur}}">
   {{> customerHeader }}
   {{> customerTabs }}
   {{#each tasks }}
     {{> task }}
   {{/each}}
+  </div>
+  {{> customerSettings }}
 </Template>
 

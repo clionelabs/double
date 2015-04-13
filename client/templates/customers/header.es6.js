@@ -1,7 +1,3 @@
-var _toggleTwoClass = function(bool, onClass, offClass) {
-
-  return bool ? onClass : offClass;
-}
 
 Template.customerHeader.helpers({
   numberOfTasks : function numberOfTasks() {
@@ -10,12 +6,12 @@ Template.customerHeader.helpers({
   },
   isCalling : function() {
     //TODO change to customer.isCalling when integrated
-    return _toggleTwoClass(Session.get("isCalling"), "on", "off");
+    return Template._toggleTwoClass(Session.get("isCalling"), "on", "off");
   },
 
   isCallingShowInvisible : function() {
     //TODO change to customer.isCalling when integrated
-    return _toggleTwoClass(Session.get("isCalling"), "show ", "invisible");
+    return Template._toggleTwoClass(Session.get("isCalling"), "show ", "invisible");
   }
 });
 
@@ -24,6 +20,9 @@ Template.customerHeader.events({
     //TODO change to customer.isCalling when integrated
     Session.set("isCalling", !Session.get("isCalling"));
 
+  },
+  "click .settings" : function() {
+    Session.set(Template.customerDashboard.IS_SIDEBAR_VISIBLE, true);
   }
 });
 
