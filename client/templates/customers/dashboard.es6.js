@@ -1,4 +1,4 @@
-Template.customerDashboard.isSidebarVisible = "isSidebarVisible";
+Template.customerDashboard.IS_SIDEBAR_VISIBLE = "IS_SIDEBAR_VISIBLE";
 
 Template.customerDashboard.events({
   "click .settings" : function() {
@@ -11,7 +11,7 @@ Template.customerDashboard.events({
 
 Template.customerDashboard.helpers({
   "showBlur" : function() {
-    return Template._toggleTwoClass(Session.get(Template.customerDashboard.isSidebarVisible), "blur", "");
+    return Template._toggleTwoClass(Session.get(Template.customerDashboard.IS_SIDEBAR_VISIBLE), "blur", "");
   }
 });
 

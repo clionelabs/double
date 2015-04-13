@@ -22,7 +22,7 @@ Template.customerHeader.events({
 
   },
   "click .settings" : function() {
-    Session.set(Template.customerDashboard.isSidebarVisible, true);
+    Session.set(Template.customerDashboard.IS_SIDEBAR_VISIBLE, true);
   }
 });
 
