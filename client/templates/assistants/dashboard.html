@@ -1,8 +1,10 @@
 <Template name="assistantDashboard">
-  <h1>Assistant</h1>
+  <div class="container-fluid">
+  <h1>{{ myCurrentCustomer.displayName }}</h1>
   {{#each myCustomers}}
     {{> assistantDashboardCustomerTab}}
   {{/each}}
+  </div>
 </Template>
 
 <Template name="assistantDashboardCustomerTab">
