@@ -8,7 +8,9 @@ Template.assistantDashboard.helpers({
 
 Template.assistantDashboardCustomerTab.helpers({
   tasks: function() {
-    return Tasks.find({requestorId: this._id});
+    return Tasks.find({requestorId: this._id}, {sort: {title: 1}, transform: function(doc) {
+      return _.extend(doc, TaskPrototype);
+    }});
   }
 });
 
@@ -21,6 +23,14 @@ Template.assistantDashboardCustomerTab.events({
   }
 });
 
+Template.assistantDashboardTask.events({
+  "click .start-task-button": function() {
+    Tasks.startWork(this._id);
+  },
+  "click .end-task-button": function() {
+    Tasks.endWork(this._id);
+  }
+});
 
 Template.assistantCreateTask.events({
   "submit #new-task-form": function (event) {
