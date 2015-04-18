@@ -8,12 +8,25 @@
 <Template name="assistantDashboardCustomerTab">
   <div class="well">
     {{displayName}}
-    <ul>
-      {{#each tasks}}
-        <li>{{title}}</li>
-      {{/each}}
-    </ul>
+    {{#each tasks}}
+      {{> assistantDashboardTask}}
+    {{/each}}
     <button class="new-task-button">+Task</button>
+  </div>
+</Template>
+
+<Template name="assistantDashboardTask">
+  <div>
+    <h4>{{title}}</h4>
+    <div>
+      Time Spent: {{getTotalDuration}}ms
+      {{#if isWorking}}
+        <button class="end-task-button">End</button>
+      {{else}}
+        <button class="start-task-button">Start</button>
+      {{/if}}
+    </div>
+    <div></div>
   </div>
 </Template>
 
