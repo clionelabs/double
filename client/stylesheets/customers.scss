@@ -11,7 +11,7 @@
     margin-right: 0px;
   }
   .customer-header {
-    font-size: 1.414em;
+    font-size: 1.333em;
     padding:15px;
     letter-spacing: 2px;
     margin-bottom: 0px;
@@ -32,7 +32,7 @@
   }
 
   .tabs {
-    font-size: 1.414em;
+    font-size: 1.333em;
     text-transform: uppercase;
     .active span {
       border-bottom: 5px solid $pay-light-blue;
@@ -87,15 +87,15 @@
     }
 
     .double-name {
-      font-size: 2.873em;
+      font-size: 1.777em;
     }
 
     .title {
-      font-size: 1.414em;
+      font-size: 1.333em;
     }
 
     .word-rep {
-      font-size: 1.414em;
+      font-size: 1.333em;
     }
 
     .bar-rep {
@@ -121,7 +121,7 @@
       padding:15px 30px;
       background-color: rgba(255,255,255,0.1);
       margin-bottom: 40px;
-      font-size: 1.414em;
+      font-size: 1.333em;
       .glyphicon {
         padding-right: 30px
       }
@@ -160,7 +160,7 @@
     }
 
     .name {
-      font-size: 1.414em;
+      font-size: 1.333em;
       font-weight: 300;
       line-height: 1.818em;
       padding:0px 5px;
@@ -175,5 +175,4 @@
     }
   }
 
-  border-bottom: 1px $pay-grey solid;
 }

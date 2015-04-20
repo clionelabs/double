@@ -1,0 +1,66 @@
+@import 'variables';
+
+.assistant-dashboard {
+
+  color: $pay-black;
+
+  .glyphicon {
+    color : $pay-grey;
+  }
+
+  .customer-container {
+    .customer-item-header {
+      margin: 40px 0px 25px 0px;
+      .name {
+        font-size: 1.333em;
+        font-weight: 700;
+      }
+      .new-task-button {
+        color: $pay-light-blue;
+        margin-left:30px;
+        .glyphicon {
+          color: $pay-light-blue;
+          margin-right: 20px;
+        }
+      }
+    }
+    .task-item {
+      .main {
+        font-size: 1.333em;
+      }
+
+      input[type="checkbox"] {
+        margin: 12px 0px;
+        height: 40px;
+        width: 40px;
+      }
+      .edit,.comment,.link {
+        line-height: 64px;
+      }
+      .comment,.link {
+        margin-right : 32px;
+        color: $pay-light-blue;
+      }
+      .title {
+        line-height: 64px;
+        padding: 0px 32px;
+      }
+      button.btn {
+        border-color: $pay-light-blue;
+        background-color: $pay-light-blue;
+        color: white;
+        font-size: 1em;
+        line-height: 54px;
+        width: 160px;
+        height: 64px;
+        padding:0px;
+        .glyphicon {
+          color: white;
+        }
+      }
+      .sub {
+        padding-left : 72px;
+      }
+    }
+  }
+}

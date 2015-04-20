@@ -1,21 +1,11 @@
 <Template name="assistantDashboard">
-  <h1>Assistant</h1>
+  <div class="container assistant-dashboard">
   {{#each myCustomers}}
     {{> assistantDashboardCustomerTab}}
   {{/each}}
-</Template>
-
-<Template name="assistantDashboardCustomerTab">
-  <div class="well">
-    {{displayName}}
-    <ul>
-      {{#each tasks}}
-        <li>{{title}}</li>
-      {{/each}}
-    </ul>
-    <button class="new-task-button">+Task</button>
   </div>
 </Template>
+
 
 <Template name="assistantCreateTask">
   <div class="modal fade">
