@@ -1,0 +1,11 @@
+<Template name="assistantDashboardCustomerTab">
+  <div class="row customer-container">
+    <div class="col-xs-12 col-sm-12 col-md-12 customer-item-header">
+      <span class="name">{{displayName}}</span>
+      <a class="new-task-button"><i class="glyphicon glyphicon-plus-sign"></i>Add Task</a>
+    </div>
+    {{#each tasks}}
+      {{> assistantTask }}
+    {{/each}}
+  </div>
+</Template>

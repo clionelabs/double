@@ -1,0 +1,28 @@
+<template name="assistantTask">
+  <div class="task-item col-xs-12 col-sm-12 col-md-12">
+    <div class="main col-xs-12 col-sm-12 col-md-12">
+      <input type='checkbox' class="pull-left glyphicon"/>
+      <span class="pull-left title">{{ title }}</span>
+      <i class="pull-left glyphicon glyphicon-pencil edit"></i>
+      <button class="pull-right btn btn-primary start"><i class="glyphicon glyphicon-time"></i> Start</button>
+
+      <i class="pull-right glyphicon glyphicon-comment comment"></i>
+      <i class="pull-right glyphicon glyphicon-link link"></i>
+    </div>
+  </div>
+</template>
+
+<template name="assistantTaskSubItem">
+  <div class="sub col-xs-12 col-sm-12 col-md-12">
+      <i class="glyphicon glyphicon-{{ type }} type"></i>
+      {{> Template.dynamic template=assistantTaskSubItemMessage }}
+  </div>
+</template>
+
+<template name="assistantTaskSubItemMessageWithoutUrl">
+  <span class="messages">{{message}}</span>
+</template>
+
+<template name="assistantTaskSubItemMessageWithUrl">
+  <a href="{{ url }}" class="messages">{{message}}</a>
+</template>
