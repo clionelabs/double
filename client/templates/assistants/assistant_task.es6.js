@@ -49,20 +49,24 @@ Template.assistantTaskStatusForm.helpers({
   }
 });
 
+Template.assistantTaskStatusForm._submitFn = (e) => {
+  let taskId = $(e.target).data("id");
+  let messageInput = $('input.status-message[data-id="'+ taskId + '"]');
+  let message = messageInput.val();
+  Tasks.Status.change(message, taskId,
+      () => {
+        messageInput.val("");
+        Session.set('isStatusFormShown', false);
+      });
+};
+
 Template.assistantTaskStatusForm.events({
-  "click .submit" : function(e) {
-    let taskId = $(e.target).data("id");
-    let messageInput = $('input.status-message[data-id="'+ taskId + '"]');
-    let message = messageInput.val();
-    Tasks.Status.change(message, taskId,
-        () => {
-          messageInput.val("");
-          Session.set('isStatusFormShown', false);
-        });
-  },
+  "click .submit" : Template.assistantTaskStatusForm._submitFn,
   "keyup input" : function(e) {
-    if (e.keyCode === 27) {
+    if (e.keyCode === 27) {//esc
       Session.set('isStatusFormShown', false);
+    } else if (e.keyCode === 13) {
+      Template.assistantTaskStatusForm._submitFn(e);
     }
   }
 });
