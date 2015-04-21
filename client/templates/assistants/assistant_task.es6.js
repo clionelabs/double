@@ -38,24 +38,14 @@ Template.assistantTask.helpers({
 Template.assistantTask.events({
   "click .comment" : function() {
     Session.set('isStatusFormShown', true);
-    let form = $('.status-form');
-    form.toggleClass('display').toggleClass('not-shown');
+    $('.status-form .status-message').focus();
   }
 });
 
-Template.assistantTaskStatusForm.rendered = function() {
-  let form = $('.status-form')
-  if (Session.get("isStatusFormShowm")) {
-    form.addClass('display');
-  } else {
-    form.addClass('not-shown');
-  }
-
-};
 
 Template.assistantTaskStatusForm.helpers({
   isStatusFormShown : function() {
-    return Template._toggleTwoClass(Session.get("isStatusFormShown"), "display", "hidden");
+    return Template._toggleTwoClass(Session.get("isStatusFormShown"), "", "not-shown");
   }
 });
 
@@ -68,15 +58,11 @@ Template.assistantTaskStatusForm.events({
         () => {
           messageInput.val("");
           Session.set('isStatusFormShown', false);
-          let form = $('.status-form');
-          form.toggleClass('display').toggleClass('hidden');
         });
   },
   "keyup input" : function(e) {
     if (e.keyCode === 27) {
       Session.set('isStatusFormShown', false);
-      let form = $('.status-form');
-      form.toggleClass('display').toggleClass('hidden');
     }
   }
 });

@@ -15,7 +15,7 @@
 </template>
 
 <template name="assistantTaskStatusForm">
-  <div class="sub status-form col-xs-12 col-sm-12 col-md-12">
+  <div class="sub status-form col-xs-12 col-sm-12 col-md-12 {{isStatusFormShown}}">
     <input class="status-message" data-id="{{ _id }}" type="text"/>
     <a class="submit" data-id="{{ _id }}">Post</a>
   </div>
