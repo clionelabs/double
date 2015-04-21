@@ -61,6 +61,23 @@
       .sub {
         padding-left : 72px;
       }
+      .status-form {
+        opacity: 1;
+        height : 39px;
+        transition: opacity 0.5s cubic-bezier(1,0,1,0), height 0.3s linear;
+
+        &.not-shown {
+          opacity: 0;
+          height : 0px;
+          transition: opacity 0.5s cubic-bezier(0,1,0,1), height 0.3s linear 0.2s;
+        }
+        .status-message {
+          width : 50%;
+          max-width : 500px;
+          border: none;
+          border-bottom: 1px solid $pay-black;
+        }
+      }
     }
   }
 }

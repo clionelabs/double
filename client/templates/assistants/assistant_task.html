@@ -9,6 +9,15 @@
       <i class="pull-right glyphicon glyphicon-comment comment"></i>
       <i class="pull-right glyphicon glyphicon-link link"></i>
     </div>
+    {{> assistantTaskStatusForm }}
+    {{> assistantTaskSubItem statusToMessage getLatestStatus }}
+  </div>
+</template>
+
+<template name="assistantTaskStatusForm">
+  <div class="sub status-form col-xs-12 col-sm-12 col-md-12">
+    <input class="status-message" data-id="{{ _id }}" type="text"/>
+    <a class="submit" data-id="{{ _id }}">Post</a>
   </div>
 </template>
 
