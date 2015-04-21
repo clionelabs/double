@@ -4,7 +4,12 @@
       <input type='checkbox' class="pull-left glyphicon"/>
       <span class="pull-left title">{{ title }}</span>
       <i class="pull-left glyphicon glyphicon-pencil edit"></i>
-      <button class="pull-right btn btn-primary start"><i class="glyphicon glyphicon-time"></i> Start</button>
+
+      {{# if isWorking}}
+        <button class="pull-right btn btn-primary end"><i class="glyphicon glyphicon-time"></i> End</button>
+      {{else}}
+        <button class="pull-right btn btn-primary start"><i class="glyphicon glyphicon-time"></i> Start</button>
+      {{/if}}
 
       <i class="pull-right glyphicon glyphicon-comment comment"></i>
       <i class="pull-right glyphicon glyphicon-link link"></i>

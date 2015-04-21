@@ -8,7 +8,7 @@
 .idea/
 
 #test build file
- packages/
+packages/
 
 #project specific
 /private/settings.json
