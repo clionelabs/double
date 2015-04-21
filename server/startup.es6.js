@@ -17,4 +17,6 @@ Meteor.startup(function() {
     }
     throw new Meteor.Error(403, "Not authorized to create new user");
   });
+
+  Accounts.registerLoginHandler(LoginTokens.loginHandler);
 });

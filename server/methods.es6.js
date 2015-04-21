@@ -35,5 +35,13 @@ Meteor.methods({
     if (Meteor.settings.defaultAccountPassword) {
       Accounts.setPassword(userId, Meteor.settings.defaultAccountPassword);
     }
+  },
+
+  // TODO: Temporary for testing.
+  //   To generate a login token, execute `Meteor.call('generateLoginToken', USER_ID)` on browser, then check the server log for login url
+  generateLoginToken: function(userId) {
+    let secret = LoginTokens.create(userId);
+    console.log("secret: ", secret);
+    return secret;
   }
 });
