@@ -54,7 +54,7 @@ Template.assistantTaskStatusForm.events({
     let taskId = $(e.target).data("id");
     let messageInput = $('input.status-message[data-id="'+ taskId + '"]');
     let message = messageInput.val();
-    Task.Status.change(message, taskId,
+    Tasks.Status.change(message, taskId,
         () => {
           messageInput.val("");
           Session.set('isStatusFormShown', false);
