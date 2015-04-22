@@ -1,7 +1,6 @@
 Template.assistantTask.helpers({
   statusToMessage : function() {
     let obj = this.getLatestStatus();
-    if (!(obj.message || obj.createdAt)) throw "status is malformed";
     let createdTillNow = moment().subtract(moment(obj.createdAt));
     return {
       type: "comment",
@@ -9,25 +8,21 @@ Template.assistantTask.helpers({
     };
   },
   referenceToMessage : function(ref) {
-    let obj = ref || this;
-    if (!(obj.title || obj.url)) throw "status is malformed";
     return {
       type : "link",
-      message: obj.title,
-      url : obj.url
+      message: ref.title,
+      url : ref.url
     }
   },
   deadlineToMessage : function(deadline) {
-    let obj = moment(deadline) || moment(this);
-    if (!(deadline.isValid())) throw "deadline is not valid";
+    let obj = moment(deadline);
     return {
       type: "time",
       message: obj.format("MMM DD, YYYY")
     };
   },
   taskSchedulerToMessage : function(taskScheduler) {
-    let obj = taskScheduler || this;
-    if (!obj.toString) throw "taskScheduler is not valid";
+    let obj = taskScheduler;
     return {
       type: "refresh",
       message: obj.toString()
