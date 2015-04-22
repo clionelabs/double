@@ -4,11 +4,6 @@ Template.assistantTask.readyFocusTask = () => {
       { isCurrent : true });
 };
 
-Template.assistantTask.onRendered(function() {
-  if (Template.assistantDashboardCustomerTab.getCurrentTask().isWorking()) {
-    Modal.show("currentTask", Template.assistantTask.readyFocusTask);
-  }
-});
 Template.assistantTask.helpers({
   isStartOrPause : function() {
     return this.isWorking() ? 'Pause' : 'Start');

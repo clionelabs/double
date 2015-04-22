@@ -1,6 +1,12 @@
 Template.assistantDashboardCustomerTab.getCurrentTask = () => {
-    return Tasks.findOne({ _id : Session.get(SessionKeys.currentTask)});
-  };
+  return Tasks.findOne({ _id : Session.get(SessionKeys.currentTask)});
+};
+
+Template.assistantDashboardCustomerTab.onRendered(function() {
+  if (Template.assistantDashboardCustomerTab.getCurrentTask().isWorking()) {
+    Modal.show("currentTask", Template.assistantTask.readyFocusTask);
+  }
+});
 
 Template.assistantDashboardCustomerTab.helpers({
   tasks: function() {
