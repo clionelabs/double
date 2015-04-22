@@ -11,7 +11,7 @@ Template.assistantTask.onRendered(function() {
 });
 Template.assistantTask.helpers({
   isStartOrPause : function() {
-    return Template._toggleTwoClass(this.isWorking(), 'Pause', 'Start');
+    return this.isWorking() ? 'Pause' : 'Start');
   },
   statusToMessage : function() {
     let obj = this.getLatestStatus();
@@ -76,7 +76,7 @@ Template.assistantTaskStatusForm._submitFn = (e, taskId, isCurrent) => {
 
 Template.assistantTaskStatusForm.helpers({
   isStatusFormShown : function() {
-    return Template._toggleTwoClass(Session.get(SessionKeys.genStatusFormKey(this._id, this.isCurrent)), "", "not-shown");
+    return Session.get(SessionKeys.genStatusFormKey(this._id, this.isCurrent)) ? "" : "not-shown";
   }
 });
 

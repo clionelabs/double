@@ -5,7 +5,3 @@ Template.registerHelper("formatDate", function(date) {
 Template.registerHelper("formatDuration", function(duration) {
   return moment.duration(duration).humanize();
 });
-
-Template._toggleTwoClass = function(bool, onClass, offClass) {
-  return bool ? onClass : offClass;
-};

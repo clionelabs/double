@@ -1,6 +1,6 @@
 Template.customerSettings.helpers({
   showSidebar : function() {
-    return Template._toggleTwoClass(Session.get(Template.customerDashboard.IS_SIDEBAR_VISIBLE), "show", "hide");
+    return Session.get(Template.customerDashboard.IS_SIDEBAR_VISIBLE) ? "show" : "hide";
   }
 });
 
