@@ -73,21 +73,28 @@
   .sub {
     padding-left : 72px;
   }
-  .status-form {
-    opacity: 1;
-    height : 39px;
-    transition: opacity 0.3s cubic-bezier(1,0,1,0), height 0.2s linear;
+  .task-status-change {
+    .form-container {
+      opacity: 1;
+      height: 39px;
+      transition: opacity 0.3s cubic-bezier(1, 0, 1, 0), height 0.2s linear;
 
-    &.not-shown {
-      opacity: 0;
-      height : 0px;
-      transition: opacity 0.3s cubic-bezier(0,1,0,1), height 0.2s linear 0.1s;
-    }
-    .status-message {
-      width : 50%;
-      max-width : 500px;
-      border: none;
-      border-bottom: 1px solid $pay-black;
+      &.not-shown {
+        opacity: 0;
+        height: 0px;
+        transition: opacity 0.3s cubic-bezier(0, 1, 0, 1), height 0.2s linear 0.1s;
+      }
+      .status-message {
+        width: 50%;
+        max-width: 500px;
+        border: none;
+        border-bottom: 1px solid $pay-black;
+      }
+      .submit {
+        border: none;
+        background-color: transparent;
+        color: $pay-light-blue;
+      }
     }
   }
 }

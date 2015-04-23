@@ -18,11 +18,12 @@
 </template>
 
 <template name="assistantTaskStatusForm">
-  <div class="sub status-form col-xs-12 col-sm-12 col-md-12 {{ isStatusFormShown }}"
-       data-id="{{ _id }}" data-is-current="{{isCurrent}}">
-    <input class="status-message" type="text"/>
-    <a class="submit" data-id="{{ _id }}">Post</a>
-  </div>
+  <form class="task-status-change" id="{{ genFormKey _id isCurrent }}">
+    <div class="form-container sub col-xs-12 col-sm-12 col-md-12 {{isStatusFormShown}}">
+      <input name="message" class="status-message" type="text" />
+      <button class="submit" action="submit">Post</button>
+    </div>
+  </form>
 </template>
 
 <template name="assistantTaskSubItem">

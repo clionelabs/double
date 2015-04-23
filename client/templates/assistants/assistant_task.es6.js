@@ -42,7 +42,6 @@ Template.assistantTask.helpers({
 Template.assistantTask.events({
   "click .comment" : function() {
     Session.set(SessionKeys.genStatusFormKey(this._id, this.isCurrent), true);
-    $('.status-form .status-message').focus();
   },
   "click button.start": function() {
     Tasks.startWork(this._id);
@@ -56,34 +55,41 @@ Template.assistantTask.events({
   }
 });
 
-Template.assistantTaskStatusForm._submitFn = (e, taskId, isCurrent) => {
-  let selector = '[data-id="'+ taskId + '"]';
-  selector = isCurrent ? selector + '[data-is-current="' + isCurrent + '"]' : selector;
-  selector = selector + " input.status-message";
-  let messageInput = $(selector);
-  let message = messageInput.val();
+Template.assistantTaskStatusForm._submitFn = (form, taskId, isCurrent) => {
+  let message = form.target.message.value;
   Tasks.Status.change(message, taskId,
       () => {
-        messageInput.val("");
+        form.target.reset();
         Session.set(SessionKeys.genStatusFormKey(taskId, isCurrent), false);
       });
 };
 
+Template.assistantTaskStatusForm.onRendered(function() {
+  let selfTemplate = this;
+  selfTemplate.$('.form-container').on('transitionend onanimationend', function(e) {
+    if ($(e.target).height() > 1) {
+      selfTemplate.$('.status-message').focus();
+    }
+  });
+});
+
 Template.assistantTaskStatusForm.helpers({
   isStatusFormShown : function() {
     return Session.get(SessionKeys.genStatusFormKey(this._id, this.isCurrent)) ? "" : "not-shown";
+  },
+  genFormKey : function(taskId, isCurrent) {
+    return SessionKeys.genStatusFormKey(taskId, isCurrent);
   }
 });
 
 Template.assistantTaskStatusForm.events({
-  "click .submit" : function(e) {
+  "submit .task-status-change" : function(e) {
+    e.preventDefault();
     return Template.assistantTaskStatusForm._submitFn(e, this._id, this.isCurrent);
   },
-  "keyup input" : function(e) {
+  "keyup .task-status-change input" : function(e) {
     if (e.keyCode === 27) {//esc
       Session.set(SessionKeys.genStatusFormKey(this._id, this.isCurrent), false);
-    } else if (e.keyCode === 13) {
-      Template.assistantTaskStatusForm._submitFn(e, this._id, this.isCurrent);
     }
   }
 });

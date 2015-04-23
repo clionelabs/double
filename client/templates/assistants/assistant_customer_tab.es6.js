@@ -3,7 +3,7 @@ Template.assistantDashboardCustomerTab.getCurrentTask = () => {
 };
 
 Template.assistantDashboardCustomerTab.onRendered(function() {
-  if (Template.assistantDashboardCustomerTab.getCurrentTask().isWorking()) {
+  if (Template.assistantDashboardCustomerTab.getCurrentTask()) {
     Modal.show("currentTask", Template.assistantTask.readyFocusTask);
   }
 });
