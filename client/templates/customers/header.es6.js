@@ -18,16 +18,16 @@ Template.customerHeader.helpers({
 Template.customerHeader.events({
   "click .call-me" : function() {
     //TODO change to customer.isCalling when integrated
-    Session.set("isCalling", !Session.get("isCalling"));
+    Session.setAuth("isCalling", !Session.get("isCalling"));
 
   },
   "click .settings" : function() {
-    Session.set(Template.customerDashboard.IS_SIDEBAR_VISIBLE, true);
+    Session.setAuth(Template.customerDashboard.IS_SIDEBAR_VISIBLE, true);
   }
 });
 
 
 //TODO remove when customer.isCalling is finished
 Template.customerHeader.destroyed = function() {
-  Session.set("isCalling", false);
+  Session.setAuth("isCalling", false);
 };

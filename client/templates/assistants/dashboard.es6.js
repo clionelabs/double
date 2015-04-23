@@ -1,6 +1,6 @@
 var myCurrentCustomer = function() {
   if (!Session.get("currentCustomer")) {
-    Session.set("currentCustomer", Users.findCustomers().fetch()[0]);
+    Session.setAuth("currentCustomer", Users.findCustomers().fetch()[0]);
   }
   return _.extend(Session.get("currentCustomer"), User);
 };
