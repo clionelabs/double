@@ -6,7 +6,7 @@ Template.assistantTask.readyFocusTask = () => {
 
 Template.assistantTask.helpers({
   isStartOrPause : function() {
-    return this.isWorking() ? 'Pause' : 'Start');
+    return this.isWorking() ? 'Pause' : 'Start';
   },
   statusToMessage : function() {
     let obj = this.getLatestStatus();

@@ -11,7 +11,7 @@ Template.customerDashboard.events({
 
 Template.customerDashboard.helpers({
   "showBlur" : function() {
-    return Session.get(Template.customerDashboard.IS_SIDEBAR_VISIBLE) ? "blur" : "");
+    return Session.get(Template.customerDashboard.IS_SIDEBAR_VISIBLE) ? "blur" : "";
   }
 });
 
