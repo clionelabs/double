@@ -27,4 +27,5 @@ Template.currentTask.helpers({
 Template.currentTask.onDestroyed(function(){
   Meteor.clearInterval(Template.currentTask._timeoutFn);
   Template.currentTask._timeoutFn = null;
+  Session.clear(SessionKeys.currentTimeUsed);
 });
