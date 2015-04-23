@@ -1,16 +1,24 @@
 /**
+ * A one-time login mechanic for direct login via url.
+ * By accesing the secret url, the user will login to the system, as if he's login via password.
+ * The secret link will be invalidated immediately after being accessed the first time.
+ *
  * @property {String} userId
  * @property {String} secret
  * @property {Boolean} accessedAt
  * @property {Timestamp} createdAt
  */
-LoginTokens = new Meteor.Collection("login_tokens", {
+LoginLinks = new Meteor.Collection("login_links", {
   transform: function(doc) {
-    return _.extend(doc, LoginToken);
+    return _.extend(doc, LoginLink);
   }
 });
 
-LoginTokens.create = function(userId) {
+/**
+ * Create a login link for a given userId
+ * @param {String} userId
+ */
+LoginLinks.create = function(userId) {
   let secret = Random.secret();
   let doc = {
     userId: userId,
@@ -18,32 +26,41 @@ LoginTokens.create = function(userId) {
     accessedAt: null,
     createdAt: moment().valueOf()
   }
-  LoginTokens.insert(doc);
-  return secret;
+  var id = LoginLinks.insert(doc);
+  return id;
 }
 
-LoginTokens.loginHandler = function(loginRequest) {
+/**
+ * Implement Meteor Account LoginHandler
+ * Ref: https://github.com/meteor/meteor/blob/devel/packages/accounts-base/accounts_server.js
+ */
+LoginLinks.loginHandler = function(loginRequest) {
   if (!loginRequest.secret) { // don't handle
     return undefined;
   }
 
-  let token = LoginTokens.findOne({secret: loginRequest.secret});
-  if (!token) {
+  let link = LoginLinks.findOne({secret: loginRequest.secret});
+  if (!link) {
     throw new Meteor.Error(403, "secret not found");
   }
 
-  if (!token.isValid()) {
-    throw new Meteor.Error(403, "Invalid secret");
+  if (!link.isValid()) {
+    throw new Meteor.Error(403, "invalid secret");
   }
 
-  LoginTokens.update(token._id, {$set: {accessedAt: moment().valueOf()}});
+  // mark accessed
+  LoginLinks.update(link._id, {$set: {accessedAt: moment().valueOf()}});
 
+  // login successful
   return {
-    userId: token.userId
+    userId: link.userId
   }
 }
 
-LoginToken = {
+/**
+ * Prototype to provide extra behaviours for LoginLinks documents
+ */
+LoginLink = {
   isValid: function() {
     return this.accessedAt === null;
   }

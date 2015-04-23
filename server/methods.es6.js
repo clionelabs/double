@@ -38,10 +38,11 @@ Meteor.methods({
   },
 
   // TODO: Temporary for testing.
-  //   To generate a login token, execute `Meteor.call('generateLoginToken', USER_ID)` on browser, then check the server log for login url
-  generateLoginToken: function(userId) {
-    let secret = LoginTokens.create(userId);
-    console.log("secret: ", secret);
-    return secret;
+  //   To generate a login link, execute `Meteor.call('generateLoginLink', USER_ID)` on browser, then check the server log for login url
+  generateLoginLink: function(userId) {
+    let id = LoginLinks.create(userId);
+    var doc = LoginLinks.findOne(id);
+    var url = Router.routes.secretLogin.url({secret: doc.secret});
+    console.log("url: ", url);
   }
 });
