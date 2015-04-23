@@ -35,5 +35,14 @@ Meteor.methods({
     if (Meteor.settings.defaultAccountPassword) {
       Accounts.setPassword(userId, Meteor.settings.defaultAccountPassword);
     }
+  },
+
+  // TODO: Temporary for testing.
+  //   To generate a login link, execute `Meteor.call('generateLoginLink', USER_ID)` on browser, then check the server log for login url
+  generateLoginLink: function(userId) {
+    let id = LoginLinks.create(userId);
+    var doc = LoginLinks.findOne(id);
+    var url = Router.routes.secretLogin.url({secret: doc.secret});
+    console.log("url: ", url);
   }
 });
