@@ -36,7 +36,7 @@ LoginLinks.create = function(userId) {
  */
 LoginLinks.loginHandler = function(loginRequest) {
   if (!loginRequest.secret) { // don't handle
-    return undefined;
+    return undefined;  // return undefined means we will not handle the login request
   }
 
   let link = LoginLinks.findOne({secret: loginRequest.secret});
@@ -48,13 +48,16 @@ LoginLinks.loginHandler = function(loginRequest) {
     throw new Meteor.Error(403, "invalid secret");
   }
 
-  // mark accessed
-  LoginLinks.update(link._id, {$set: {accessedAt: moment().valueOf()}});
+  LoginLinks._setAccessed(link._id);
 
   // login successful
   return {
     userId: link.userId
   }
+}
+
+LoginLinks._setAccessed = function(linkId) {
+  LoginLinks.update(linkId, {$set: {accessedAt: moment().valueOf()}});
 }
 
 /**

@@ -40,6 +40,7 @@ if (!(typeof MochaWeb === 'undefined')) {
           chai.assert.deepEqual(result, {userId: '1'});
 
           var doc = LoginLinks.findOne(id);
+          chai.assert.equal(doc.isValid(), false);
           chai.assert.equal(doc.accessedAt, 10);
         });
 
