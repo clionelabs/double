@@ -5,7 +5,7 @@
       <span class="pull-left title">{{ title }}</span>
       <i class="pull-left glyphicon glyphicon-pencil edit"></i>
 
-        <button class="pull-right btn btn-primary {{ isStartOrPause.toLowerCase }}">
+        <button class="pull-right btn btn-primary {{ isStartOrPause.toLowerCase }}" {{disabledIfTaskCompleted}}>
           <i class="glyphicon glyphicon-time"></i> {{ isStartOrPause }}
         </button>
 
