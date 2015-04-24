@@ -3,8 +3,9 @@ Template.assistantDashboardCustomerTab.getCurrentTask = () => {
 };
 
 Template.assistantDashboardCustomerTab.onRendered(function() {
+  let currentTask = Template.assistantDashboardCustomerTab.getCurrentTask();
   //isWorking is added for multi browser problem
-  if (Template.assistantDashboardCustomerTab.getCurrentTask().isWorking()) {
+  if (currentTask && currentTask.isWorking()) {
     //Used function to
     Modal.show("currentTask", Template.assistantDashboardCustomerTab.getCurrentTask);
   }
