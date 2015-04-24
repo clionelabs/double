@@ -4,6 +4,7 @@ Template.assistantDashboardCustomerTab.getCurrentTask = () => {
 
 Template.assistantDashboardCustomerTab.onRendered(function() {
   if (Template.assistantDashboardCustomerTab.getCurrentTask()) {
+    //Used function to
     Modal.show("currentTask", Template.assistantDashboardCustomerTab.getCurrentTask);
   }
 });

@@ -54,10 +54,12 @@ Template.assistantTask.events({
   "click button.pause": function() {
     Tasks.endWork(this._id);
     Modal.hide("currentTask");
+    Session.clear(SessionKeys.currentTask);
   },
   'click .checkbox.glyphicon-unchecked' : function(e) {
     Tasks.completeWork(this._id);
     Modal.hide("currentTask");
+    Session.clear(SessionKeys.currentTask);
   }
 });
 
