@@ -1,8 +1,4 @@
-Template.assistantTask.readyFocusTask = () => {
-  return _.extend(
-      Template.assistantDashboardCustomerTab.getCurrentTask(),
-      { isCurrent : true });
-};
+
 
 Template.assistantTask.helpers({
   isStartOrPause : function() {
@@ -47,7 +43,7 @@ Template.assistantTask.events({
     Tasks.startWork(this._id);
     Session.set(SessionKeys.currentTask, this._id);
     //Use function of reactive-ness Blaze.renderWithData
-    Modal.show("currentTask", Template.assistantTask.readyFocusTask);
+    Modal.show("currentTask", Template.assistantDashboardCustomerTab.getCurrentTask());
   },
   "click button.pause": function() {
     Tasks.endWork(this._id);
