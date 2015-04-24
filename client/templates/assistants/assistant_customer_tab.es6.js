@@ -12,6 +12,7 @@ Template.assistantDashboardCustomerTab.getCurrentTask = () => {
 Template.assistantDashboardCustomerTab.onRendered(function() {
   Tasks.find(_getCurrentTaskSelector).observe({
     added(task) {
+      //Modal.show need a function argument to be reactive #gotcha
       Modal.show("currentTask", Template.assistantDashboardCustomerTab.getCurrentTask);
     },
     removed() {
