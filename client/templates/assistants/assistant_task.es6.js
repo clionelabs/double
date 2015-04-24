@@ -52,9 +52,8 @@ Template.assistantTask.events({
     Tasks.endWork(this._id);
   },
   'click .checkbox.glyphicon-unchecked' : function(e) {
-    Tasks.completeWork(this._id);
-    Modal.hide("currentTask");
-    Session.clear(SessionKeys.currentTask);
+    Tasks.endWork(this._id);
+    Tasks.complete(this._id);
   }
 });
 
