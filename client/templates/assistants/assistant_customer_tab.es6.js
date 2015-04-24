@@ -1,14 +1,23 @@
+let _getCurrentTaskSelector = {
+  $where: function () {
+          _.extend(this, Task.Prototype);
+          return this.isWorking();
+  }
+};
+
 Template.assistantDashboardCustomerTab.getCurrentTask = () => {
-  return Tasks.findOne({ _id : Session.get(SessionKeys.currentTask)});
+  return Tasks.findOne(_getCurrentTaskSelector);
 };
 
 Template.assistantDashboardCustomerTab.onRendered(function() {
-  let currentTask = Template.assistantDashboardCustomerTab.getCurrentTask();
-  //isWorking is added for multi browser problem
-  if (currentTask && currentTask.isWorking()) {
-    //Used function to
-    Modal.show("currentTask", Template.assistantDashboardCustomerTab.getCurrentTask);
-  }
+  Tasks.find(_getCurrentTaskSelector).observe({
+    added(task) {
+      Modal.show("currentTask", Template.assistantDashboardCustomerTab.getCurrentTask);
+    },
+    removed() {
+      Modal.hide("currentTask");
+    }
+  });
 });
 
 Template.assistantDashboardCustomerTab.helpers({

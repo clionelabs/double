@@ -1,7 +1,6 @@
 Template.currentTask._timeoutFn = null;
 
 Template.currentTask.onCreated(function() {
-  console.log(this.data);
   this.data = _.extend(
       this.data,
       { isCurrent : true });

@@ -47,14 +47,9 @@ Template.assistantTask.events({
   },
   "click button.start": function() {
     Tasks.startWork(this._id);
-    Session.setAuth(SessionKeys.currentTask, this._id);
-    //Use function of reactive-ness Blaze.renderWithData
-    Modal.show("currentTask", Template.assistantDashboardCustomerTab.getCurrentTask);
   },
   "click button.pause": function() {
     Tasks.endWork(this._id);
-    Modal.hide("currentTask");
-    Session.clear(SessionKeys.currentTask);
   },
   'click .checkbox.glyphicon-unchecked' : function(e) {
     Tasks.completeWork(this._id);
