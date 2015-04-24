@@ -37,11 +37,11 @@ Template.assistantTask.helpers({
 
 Template.assistantTask.events({
   "click .comment" : function() {
-    Session.set(SessionKeys.genStatusFormKey(this._id, this.isCurrent), true);
+    Session.setAuth(SessionKeys.genStatusFormKey(this._id, this.isCurrent), true);
   },
   "click button.start": function() {
     Tasks.startWork(this._id);
-    Session.set(SessionKeys.currentTask, this._id);
+    Session.setAuth(SessionKeys.currentTask, this._id);
     //Use function of reactive-ness Blaze.renderWithData
     Modal.show("currentTask", Template.assistantDashboardCustomerTab.getCurrentTask());
   },
@@ -56,7 +56,7 @@ Template.assistantTaskStatusForm._submitFn = (form, taskId, isCurrent) => {
   Tasks.Status.change(message, taskId,
       () => {
         form.target.reset();
-        Session.set(SessionKeys.genStatusFormKey(taskId, isCurrent), false);
+        Session.setAuth(SessionKeys.genStatusFormKey(taskId, isCurrent), false);
       });
 };
 
@@ -85,7 +85,7 @@ Template.assistantTaskStatusForm.events({
   },
   "keyup .task-status-change input" : function(e) {
     if (e.keyCode === 27) {//esc
-      Session.set(SessionKeys.genStatusFormKey(this._id, this.isCurrent), false);
+      Session.setAuth(SessionKeys.genStatusFormKey(this._id, this.isCurrent), false);
     }
   }
 });

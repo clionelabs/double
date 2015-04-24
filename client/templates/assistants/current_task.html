@@ -7,7 +7,19 @@
       <div class="modal-content">
         <div class="modal-body">
           <div class="container">
-            {{> assistantTask }}
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 text-center timer">
+                {{ getTimeUsed }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 text-center customer-name">
+                {{ getCustomerName }}
+              </div>
+            </div>
+            <div class="row">
+              {{> assistantTask }}
+            </div>
           </div>
         </div>
       </div>

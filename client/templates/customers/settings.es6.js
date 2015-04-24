@@ -6,7 +6,7 @@ Template.customerSettings.helpers({
 
 Template.customerSettings.events({
   "click .close" : function() {
-    Session.set(Template.customerDashboard.IS_SIDEBAR_VISIBLE, false);
+    Session.setAuth(Template.customerDashboard.IS_SIDEBAR_VISIBLE, false);
 
   }
 
