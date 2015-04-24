@@ -6,12 +6,12 @@ Template.customerHeader.helpers({
   },
   isCalling : function() {
     //TODO change to customer.isCalling when integrated
-    return Template._toggleTwoClass(Session.get("isCalling"), "on", "off");
+    return Session.get("isCalling") ? "on": "off";
   },
 
   isCallingShowInvisible : function() {
     //TODO change to customer.isCalling when integrated
-    return Template._toggleTwoClass(Session.get("isCalling"), "show ", "invisible");
+    return Session.get("isCalling") ? "show " : "invisible";
   }
 });
 

@@ -1,15 +1,13 @@
 <template name="assistantTask">
-  <div class="task-item col-xs-12 col-sm-12 col-md-12">
+  <div class="task-item col-xs-12 col-sm-12 col-md-12 ">
     <div class="main col-xs-12 col-sm-12 col-md-12">
       <input type='checkbox' class="pull-left glyphicon"/>
       <span class="pull-left title">{{ title }}</span>
       <i class="pull-left glyphicon glyphicon-pencil edit"></i>
 
-      {{# if isWorking}}
-        <button class="pull-right btn btn-primary end"><i class="glyphicon glyphicon-time"></i> End</button>
-      {{else}}
-        <button class="pull-right btn btn-primary start"><i class="glyphicon glyphicon-time"></i> Start</button>
-      {{/if}}
+        <button class="pull-right btn btn-primary {{ isStartOrPause.toLowerCase }}">
+          <i class="glyphicon glyphicon-time"></i> {{ isStartOrPause }}
+        </button>
 
       <i class="pull-right glyphicon glyphicon-comment comment"></i>
       <i class="pull-right glyphicon glyphicon-link link"></i>
@@ -20,10 +18,12 @@
 </template>
 
 <template name="assistantTaskStatusForm">
-  <div class="sub status-form col-xs-12 col-sm-12 col-md-12 {{isStatusFormShown}}">
-    <input class="status-message" data-id="{{ _id }}" type="text"/>
-    <a class="submit" data-id="{{ _id }}">Post</a>
-  </div>
+  <form class="task-status-change" id="{{ genFormKey _id isCurrent }}">
+    <div class="form-container sub col-xs-12 col-sm-12 col-md-12 {{isStatusFormShown}}">
+      <input name="message" class="status-message" type="text" />
+      <button class="submit" action="submit">Post</button>
+    </div>
+  </form>
 </template>
 
 <template name="assistantTaskSubItem">
