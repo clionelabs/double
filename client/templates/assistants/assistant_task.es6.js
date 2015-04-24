@@ -32,11 +32,16 @@ Template.assistantTask.helpers({
       type: "refresh",
       message: obj.toString()
     }
+  },
+
+  checkedIfTaskCompleted : function() {
+    return this.isCompleted() ? "glyphicon-ok" : "glyphicon-unchecked";
   }
 });
 
 Template.assistantTask.events({
   "click .comment" : function() {
+<<<<<<< HEAD
     Session.setAuth(SessionKeys.genStatusFormKey(this._id, this.isCurrent), true);
   },
   "click button.start": function() {
@@ -48,6 +53,20 @@ Template.assistantTask.events({
   "click button.pause": function() {
     Tasks.endWork(this._id);
     Modal.hide("currentTask");
+=======
+    Session.set('isStatusFormShown', true);
+    $('.status-form .status-message').focus();
+  },
+  'click .checkbox.glyphicon-unchecked' : function(e) {
+    Tasks.completeWork(this._id);
+  }
+});
+
+
+Template.assistantTaskStatusForm.helpers({
+  isStatusFormShown : function() {
+    return Template._toggleTwoClass(Session.get("isStatusFormShown"), "", "not-shown");
+>>>>>>> Added click and task completed
   }
 });
 
