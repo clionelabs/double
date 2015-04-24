@@ -32,6 +32,12 @@ Template.assistantTask.helpers({
       type: "refresh",
       message: obj.toString()
     }
+  },
+  checkedIfTaskCompleted : function() {
+    return this.isCompleted() ? "glyphicon-ok" : "glyphicon-unchecked";
+  },
+  disabledIfTaskCompleted : function() {
+    return this.isCompleted() ? "disabled" : "";
   }
 });
 
@@ -41,13 +47,13 @@ Template.assistantTask.events({
   },
   "click button.start": function() {
     Tasks.startWork(this._id);
-    Session.setAuth(SessionKeys.currentTask, this._id);
-    //Use function of reactive-ness Blaze.renderWithData
-    Modal.show("currentTask", Template.assistantDashboardCustomerTab.getCurrentTask());
   },
   "click button.pause": function() {
     Tasks.endWork(this._id);
-    Modal.hide("currentTask");
+  },
+  'click .checkbox.glyphicon-unchecked' : function(e) {
+    Tasks.endWork(this._id);
+    Tasks.complete(this._id);
   }
 });
 

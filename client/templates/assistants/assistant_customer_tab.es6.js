@@ -1,11 +1,24 @@
+let _getCurrentTaskSelector = {
+  $where: function () {
+          _.extend(this, Task.Prototype);
+          return this.isWorking();
+  }
+};
+
 Template.assistantDashboardCustomerTab.getCurrentTask = () => {
-  return Tasks.findOne({ _id : Session.get(SessionKeys.currentTask)});
+  return Tasks.findOne(_getCurrentTaskSelector);
 };
 
 Template.assistantDashboardCustomerTab.onRendered(function() {
-  if (Template.assistantDashboardCustomerTab.getCurrentTask()) {
-    Modal.show("currentTask", Template.assistantTask.readyFocusTask);
-  }
+  Tasks.find(_getCurrentTaskSelector).observe({
+    added(task) {
+      //Modal.show need a function argument to be reactive #gotcha
+      Modal.show("currentTask", Template.assistantDashboardCustomerTab.getCurrentTask);
+    },
+    removed() {
+      Modal.hide("currentTask");
+    }
+  });
 });
 
 Template.assistantDashboardCustomerTab.helpers({
