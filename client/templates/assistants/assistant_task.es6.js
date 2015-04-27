@@ -5,7 +5,7 @@ Template.assistantTask.helpers(_.extend({
   disabledIfTaskCompleted : function() {
     return this.isCompleted() ? "disabled" : "";
   }
-}, TemplateHelper.Task.Message));
+}, TemplateHelpers.Task.Message));
 
 Template.assistantTask.events({
   "click .comment" : function() {
@@ -62,4 +62,4 @@ Template.assistantTaskStatusForm.events({
   }
 });
 
-Template.assistantTaskSubItem.helpers(TemplateHelper.Task.SubItem);
+Template.assistantTaskSubItem.helpers(TemplateHelpers.Task.SubItem);

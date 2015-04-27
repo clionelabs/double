@@ -1,8 +1,6 @@
-TemplateHelper = {};
+TemplateHelpers.Task = {};
 
-TemplateHelper.Task = {};
-
-TemplateHelper.Task.Message = {
+TemplateHelpers.Task.Message = {
   checkedIfTaskCompleted : function() {
     return this.isCompleted() ? "glyphicon-ok" : "glyphicon-unchecked";
   },
@@ -37,7 +35,7 @@ TemplateHelper.Task.Message = {
   }
 };
 
-TemplateHelper.Task.SubItem = {
+TemplateHelpers.Task.SubItem = {
   taskSubItemMessage: function () {
     return this.url ? "taskSubItemMessageWithUrl" : "taskSubItemMessageWithoutUrl";
   }

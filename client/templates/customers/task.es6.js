@@ -34,6 +34,6 @@ Template.task.helpers(_.extend({
             return null;
         }
     }
-}, TemplateHelper.Task.Message));
+}, TemplateHelpers.Task.Message));
 
-Template.customerTaskSubItem.helpers(TemplateHelper.Task.SubItem);
+Template.customerTaskSubItem.helpers(TemplateHelpers.Task.SubItem);
