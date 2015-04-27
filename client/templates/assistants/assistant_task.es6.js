@@ -1,37 +1,6 @@
-
-
-Template.assistantTask.helpers({
+Template.assistantTask.helpers(_.extend({
   isStartOrPause : function() {
     return this.isWorking() ? 'Pause' : 'Start';
-  },
-  statusToMessage : function() {
-    let obj = this.getLatestStatus();
-    let createdTillNow = moment().subtract(moment(obj.createdAt));
-    return {
-      type: "comment",
-      message: obj.message + ". " + moment.duration(createdTillNow).humanize() + " ago. "
-    };
-  },
-  referenceToMessage : function(ref) {
-    return {
-      type : "link",
-      message: ref.title,
-      url : ref.url
-    }
-  },
-  deadlineToMessage : function(deadline) {
-    let obj = moment(deadline);
-    return {
-      type: "time",
-      message: obj.format("MMM DD, YYYY")
-    };
-  },
-  taskSchedulerToMessage : function(taskScheduler) {
-    let obj = taskScheduler;
-    return {
-      type: "refresh",
-      message: obj.toString()
-    }
   },
   checkedIfTaskCompleted : function() {
     return this.isCompleted() ? "glyphicon-ok" : "glyphicon-unchecked";
@@ -39,7 +8,7 @@ Template.assistantTask.helpers({
   disabledIfTaskCompleted : function() {
     return this.isCompleted() ? "disabled" : "";
   }
-});
+}, Task.Message));
 
 Template.assistantTask.events({
   "click .comment" : function() {
@@ -96,8 +65,4 @@ Template.assistantTaskStatusForm.events({
   }
 });
 
-Template.assistantTaskSubItem.helpers({
-  assistantTaskSubItemMessage : function() {
-    return this.url ? "assistantTaskSubItemMessageWithUrl" : "assistantTaskSubItemMessageWithoutUrl" ;
-  }
-});
+Template.assistantTaskSubItem.helpers(Task.SubItem);

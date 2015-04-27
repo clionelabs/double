@@ -1,4 +1,4 @@
-Template.task.helpers({
+Template.task.helpers(_.extend({
     showRecurringCriteriaComponent : function() {
         if (this.recurringId) {
            return "taskRecurringCriteria";
@@ -34,4 +34,6 @@ Template.task.helpers({
             return null;
         }
     }
-});
+}, Task.Message));
+
+Template.customerTaskSubItem.helpers(Task.SubItem);

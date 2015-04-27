@@ -1,8 +1,7 @@
 
 Template.customerHeader.helpers({
   numberOfTasks : function numberOfTasks() {
-    //TODO integration
-    return this.tasks ? this.tasks.length : 0;
+    return this.tasks ? this.tasks.count() : 0;
   },
   isCalling : function() {
     //TODO change to customer.isCalling when integrated

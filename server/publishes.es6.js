@@ -6,7 +6,7 @@ Meteor.publish('assistants', function() {
   }
 });
 
-Meteor.publish('tasks', function() {
+Meteor.publish('myTasks', function() {
   return Tasks.find({
     $or: [
       {responderId: this.userId},
