@@ -79,6 +79,10 @@
       height: 39px;
       transition: opacity 0.3s cubic-bezier(1, 0, 1, 0), height 0.2s linear;
 
+      label {
+        font-weight: 500;
+      }
+
       &.not-shown {
         opacity: 0;
         height: 0px;

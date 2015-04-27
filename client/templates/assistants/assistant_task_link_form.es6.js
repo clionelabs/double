@@ -1,7 +1,7 @@
 Template.assistantTaskLinkForm._submitFn = (form, taskId, isCurrent) => {
   let title = form.target.title.value;
   let url = form.target.url.value;
-  Tasks.Link.add(title, url, taskId,
+  Tasks.References.add(title, url, taskId,
       () => {
         form.target.reset();
         Session.setAuth(SessionKeys.genLinkFormKey(taskId, isCurrent), false);

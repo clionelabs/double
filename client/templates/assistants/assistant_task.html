@@ -15,7 +15,7 @@
     {{> assistantTaskStatusForm }}
     {{> assistantTaskLinkForm }}
     {{> assistantTaskSubItem statusToMessage getLatestStatus }}
-    {{#each references }}
+    {{#each getReferencesWithTaskId }}
       {{> assistantTaskSubItem referenceToMessage this}}
     {{/each}}
   </div>
@@ -24,7 +24,7 @@
 <template name="assistantTaskLinkForm">
   <form class="task-link-add" id="{{ genFormKey _id isCurrent }}">
     <div class="form-container sub col-xs-12 col-sm-12 col-md-12 {{isLinkFormShown}}">
-      <label for="title">title: </label><input name="title" class="link-title" type="text" />
+      <label for="title">Title: </label><input name="title" class="link-title" type="text" />
       <label for="url">URL: </label><input name="url" class="link-url" type="url" />
       <button class="submit" action="submit">Post</button>
     </div>
@@ -42,7 +42,8 @@
 
 <template name="assistantTaskSubItem">
   <div class="sub col-xs-12 col-sm-12 col-md-12">
-      <i class="glyphicon glyphicon-{{ type }} type"></i>
-      {{> Template.dynamic template=taskSubItemMessage }}
+    <i class="glyphicon glyphicon-{{ type }} type"></i>
+    {{> Template.dynamic template=taskSubItemMessage }}
+    <i class="glyphicon glyphicon-minus-sign {{ type }}-delete {{ allowDelete type }}" data-task-id="{{ taskId }}"></i>
   </div>
 </template>

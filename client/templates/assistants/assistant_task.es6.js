@@ -4,6 +4,13 @@ Template.assistantTask.helpers(_.extend({
   },
   disabledIfTaskCompleted : function() {
     return this.isCompleted() ? "disabled" : "";
+  },
+  getReferencesWithTaskId : function() {
+    let task = this;
+    return _.map(this.references,
+        function(ref) {
+          return _.extend({ taskId : task._id}, ref);
+        });
   }
 }, TemplateHelpers.Task.Message));
 
@@ -26,4 +33,16 @@ Template.assistantTask.events({
   }
 });
 
-Template.assistantTaskSubItem.helpers(TemplateHelpers.Task.SubItem);
+Template.assistantTaskSubItem.events({
+  "click .link-delete" : function(e) {
+    console.log(this);
+    let taskId = $(e.target).data("task-id");
+    Tasks.References.delete(taskId, this._id);
+  }
+});
+
+Template.assistantTaskSubItem.helpers(_.extend({
+  allowDelete : function(type) {
+    return _.contains(["link"], type) ? "" : "hidden";
+  }
+}, TemplateHelpers.Task.SubItem));
