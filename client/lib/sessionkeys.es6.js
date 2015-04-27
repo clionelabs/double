@@ -5,9 +5,5 @@ SessionKeys = {
   currentTimeUsed : "currentTimeUsed",
   isCalling : "isCalling",
   isSidebarVisible : "IS_SIDEBAR_VISIBLE",
-  activeTab : "activeTab",
-  currentTab : "currentTab",
-  recurringTab : "recurringTab",
-  completedTab : "completedTab"
-
+  activeTab : "activeTab"
 };

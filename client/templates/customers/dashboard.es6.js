@@ -12,9 +12,9 @@ Template.customerDashboard.helpers({
     return Session.get(SessionKeys.isSidebarVisible) ? "blur" : "";
   },
   "getSelectedTasks" : function() {
-    if (Session.get(SessionKeys.activeTab) === SessionKeys.currentTab) {
+    if (Session.get(SessionKeys.activeTab) === SessionEnums.activeTab.currentTab) {
       return Tasks.findCurrent();
-    } else if (Session.get(SessionKeys.activeTab) === SessionKeys.recurringTab) {
+    } else if (Session.get(SessionKeys.activeTab) === SessionEnums.activeTab.recurringTab) {
       return Tasks.findRecurring();
     } else {
       return Tasks.findCompleted();
