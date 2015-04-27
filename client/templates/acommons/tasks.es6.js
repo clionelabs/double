@@ -1,4 +1,7 @@
 Task.Message = {
+  checkedIfTaskCompleted : function() {
+    return this.isCompleted() ? "glyphicon-ok" : "glyphicon-unchecked";
+  },
   statusToMessage       : function () {
     let obj = this.getLatestStatus();
     let createdTillNow = moment().subtract(moment(obj.createdAt));

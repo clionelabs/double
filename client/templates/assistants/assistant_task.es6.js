@@ -2,9 +2,6 @@ Template.assistantTask.helpers(_.extend({
   isStartOrPause : function() {
     return this.isWorking() ? 'Pause' : 'Start';
   },
-  checkedIfTaskCompleted : function() {
-    return this.isCompleted() ? "glyphicon-ok" : "glyphicon-unchecked";
-  },
   disabledIfTaskCompleted : function() {
     return this.isCompleted() ? "disabled" : "";
   }

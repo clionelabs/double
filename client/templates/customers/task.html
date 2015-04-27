@@ -3,7 +3,7 @@
     <div class="row">
       <label class="info-container col-md-12 col-xs-12">
         <div class="col-md-1 col-sm-1 col-xs-2 checkbox-container">
-          <input type="checkbox" class="pull-right">
+          <i class="pull-right checkbox glyphicon {{ checkedIfTaskCompleted }}"></i>
         </div>
         <div class="name col-md-11 col-sm-11 col-xs-10">
           {{ title }}
@@ -14,7 +14,6 @@
       {{> customerTaskSubItem statusToMessage getLatestStatus }}
     </div>
   </section>
-
 </template>
 
 <template name="customerTaskSubItem">
