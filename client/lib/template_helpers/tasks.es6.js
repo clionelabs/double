@@ -6,10 +6,11 @@ TemplateHelpers.Task.Message = {
   },
   statusToMessage       : function () {
     let obj = this.getLatestStatus();
-    let createdTillNow = moment().subtract(moment(obj.createdAt));
+    let createdTillNow = obj.createdAt - moment().valueOf();
+    console.log(createdTillNow);
     return {
       type   : "comment",
-      message: obj.message + ". " + moment.duration(createdTillNow).humanize() + " ago. "
+      message: obj.message + ". " + moment.duration(createdTillNow).humanize(true)
     };
   },
   referenceToMessage    : function (ref) {
