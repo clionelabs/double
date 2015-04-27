@@ -4,12 +4,22 @@ Template.assistantTask.helpers(_.extend({
   },
   disabledIfTaskCompleted : function() {
     return this.isCompleted() ? "disabled" : "";
+  },
+  getReferencesWithTaskId : function() {
+    let task = this;
+    return _.map(this.references,
+        function(ref) {
+          return _.extend({ taskId : task._id}, ref);
+        });
   }
 }, TemplateHelpers.Task.Message));
 
 Template.assistantTask.events({
   "click .comment" : function() {
     Session.setAuth(SessionKeys.genStatusFormKey(this._id, this.isCurrent), true);
+  },
+  "click .link" : function() {
+    Session.setAuth(SessionKeys.genLinkFormKey(this._id, this.isCurrent), true);
   },
   "click button.start": function() {
     Tasks.startWork(this._id);
@@ -23,43 +33,16 @@ Template.assistantTask.events({
   }
 });
 
-Template.assistantTaskStatusForm._submitFn = (form, taskId, isCurrent) => {
-  let message = form.target.message.value;
-  Tasks.Status.change(message, taskId,
-      () => {
-        form.target.reset();
-        Session.setAuth(SessionKeys.genStatusFormKey(taskId, isCurrent), false);
-      });
-};
-
-Template.assistantTaskStatusForm.onRendered(function() {
-  let selfTemplate = this;
-  selfTemplate.$('.form-container').on('transitionend onanimationend', function(e) {
-    if ($(e.target).height() > 1) {
-      selfTemplate.$('.status-message').focus();
-    }
-  });
-});
-
-Template.assistantTaskStatusForm.helpers({
-  isStatusFormShown : function() {
-    return Session.get(SessionKeys.genStatusFormKey(this._id, this.isCurrent)) ? "" : "not-shown";
-  },
-  genFormKey : function(taskId, isCurrent) {
-    return SessionKeys.genStatusFormKey(taskId, isCurrent);
+Template.assistantTaskSubItem.events({
+  "click .link-delete" : function(e) {
+    console.log(this);
+    let taskId = $(e.target).data("task-id");
+    Tasks.References.delete(taskId, this._id);
   }
 });
 
-Template.assistantTaskStatusForm.events({
-  "submit .task-status-change" : function(e) {
-    e.preventDefault();
-    return Template.assistantTaskStatusForm._submitFn(e, this._id, this.isCurrent);
-  },
-  "keyup .task-status-change input" : function(e) {
-    if (e.keyCode === 27) {//esc
-      Session.setAuth(SessionKeys.genStatusFormKey(this._id, this.isCurrent), false);
-    }
+Template.assistantTaskSubItem.helpers(_.extend({
+  allowDelete : function(type) {
+    return _.contains(["link"], type) ? "" : "hidden";
   }
-});
-
-Template.assistantTaskSubItem.helpers(TemplateHelpers.Task.SubItem);
+}, TemplateHelpers.Task.SubItem));

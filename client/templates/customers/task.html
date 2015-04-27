@@ -12,6 +12,9 @@
     </div>
     <div class="attr-container row">
       {{> customerTaskSubItem statusToMessage getLatestStatus }}
+      {{#each references }}
+      {{> customerTaskSubItem referenceToMessage this }}
+      {{/each}}
     </div>
   </section>
 </template>

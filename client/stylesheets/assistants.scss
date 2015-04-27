@@ -73,11 +73,15 @@
   .sub {
     padding-left : 72px;
   }
-  .task-status-change {
+  .task-status-change, .task-link-add {
     .form-container {
       opacity: 1;
       height: 39px;
       transition: opacity 0.3s cubic-bezier(1, 0, 1, 0), height 0.2s linear;
+
+      label {
+        font-weight: 500;
+      }
 
       &.not-shown {
         opacity: 0;
@@ -87,6 +91,18 @@
       .status-message {
         width: 50%;
         max-width: 500px;
+        border: none;
+        border-bottom: 1px solid $pay-black;
+      }
+      .link-title {
+        width: 25%;
+        max-width: 150px;
+        border: none;
+        border-bottom: 1px solid $pay-black;
+      }
+      .link-url {
+        width: 65%;
+        max-width: 450px;
         border: none;
         border-bottom: 1px solid $pay-black;
       }
