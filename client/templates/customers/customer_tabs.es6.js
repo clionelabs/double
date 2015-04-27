@@ -1,12 +1,12 @@
 Template.customerTabs.created = function() {
   if (!Session.get(SessionKeys.ACTIVE_TAB)) {
-    Session.setAuth(SessionKeys.ACTIVE_TAB, SessionEnums.ActiveTab.CURRENT_TAB);
+    Session.setAuth(SessionKeys.ACTIVE_TAB, SessionEnums.ActiveTab.PROCESSING_TAB);
   }
 };
 
 Template.customerTabs.events({
-  "click .tab-current" : function(e) {
-    Session.setAuth(SessionKeys.ACTIVE_TAB, SessionEnums.ActiveTab.CURRENT_TAB);
+  "click .tab-processing" : function(e) {
+    Session.setAuth(SessionKeys.ACTIVE_TAB, SessionEnums.ActiveTab.PROCESSING_TAB);
   },
   "click .tab-recurring" : function(e) {
     Session.setAuth(SessionKeys.ACTIVE_TAB, SessionEnums.ActiveTab.RECURRING_TAB);
@@ -17,8 +17,8 @@ Template.customerTabs.events({
 });
 
 Template.customerTabs.helpers({
-  isCurrentActive : function() {
-    return _.isEqual(Session.get(SessionKeys.ACTIVE_TAB), SessionEnums.ActiveTab.CURRENT_TAB) ? "active" : "";
+  isProcessingActive : function() {
+    return _.isEqual(Session.get(SessionKeys.ACTIVE_TAB), SessionEnums.ActiveTab.PROCESSING_TAB) ? "active" : "";
   },
   isRecurringActive : function() {
     return _.isEqual(Session.get(SessionKeys.ACTIVE_TAB), SessionEnums.ActiveTab.RECURRING_TAB) ? "active" : "";

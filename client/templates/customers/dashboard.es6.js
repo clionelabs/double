@@ -12,8 +12,8 @@ Template.customerDashboard.helpers({
     return Session.get(SessionKeys.IS_SIDEBAR_VISIBLE) ? "blur" : "";
   },
   "getSelectedTasks" : function() {
-    if (Session.get(SessionKeys.ACTIVE_TAB) === SessionEnums.ActiveTab.CURRENT_TAB) {
-      return Tasks.findCurrent();
+    if (Session.get(SessionKeys.ACTIVE_TAB) === SessionEnums.ActiveTab.PROCESSING_TAB) {
+      return Tasks.findProcessing();
     } else if (Session.get(SessionKeys.ACTIVE_TAB) === SessionEnums.ActiveTab.RECURRING_TAB) {
       return Tasks.findRecurring();
     } else {

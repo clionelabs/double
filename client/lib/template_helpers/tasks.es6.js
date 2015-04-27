@@ -7,7 +7,6 @@ TemplateHelpers.Task.Message = {
   statusToMessage       : function () {
     let obj = this.getLatestStatus();
     let createdTillNow = obj.createdAt - moment().valueOf();
-    console.log(createdTillNow);
     return {
       type   : "comment",
       message: obj.message + ". " + moment.duration(createdTillNow).humanize(true)
