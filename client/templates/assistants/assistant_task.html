@@ -13,8 +13,22 @@
       <i class="pull-right glyphicon glyphicon-link link"></i>
     </div>
     {{> assistantTaskStatusForm }}
+    {{> assistantTaskLinkForm }}
     {{> assistantTaskSubItem statusToMessage getLatestStatus }}
+    {{#each references }}
+      {{> assistantTaskSubItem referenceToMessage this}}
+    {{/each}}
   </div>
+</template>
+
+<template name="assistantTaskLinkForm">
+  <form class="task-link-add" id="{{ genFormKey _id isCurrent }}">
+    <div class="form-container sub col-xs-12 col-sm-12 col-md-12 {{isLinkFormShown}}">
+      <label for="title">title: </label><input name="title" class="link-title" type="text" />
+      <label for="url">URL: </label><input name="url" class="link-url" type="url" />
+      <button class="submit" action="submit">Post</button>
+    </div>
+  </form>
 </template>
 
 <template name="assistantTaskStatusForm">

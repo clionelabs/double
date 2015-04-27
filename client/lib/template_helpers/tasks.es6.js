@@ -13,6 +13,7 @@ TemplateHelpers.Task.Message = {
     };
   },
   referenceToMessage    : function (ref) {
+    console.log(ref);
     return {
       type   : "link",
       message: ref.title,
