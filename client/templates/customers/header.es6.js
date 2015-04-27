@@ -5,28 +5,28 @@ Template.customerHeader.helpers({
   },
   isCalling : function() {
     //TODO change to customer.isCalling when integrated
-    return Session.get("isCalling") ? "on": "off";
+    return Session.get(SessionKeys.isCalling) ? "on": "off";
   },
 
   isCallingShowInvisible : function() {
     //TODO change to customer.isCalling when integrated
-    return Session.get("isCalling") ? "show " : "invisible";
+    return Session.get(SessionKeys.isCalling) ? "show " : "invisible";
   }
 });
 
 Template.customerHeader.events({
   "click .call-me" : function() {
     //TODO change to customer.isCalling when integrated
-    Session.setAuth("isCalling", !Session.get("isCalling"));
+    Session.setAuth(SessionKeys.isCalling, !Session.get(SessionKeys.isCalling));
 
   },
   "click .settings" : function() {
-    Session.setAuth(Template.customerDashboard.IS_SIDEBAR_VISIBLE, true);
+    Session.setAuth(SessionKeys.isSidebarVisible, true);
   }
 });
 
 
 //TODO remove when customer.isCalling is finished
 Template.customerHeader.destroyed = function() {
-  Session.setAuth("isCalling", false);
+  Session.setAuth(SessionKeys.isCalling, false);
 };

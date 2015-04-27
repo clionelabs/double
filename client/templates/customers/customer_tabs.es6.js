@@ -1,20 +1,29 @@
-Template.customerTabs.ACTIVE = "activeTab";
-Template.customerTabs.CURRENT = "current";
-Template.customerTabs.RECURRING = "recurring";
-Template.customerTabs.COMPLETED = "completed";
-
 Template.customerTabs.created = function() {
-  Session.setDefault(Template.customerTabs.ACTIVE, Template.customerTabs.CURRENT);
-};
-
-Template.customerTabs.rendered = function() {
-  $(".tab-" + Session.get(Template.customerTabs.ACTIVE)).addClass("active");
+  if (!Session.get(SessionKeys.activeTab)) {
+    Session.setAuth(SessionKeys.activeTab, SessionKeys.currentTab);
+  }
 };
 
 Template.customerTabs.events({
-  "click .tab" : function(e) {
-    $(".tab").removeClass("active");
-    $(e.currentTarget).addClass("active");
+  "click .tab-current" : function(e) {
+    Session.setAuth(SessionKeys.activeTab, SessionKeys.currentTab);
+  },
+  "click .tab-recurring" : function(e) {
+    Session.setAuth(SessionKeys.activeTab, SessionKeys.recurringTab);
+  },
+  "click .tab-completed" : function(e) {
+    Session.setAuth(SessionKeys.activeTab, SessionKeys.completedTab);
   }
+});
 
+Template.customerTabs.helpers({
+  isCurrentActive : function() {
+    return _.isEqual(Session.get(SessionKeys.activeTab), SessionKeys.currentTab) ? "active" : "";
+  },
+  isRecurringActive : function() {
+    return _.isEqual(Session.get(SessionKeys.activeTab), SessionKeys.recurringTab) ? "active" : "";
+  },
+  isCompletedActive : function() {
+    return _.isEqual(Session.get(SessionKeys.activeTab), SessionKeys.completedTab) ? "active" : "";
+  }
 });
