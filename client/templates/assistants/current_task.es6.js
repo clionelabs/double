@@ -1,5 +1,10 @@
 Template.currentTask._timeoutFn = null;
 
+Template.currentTask._updateTimer = function() {
+  let currentTask = Template.assistantDashboardCustomerTab.getCurrentTask();
+  Session.setAuth(SessionKeys.CURRENT_TIME_USED, currentTask.getTotalDuration());
+}
+
 Template.currentTask.onCreated(function() {
   this.data = _.extend(
       this.data,
@@ -7,9 +12,9 @@ Template.currentTask.onCreated(function() {
 });
 
 Template.currentTask.onRendered(function() {
+  Template.currentTask._updateTimer();
   Template.currentTask._timeoutFn = Meteor.setInterval(function() {
-    let currentTask = Template.assistantDashboardCustomerTab.getCurrentTask();
-    Session.setAuth(SessionKeys.CURRENT_TIME_USED, currentTask.getCurrentSectionDuration());
+    Template.currentTask._updateTimer();
   }, 1000);
 
 });
