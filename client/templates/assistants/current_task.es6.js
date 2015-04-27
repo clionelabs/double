@@ -2,7 +2,7 @@ Template.currentTask._timeoutFn = null;
 
 Template.currentTask._updateTimer = function() {
   let currentTask = Template.assistantDashboardCustomerTab.getCurrentTask();
-  Session.setAuth(SessionKeys.currentTimeUsed, currentTask.getTotalDuration());
+  Session.setAuth(SessionKeys.CURRENT_TIME_USED, currentTask.getTotalDuration());
 }
 
 Template.currentTask.onCreated(function() {
@@ -21,7 +21,7 @@ Template.currentTask.onRendered(function() {
 
 Template.currentTask.helpers({
   getTimeUsed : function() {
-    return moment.duration(+Session.get(SessionKeys.currentTimeUsed)).format('hh:mm:ss', { trim : false });
+    return moment.duration(+Session.get(SessionKeys.CURRENT_TIME_USED)).format('hh:mm:ss', { trim : false });
   },
   getCustomerName : function() {
     let currentTask = Template.assistantDashboardCustomerTab.getCurrentTask();
@@ -32,5 +32,5 @@ Template.currentTask.helpers({
 Template.currentTask.onDestroyed(function(){
   Meteor.clearInterval(Template.currentTask._timeoutFn);
   Template.currentTask._timeoutFn = null;
-  Session.clear(SessionKeys.currentTimeUsed);
+  Session.clear(SessionKeys.CURRENT_TIME_USED);
 });

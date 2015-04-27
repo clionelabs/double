@@ -1,5 +1,3 @@
-Template.customerDashboard.IS_SIDEBAR_VISIBLE = "IS_SIDEBAR_VISIBLE";
-
 Template.customerDashboard.events({
   "click .settings" : function() {
     Session.setAuth("isContentBlur", true);
@@ -11,7 +9,16 @@ Template.customerDashboard.events({
 
 Template.customerDashboard.helpers({
   "showBlur" : function() {
-    return Session.get(Template.customerDashboard.IS_SIDEBAR_VISIBLE) ? "blur" : "";
+    return Session.get(SessionKeys.IS_SIDEBAR_VISIBLE) ? "blur" : "";
+  },
+  "getSelectedTasks" : function() {
+    if (Session.get(SessionKeys.ACTIVE_TAB) === SessionEnums.ActiveTab.PROCESSING_TAB) {
+      return Tasks.findProcessing();
+    } else if (Session.get(SessionKeys.ACTIVE_TAB) === SessionEnums.ActiveTab.RECURRING_TAB) {
+      return Tasks.findRecurring();
+    } else {
+      return Tasks.findCompleted();
+    }
   }
 });
 

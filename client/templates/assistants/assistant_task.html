@@ -29,14 +29,6 @@
 <template name="assistantTaskSubItem">
   <div class="sub col-xs-12 col-sm-12 col-md-12">
       <i class="glyphicon glyphicon-{{ type }} type"></i>
-      {{> Template.dynamic template=assistantTaskSubItemMessage }}
+      {{> Template.dynamic template=taskSubItemMessage }}
   </div>
-</template>
-
-<template name="assistantTaskSubItemMessageWithoutUrl">
-  <span class="messages">{{message}}</span>
-</template>
-
-<template name="assistantTaskSubItemMessageWithUrl">
-  <a href="{{ url }}" class="messages">{{message}}</a>
 </template>

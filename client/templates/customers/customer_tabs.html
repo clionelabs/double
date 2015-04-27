@@ -1,7 +1,13 @@
 <template name="customerTabs">
   <section class="row tabs">
-    <div class="tab col-xs-4 col-sm-4 col-md-4 text-center tab-current"><span>Current</span></div>
-    <div class="tab col-xs-4 col-sm-4 col-md-4 text-center tab-recurring"><span>Recurring</span></div>
-    <div class="tab col-xs-4 col-sm-4 col-md-4 text-center tab-completed"><span>Completed</span></div>
+    <div class="tab col-xs-4 col-sm-4 col-md-4 text-center tab-processing {{isProcessingActive}}">
+      <span>Current</span>
+    </div>
+    <div class="tab col-xs-4 col-sm-4 col-md-4 text-center tab-recurring {{isRecurringActive}}">
+      <span>Recurring</span>
+    </div>
+    <div class="tab col-xs-4 col-sm-4 col-md-4 text-center tab-completed {{isCompletedActive}}">
+      <span>Completed</span>
+    </div>
   </section>
 </template>

@@ -1,33 +1,32 @@
 
 Template.customerHeader.helpers({
   numberOfTasks : function numberOfTasks() {
-    //TODO integration
-    return this.tasks ? this.tasks.length : 0;
+    return this.tasks ? this.tasks.count() : 0;
   },
-  isCalling : function() {
-    //TODO change to customer.isCalling when integrated
-    return Session.get("isCalling") ? "on": "off";
+  IS_CALLING : function() {
+    //TODO change to customer.IS_CALLING when integrated
+    return Session.get(SessionKeys.IS_CALLING) ? "on": "off";
   },
 
   isCallingShowInvisible : function() {
-    //TODO change to customer.isCalling when integrated
-    return Session.get("isCalling") ? "show " : "invisible";
+    //TODO change to customer.IS_CALLING when integrated
+    return Session.get(SessionKeys.IS_CALLING) ? "show " : "invisible";
   }
 });
 
 Template.customerHeader.events({
   "click .call-me" : function() {
-    //TODO change to customer.isCalling when integrated
-    Session.setAuth("isCalling", !Session.get("isCalling"));
+    //TODO change to customer.IS_CALLING when integrated
+    Session.setAuth(SessionKeys.IS_CALLING, !Session.get(SessionKeys.IS_CALLING));
 
   },
   "click .settings" : function() {
-    Session.setAuth(Template.customerDashboard.IS_SIDEBAR_VISIBLE, true);
+    Session.setAuth(SessionKeys.IS_SIDEBAR_VISIBLE, true);
   }
 });
 
 
-//TODO remove when customer.isCalling is finished
+//TODO remove when customer.IS_CALLING is finished
 Template.customerHeader.destroyed = function() {
-  Session.setAuth("isCalling", false);
+  Session.setAuth(SessionKeys.IS_CALLING, false);
 };
