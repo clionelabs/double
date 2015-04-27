@@ -9,14 +9,14 @@ Template.currentTask.onCreated(function() {
 Template.currentTask.onRendered(function() {
   Template.currentTask._timeoutFn = Meteor.setInterval(function() {
     let currentTask = Template.assistantDashboardCustomerTab.getCurrentTask();
-    Session.setAuth(SessionKeys.currentTimeUsed, currentTask.getCurrentSectionDuration());
+    Session.setAuth(SessionKeys.CURRENT_TIME_USED, currentTask.getCurrentSectionDuration());
   }, 1000);
 
 });
 
 Template.currentTask.helpers({
   getTimeUsed : function() {
-    return moment.duration(+Session.get(SessionKeys.currentTimeUsed)).format('hh:mm:ss', { trim : false });
+    return moment.duration(+Session.get(SessionKeys.CURRENT_TIME_USED)).format('hh:mm:ss', { trim : false });
   },
   getCustomerName : function() {
     let currentTask = Template.assistantDashboardCustomerTab.getCurrentTask();
@@ -27,5 +27,5 @@ Template.currentTask.helpers({
 Template.currentTask.onDestroyed(function(){
   Meteor.clearInterval(Template.currentTask._timeoutFn);
   Template.currentTask._timeoutFn = null;
-  Session.clear(SessionKeys.currentTimeUsed);
+  Session.clear(SessionKeys.CURRENT_TIME_USED);
 });

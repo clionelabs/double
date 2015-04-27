@@ -1,29 +1,29 @@
 Template.customerTabs.created = function() {
-  if (!Session.get(SessionKeys.activeTab)) {
-    Session.setAuth(SessionKeys.activeTab, SessionEnums.activeTab.currentTab);
+  if (!Session.get(SessionKeys.ACTIVE_TAB)) {
+    Session.setAuth(SessionKeys.ACTIVE_TAB, SessionEnums.ACTIVE_TAB.CURRENT_TAB);
   }
 };
 
 Template.customerTabs.events({
   "click .tab-current" : function(e) {
-    Session.setAuth(SessionKeys.activeTab, SessionEnums.activeTab.currentTab);
+    Session.setAuth(SessionKeys.ACTIVE_TAB, SessionEnums.ACTIVE_TAB.CURRENT_TAB);
   },
   "click .tab-recurring" : function(e) {
-    Session.setAuth(SessionKeys.activeTab, SessionEnums.activeTab.recurringTab);
+    Session.setAuth(SessionKeys.ACTIVE_TAB, SessionEnums.ACTIVE_TAB.RECURRING_TAB);
   },
   "click .tab-completed" : function(e) {
-    Session.setAuth(SessionKeys.activeTab, SessionEnums.activeTab.completedTab);
+    Session.setAuth(SessionKeys.ACTIVE_TAB, SessionEnums.ACTIVE_TAB.COMPLETED_TAB);
   }
 });
 
 Template.customerTabs.helpers({
   isCurrentActive : function() {
-    return _.isEqual(Session.get(SessionKeys.activeTab), SessionEnums.activeTab.currentTab) ? "active" : "";
+    return _.isEqual(Session.get(SessionKeys.ACTIVE_TAB), SessionEnums.ACTIVE_TAB.CURRENT_TAB) ? "active" : "";
   },
   isRecurringActive : function() {
-    return _.isEqual(Session.get(SessionKeys.activeTab), SessionEnums.activeTab.recurringTab) ? "active" : "";
+    return _.isEqual(Session.get(SessionKeys.ACTIVE_TAB), SessionEnums.ACTIVE_TAB.RECURRING_TAB) ? "active" : "";
   },
   isCompletedActive : function() {
-    return _.isEqual(Session.get(SessionKeys.activeTab), SessionEnums.activeTab.completedTab) ? "active" : "";
+    return _.isEqual(Session.get(SessionKeys.ACTIVE_TAB), SessionEnums.ACTIVE_TAB.COMPLETED_TAB) ? "active" : "";
   }
 });
