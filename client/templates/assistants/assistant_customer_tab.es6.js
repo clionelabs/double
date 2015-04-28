@@ -22,10 +22,15 @@ Template.assistantDashboardCustomerTab.onRendered(function() {
 });
 
 Template.assistantDashboardCustomerTab.helpers({
-  tasks: function() {
+  tasks() {
     return Tasks.find({requestorId: this._id}, {sort: {title: 1}});
   },
-  getCurrentTask : Template.assistantDashboardCustomerTab.getCurrentTask
+  getCurrentTask : Template.assistantDashboardCustomerTab.getCurrentTask,
+
+  animateIfIsCalling() {
+    let thisCustomer = _.extend(this, Customer);
+    return (thisCustomer.isCalling()) ? "animated infinite wobble" : "";
+  }
 
 });
 
