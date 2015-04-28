@@ -21,11 +21,11 @@ TemplateHelpers.Task.Message = {
       url    : ref.url
     }
   },
-  deadlineToMessage     : function (deadline) {
-    let obj = moment(deadline);
+  totalDurationToMessage     : function (duration) {
+    let obj = moment.duration(duration);
     return {
       type   : "time",
-      message: obj.format("MMM DD, YYYY")
+      message: obj.humanize()
     };
   },
   taskSchedulerToMessage: function (taskScheduler) {

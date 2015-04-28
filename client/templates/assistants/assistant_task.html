@@ -18,6 +18,7 @@
     {{#each getReferencesWithTaskId }}
       {{> assistantTaskSubItem referenceToMessage this}}
     {{/each}}
+    {{> assistantTaskSubItem totalDurationToMessage this.getTotalDuration }}
   </div>
 </template>
 
