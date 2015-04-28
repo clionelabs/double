@@ -1,32 +1,27 @@
-
 Template.customerHeader.helpers({
   numberOfTasks : function numberOfTasks() {
     return this.tasks ? this.tasks.count() : 0;
   },
-  IS_CALLING : function() {
-    //TODO change to customer.IS_CALLING when integrated
-    return Session.get(SessionKeys.IS_CALLING) ? "on": "off";
+  isCalling : function() {
+    let thisCustomer = _.extend(Meteor.user(), Customer);
+    return thisCustomer.isCalling();
   },
-
   isCallingShowInvisible : function() {
-    //TODO change to customer.IS_CALLING when integrated
-    return Session.get(SessionKeys.IS_CALLING) ? "show " : "invisible";
+    let thisCustomer = _.extend(Meteor.user(), Customer);
+    return thisCustomer.isCalling() ? "show " : "invisible";
   }
 });
 
 Template.customerHeader.events({
   "click .call-me" : function() {
-    //TODO change to customer.IS_CALLING when integrated
-    Session.setAuth(SessionKeys.IS_CALLING, !Session.get(SessionKeys.IS_CALLING));
-
+    let thisCustomer = _.extend(Meteor.user(), Customer);
+    if (thisCustomer.isCalling()) {
+      Customers.cancelCallAssistant(Meteor.user()._id);
+    } else {
+      Customers.callAssistant(Meteor.user()._id);
+    }
   },
   "click .settings" : function() {
     Session.setAuth(SessionKeys.IS_SIDEBAR_VISIBLE, true);
   }
 });
-
-
-//TODO remove when customer.IS_CALLING is finished
-Template.customerHeader.destroyed = function() {
-  Session.setAuth(SessionKeys.IS_CALLING, false);
-};
