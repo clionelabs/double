@@ -20,4 +20,7 @@ Meteor.startup(function() {
 
   // Register custom login method using secret link
   Accounts.registerLoginHandler(LoginLinks.loginHandler);
+
+  SyncedCron.start();
+  TaskSchedulers.generateNexts();
 });

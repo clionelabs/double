@@ -37,6 +37,16 @@ Meteor.methods({
     }
   },
 
+  createTaskScheduler: function(data) {
+    let doc = {
+      title: data.title,
+      ruleString: data.ruleString,
+      requestorId: data.customerId,
+      responderId: Meteor.userId()
+    }
+    TaskSchedulers.create(doc);
+  },
+
   // TODO: Temporary for testing.
   //   To generate a login link, execute `Meteor.call('generateLoginLink', USER_ID)` on browser, then check the server log for login url
   generateLoginLink: function(userId) {
