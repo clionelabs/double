@@ -7,7 +7,7 @@ TaskSchedulers.generateAllNextsIfNotExisted = function() {
 
 TaskSchedulers.generateNextIfNotExisted = function(taskSchedulerId) {
   let scheduler = TaskSchedulers.findOne(taskSchedulerId);
-  if (scheduler.nextAt() === null) return; // no next
+  if (scheduler.nextAt() === undefined) return; // no next
 
   let nextInstanceId = scheduler.nextInstanceId();
   if (!nextInstanceId) {
@@ -22,11 +22,15 @@ TaskSchedulers.generateNextIfNotExisted = function(taskSchedulerId) {
   }
 }
 
+TaskSchedulers.handleAdded = function(doc) {
+  TaskSchedulers.generateNextIfNotExisted(doc._id);
+}
+
 TaskSchedulers.startup = function() {
   TaskSchedulers.generateAllNextsIfNotExisted();
   TaskSchedulers.find({}, {sort: {createdAt: -1}, limit: 1}).observe({
     added: function(doc) {
-      TaskSchedulers.generateNextIfNotExisted(doc._id);
+      TaskSchedulers.handleAdded(doc);
     }
   });
 }

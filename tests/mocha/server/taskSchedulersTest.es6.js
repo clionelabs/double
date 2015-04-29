@@ -40,7 +40,7 @@ if (!(typeof MochaWeb === 'undefined')) {
           chai.assert.equal(TaskSchedulers.find().count(), 0);
 
           // repeated every day starting from now
-          var taskSchedulerId = TaskSchedulers.create({requestorId: '1', responderId: '2', title: 'title', ruleString: 'FREQ=DAILY'});
+          var taskSchedulerId = TaskSchedulers.create({requestorId: '1', responderId: '2', title: 'title', ruleString: 'FREQ=DAILY;DTSTART=20150501T000000Z'});
 
           // validate created successfully
           chai.assert.equal(TaskSchedulers.find().count(), 1);
@@ -50,7 +50,7 @@ if (!(typeof MochaWeb === 'undefined')) {
             requestorId: '1',
             responderId: '2',
             title: 'title',
-            ruleString: 'FREQ=DAILY',
+            ruleString: 'FREQ=DAILY;DTSTART=20150501T000000Z',
             instances: [],
             createdAt: moment().valueOf()
           };
@@ -111,7 +111,7 @@ if (!(typeof MochaWeb === 'undefined')) {
           var schedulerId = TaskSchedulers.create({requestorId: '1', responderId: '2', title: 'title', ruleString: 'FREQ=HOURLY;DTSTART='+startTimeString+';UNTIL='+endTimeString});
           var scheduler = TaskSchedulers.findOne(schedulerId);
           clock.tick(11 * 1000); // 11 second passed, so schedule has ended
-          chai.assert.equal(scheduler.nextAt(), null);
+          chai.assert.equal(scheduler.nextAt(), undefined);
         });
       });
 
@@ -133,7 +133,7 @@ if (!(typeof MochaWeb === 'undefined')) {
           var scheduler = TaskSchedulers.findOne(schedulerId);
           scheduler.instances = [{at: 0, taskId: 'a'}];
           clock.tick(1); // 1 second passed, and next instance has not been generated yet.
-          chai.assert.equal(scheduler.nextInstanceId(), null);
+          chai.assert.equal(scheduler.nextInstanceId(), undefined);
         });
       });
 
