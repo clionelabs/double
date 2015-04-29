@@ -11,11 +11,11 @@
       </div>
     </div>
 
-    <div class="text-center double-name">{{ assistant.getNameWithInitial }}</div>
+    <div class="text-center double-name">{{ assistant.displayNameWithInitial }}</div>
     <div class="title text-capitalize text-center">Your Double</div>
     <div class="hour-meter-container text-center">
-      <div class="word-rep">{{ user.hoursUsed }} / {{ user.totalHours }} Hours</div>
-      <div class="bar-rep"><div class="bar-fill" style="{ width: {{ user.percentageOfTimeLeft }} }"></div></div>
+      <div class="word-rep">{{ getTotalHourUsed }} / {{ getTotalHours}} Hours</div>
+      <div class="bar-rep"><div class="bar-fill" style="{ width: {{ getPercentageOfTimeLeft }} }"></div></div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
