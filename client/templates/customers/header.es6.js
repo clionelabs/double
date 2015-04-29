@@ -1,5 +1,6 @@
 Template.customerHeader.helpers({
   numberOfTasks : function numberOfTasks() {
+    return Tasks.findProcessing().count();
     return this.tasks ? this.tasks.count() : 0;
   },
   isCalling : function() {

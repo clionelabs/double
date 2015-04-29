@@ -11,7 +11,10 @@
       </label>
     </div>
     <div class="attr-container row">
-      {{> customerTaskSubItem statusToMessage getLatestStatus }}
+      {{#if getLatestStatus}}
+        {{> customerTaskSubItem statusToMessage getLatestStatus }}
+      {{/if}}
+
       {{#each references }}
         {{> customerTaskSubItem referenceToMessage this }}
       {{/each}}
