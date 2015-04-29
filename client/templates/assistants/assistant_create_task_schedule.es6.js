@@ -9,12 +9,12 @@ Template.assistantCreateTaskSchedule.events({
     let title = form.title.value;
 
     let doc = {
-      customerId: customerId,
+      title: title,
       ruleString: ruleString,
-      title: title
+      requestorId: customerId,
+      responderId: Meteor.userId()
     }
-
-    Meteor.call('createTaskScheduler', doc, function(error) {
+    TaskSchedulers.create(doc, function() {
       Modal.hide();
     });
   }

@@ -22,5 +22,6 @@ Meteor.startup(function() {
   Accounts.registerLoginHandler(LoginLinks.loginHandler);
 
   SyncedCron.start();
-  TaskSchedulers.generateNexts();
+
+  TaskSchedulers.startup();
 });

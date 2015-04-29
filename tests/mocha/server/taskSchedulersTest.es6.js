@@ -18,24 +18,32 @@ if (!(typeof MochaWeb === 'undefined')) {
         TaskSchedulers.remove({});
       });
 
+      describe("permissions insert", function() {
+        it("valid requestor", function(){
+          var doc = {requestorId: '1'};
+          chai.assert.equal(TaskSchedulersPermission.insert('1', doc), true);
+        });
+
+        it("valid responder", function() {
+          var doc = {responderId: '1'};
+          chai.assert.equal(TaskSchedulersPermission.insert('1', doc), true);
+        });
+
+        it("invalid", function() {
+          var doc = {responderId: '1', responderId: '2'};
+          chai.assert.equal(TaskSchedulersPermission.insert('3', doc), false);
+        });
+      });
+
       describe("create", function() {
         it("valid", function() {
-          chai.assert.equal(Tasks.find().count(), 0);
           chai.assert.equal(TaskSchedulers.find().count(), 0);
 
           // repeated every day starting from now
           var taskSchedulerId = TaskSchedulers.create({requestorId: '1', responderId: '2', title: 'title', ruleString: 'FREQ=DAILY'});
 
           // validate created successfully
-          chai.assert.equal(Tasks.find().count(), 1);
           chai.assert.equal(TaskSchedulers.find().count(), 1);
-
-          // validate the content of the generated taskt
-          var task = Tasks.findOne({transform: null});
-          chai.assert.equal(task.requestorId, '1');
-          chai.assert.equal(task.responderId, '2');
-          chai.assert.equal(task.title, 'title');
-          chai.assert.equal(task.schedulerId, taskSchedulerId);
 
           var expectedDoc = {
             _id: taskSchedulerId,
@@ -43,7 +51,7 @@ if (!(typeof MochaWeb === 'undefined')) {
             responderId: '2',
             title: 'title',
             ruleString: 'FREQ=DAILY',
-            instances: [{at: 0, taskId: task._id}],
+            instances: [],
             createdAt: moment().valueOf()
           };
           chai.assert.deepEqual(TaskSchedulers.findOne(taskSchedulerId, {transform: null}), expectedDoc);
@@ -113,7 +121,9 @@ if (!(typeof MochaWeb === 'undefined')) {
           var startTimeString = timeToString(startTime);
           var schedulerId = TaskSchedulers.create({requestorId: '1', responderId: '2', title: 'title', ruleString: 'FREQ=HOURLY;DTSTART='+startTimeString});
           var scheduler = TaskSchedulers.findOne(schedulerId);
-          chai.assert.equal(scheduler.nextInstanceId(), Tasks.findOne()._id);
+          scheduler.instances = [{at: 0, taskId: 'a'}];
+          console.log("startTime: ", startTime, moment().valueOf());
+          chai.assert.equal(scheduler.nextInstanceId(), 'a');
         });
 
         it("not found", function() {
@@ -121,21 +131,42 @@ if (!(typeof MochaWeb === 'undefined')) {
           var startTimeString = timeToString(startTime);
           var schedulerId = TaskSchedulers.create({requestorId: '1', responderId: '2', title: 'title', ruleString: 'FREQ=HOURLY;DTSTART='+startTimeString});
           var scheduler = TaskSchedulers.findOne(schedulerId);
+          scheduler.instances = [{at: 0, taskId: 'a'}];
           clock.tick(1); // 1 second passed, and next instance has not been generated yet.
           chai.assert.equal(scheduler.nextInstanceId(), null);
         });
       });
 
       describe("generateNextIfNotExisted", function() {
-        it("not already existed", function() {
+        it("not already existed - first one", function() {
           var startTime = moment.utc();
           var startTimeString = timeToString(startTime);
           var schedulerId = TaskSchedulers.create({requestorId: '1', responderId: '2', title: 'title', ruleString: 'FREQ=HOURLY;DTSTART='+startTimeString});
           var scheduler = TaskSchedulers.findOne(schedulerId);
-          chai.assert.equal(scheduler.instances.length, 1);
-          clock.tick(1);
-          scheduler.generateNextIfNotExisted();
+          chai.assert.equal(scheduler.instances.length, 0);
 
+          TaskSchedulers.generateNextIfNotExisted(scheduler._id);
+
+          chai.assert.equal(Tasks.find().count(), 1);
+          var task = Tasks.findOne();
+
+          scheduler = TaskSchedulers.findOne(schedulerId);
+          chai.assert.equal(scheduler.instances.length, 1);
+          chai.assert.deepEqual(scheduler.instances, [{at: 0, taskId: task._id}]);
+        });
+
+        it("not already existed - second one", function() {
+          var startTime = moment.utc();
+          var startTimeString = timeToString(startTime);
+          var schedulerId = TaskSchedulers.create({requestorId: '1', responderId: '2', title: 'title', ruleString: 'FREQ=HOURLY;DTSTART='+startTimeString});
+          var scheduler = TaskSchedulers.findOne(schedulerId);
+          chai.assert.equal(scheduler.instances.length, 0);
+
+          TaskSchedulers.generateNextIfNotExisted(scheduler._id);
+          this.clock.tick(1);
+          TaskSchedulers.generateNextIfNotExisted(scheduler._id);
+
+          chai.assert.equal(Tasks.find().count(), 2);
           scheduler = TaskSchedulers.findOne(schedulerId);
           chai.assert.equal(scheduler.instances.length, 2);
         });
@@ -145,9 +176,12 @@ if (!(typeof MochaWeb === 'undefined')) {
           var startTimeString = timeToString(startTime);
           var schedulerId = TaskSchedulers.create({requestorId: '1', responderId: '2', title: 'title', ruleString: 'FREQ=HOURLY;DTSTART='+startTimeString});
           var scheduler = TaskSchedulers.findOne(schedulerId);
-          chai.assert.equal(scheduler.instances.length, 1);
-          scheduler.generateNextIfNotExisted(); // the first instance is already been generated upon create, so it won't do anything
+          chai.assert.equal(scheduler.instances.length, 0);
 
+          TaskSchedulers.generateNextIfNotExisted(scheduler._id);
+          chai.assert.equal(Tasks.find().count(), 1);
+
+          TaskSchedulers.generateNextIfNotExisted(scheduler._id); // already been generated before
           scheduler = TaskSchedulers.findOne(schedulerId);
           chai.assert.equal(scheduler.instances.length, 1);
         });
@@ -160,13 +194,13 @@ if (!(typeof MochaWeb === 'undefined')) {
 
           var schedulerId = TaskSchedulers.create({requestorId: '1', responderId: '2', title: 'title', ruleString: 'FREQ=HOURLY;DTSTART='+startTimeString+';UNTIL='+endTimeString});
           var scheduler = TaskSchedulers.findOne(schedulerId);
-          chai.assert.equal(scheduler.instances.length, 1);
+          chai.assert.equal(scheduler.instances.length, 0);
 
           clock.tick(11 * 1000); // 11 second passed, so schedule has ended
-          scheduler.generateNextIfNotExisted(); // the first instance is already been generated upon create, so it won't do anything
+          TaskSchedulers.generateNextIfNotExisted(scheduler._id);
 
           scheduler = TaskSchedulers.findOne(schedulerId);
-          chai.assert.equal(scheduler.instances.length, 1);
+          chai.assert.equal(scheduler.instances.length, 0);
         });
       });
     });

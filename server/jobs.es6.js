@@ -5,6 +5,6 @@ SyncedCron.add({
     return parser.cron('0 * * * *');
   },
   job: function() {
-    TaskSchedulers.generateNexts();
+    TaskSchedulers.generateAllNextsIfNotExisted();
   }
 });
