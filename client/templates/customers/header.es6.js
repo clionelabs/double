@@ -4,7 +4,7 @@ Template.customerHeader.helpers({
   },
   isCalling : function() {
     let thisCustomer = _.extend(Meteor.user(), Customer);
-    return thisCustomer.isCalling();
+    return thisCustomer.isCalling() ? "on" : "off";
   },
   isCallingShowInvisible : function() {
     let thisCustomer = _.extend(Meteor.user(), Customer);
