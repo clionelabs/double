@@ -55,9 +55,10 @@
   }
 
   .add-todo {
-    color: $pay-light-blue;
     margin-left: 30px;
     font-weight: 300;
+    color:white;
+    text-shadow: -1px 0 $pay-light-blue, 0 1px $pay-light-blue, 1px 0 $pay-light-blue, 0 -1px $pay-light-blue;
   }
 
   .settings-sidebar {
