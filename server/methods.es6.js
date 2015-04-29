@@ -3,13 +3,15 @@ Meteor.methods({
     let email = data.email;
     let firstname = data.firstname;
     let lastname = data.lastname;
+    let url = data.url;
 
     let userId = Users.createAssistant({
       email: email,
       password: Meteor.uuid(),
       profile: {
         firstname: firstname,
-        lastname: lastname
+        lastname: lastname,
+        url: url
       }
     });
 
@@ -22,19 +24,31 @@ Meteor.methods({
     let email = data.email;
     let firstname = data.firstname;
     let lastname = data.lastname;
+    let plan = data.plan;
 
     let userId = Users.createCustomer({
       email: email,
       password: Meteor.uuid(),
       profile: {
         firstname: firstname,
-        lastname: lastname
+        lastname: lastname,
+        plan : plan
       }
     });
 
     if (Meteor.settings.defaultAccountPassword) {
       Accounts.setPassword(userId, Meteor.settings.defaultAccountPassword);
     }
+  },
+  editCustomer: function(userId, data) {
+    Users.editCustomer({ _id : userId },
+    {
+      profile: {
+        firstname: firstname,
+        lastname: lastname,
+        plan : plan
+      }
+    });
   },
 
   // TODO: Temporary for testing.
