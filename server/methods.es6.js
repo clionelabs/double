@@ -41,7 +41,12 @@ Meteor.methods({
     }
   },
   editCustomer: function(userId, data) {
-    Users.editCustomer({ _id : userId },
+    let email = data.email;
+    let firstname = data.firstname;
+    let lastname = data.lastname;
+    let plan = data.plan;
+
+    Users.editCustomer(userId,
     {
       profile: {
         firstname: firstname,

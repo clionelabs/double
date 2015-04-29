@@ -4,7 +4,6 @@ Template.customerEditForm.events({
 
     let form = event.target;
     let data = {
-      email: form.email.value,
       firstname: form.firstname.value,
       lastname: form.lastname.value,
       plan : { maxHour : form.maxhour.value }
