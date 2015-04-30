@@ -41,5 +41,11 @@ Template.assistantDashboardCustomerTab.events({
   },
   "click .profile" : function() {
     Modal.show('customerEditForm', this);
+  },
+  "click .new-task-scheduler-button": function() {
+    let data = {
+      customerId: this._id
+    }
+    Modal.show('assistantCreateTaskSchedule', data);
   }
 });

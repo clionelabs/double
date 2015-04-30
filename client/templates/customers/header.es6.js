@@ -1,6 +1,6 @@
 Template.customerHeader.helpers({
   numberOfTasks : function numberOfTasks() {
-    return this.tasks ? this.tasks.count() : 0;
+    return Tasks.findProcessing().count();
   },
   isCalling : function() {
     let thisCustomer = _.extend(Meteor.user(), Customer);

@@ -25,3 +25,6 @@ practicalmeteor:sinon
 u2622:persistent-session
 oaf:moment-duration-format
 numeral:numeral
+mrt:later
+aramk:rrule
+percolate:synced-cron

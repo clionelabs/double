@@ -46,13 +46,33 @@ if (!(typeof MochaWeb === 'undefined')){
       });
 
       describe("create", function() {
-        it("valid", function() {
+        it("valid - without schedulerId", function() {
           chai.assert.equal(Tasks.find().count(), 0);
           var taskId = Tasks.create({requestorId: '1', responderId: '2', title: 'title'});
           var expectedDoc = {
             _id: taskId,
             requestorId: '1',
             responderId: '2',
+            schedulerId: null,
+            title: 'title',
+            statuses: [],
+            references: [],
+            timesheets: [],
+            deadline: null,
+            createdAt: moment().valueOf(),
+            completedAt: null
+          };
+          chai.assert.deepEqual(Tasks.findOne(taskId, {transform: null}), expectedDoc);
+        });
+
+        it("valid - with schedulerId", function() {
+          chai.assert.equal(Tasks.find().count(), 0);
+          var taskId = Tasks.create({requestorId: '1', responderId: '2', schedulerId: '3', title: 'title'});
+          var expectedDoc = {
+            _id: taskId,
+            requestorId: '1',
+            responderId: '2',
+            schedulerId: '3',
             title: 'title',
             statuses: [],
             references: [],

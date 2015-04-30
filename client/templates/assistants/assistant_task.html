@@ -14,7 +14,9 @@
     </div>
     {{> assistantTaskStatusForm }}
     {{> assistantTaskLinkForm }}
-    {{> assistantTaskSubItem statusToMessage getLatestStatus }}
+    {{#if getLatestStatus}}
+      {{> assistantTaskSubItem statusToMessage getLatestStatus }}
+    {{/if}}
     {{#each getReferencesWithTaskId }}
       {{> assistantTaskSubItem referenceToMessage this}}
     {{/each}}

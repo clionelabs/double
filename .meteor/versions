@@ -4,6 +4,7 @@ alanning:roles@1.2.13
 aldeed:simple-schema@1.3.2
 amplify@1.0.0
 anti:i18n@0.4.3
+aramk:rrule@2.1.0
 autoupdate@1.2.1
 base64@1.0.3
 binary-heap@1.0.3
@@ -54,6 +55,7 @@ minimongo@1.0.8
 mobile-status-bar@1.0.3
 momentjs:moment@2.10.3
 mongo@1.1.0
+mrt:later@1.6.1
 natestrauser:animate-css@3.2.6
 npm-bcrypt@0.7.8_2
 numeral:numeral@1.5.3
@@ -61,6 +63,7 @@ oaf:moment-duration-format@1.3.2
 observe-sequence@1.0.6
 ordered-dict@1.0.3
 peppelg:bootstrap-3-modal@1.0.3
+percolate:synced-cron@1.2.0
 practicalmeteor:chai@1.9.2_3
 practicalmeteor:loglevel@1.1.0_3
 practicalmeteor:sinon@1.10.3_2
