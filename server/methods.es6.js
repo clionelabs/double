@@ -56,12 +56,20 @@ Meteor.methods({
     });
   },
 
-  // TODO: Temporary for testing.
-  //   To generate a login link, execute `Meteor.call('generateLoginLink', USER_ID)` on browser, then check the server log for login url
-  generateLoginLink: function(userId) {
-    let id = LoginLinks.create(userId);
-    var doc = LoginLinks.findOne(id);
-    var url = Router.routes.secretLogin.url({secret: doc.secret});
-    console.log("url: ", url);
+  requestLoginAccess: function(email) {
+    let user = Meteor.users.findOne({emails: {$elemMatch: {address: email}}});
+    if (!user) {
+      throw Meteor.Error("user not found", "");
+    }
+    LoginLinks.createAndSendAccess(user);
+  },
+
+  requestLoginAccessWithOldSecret: function(secret) {
+    let oldLink = LoginLinks.findOne({secret: secret});
+    if (!oldLink) {
+      throw Meteor.Error("secret not found", "");
+    }
+    let user = Meteor.users.findOne(oldLink.userId);
+    LoginLinks.createAndSendAccess(user);
   }
 });
