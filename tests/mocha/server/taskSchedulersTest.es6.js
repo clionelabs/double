@@ -122,7 +122,6 @@ if (!(typeof MochaWeb === 'undefined')) {
           var schedulerId = TaskSchedulers.create({requestorId: '1', responderId: '2', title: 'title', ruleString: 'FREQ=HOURLY;DTSTART='+startTimeString});
           var scheduler = TaskSchedulers.findOne(schedulerId);
           scheduler.instances = [{at: 0, taskId: 'a'}];
-          console.log("startTime: ", startTime, moment().valueOf());
           chai.assert.equal(scheduler.nextInstanceId(), 'a');
         });
 
