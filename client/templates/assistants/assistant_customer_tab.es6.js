@@ -1,7 +1,7 @@
 let _getCurrentTaskSelector = {
   $where: function () {
-          _.extend(this, Task.Prototype);
-          return this.isWorking();
+    _.extend(this, Task.Prototype);
+    return this.isWorking();
   }
 };
 
@@ -26,12 +26,10 @@ Template.assistantDashboardCustomerTab.helpers({
     return Tasks.find({requestorId: this._id}, {sort: {title: 1}});
   },
   getCurrentTask : Template.assistantDashboardCustomerTab.getCurrentTask,
-
   animateIfIsCalling() {
     let thisCustomer = _.extend(this, Customer);
     return (thisCustomer.isCalling()) ? "animated infinite wobble" : "";
   }
-
 });
 
 Template.assistantDashboardCustomerTab.events({
@@ -40,6 +38,9 @@ Template.assistantDashboardCustomerTab.events({
       customerId: this._id
     };
     Modal.show('assistantCreateTask', data);
+  },
+  "click .profile" : function() {
+    Modal.show('customerEditForm', this);
   },
   "click .new-task-scheduler-button": function() {
     let data = {

@@ -49,7 +49,7 @@ Template.adminDashboard.events({
   },
 
   "click #new-customer-button": function() {
-    Modal.show('adminCreateCustomer');
+    Modal.show('customerEditForm');
   }
 });
 
@@ -61,25 +61,10 @@ Template.adminCreateAssistant.events({
     let data = {
       email: form.email.value,
       firstname: form.firstname.value,
-      lastname: form.lastname.value
-    }
+      lastname: form.lastname.value,
+      url : '/david.jpg'
+    };
     Meteor.call('createAssistant', data, function(error, result) {
-      Modal.hide();
-    });
-  }
-});
-
-Template.adminCreateCustomer.events({
-  "submit #new-customer-form": function (event) {
-    event.preventDefault();
-
-    let form = event.target;
-    let data = {
-      email: form.email.value,
-      firstname: form.firstname.value,
-      lastname: form.lastname.value
-    }
-    Meteor.call('createCustomer', data, function(error, result) {
       Modal.hide();
     });
   }
