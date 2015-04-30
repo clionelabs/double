@@ -15,19 +15,27 @@ LoginLinks = new Meteor.Collection("login_links", {
 });
 
 /**
- * Create a login link for a given userId
+ * Create a login link for a given user
  * @param {String} userId
  */
-LoginLinks.create = function(userId) {
+LoginLinks.create = function(user) {
   let secret = Random.secret();
   let doc = {
-    userId: userId,
+    userId: user._id,
+    email: user.emails[0].address,
     secret: secret,
     accessedAt: null,
     createdAt: moment().valueOf()
   }
   var id = LoginLinks.insert(doc);
   return id;
+}
+
+LoginLinks.createAndSendAccess = function(user) {
+  var id = this.create(user);
+  var link = LoginLinks.findOne(id);
+  var url = Router.routes.secretLogin.url({secret: link.secret});
+  Email.LoginAccess.send(link.email, {url: url});
 }
 
 /**

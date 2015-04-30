@@ -28,3 +28,5 @@ numeral:numeral
 mrt:later
 aramk:rrule
 percolate:synced-cron
+underscorestring:underscore.string
+meteorhacks:ssr

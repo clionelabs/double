@@ -1,4 +1,4 @@
-Email.from = "pay@askdouble.com";
+Email.from = "david@askdouble.com";
 
 Email.shouldSendRealEmail = function() {
   let onProduction = (process.env.NODE_ENV === 'production');
@@ -23,7 +23,7 @@ Email.configureEmail = function() {
 
 Email.configureTemplates = function() {
 
-  let emailTemplates = [];
+  let emailTemplates = ['loginAccess'];
 
   _.each(emailTemplates, function(emailTemplate) {
     SSR.compileTemplate(emailTemplate, Assets.getText('email_templates/' + emailTemplate + '.html'));
