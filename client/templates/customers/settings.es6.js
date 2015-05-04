@@ -30,8 +30,7 @@ Template.customerSettings.events({
     Session.setAuth(SessionKeys.IS_SIDEBAR_VISIBLE, false);
   },
   "click .logout" : function() {
-    Meteor.logout(function() {
-      this.redirect('welcome');
-    });
+    let secret = Session.get(SessionKeys.SECRET);
+    Meteor.logout();//cannot redirect in callback because the template reload when logout
   }
 });
