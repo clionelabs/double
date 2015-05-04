@@ -28,5 +28,10 @@ Template.customerSettings.events({
   },
   "click .close" : function() {
     Session.setAuth(SessionKeys.IS_SIDEBAR_VISIBLE, false);
+  },
+  "click .logout" : function() {
+    Meteor.logout(function() {
+      this.redirect('welcome');
+    });
   }
 });
