@@ -1,10 +1,10 @@
 <template name="customerHeader">
   <section class="row customer-header">
     <div class="col-md-12 col-sm-12 text-center">
-      <div class="settings glyphicon glyphicon-cog pull-left"></div>
-      {{_ "task_header" count=numberOfTasks}}
-      <div class="add-todo action glyphicon glyphicon-comment pull-right"></div>
-      <div class="call-me action glyphicon glyphicon-earphone pull-right {{isCalling}}"></div>
+      <div class="settings pull-left"></div>
+      <span class="center">{{_ "task_header" count=numberOfTasks}}</span>
+      <div class="add-todo action pull-right"></div>
+      <div class="call-me action pull-right {{isCalling}}"></div>
     </div>
   </section>
   <section class="alert-container row {{isCallingShowInvisible}}">

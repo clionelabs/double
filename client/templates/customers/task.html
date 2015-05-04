@@ -1,14 +1,10 @@
 <template name="task">
   <section class="row task-list-item">
     <div class="row">
-      <label class="info-container col-md-12 col-xs-12">
-        <div class="col-md-1 col-sm-1 col-xs-2 checkbox-container">
-          <i class="pull-right checkbox glyphicon {{ checkedIfTaskCompleted }}"></i>
-        </div>
-        <div class="name col-md-11 col-sm-11 col-xs-10">
-          {{ title }}
-        </div>
-      </label>
+      <div class="name col-md-11 col-sm-11 col-xs-10 col-md-offset-1 col-sm-offset-1 col-xs-offset-2">
+        <i class="checkbox glyphicon {{ checkedIfTaskCompleted }}"></i>
+        {{ title }}
+      </div>
     </div>
     <div class="attr-container row">
       {{#if getLatestStatus}}
