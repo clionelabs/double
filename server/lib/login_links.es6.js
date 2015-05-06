@@ -27,14 +27,14 @@ LoginLinks.create = function(user) {
     accessedAt: null,
     createdAt: moment().valueOf()
   }
-  var id = LoginLinks.insert(doc);
+  let id = LoginLinks.insert(doc);
   return id;
 }
 
 LoginLinks.createAndSendAccess = function(user) {
-  var id = this.create(user);
-  var link = LoginLinks.findOne(id);
-  var url = Router.routes.secretLogin.url({secret: link.secret});
+  let id = this.create(user);
+  let link = LoginLinks.findOne(id);
+  let url = link.url();
   Email.LoginAccess.send(link.email, {url: url});
 }
 
@@ -74,5 +74,9 @@ LoginLinks._setAccessed = function(linkId) {
 LoginLink = {
   isValid: function() {
     return this.accessedAt === null;
+  },
+  url: function() {
+    let url = Router.routes.secretLogin.url({secret: this.secret});
+    return url;
   }
 }
