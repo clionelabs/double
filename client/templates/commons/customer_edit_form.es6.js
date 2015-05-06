@@ -2,6 +2,8 @@ Template.customerEditForm.events({
   "submit #customer-form": function (event) {
     event.preventDefault();
 
+    let isEdit = !!this._id;
+
     let form = event.target;
     let data = {
       firstname: form.firstname.value,
@@ -9,10 +11,14 @@ Template.customerEditForm.events({
       plan : { maxHour : form.maxhour.value }
     };
 
+    if (!isEdit) {
+      _.extend(data, {email: form.email.value});
+    }
+
     let cb = function(error, result) {
       Modal.hide();
     };
-    if (this._id) {
+    if (isEdit) {
       Meteor.call('editCustomer', this._id, data, cb);
     } else {
       Meteor.call('createCustomer', data, cb);
