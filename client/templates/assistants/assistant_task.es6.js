@@ -27,7 +27,7 @@ Template.assistantTask.events({
   "click button.pause": function() {
     Tasks.endWork(this._id);
   },
-  'click .checkbox.glyphicon-unchecked' : function(e) {
+  'click .glyphicon-unchecked' : function(e) {
     Tasks.endWork(this._id);
     Tasks.complete(this._id);
   }
