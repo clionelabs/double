@@ -35,7 +35,6 @@ Template.assistantTask.events({
 
 Template.assistantTaskSubItem.events({
   "click .link-delete" : function(e) {
-    console.log(this);
     let taskId = $(e.target).data("task-id");
     Tasks.References.delete(taskId, this._id);
   }
