@@ -37,6 +37,9 @@ Template.assistantTaskSubItem.events({
   "click .link-delete" : function(e) {
     let taskId = $(e.target).data("task-id");
     Tasks.References.delete(taskId, this._id);
+  },
+  'click .time-container' : function() {
+    Modal.show('timesheetEdit', Tasks.findOne({ _id : this.taskId }));
   }
 });
 

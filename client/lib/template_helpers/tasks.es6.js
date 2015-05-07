@@ -22,8 +22,9 @@ TemplateHelpers.Task.Message = {
     }
   },
   totalDurationToMessage     : function (duration) {
-    let obj = moment.duration(duration);
+    let obj = moment.duration(duration.duration);
     return {
+      taskId : duration.taskId,
       type   : "time",
       message: obj.humanize()
     };
