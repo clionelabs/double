@@ -43,8 +43,14 @@
 }
 
 .task-item {
+  margin-bottom: 60px;
   .main {
     font-size: 1.333em;
+    >* {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 
   input[type="checkbox"] {
