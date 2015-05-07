@@ -28,6 +28,20 @@
   }
 }
 
+.customer-preferences-container {
+  .preference-message {
+    border-bottom: 1px solid $pay-black;
+    border-top : none;
+    border-left: none;
+    border-right: none;
+  }
+  .submit  {
+    color: $pay-light-blue;
+    background: none;
+    border: none;
+  }
+}
+
 .task-item {
   .main {
     font-size: 1.333em;
