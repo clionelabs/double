@@ -5,13 +5,6 @@ Template.assistantTask.helpers(_.extend({
   disabledIfTaskCompleted : function() {
     return this.isCompleted() ? "disabled" : "";
   },
-  getReferencesWithTaskId : function() {
-    let task = this;
-    return _.map(this.references,
-        function(ref) {
-          return _.extend({ taskId : task._id}, ref);
-        });
-  }
 }, TemplateHelpers.Task.Message));
 
 Template.assistantTask.events({

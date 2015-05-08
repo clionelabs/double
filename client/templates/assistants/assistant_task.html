@@ -17,10 +17,10 @@
     {{#if getLatestStatus}}
       {{> assistantTaskSubItem statusToMessage getLatestStatus }}
     {{/if}}
-    {{#each getReferencesWithTaskId }}
-      {{> assistantTaskSubItem referenceToMessage this}}
+    {{#each referencesToMessage }}
+      {{> assistantTaskSubItem this}}
     {{/each}}
-    {{> assistantTaskSubItem totalDurationToMessage this.getTotalDuration }}
+    {{> assistantTaskSubItem totalDurationToMessage this.totalDuration }}
   </div>
 </template>
 

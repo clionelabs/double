@@ -112,27 +112,27 @@ if (!(typeof MochaWeb === 'undefined')){
         });
 
         it("valid start - first work", function() {
-          var expectedWork = {
+          var expectedWork = _.extend({
             startedAt: 0,
             endedAt: null
-          }
+          }, Tasks.Timesheet.Prototype);
           chai.assert.deepEqual(Tasks.findOne(taskId).timesheets, []);
           Tasks.startWork(taskId);
           chai.assert.deepEqual(Tasks.findOne(taskId).timesheets, [expectedWork]);
         });
 
         it("valid start - previous work completed", function() {
-          var previousWork = {
+          var previousWork = _.extend({
             startedAt: 0,
             endedAt: 10
-          }
+          }, Tasks.Timesheet.Prototype);
           Tasks.update(taskId, {$set: {timesheets: [previousWork]}});
 
           this.clock.tick(20);
-          var expectedWork = {
+          var expectedWork = _.extend({
             startedAt: 20,
             endedAt: null
-          }
+          }, Tasks.Timesheet.Prototype);
           Tasks.startWork(taskId);
 
           chai.assert.deepEqual(Tasks.findOne(taskId).timesheets, [previousWork, expectedWork]);
@@ -142,7 +142,7 @@ if (!(typeof MochaWeb === 'undefined')){
           var previousWork = {
             startedAt: 0,
             endedAt: null
-          }
+          };
           Tasks.update(taskId, {$set: {timesheets: [previousWork]}});
 
           chai.assert.throw(function() {
@@ -154,16 +154,16 @@ if (!(typeof MochaWeb === 'undefined')){
           var previousWork = {
             startedAt: 0,
             endedAt: null
-          }
+          };
           Tasks.update(taskId, {$set: {timesheets: [previousWork]}});
 
           this.clock.tick(10);
           Tasks.endWork(taskId);
 
-          var expectedWork = {
+          var expectedWork = _.extend({
             startedAt: 0,
             endedAt: 10
-          }
+          }, Tasks.Timesheet.Prototype);
           chai.assert.deepEqual(Tasks.findOne(taskId).timesheets, [expectedWork]);
         });
 
@@ -181,40 +181,40 @@ if (!(typeof MochaWeb === 'undefined')){
         });
 
         it("empty", function() {
-          chai.assert.equal(Tasks.findOne(taskId).getTotalDuration(), 0);
+          chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 0);
         });
 
         it("in progress work", function() {
           var works = [
             {startedAt: 0, endedAt: null}
-          ]
+          ];
           Tasks.update(taskId, {$set: {timesheets: works}});
 
           this.clock.tick(10);
-          chai.assert.equal(Tasks.findOne(taskId).getTotalDuration(), 10);
+          chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 10);
         });
 
         it("single completed work", function() {
           var works = [
             {startedAt: 0, endedAt: 5}
-          ]
+          ];
           Tasks.update(taskId, {$set: {timesheets: works}});
-          chai.assert.equal(Tasks.findOne(taskId).getTotalDuration(), 5);
+          chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 5);
 
           this.clock.tick(1000); // time pass should have no effect
-          chai.assert.equal(Tasks.findOne(taskId).getTotalDuration(), 5);
+          chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 5);
         });
 
         it("multiple completed work", function() {
           var works = [
             {startedAt: 0, endedAt: 5},
             {startedAt: 10, endedAt: 100},
-          ]
+          ];
           Tasks.update(taskId, {$set: {timesheets: works}});
-          chai.assert.equal(Tasks.findOne(taskId).getTotalDuration(), 95);
+          chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 95);
 
           this.clock.tick(1000); // time pass should have no effect
-          chai.assert.equal(Tasks.findOne(taskId).getTotalDuration(), 95);
+          chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 95);
         });
       });
     });
