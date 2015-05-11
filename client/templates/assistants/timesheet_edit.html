@@ -1,7 +1,5 @@
 <template name="timesheetEdit">
-  <div class="modal fade timesheet-edit"
-    tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="timesheetEdit"
-    data-keyboard="false"
+  <div class="modal fade timesheet-edit" role="dialog" aria-hidden="true" aria-labelledby="timesheetEdit"
     data-backdrop="static">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -14,6 +12,7 @@
             <table class="table table-condensed">
               <thead>
                 <tr>
+                  <th></th>
                   <th>Started At</th>
                   <th>Stopped At</th>
                   <th>Duration</th>
@@ -21,11 +20,7 @@
               </thead>
               <tbody>
                 {{#each timesheets }}
-                  <tr>
-                    <td>{{ startedAt }}</td>
-                    <td>{{ endedAt }}</td>
-                    <td>{{ duration }}</td>
-                  </tr>
+                  {{> timesheetItem }}
                 {{/each}}
               </tbody>
             </table>
@@ -34,4 +29,13 @@
       </div>
     </div>
   </div>
+</template>
+
+<template name="timesheetItem">
+  <tr class="timesheet-item">
+    <td><i data-id="{{ _id }}" class="edit glyphicon glyphicon-pencil"></i></td>
+    <td>{{formatDateTime startedAt }}</td>
+    <td>{{formatDateTime endedAt }}</td>
+    <td>{{formatDuration duration }}</td>
+  </tr>
 </template>
