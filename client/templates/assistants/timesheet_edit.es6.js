@@ -11,6 +11,7 @@ Template.timesheetItem.onRendered(function() {
   this.$('.edit').daterangepicker({
     startDate : moment(timesheet.startedAt),
     endDate : moment(timesheet.endedAt),
+    maxDate: moment(),
     timePickerIncrement: 1,
     timePicker : true,
     timePicker12Hour : false,

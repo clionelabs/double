@@ -115,27 +115,44 @@ if (!(typeof MochaWeb === 'undefined')){
           var expectedWork = _.extend({
             startedAt: 0,
             endedAt: null
-          }, Tasks.Timesheet.Prototype);
+          });
           chai.assert.deepEqual(Tasks.findOne(taskId).timesheets, []);
           Tasks.startWork(taskId);
-          chai.assert.deepEqual(Tasks.findOne(taskId).timesheets, [expectedWork]);
+          chai.assert.deepEqual(
+              _.map(Tasks.findOne(taskId).timesheets,
+                  function(timesheet) {
+                    return {
+                      startedAt : timesheet.startedAt,
+                      endedAt : timesheet.endedAt
+                    };
+                  })
+              , [expectedWork]
+          );
         });
 
         it("valid start - previous work completed", function() {
-          var previousWork = _.extend({
+          var previousWork = {
             startedAt: 0,
             endedAt: 10
-          }, Tasks.Timesheet.Prototype);
+          };
           Tasks.update(taskId, {$set: {timesheets: [previousWork]}});
 
           this.clock.tick(20);
-          var expectedWork = _.extend({
+          var expectedWork = {
             startedAt: 20,
             endedAt: null
-          }, Tasks.Timesheet.Prototype);
+          };
           Tasks.startWork(taskId);
 
-          chai.assert.deepEqual(Tasks.findOne(taskId).timesheets, [previousWork, expectedWork]);
+          chai.assert.deepEqual(
+              _.map(Tasks.findOne(taskId).timesheets,
+                  function(timesheet) {
+                    return {
+                      startedAt: timesheet.startedAt,
+                      endedAt: timesheet.endedAt
+                    };
+                  })
+              , [previousWork, expectedWork]);
         });
 
         it("invalid start - work already started", function() {
@@ -160,11 +177,17 @@ if (!(typeof MochaWeb === 'undefined')){
           this.clock.tick(10);
           Tasks.endWork(taskId);
 
-          var expectedWork = _.extend({
+          var expectedWork = {
             startedAt: 0,
             endedAt: 10
-          }, Tasks.Timesheet.Prototype);
-          chai.assert.deepEqual(Tasks.findOne(taskId).timesheets, [expectedWork]);
+          };
+          chai.assert.deepEqual(
+              _.map(Tasks.findOne(taskId).timesheets, function(timesheet) {
+                return {
+                  startedAt : timesheet.startedAt,
+                  endedAt: timesheet.endedAt
+                };
+              }), [expectedWork]);
         });
 
         it("invalid end", function() {
@@ -215,6 +238,143 @@ if (!(typeof MochaWeb === 'undefined')){
 
           this.clock.tick(1000); // time pass should have no effect
           chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 95);
+        });
+      });
+      describe("edit work", function() {
+        var taskId;
+        var requestorId = '1';
+        var responderId = '2';
+        beforeEach(function() {
+          taskId = Tasks.create({requestorId: requestorId, responderId: responderId, title: 'title'});
+        });
+
+        it('no existing timesheet', function() {
+
+          chai.assert.throw(function() {
+            Tasks.editWork(taskId,'2',0,10);
+          }, "timesheet is empty");
+        });
+        it('one timesheet edit', function() {
+          var originalWork = {
+            _id : Random.id(),
+            startedAt : 10,
+            endedAt: 20
+          };
+          Tasks.update({_id : taskId}, { $push : { timesheets : originalWork}});
+          var editWork = {
+            startedAt : 20,
+            endedAt : 30
+          };
+          Tasks.editWork(taskId, originalWork._id, editWork.startedAt, editWork.endedAt);
+          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets, function(timesheet){
+            return {
+              startedAt : timesheet.startedAt,
+              endedAt: timesheet.endedAt
+            };
+          }), [editWork]);
+        });
+        it('two timesheet edit move to after', function() {
+          var originalWorks = [{
+            _id : Random.id(),
+            startedAt : 10,
+            endedAt: 20
+          }, {
+            _id : Random.id(),
+            startedAt : 20,
+            endedAt: 30
+          }];
+          Tasks.update({_id : taskId}, { $pushAll : { timesheets : originalWorks}});
+          var editWork = {
+            _id : originalWorks[0]._id,
+            startedAt : 40,
+            endedAt : 50
+          };
+
+          var expectedWorks = [{
+            startedAt : 20,
+            endedAt: 30
+          }, {
+            startedAt : 40,
+            endedAt: 50
+          }];
+          Tasks.editWork(taskId, editWork._id, editWork.startedAt, editWork.endedAt);
+          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets, function(timesheet){
+            return {
+              startedAt : timesheet.startedAt,
+              endedAt: timesheet.endedAt
+            };
+          }), expectedWorks);
+        });
+        it('two timesheet edit move before', function() {
+          var originalWorks = [{
+            _id : Random.id(),
+            startedAt : 10,
+            endedAt: 20
+          }, {
+            _id : Random.id(),
+            startedAt : 20,
+            endedAt: 30
+          }];
+          Tasks.update({_id : taskId}, { $pushAll : { timesheets : originalWorks}});
+          var editWork = {
+            _id : originalWorks[1]._id,
+            startedAt : 0,
+            endedAt : 10
+          };
+
+          var expectedWorks = [{
+            startedAt : 0,
+            endedAt: 10
+          }, {
+            startedAt : 10,
+            endedAt: 20
+          }];
+          Tasks.editWork(taskId, editWork._id, editWork.startedAt, editWork.endedAt);
+          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets, function(timesheet){
+            return {
+              startedAt : timesheet.startedAt,
+              endedAt: timesheet.endedAt
+            };
+          }), expectedWorks);
+        });
+        it('three timesheet edit move between', function() {
+          var originalWorks = [{
+            _id : Random.id(),
+            startedAt : 10,
+            endedAt: 20
+          }, {
+            _id : Random.id(),
+            startedAt : 30,
+            endedAt: 40
+          },{
+            _id : Random.id(),
+            startedAt : 40,
+            endedAt: 50
+          }];
+          Tasks.update({_id : taskId}, { $pushAll : { timesheets : originalWorks}});
+          var editWork = {
+            _id : originalWorks[2]._id,
+            startedAt : 20,
+            endedAt : 30
+          };
+
+          var expectedWorks = [{
+            startedAt : 10,
+            endedAt: 20
+          }, {
+            startedAt : 20,
+            endedAt: 30
+          }, {
+            startedAt : 30,
+            endedAt: 40
+          }];
+          Tasks.editWork(taskId, editWork._id, editWork.startedAt, editWork.endedAt);
+          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets, function(timesheet){
+            return {
+              startedAt : timesheet.startedAt,
+              endedAt: timesheet.endedAt
+            };
+          }), expectedWorks);
         });
       });
     });
