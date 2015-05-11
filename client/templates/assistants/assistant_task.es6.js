@@ -32,7 +32,10 @@ Template.assistantTaskSubItem.events({
     Tasks.References.delete(taskId, this._id);
   },
   'click .time-container' : function() {
-    Modal.show('timesheetEdit', Tasks.findOne({ _id : this.taskId }));
+    let getTask = (taskId) => {
+      return Tasks.findOne({ _id : taskId });
+    };
+    Modal.show('timesheetEdit', _.partial(getTask, this.taskId));
   }
 });
 
