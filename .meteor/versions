@@ -24,6 +24,7 @@ fastclick@1.0.3
 fourseven:scss@2.1.1
 geojson-utils@1.0.3
 gfk:notifications@1.1.2
+gilbertwat:bootstrap3-daterangepicker@1.3.21
 gilbertwat:moment-recur@1.0.4
 grigio:babel@0.1.2
 html-tools@1.0.4

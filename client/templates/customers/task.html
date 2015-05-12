@@ -11,8 +11,8 @@
         {{> customerTaskSubItem statusToMessage getLatestStatus }}
       {{/if}}
 
-      {{#each references }}
-        {{> customerTaskSubItem referenceToMessage this }}
+      {{#each referencesToMessage }}
+        {{> customerTaskSubItem this }}
       {{/each}}
       {{> customerTaskSubItem totalDurationToMessage this.getTotalDuration }}
     </div>

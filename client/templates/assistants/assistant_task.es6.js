@@ -5,13 +5,6 @@ Template.assistantTask.helpers(_.extend({
   disabledIfTaskCompleted : function() {
     return this.isCompleted() ? "disabled" : "";
   },
-  getReferencesWithTaskId : function() {
-    let task = this;
-    return _.map(this.references,
-        function(ref) {
-          return _.extend({ taskId : task._id}, ref);
-        });
-  }
 }, TemplateHelpers.Task.Message));
 
 Template.assistantTask.events({
@@ -37,6 +30,12 @@ Template.assistantTaskSubItem.events({
   "click .link-delete" : function(e) {
     let taskId = $(e.target).data("task-id");
     Tasks.References.delete(taskId, this._id);
+  },
+  'click .time-container' : function() {
+    let getTask = (taskId) => {
+      return Tasks.findOne({ _id : taskId });
+    };
+    Modal.show('timesheetEdit', _.partial(getTask, this.taskId));
   }
 });
 
