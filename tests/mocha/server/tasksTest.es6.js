@@ -112,10 +112,10 @@ if (!(typeof MochaWeb === 'undefined')){
         });
 
         it("valid start - first work", function() {
-          var expectedWork = _.extend({
+          var expectedWork = {
             startedAt: 0,
             endedAt: null
-          });
+          };
           chai.assert.deepEqual(Tasks.findOne(taskId).timesheets, []);
           Tasks.startWork(taskId);
           chai.assert.deepEqual(

@@ -15,7 +15,7 @@ TemplateHelpers.Task.Message = {
   referencesToMessage() {
     let referenceToMessage = (ref) => {
       return {
-        _id: this._id,
+        _id: ref._id,
         taskId: this._id,
         type: "link",
         message: ref.title,

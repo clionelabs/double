@@ -7,7 +7,7 @@ Template.customerSettings.helpers({
   },
   getTotalHourUsed() {
     let tasks = Tasks.find().fetch();
-    let ts = _.reduce(tasks, (memo, task) => { return memo + task.totalDuration; }, 0);
+    let ts = _.reduce(tasks, (memo, task) => { return memo + task.totalDuration(); }, 0);
     let m = moment.duration(ts);
     return numeral(m.asHours() + (+m.asMinutes() / 60)).format('0,0.00');
   },
