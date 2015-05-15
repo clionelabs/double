@@ -134,6 +134,11 @@
       height : 10em;
       width : 70%;
     }
+    .submit {
+      border: none;
+      background-color: transparent;
+      color: $pay-light-blue;
+    }
   }
 }
 

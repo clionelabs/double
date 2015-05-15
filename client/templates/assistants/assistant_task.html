@@ -55,7 +55,7 @@
 <template name="assistantTaskDescriptionForm">
   <form class="task-description-edit" id="{{ genFormKey _id isCurrent}}">
     <div class="form-container sub col-xs-12 col-sm-12 col-md-12 {{isDescriptionFormShown}}">
-      <textarea placeholder="You can use markdown!" class="description" name="description">{{ description }}</textarea>
+      <textarea placeholder="You can use markdown! Shift-enter to submit." class="description" name="description">{{ description }}</textarea>
       <button class="submit" action="submit">Edit</button>
     </div>
   </form>
