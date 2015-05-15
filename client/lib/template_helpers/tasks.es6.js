@@ -29,7 +29,7 @@ TemplateHelpers.Task.Message = {
     return {
       taskId : this._id,
       type   : "time",
-      message: obj.humanize()
+      message: obj.format('HH [hr] mm [min] ss [sec]')
     };
   },
   taskSchedulerToMessage(taskScheduler) {
