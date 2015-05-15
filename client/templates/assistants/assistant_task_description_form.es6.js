@@ -24,18 +24,11 @@ Template.assistantTaskDescriptionForm.events({
     return Template.assistantTaskDescriptionForm._submitFn(e, this._id, this.isCurrent);
   },
   "keypress .task-description-edit textarea" : function(e) {
-    if (e.shiftKey && e.keyCode === 13) {
-      e.preventDefault();
-    }
-  },
-  "keyup .task-description-edit textarea" : function(e) {
     if (e.keyCode === 27) {//esc
       Session.setAuth(SessionKeys.genDescriptionFormKey(this._id, this.isCurrent), false);
-    } else if (e.shiftKey) {
-      if (e.keyCode === 13) {
-        e.preventDefault();
-        $('.task-description-edit').submit();
-      }
+    } else if (e.shiftKey && e.keyCode === 13) {
+      e.preventDefault();
+      $('.task-description-edit').submit();
     }
   }
 });
