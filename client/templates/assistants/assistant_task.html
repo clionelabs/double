@@ -14,6 +14,7 @@
     </div>
     {{> assistantTaskStatusForm }}
     {{> assistantTaskLinkForm }}
+    {{> assistantTaskDescriptionForm }}
     {{#if getLatestStatus}}
       {{> assistantTaskSubItem statusToMessage getLatestStatus }}
     {{/if}}
@@ -48,5 +49,17 @@
     <i class="glyphicon glyphicon-{{ type }} type"></i>
     {{> Template.dynamic template=taskSubItemMessage }}
     <i class="glyphicon glyphicon-minus-sign {{ type }}-delete {{ allowDelete type }}" data-task-id="{{ taskId }}"></i>
+  </div>
+</template>
+
+<template name="assistantTaskDescriptionForm">
+  <form class="task-description-edit" id="{{ genFormKey _id isCurrent}}">
+    <div class="form-container sub col-xs-12 col-sm-12 col-md-12 {{isDescriptionFormShown}}">
+      <textarea placeholder="You can use markdown! Shift-enter to submit." class="description" name="description">{{ description }}</textarea>
+      <button class="submit" action="submit">Edit</button>
+    </div>
+  </form>
+  <div class="task-show-description sub col-xs-12 col-sm-12 col-md-12 {{isDescriptionShown}}">
+    {{#markdown}}{{ description }}{{/markdown}}
   </div>
 </template>
