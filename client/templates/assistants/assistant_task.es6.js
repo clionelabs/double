@@ -8,7 +8,7 @@ Template.assistantTask.helpers(_.extend({
 }, TemplateHelpers.Task.Message));
 
 Template.assistantTask.events({
-  "click .edit" : function() {
+  "click .edit" : function(e, tmpl) {
     Session.setAuth(SessionKeys.genDescriptionFormKey(this._id, this.isCurrent), true);
   },
   "click .comment" : function() {
