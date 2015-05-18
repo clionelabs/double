@@ -1,13 +1,13 @@
 Email.from = "david@askdouble.com";
 
-Email.shouldSendRealEmail = function() {
+Email.shouldSendRealEmail = () => {
   let onProduction = (process.env.NODE_ENV === 'production');
   let enableInNonProduction = Meteor.settings.email.enableInNonProduction;
   return (onProduction || enableInNonProduction);
 };
 
-Email.configureEmail = function() {
-  if (this.shouldSendRealEmail()) {
+Email.configureEmail = () => {
+  if (Email.shouldSendRealEmail()) {
     var smtpSettings = Meteor.settings.email.smtp;
     var username = encodeURIComponent(smtpSettings.username);
     var password = smtpSettings.password;
@@ -21,14 +21,14 @@ Email.configureEmail = function() {
   }
 };
 
-Email.configureTemplates = function() {
+Email.configureTemplates = () => {
 
   let emailTemplates = ['loginAccess'];
 
-  _.each(emailTemplates, function(emailTemplate) {
+  _.each(emailTemplates, (emailTemplate) => {
     SSR.compileTemplate(emailTemplate, Assets.getText('email_templates/' + emailTemplate + '.html'));
     Email[s.capitalize(emailTemplate)] = {
-      send : function(to, dataContext) {
+      send : (to, dataContext) => {
         Email._sendTemplate(emailTemplate, to, dataContext);
       }
     };
@@ -36,14 +36,14 @@ Email.configureTemplates = function() {
 
 };
 
-Email.validateMailgun = function(api_key, token, timestamp, signature) {
+Email.validateMailgun = (api_key, token, timestamp, signature) => {
   let crypto = Meteor.npmRequire('crypto');
   let hmac = crypto.createHmac('SHA256', api_key);
 
   return signature === hmac.update(timestamp + token).digest('hex');
 };
 
-Email._sendTemplate = function(templateName, to, dataContext) {
+Email._sendTemplate = (templateName, to, dataContext) => {
   let content = SSR.render(templateName, dataContext);
 
   Email.send({

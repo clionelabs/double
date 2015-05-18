@@ -9,7 +9,7 @@
  * @property {Timestamp} createdAt
  */
 LoginLinks = new Meteor.Collection("login_links", {
-  transform: function(doc) {
+  transform(doc) {
     return _.extend(doc, LoginLink);
   }
 });
@@ -18,7 +18,7 @@ LoginLinks = new Meteor.Collection("login_links", {
  * Create a login link for a given user
  * @param {String} userId
  */
-LoginLinks.create = function(user) {
+LoginLinks.create = (user) => {
   let secret = Random.secret();
   let doc = {
     userId: user._id,
@@ -31,18 +31,18 @@ LoginLinks.create = function(user) {
   return id;
 }
 
-LoginLinks.createAndSendAccess = function(user) {
-  let id = this.create(user);
+LoginLinks.createAndSendAccess = (user) => {
+  let id = LoginLinks.create(user);
   let link = LoginLinks.findOne(id);
   let url = link.url();
   Email.LoginAccess.send(link.email, {url: url});
-}
+};
 
 /**
  * Implement Meteor Account LoginHandler
  * Ref: https://github.com/meteor/meteor/blob/devel/packages/accounts-base/accounts_server.js
  */
-LoginLinks.loginHandler = function(loginRequest) {
+LoginLinks.loginHandler = (loginRequest) => {
   if (!loginRequest.secret) { // don't handle
     return undefined;  // return undefined means we will not handle the login request
   }
@@ -62,21 +62,21 @@ LoginLinks.loginHandler = function(loginRequest) {
   return {
     userId: link.userId
   }
-}
+};
 
-LoginLinks._setAccessed = function(linkId) {
+LoginLinks._setAccessed = (linkId) => {
   LoginLinks.update(linkId, {$set: {accessedAt: moment().valueOf()}});
-}
+};
 
 /**
  * Prototype to provide extra behaviours for LoginLinks documents
  */
 LoginLink = {
-  isValid: function() {
+  isValid() {
     return this.accessedAt === null;
   },
-  url: function() {
+  url() {
     let url = Router.routes.secretLogin.url({secret: this.secret});
     return url;
   }
-}
+};

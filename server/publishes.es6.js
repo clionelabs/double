@@ -6,7 +6,7 @@ Meteor.reactivePublish('assistants', function() {
     let assistantIds = _.pluck(placements, 'assistantId');
     return Users.findAssistants({ _id : { $in : assistantIds }});
   } else {
-    return []
+    return [];
   }
 });
 

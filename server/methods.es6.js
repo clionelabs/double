@@ -1,5 +1,5 @@
 Meteor.methods({
-  createAssistant: function(data) {
+  createAssistant(data) {
     let email = data.email;
     let firstname = data.firstname;
     let lastname = data.lastname;
@@ -20,7 +20,7 @@ Meteor.methods({
     }
   },
 
-  createCustomer: function(data) {
+  createCustomer(data) {
     let email = data.email;
     let firstname = data.firstname;
     let lastname = data.lastname;
@@ -40,7 +40,7 @@ Meteor.methods({
       Accounts.setPassword(userId, Meteor.settings.defaultAccountPassword);
     }
   },
-  editCustomer: function(userId, data) {
+  editCustomer(userId, data) {
     let email = data.email;
     let firstname = data.firstname;
     let lastname = data.lastname;
@@ -56,7 +56,7 @@ Meteor.methods({
     });
   },
 
-  requestLoginAccess: function(email) {
+  requestLoginAccess(email) {
     let user = Meteor.users.findOne({emails: {$elemMatch: {address: email}}});
     if (!user) {
       throw Meteor.Error("user not found", "");
@@ -64,7 +64,7 @@ Meteor.methods({
     LoginLinks.createAndSendAccess(user);
   },
 
-  requestLoginAccessWithOldSecret: function(secret) {
+  requestLoginAccessWithOldSecret(secret) {
     let oldLink = LoginLinks.findOne({secret: secret});
     if (!oldLink) {
       throw Meteor.Error("secret not found", "");
