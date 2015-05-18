@@ -23,7 +23,6 @@ gilbertwat:moment-recur
 mike:mocha
 practicalmeteor:sinon
 u2622:persistent-session
-oaf:moment-duration-format
 numeral:numeral
 mrt:later
 aramk:rrule
@@ -32,4 +31,4 @@ underscorestring:underscore.string
 meteorhacks:ssr
 gilbertwat:bootstrap3-daterangepicker
 perak:markdown
-wizonesolutions:moment-duration-format
+oaf:moment-duration-format
