@@ -1,4 +1,4 @@
-Meteor.startup(function() {
+Meteor.startup(() => {
   if (Meteor.settings.adminAccount) {
     let email = Meteor.settings.adminAccount.email;
     let password = Meteor.settings.adminAccount.password;
@@ -11,7 +11,7 @@ Meteor.startup(function() {
     }
   }
 
-  Accounts.validateNewUser(function (user) {
+  Accounts.validateNewUser((user) => {
     if (Users.isAdmin(Meteor.userId())) {
       return true;
     }
