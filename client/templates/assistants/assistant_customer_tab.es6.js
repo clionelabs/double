@@ -29,6 +29,14 @@ Template.assistantDashboardCustomerTab.helpers({
   animateIfIsCalling() {
     let thisCustomer = _.extend(this, Customer);
     return (thisCustomer.isCalling()) ? "animated infinite wobble" : "";
+  },
+  isSelected() {
+    let currentCustomer = Session.get(SessionKeys.CURRENT_CUSTOMER);
+    if (currentCustomer) {
+      return _.isEqual(this._id, currentCustomer._id) ? "selected rubberband animated" : "";
+    } else {
+      return "";
+    }
   }
 });
 
@@ -45,8 +53,11 @@ Template.assistantDashboardCustomerTab.events({
   "click .new-task-scheduler-button": function() {
     let data = {
       customerId: this._id
-    }
+    };
     Modal.show('assistantCreateTaskSchedule', data);
+  },
+  "click .selector" : function(e, tmpl) {
+    Session.set(SessionKeys.CURRENT_CUSTOMER, tmpl.data);
   }
 });
 
@@ -59,32 +70,3 @@ Template.assistantDashboardCustomerTab._submitPreferenceFn = (form, taskId, isCu
       });
 };
 
-Template.assistantTaskStatusForm.onRendered(function() {
-  let selfTemplate = this;
-  selfTemplate.$('.form-container').on('transitionend onanimationend', function(e) {
-    if ($(e.target).height() > 1) {
-      selfTemplate.$('.status-message').focus();
-    }
-  });
-});
-
-Template.assistantTaskStatusForm.helpers({
-  isStatusFormShown : function() {
-    return Session.get(SessionKeys.genStatusFormKey(this._id, this.isCurrent)) ? "" : "not-shown";
-  },
-  genFormKey : function(taskId, isCurrent) {
-    return SessionKeys.genStatusFormKey(taskId, isCurrent);
-  }
-});
-
-Template.assistantTaskStatusForm.events({
-  "submit .task-status-change" : function(e) {
-    e.preventDefault();
-    return Template.assistantTaskStatusForm._submitFn(e, this._id, this.isCurrent);
-  },
-  "keyup .task-status-change input" : function(e) {
-    if (e.keyCode === 27) {//esc
-      Session.setAuth(SessionKeys.genStatusFormKey(this._id, this.isCurrent), false);
-    }
-  }
-});

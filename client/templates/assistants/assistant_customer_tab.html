@@ -2,18 +2,19 @@
   <div class="row customer-container">
 
     <div class="col-xs-12 col-sm-12 col-md-12 customer-item-header">
-      <div class="name {{animateIfIsCalling}}">{{displayName}}</div>
-      <a class="new-task-button"><i class="glyphicon glyphicon-plus-sign"></i>Add Task</a>
+
+      <div class="name {{animateIfIsCalling}}">
+        <i class="glyphicon glyphicon-triangle-right selector {{isSelected}}"></i>
+        {{displayName}}
+      </div>
       <div class="pull-right profile glyphicon glyphicon-cog"></div>
-      <a class="new-task-scheduler-button"><i class="glyphicon glyphicon-plus-sign"></i>Add Recurring Task</a>
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 customer-preferences-container">
+    <div class="col-xs-12 col-sm-12 col-md-12 customer-preferences-container">
       {{> customerPreferencePane }}
     </div>
-    <div class="col-xs-8 col-sm-8 col-md-8 customer-task-container">
-    {{#each tasks}}
-      {{> assistantTask }}
-    {{/each}}
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <a class="new-task-button"><i class="glyphicon glyphicon-plus-sign"></i>Add Task</a>
+      <a class="new-task-scheduler-button pull-right"><i class="glyphicon glyphicon-plus-sign"></i>Add Recurring Task</a>
     </div>
   </div>
 </Template>
