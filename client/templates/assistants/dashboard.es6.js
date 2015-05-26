@@ -1,6 +1,3 @@
-Template.assistantDashboard.onCreated(function() {
-
-});
 Template.assistantDashboard.helpers({
   myCustomers() {
     let users = this.placements.map(function(placement) {
@@ -9,9 +6,6 @@ Template.assistantDashboard.helpers({
     return users;
   },
   myCurrentCustomer() {
-    if (!Session.get(SessionKeys.CURRENT_CUSTOMER)) {
-      Session.setAuth(SessionKeys.CURRENT_CUSTOMER, Users.findCustomers().fetch()[0]);
-    }
     return _.extend(Session.get(SessionKeys.CURRENT_CUSTOMER), User);
   },
   getTasksOfSelectedCustomer() {
