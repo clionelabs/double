@@ -1,5 +1,5 @@
 Template.assistantTask.helpers(_.extend({
-  isStartOrPause : function() {
+  isStartOrPause() {
     return this.isWorking() ? 'Pause' : 'Start';
   },
   disabledIfTaskCompleted : function() {
@@ -8,7 +8,7 @@ Template.assistantTask.helpers(_.extend({
 }, TemplateHelpers.Task.Message));
 
 Template.assistantTask.events({
-  "click .edit" : function(e, tmpl) {
+  'click .edit': function(e) {
     Session.setAuth(SessionKeys.genDescriptionFormKey(this._id, this.isCurrent), true);
   },
   "click .comment" : function() {

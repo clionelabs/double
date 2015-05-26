@@ -25,6 +25,16 @@
         }
       }
     }
+    .selector {
+      color : $pay-grey;
+      &.selected {
+        color : $pay-light-blue;
+      }
+    }
+  }
+
+  .customer-task-container {
+    margin-top : 40px;
   }
 }
 

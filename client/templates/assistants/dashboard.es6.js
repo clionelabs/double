@@ -1,16 +1,15 @@
-var myCurrentCustomer = function() {
-  if (!Session.get("currentCustomer")) {
-    Session.setAuth("currentCustomer", Users.findCustomers().fetch()[0]);
-  }
-  return _.extend(Session.get("currentCustomer"), User);
-};
-
 Template.assistantDashboard.helpers({
-  myCustomers: function() {
+  myCustomers() {
     let users = this.placements.map(function(placement) {
       return Users.findOne(placement.customerId);
     });
     return users;
   },
-  myCurrentCustomer : myCurrentCustomer
+  myCurrentCustomer() {
+    return _.extend(Session.get(SessionKeys.CURRENT_CUSTOMER), User);
+  },
+  getTasksOfSelectedCustomer() {
+    return Tasks.findRequestedBy(Template.assistantDashboard.__helpers.get("myCurrentCustomer")()._id);
+  }
+
 });
