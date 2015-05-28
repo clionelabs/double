@@ -100,9 +100,6 @@ Template.assistantDashboardCustomerTab.events({
   },
   "click .selector" : function(e, tmpl) {
     Session.set(SessionKeys.CURRENT_CUSTOMER, tmpl.data);
-  },
-  "click .export" : function(e, tmpl) {
-
   }
 });
 
