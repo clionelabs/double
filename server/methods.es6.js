@@ -77,24 +77,16 @@ Meteor.methods({
     let customer = Users.findOne({ _id : customerId});
     let tasks = customerId ? Tasks.findRequestedBy(customerId).fetch() : Tasks.find().fetch();
     let data = _.reduce(tasks, (memo, task) => {
-      let base = {
+      memo.push( {
         customerId : customer._id,
         customerName : customer.displayName(),
         taskId: task._id,
-        taskTitle: task.title
-      };
-      return memo.concat(_.reduce(task.timesheets, (memo2, timesheet) => {
-        if (timesheet.isWithin(from, to)) {
-          let timeSheetToBeExport = {
-            from: moment(timesheet.startedAt).format("YYYY-MM-DD HH:mm:ss"),
-            to: moment(timesheet.endedAt).format("YYYY-MM-DD HH:mm:ss"),
-            duration: moment.duration(timesheet.duration()).format('HH [hr] mm [min] ss [sec]')
-          };
-          return memo2.concat([_.extend(base, timeSheetToBeExport)]);
-        } else {
-          return memo2;
-        }
-      }, []));
+        taskTitle: task.title,
+        taskStartAt: moment(task.createdAt).format(),
+        taskCompletedAt: task.completedAt ? moment(task.completedAt).format() : null,
+        taskDuration: task.totalDuration()
+      });
+      return memo;
     }, []);
 
     return CSV.export(data);
