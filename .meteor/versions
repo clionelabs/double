@@ -15,9 +15,9 @@ callback-hook@1.0.3
 cfs:http-methods@0.0.29
 check@1.0.5
 coffeescript@1.0.6
-core@0.0.1
 ddp@1.1.0
 deps@1.0.7
+double-core@0.0.1
 edgee:meteor-server-deps@0.1.2
 ejson@1.0.6
 email@1.0.6
