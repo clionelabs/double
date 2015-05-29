@@ -3,8 +3,8 @@ Meteor.startup(() => {
     let email = Meteor.settings.adminAccount.email;
     let password = Meteor.settings.adminAccount.password;
 
-    if (!Meteor.users.findOne({emails: {$elemMatch: {address: email}}})) {
-      let userId = Users.createAdmin({
+    if (!Meteor.users.findOne({ emails: { $elemMatch: { address: email }}})) {
+      Users.createAdmin({
         email: email,
         password: password
       });

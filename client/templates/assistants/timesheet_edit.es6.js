@@ -1,7 +1,7 @@
 Template.timesheetEdit.helpers({
   getTimesheetsWithTaskId() {
     let task = this;
-    return _.map(task.timesheets, (timesheet) => { return _.extend({ taskId : task._id }, timesheet);});
+    return _.map(task.timesheets, (timesheet) => { return _.extend({ taskId : task._id }, timesheet); });
   }
 });
 

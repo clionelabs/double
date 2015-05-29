@@ -26,10 +26,9 @@ LoginLinks.create = (user) => {
     secret: secret,
     accessedAt: null,
     createdAt: moment().valueOf()
-  }
-  let id = LoginLinks.insert(doc);
-  return id;
-}
+  };
+  return LoginLinks.insert(doc);
+};
 
 LoginLinks.createAndSendAccess = (user) => {
   let id = LoginLinks.create(user);
@@ -65,7 +64,7 @@ LoginLinks.loginHandler = (loginRequest) => {
 };
 
 LoginLinks._setAccessed = (linkId) => {
-  LoginLinks.update(linkId, {$set: {accessedAt: moment().valueOf()}});
+  LoginLinks.update(linkId, { $set: { accessedAt: moment().valueOf() }});
 };
 
 /**
@@ -76,7 +75,6 @@ LoginLink = {
     return this.accessedAt === null;
   },
   url() {
-    let url = Router.routes.secretLogin.url({secret: this.secret});
-    return url;
+    return Router.routes.secretLogin.url( { secret: this.secret });
   }
 };

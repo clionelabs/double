@@ -10,7 +10,7 @@ Template.assistantCreateTask.events({
       requestorId: customerId,
       responderId: Meteor.userId(),
       title: title
-    }
+    };
     Tasks.create(doc, function() {
       Modal.hide();
     });

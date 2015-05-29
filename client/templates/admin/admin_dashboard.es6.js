@@ -29,7 +29,7 @@ var _customerRowUpdateCallback = function(error) {
   } else {
     Notifications.success("updated successful", "");
   }
-}
+};
 
 Template.adminDashboardCustomerRow.events({
   "click .unassign-assistant": function() {
