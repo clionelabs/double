@@ -3,12 +3,12 @@ Template.adminDashboard.helpers({
 
 Template.adminDashboardCustomerRow.helpers({
   hasAssignedAssistant: function() {
-    let placement = Placements.findOne({customerId: this._id});
+    let placement = Placements.findOne({ customerId: this._id });
     return !!placement;
   },
   assignedAssistantName: function() {
     // The default transform is not applied. Why?
-    let placement = Placements.findOne({customerId: this._id}, {transform: function(doc) {
+    let placement = Placements.findOne({ customerId: this._id }, { transform: function(doc) {
       return _.extend(doc, Placement);
     }}) || EmptyPlacement;
     return placement.assistantDisplayName();
@@ -18,7 +18,7 @@ Template.adminDashboardCustomerRow.helpers({
     let customerId = this._id;
     let data = Router.current().data();
     return data.assistants.map(function(assistant) {
-      return _.extend(assistant, {customerId: customerId}, User);
+      return _.extend(assistant, { customerId: customerId }, User);
     });
   }
 });

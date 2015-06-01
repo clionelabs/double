@@ -65,7 +65,7 @@ Template.assistantDashboardCustomerTab.onRendered(function() {
 
 Template.assistantDashboardCustomerTab.helpers({
   tasks() {
-    return Tasks.find({requestorId: this._id}, {sort: {title: 1}});
+    return Tasks.find({ requestorId: this._id }, { sort: { title: 1 }});
   },
   getCurrentTask : Template.assistantDashboardCustomerTab.getCurrentTask,
   animateIfIsCalling() {
