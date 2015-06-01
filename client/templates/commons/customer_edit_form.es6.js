@@ -12,7 +12,7 @@ Template.customerEditForm.events({
     };
 
     if (!isEdit) {
-      _.extend(data, {email: form.email.value});
+      _.extend(data, { email: form.email.value });
     }
 
     let cb = function(error, result) {

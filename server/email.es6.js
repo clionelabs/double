@@ -36,9 +36,9 @@ Email.configureTemplates = () => {
 
 };
 
-Email.validateMailgun = (api_key, token, timestamp, signature) => {
+Email.validateMailgun = (apiKey, token, timestamp, signature) => {
   let crypto = Meteor.npmRequire('crypto');
-  let hmac = crypto.createHmac('SHA256', api_key);
+  let hmac = crypto.createHmac('SHA256', apiKey);
 
   return signature === hmac.update(timestamp + token).digest('hex');
 };

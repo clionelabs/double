@@ -57,7 +57,7 @@ Meteor.methods({
   },
 
   requestLoginAccess(email) {
-    let user = Meteor.users.findOne({emails: {$elemMatch: {address: email}}});
+    let user = Meteor.users.findOne({ emails: { $elemMatch: { address: email }}});
     if (!user) {
       throw Meteor.Error("user not found", "");
     }
@@ -65,7 +65,7 @@ Meteor.methods({
   },
 
   requestLoginAccessWithOldSecret(secret) {
-    let oldLink = LoginLinks.findOne({secret: secret});
+    let oldLink = LoginLinks.findOne({ secret: secret });
     if (!oldLink) {
       throw Meteor.Error("secret not found", "");
     }
@@ -74,7 +74,7 @@ Meteor.methods({
   },
 
   exportTimesheet(from, to, customerId) {
-    let customer = Users.findOne({ _id : customerId});
+    let customer = Users.findOne({ _id : customerId });
     let tasks = customerId ? Tasks.findRequestedBy(customerId).fetch() : Tasks.find().fetch();
     let data = _.reduce(tasks, (memo, task) => {
       memo.push( {

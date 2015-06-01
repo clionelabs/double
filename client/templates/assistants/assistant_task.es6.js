@@ -2,9 +2,9 @@ Template.assistantTask.helpers(_.extend({
   isStartOrPause() {
     return this.isWorking() ? 'Pause' : 'Start';
   },
-  disabledIfTaskCompleted : function() {
+  disabledIfTaskCompleted() {
     return this.isCompleted() ? "disabled" : "";
-  },
+  }
 }, TemplateHelpers.Task.Message));
 
 Template.assistantTask.events({

@@ -231,7 +231,7 @@ if (!(typeof MochaWeb === 'undefined')){
         it("multiple completed work", function() {
           var works = [
             {startedAt: 0, endedAt: 5},
-            {startedAt: 10, endedAt: 100},
+            {startedAt: 10, endedAt: 100}
           ];
           Tasks.update(taskId, {$set: {timesheets: works}});
           chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 95);
@@ -251,7 +251,7 @@ if (!(typeof MochaWeb === 'undefined')){
         it('no existing timesheet', function() {
 
           chai.assert.throw(function() {
-            Tasks.editWork(taskId,'2',0,10);
+            Tasks.editWork(taskId, '2', 0, 10);
           }, "timesheet is empty");
         });
         it('one timesheet edit', function() {
@@ -260,7 +260,7 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt : 10,
             endedAt: 20
           };
-          Tasks.update({_id : taskId}, { $push : { timesheets : originalWork}});
+          Tasks.update( { _id : taskId }, { $push : { timesheets : originalWork}});
           var editWork = {
             startedAt : 20,
             endedAt : 30

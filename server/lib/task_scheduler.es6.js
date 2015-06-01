@@ -18,7 +18,7 @@ TaskSchedulers.generateNextIfNotExisted = (taskSchedulerId) => {
       schedulerId: scheduler._id
     };
     let taskId = Tasks.create(doc);
-    TaskSchedulers.update(scheduler._id, {$push: {instances: {at: scheduler.nextAt(), taskId: taskId}}});
+    TaskSchedulers.update(scheduler._id, { $push: { instances: { at: scheduler.nextAt(), taskId: taskId }}});
   }
 };
 
@@ -28,7 +28,7 @@ TaskSchedulers.handleAdded = (doc) => {
 
 TaskSchedulers.startup = () => {
   TaskSchedulers.generateAllNextsIfNotExisted();
-  TaskSchedulers.find({}, {sort: {createdAt: -1}, limit: 1}).observe({
+  TaskSchedulers.find({}, { sort: { createdAt: -1 }, limit: 1 }).observe({
     added(doc) {
       TaskSchedulers.handleAdded(doc);
     }

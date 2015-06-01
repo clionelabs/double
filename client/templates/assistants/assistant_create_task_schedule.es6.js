@@ -13,7 +13,7 @@ Template.assistantCreateTaskSchedule.events({
       ruleString: ruleString,
       requestorId: customerId,
       responderId: Meteor.userId()
-    }
+    };
     TaskSchedulers.create(doc, function() {
       Modal.hide();
     });

@@ -13,6 +13,6 @@ CSV.export = (data) => {
   return Baby.unparse(sanitized, CSV.exportConfig);
 };
 
-CSV.sanitizeJSON = (unsanitizedJSON)=> {
+CSV.sanitizeJSON = (unsanitizedJSON) => {
   return JSON.parse(JSON.stringify(unsanitizedJSON));
 };

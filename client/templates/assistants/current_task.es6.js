@@ -3,7 +3,7 @@ Template.currentTask._timeoutFn = null;
 Template.currentTask._updateTimer = function() {
   let currentTask = Template.assistantDashboardCustomerTab.getCurrentTask();
   Session.setAuth(SessionKeys.CURRENT_TIME_USED, currentTask.totalDuration());
-}
+};
 
 Template.currentTask.onCreated(function() {
   this.data = _.extend(

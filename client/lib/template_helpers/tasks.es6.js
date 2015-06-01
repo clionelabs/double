@@ -20,7 +20,7 @@ TemplateHelpers.Task.Message = {
         type: "link",
         message: ref.title,
         url: ref.url
-      }
+      };
     };
     return _.map(this.references, referenceToMessage);
   },
@@ -33,11 +33,10 @@ TemplateHelpers.Task.Message = {
     };
   },
   taskSchedulerToMessage(taskScheduler) {
-    let obj = taskScheduler;
     return {
       type   : "refresh",
-      message: obj.toString()
-    }
+      message: taskScheduler.toString()
+    };
   }
 };
 
