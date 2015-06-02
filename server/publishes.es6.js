@@ -46,3 +46,15 @@ Meteor.publish('placements', function() {
     return [];
   }
 });
+
+Meteor.reactivePublish('unroutedChannels', function() {
+  if (!Users.isAssistant(this.userId)) {
+    return [];
+  }
+  let channels = D.Channels.find({customerId: {$exists: false}}).fetch();
+  let channelIds = _.pluck(channels, '_id');
+  return [
+    D.Channels.find({_id: {$in: channelIds}}),
+    D.Messages.find({channelId: {$in: channelIds}})
+  ];
+});
