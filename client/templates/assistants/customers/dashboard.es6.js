@@ -1,6 +1,10 @@
 Template.assistantCustomersDashboard.helpers({
   getCurrentCustomer() {
     return _.extend(Session.get(SessionKeys.CURRENT_CUSTOMER), Customer, User);
+  },
+  getTasksOfSelectedCustomer() {
+    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get("getCurrentCustomer")();
+    return Tasks.findRequestedBy(currentCustomer._id);
   }
 });
 
