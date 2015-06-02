@@ -47,8 +47,7 @@ Template.customerListItem.events({
     Modal.show('customerEditForm', this);
   },
   "click .selector" : function(e, tmpl) {
-    Session.set(SessionKeys.CURRENT_CUSTOMER, tmpl.data);
-    window.history.pushState({}, tmpl.data._id, `/assistant/customers/${tmpl.data._id}`);
+    Router.go('assistant.customers', { id : tmpl.data._id });
   }
 });
 
