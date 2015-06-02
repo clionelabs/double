@@ -1,0 +1,41 @@
+<Template name="channel">
+  {{> channelSlack}}
+</Template>
+
+<Template name="channelSlack">
+  <div class="panel panel-default channel-container">
+    <div class="panel-heading">
+      [Slack] {{extra.team.name}} - {{extra.channel.name}}
+      <div class="pull-right">
+        <div class="btn-group">
+          <button type="button" class="btn btn-danger">Assign to...</button>
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            {{#each availableCustomers}}
+              <li role="presentation"><a role="menuitem" href="#" class="assign-customer">{{displayName}}</a></li>
+            {{/each}}
+            <li class="divider"></li>
+            <li><a href="#">Spam</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      {{#each messages}}
+        <div class="message">
+          <div class="header">
+            <strong class="primary-font">{{extra.userName}}</strong>
+            <small class="pull-right text-muted">{{formatTS extra.ts}}</small>
+          </div>
+          <div class="content">
+            {{content}}
+            or are they targeting the “cream of the crop” that go to these events
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</Template>

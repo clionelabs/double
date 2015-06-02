@@ -1,0 +1,17 @@
+.channel-container {
+  .panel-heading {
+    .pull-right {
+      margin-top: -7px;
+    }
+  }
+  .message {
+    margin-bottom: 30px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+
+    .content {
+      margin: 0px;
+      color: #777777;
+    }
+  }
+}

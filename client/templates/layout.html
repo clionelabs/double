@@ -7,7 +7,7 @@
       <ul class="nav navbar-nav {{ isShownWhenLogin }}">
         <li><a href="{{ urlFor route='assistant.customers' }}">Customers</a></li>
         <li><a href="{{ urlFor route='assistant.tasks' }}">Tasks</a></li>
-        <li><a href="">Unrouted</a></li>
+        <li><a href="{{ urlFor route='assistant.unrouted' }}">Unrouted</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
           {{> loginButtons }} <!-- here -->
