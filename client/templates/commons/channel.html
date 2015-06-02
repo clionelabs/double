@@ -25,17 +25,21 @@
     </div>
     <div class="panel-body">
       {{#each messages}}
-        <div class="message">
-          <div class="header">
-            <strong class="primary-font">{{extra.userName}}</strong>
-            <small class="pull-right text-muted">{{formatTS extra.ts}}</small>
-          </div>
-          <div class="content">
-            {{content}}
-            or are they targeting the “cream of the crop” that go to these events
-          </div>
-        </div>
+        {{> channelSlackMessage}}
       {{/each}}
+    </div>
+  </div>
+</Template>
+
+<Template name="channelSlackMessage">
+  <div class="message">
+    <div class="header">
+      <strong class="primary-font">{{extra.userName}}</strong>
+      <small class="pull-right text-muted">{{formatTS extra.ts}}</small>
+    </div>
+    <div class="content">
+      {{content}}
+      or are they targeting the “cream of the crop” that go to these events
     </div>
   </div>
 </Template>
