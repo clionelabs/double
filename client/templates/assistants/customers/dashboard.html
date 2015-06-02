@@ -1,14 +1,16 @@
 <template name="assistantCustomersDashboard">
-  <div class="container-fluid customers-container">
-    <div class="col-md-2">
+  <div class="container-fluid assistant-dashboard-customer">
+    <div class="col-md-2 customers">
       {{#each customers}}
-        {{displayName}}
+        {{> customerListItem }}
       {{/each }}
     </div>
-    <div class="col-md-5 conversation-container">
-
+    <div class="col-md-5 conversation">
+      <div class="under-construction">
+        Under Construction
+      </div>
     </div>
-    <div class="col-md-5 helpers-container">
+    <div class="col-md-5 helpers">
 
     </div>
   </div>

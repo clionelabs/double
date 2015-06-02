@@ -178,3 +178,42 @@
     }
   }
 }
+
+.under-construction {
+  font-size: 10vh;
+  width: 150%;
+}
+
+.assistant-dashboard-customer {
+
+  display: flex;
+  >* {
+    border-right: 1px solid $pay-grey;
+    height: 100vh;
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .customers {
+    .customer {
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      .selector {
+        cursor: pointer;
+      }
+      &.selected {
+        background-color: lighten($pay-light-blue, 30%);
+        border-radius: 5px;
+      }
+    }
+  }
+
+  .conversation {
+    .under-construction {
+      transform: translate(-10%, 250%) rotate(45deg);
+    }
+  }
+}
