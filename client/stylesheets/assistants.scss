@@ -184,11 +184,11 @@
 }
 
 .assistant-dashboard-customer {
-
+  height: calc(100vh - 70px);
   display: flex;
   >* {
     border-right: 1px solid $pay-grey;
-    height: 100vh;
+    height: 100%;
     &:last-child {
       border-right: none;
     }
@@ -227,11 +227,32 @@
     display : flex;
     flex-direction: column;
     .customer-detail {
+      min-height: 50%;
       flex: 1;
       border-bottom: 1px solid $pay-grey;
     }
-    .tasks {
+    .task-related {
+      min-height: 50%;
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      .tasks {
+        width: 100%;
+        overflow-y: scroll;
+        flex : 1;
+        .task {
+          padding: 20px 10px;
+        }
+      }
+      .new-task-button {
+        width: 100%;
+        cursor:pointer;
+        font-size: 1.998em;
+        align-self: center;
+        text-align: center;
+
+      }
     }
   }
 }
