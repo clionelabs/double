@@ -14,11 +14,15 @@
       <div class="customer-detail">
         {{> customerPreferencePane getCurrentCustomer }}
       </div>
-      <div class="tasks">
-        {{#each tasks}}
-          {{> taskListItem }}
-        {{/each}}
-
+      <div class="task-related">
+        <div class="tasks">
+          {{#each tasks}}
+            {{> taskListItem }}
+          {{/each}}
+        </div>
+        <div class="new-task-button">
+          <i class="glyphicon glyphicon-plus-sign"></i>
+        </div>
       </div>
     </div>
   </div>
