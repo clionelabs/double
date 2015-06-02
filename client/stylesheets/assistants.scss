@@ -180,8 +180,7 @@
 }
 
 .under-construction {
-  font-size: 10vh;
-  width: 150%;
+  font-size: 10vmin;
 }
 
 .assistant-dashboard-customer {
@@ -196,6 +195,7 @@
   }
 
   .customers {
+    flex : 2;
     .customer {
       display:flex;
       justify-content: space-between;
@@ -212,8 +212,26 @@
   }
 
   .conversation {
+    flex : 6;
+    display: flex;
+    align-items: center;
     .under-construction {
-      transform: translate(-10%, 250%) rotate(45deg);
+      text-align: center;
+      flex: 1;
+      transform: rotate(45deg)
+    }
+  }
+
+  .helpers {
+    flex : 3;
+    display : flex;
+    flex-direction: column;
+    .customer-detail {
+      flex: 1;
+      border-bottom: 1px solid $pay-grey;
+    }
+    .tasks {
+      flex: 1;
     }
   }
 }

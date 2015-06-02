@@ -48,6 +48,7 @@ Template.customerListItem.events({
   },
   "click .selector" : function(e, tmpl) {
     Session.set(SessionKeys.CURRENT_CUSTOMER, tmpl.data);
+    window.history.pushState({}, tmpl.data._id, `/assistant/customers/${tmpl.data._id}`);
   }
 });
 
