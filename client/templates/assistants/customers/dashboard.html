@@ -1,17 +1,25 @@
 <template name="assistantCustomersDashboard">
   <div class="container-fluid assistant-dashboard-customer">
-    <div class="col-md-2 customers">
+    <div class="customers">
       {{#each customers}}
         {{> customerListItem }}
       {{/each }}
     </div>
-    <div class="col-md-5 conversation">
+    <div class="conversation">
       <div class="under-construction">
         Under Construction
       </div>
     </div>
-    <div class="col-md-5 helpers">
+    <div class="helpers">
+      <div class="customer-detail">
+        {{> customerPreferencePane getCurrentCustomer }}
+      </div>
+      <div class="tasks">
+        {{#each tasks}}
+          {{> taskListItem }}
+        {{/each}}
 
+      </div>
     </div>
   </div>
 </template>
