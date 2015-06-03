@@ -1,0 +1,29 @@
+<template name="assistantCustomersDashboard">
+  <div class="container-fluid assistant-dashboard-customer">
+    <div class="customers">
+      {{#each customers}}
+        {{> assistantCustomersListItem }}
+      {{/each }}
+    </div>
+    <div class="conversation">
+      <div class="under-construction">
+        Under Construction
+      </div>
+    </div>
+    <div class="helpers">
+      <div class="customer-detail">
+        {{> assistantCustomerPreferencePane getCurrentCustomer }}
+      </div>
+      <div class="task-related">
+        <div class="tasks">
+          {{#each getTasksOfSelectedCustomer}}
+            {{> assistantCustomerTaskListItem }}
+          {{/each}}
+        </div>
+        <div class="new-task-button">
+          <i class="glyphicon glyphicon-plus-sign"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

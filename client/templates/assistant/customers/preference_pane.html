@@ -1,0 +1,16 @@
+<template name="assistantCustomerPreferencePane">
+  <div class="col-xs-12 col-sm-12 col-md-12 input-container">
+    <form id="add-preference" class="add-preference">
+      <label for="message"><i class="glyphicon glyphicon-heart"></i></label>
+      <input name="message" class="preference-message" type="text" required/>
+      <button class="submit" action="submit">Add</button>
+    </form>
+  </div>
+  {{#each getPreferences this }}
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <i class="glyphicon glyphicon-heart"></i>
+      {{message}}
+      <i class="remove glyphicon glyphicon-minus-sign pull-right" data-id="{{_id}}"></i>
+    </div>
+  {{/each}}
+</template>
