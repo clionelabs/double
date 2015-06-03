@@ -14,6 +14,6 @@ Template.assistantCustomersDashboard.events({
     let data = {
       customerId: currentCustomer._id
     };
-    Modal.show('assistantCreateTask', data);
+    Modal.show('assistantTaskCreate', data);
   }
 });

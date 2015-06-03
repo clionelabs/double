@@ -1,0 +1,26 @@
+@import "../variables";
+
+.assistant-dashboard-task {
+  height: calc(100vh - 70px);
+  display: flex;
+
+  >* {
+    border-right: 1px solid $pay-grey;
+    height: 100%;
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .tasks {
+    flex : 2;
+  }
+
+  .details {
+    flex : 6;
+  }
+
+  .conversation {
+    flex: 4;
+  }
+}

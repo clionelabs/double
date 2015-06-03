@@ -1,4 +1,4 @@
-Template.customerListItem.onRendered(() => {
+Template.assistantCustomersListItem.onRendered(function() {
   let onDateRangePickerApply = function (customer, start, end, label) {
     Meteor.call('exportTimesheet', start.valueOf(), end.valueOf(), customer._id,
         function (error, result) {
@@ -42,20 +42,19 @@ Template.customerListItem.onRendered(() => {
   );
 });
 
-Template.customerListItem.events({
+Template.assistantCustomersListItem.events({
   "click .profile" : function() {
     Modal.show('customerEditForm', this);
   },
-  "click .selector" : function(e, tmpl) {
+  "click .selector, click .name" : function(e, tmpl) {
     Router.go('assistant.customers', { id : tmpl.data._id });
   }
 });
 
-Template.customerListItem.helpers({
+Template.assistantCustomersListItem.helpers({
   tasks() {
     return Tasks.find({ requestorId: this._id }, { sort: { title: 1 }});
   },
-  getCurrentTask : Template.assistantDashboardCustomerTab.getCurrentTask,
   animateIfIsCalling() {
     let thisCustomer = _.extend(this, Customer);
     return (thisCustomer.isCalling()) ? "animated infinite wobble" : "";

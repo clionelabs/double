@@ -1,0 +1,9 @@
+<template name="assistantTasksDetailLinkForm">
+  <form class="task-link-add" id="{{ genFormKey _id isCurrent }}">
+    <div class="form-container sub col-xs-12 col-sm-12 col-md-12 {{isLinkFormShown}}">
+      <label for="title">Title: </label><input name="title" class="link-title" type="text" required/>
+      <label for="url">URL: </label><input name="url" class="link-url" type="url" required/>
+      <button class="submit" action="submit">Post</button>
+    </div>
+  </form>
+</template>

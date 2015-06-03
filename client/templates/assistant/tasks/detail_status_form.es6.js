@@ -1,4 +1,4 @@
-Template.assistantTaskStatusForm._submitFn = (form, taskId, isCurrent) => {
+Template.assistantTasksDetailStatusForm._submitFn = (form, taskId, isCurrent) => {
   let message = form.target.message.value;
   Tasks.Status.change(message, taskId,
       () => {
@@ -7,7 +7,7 @@ Template.assistantTaskStatusForm._submitFn = (form, taskId, isCurrent) => {
       });
 };
 
-Template.assistantTaskStatusForm.onRendered(function() {
+Template.assistantTasksDetailStatusForm.onRendered(function() {
   let selfTemplate = this;
   selfTemplate.$('.form-container').on('transitionend onanimationend', function(e) {
     if ($(e.target).height() > 1) {
@@ -16,7 +16,7 @@ Template.assistantTaskStatusForm.onRendered(function() {
   });
 });
 
-Template.assistantTaskStatusForm.helpers({
+Template.assistantTasksDetailStatusForm.helpers({
   isStatusFormShown : function() {
     return Session.get(SessionKeys.genStatusFormKey(this._id, this.isCurrent)) ? "" : "not-shown";
   },
@@ -25,10 +25,10 @@ Template.assistantTaskStatusForm.helpers({
   }
 });
 
-Template.assistantTaskStatusForm.events({
+Template.assistantTasksDetailStatusForm.events({
   "submit .task-status-change" : function(e) {
     e.preventDefault();
-    return Template.assistantTaskStatusForm._submitFn(e, this._id, this.isCurrent);
+    return Template.assistantTasksDetailStatusForm._submitFn(e, this._id, this.isCurrent);
   },
   "keyup .task-status-change input" : function(e) {
     if (e.keyCode === 27) {//esc

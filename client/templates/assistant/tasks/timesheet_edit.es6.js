@@ -1,4 +1,4 @@
-Template.timesheetEdit.helpers({
+Template.assistantTasksTimeSheetEdit.helpers({
   getTimesheetsWithTaskId() {
     let task = this;
     return _.map(task.timesheets, (timesheet) => { return _.extend({ taskId : task._id }, timesheet); });
@@ -6,7 +6,7 @@ Template.timesheetEdit.helpers({
 });
 
 
-Template.timesheetItem.onRendered(function() {
+Template.assistantTasksTimeSheetEdit.onRendered(function() {
   let timesheet = this.data;
   this.$('.edit').daterangepicker({
     startDate : moment(timesheet.startedAt),

@@ -1,4 +1,4 @@
-Template.assistantCreateTask.events({
+Template.assistantTaskCreate.events({
   "submit #new-task-form": function (event) {
     event.preventDefault();
 

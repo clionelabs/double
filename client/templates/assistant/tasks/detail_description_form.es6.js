@@ -1,4 +1,4 @@
-Template.assistantTaskDescriptionForm._submitFn = (form, taskId, isCurrent) => {
+Template.assistantTasksDetailDescriptionForm._submitFn = (form, taskId, isCurrent) => {
   let description = form.target.description.value;
   Tasks.Description.edit(description, taskId,
       () => {
@@ -6,7 +6,7 @@ Template.assistantTaskDescriptionForm._submitFn = (form, taskId, isCurrent) => {
       });
 };
 
-Template.assistantTaskDescriptionForm.helpers({
+Template.assistantTasksDetailDescriptionForm.helpers({
   isDescriptionFormShown : function() {
     return Session.get(SessionKeys.genDescriptionFormKey(this._id, this.isCurrent)) ? "" : "hide";
   },
@@ -18,10 +18,10 @@ Template.assistantTaskDescriptionForm.helpers({
   }
 });
 
-Template.assistantTaskDescriptionForm.events({
+Template.assistantTasksDetailDescriptionForm.events({
   "submit .task-description-edit" : function(e) {
     e.preventDefault();
-    return Template.assistantTaskDescriptionForm._submitFn(e, this._id, this.isCurrent);
+    return Template.assistantTasksDetailDescriptionForm._submitFn(e, this._id, this.isCurrent);
   },
   "keypress .task-description-edit textarea" : function(e) {
     if (e.keyCode === 27) {//esc

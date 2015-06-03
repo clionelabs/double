@@ -2,7 +2,7 @@
   <div class="container-fluid assistant-dashboard-customer">
     <div class="customers">
       {{#each customers}}
-        {{> customerListItem }}
+        {{> assistantCustomersListItem }}
       {{/each }}
     </div>
     <div class="conversation">
@@ -12,12 +12,12 @@
     </div>
     <div class="helpers">
       <div class="customer-detail">
-        {{> customerPreferencePane getCurrentCustomer }}
+        {{> assistantCustomerPreferencePane getCurrentCustomer }}
       </div>
       <div class="task-related">
         <div class="tasks">
           {{#each getTasksOfSelectedCustomer}}
-            {{> taskListItem }}
+            {{> assistantCustomerTaskListItem }}
           {{/each}}
         </div>
         <div class="new-task-button">

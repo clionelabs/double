@@ -1,0 +1,34 @@
+<template name="assistantTasksDetail">
+  <div class="task-item col-xs-12 col-sm-12 col-md-12 ">
+    <div class="main col-xs-12 col-sm-12 col-md-12">
+      <i class="pull-left glyphicon {{ checkedIfTaskCompleted }}"></i>
+      <span class="pull-left title">{{ title }}</span>
+      <i class="pull-left glyphicon glyphicon-pencil edit"></i>
+
+        <button class="pull-right btn btn-primary {{ isStartOrPause.toLowerCase }}" {{disabledIfTaskCompleted}}>
+          <i class="glyphicon glyphicon-time"></i> {{ isStartOrPause }}
+        </button>
+
+      <i class="pull-right glyphicon glyphicon-comment comment"></i>
+      <i class="pull-right glyphicon glyphicon-link link"></i>
+    </div>
+    {{> assistantTasksDetailStatusForm }}
+    {{> assistantTasksDetailLinkForm }}
+    {{> assistantTasksDetailDescriptionForm }}
+    {{#if getLatestStatus}}
+      {{> assistantTasksDetailSubItem statusToMessage getLatestStatus }}
+    {{/if}}
+    {{#each referencesToMessage }}
+      {{> assistantTasksDetailSubItem this}}
+    {{/each}}
+    {{> assistantTasksDetailSubItem totalDurationToMessage this.totalDuration }}
+  </div>
+</template>
+
+<template name="assistantTasksDetailSubItem">
+  <div class="sub {{ type }}-container col-xs-12 col-sm-12 col-md-12">
+    <i class="glyphicon glyphicon-{{ type }} type"></i>
+    {{> Template.dynamic template=taskSubItemMessage }}
+    <i class="glyphicon glyphicon-minus-sign {{ type }}-delete {{ allowDelete type }}" data-task-id="{{ taskId }}"></i>
+  </div>
+</template>

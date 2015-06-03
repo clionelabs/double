@@ -1,4 +1,4 @@
-Template.assistantTask.helpers(_.extend({
+Template.assistantTasksDetail.helpers(_.extend({
   isStartOrPause() {
     return this.isWorking() ? 'Pause' : 'Start';
   },
@@ -7,7 +7,7 @@ Template.assistantTask.helpers(_.extend({
   }
 }, TemplateHelpers.Task.Message));
 
-Template.assistantTask.events({
+Template.assistantTasksDetail.events({
   'click .edit': function(e) {
     Session.setAuth(SessionKeys.genDescriptionFormKey(this._id, this.isCurrent), true);
   },
@@ -29,7 +29,7 @@ Template.assistantTask.events({
   }
 });
 
-Template.assistantTaskSubItem.events({
+Template.assistantTasksDetailSubItem.events({
   "click .link-delete" : function(e) {
     let taskId = $(e.target).data("task-id");
     Tasks.References.delete(taskId, this._id);
@@ -38,11 +38,11 @@ Template.assistantTaskSubItem.events({
     let getTask = (taskId) => {
       return Tasks.findOne({ _id : taskId });
     };
-    Modal.show('timesheetEdit', _.partial(getTask, this.taskId));
+    Modal.show('assistantTaskTimeSheetEdit', _.partial(getTask, this.taskId));
   }
 });
 
-Template.assistantTaskSubItem.helpers(_.extend({
+Template.assistantTasksDetailSubItem.helpers(_.extend({
   allowDelete : function(type) {
     return _.contains(["link"], type) ? "" : "hidden";
   }

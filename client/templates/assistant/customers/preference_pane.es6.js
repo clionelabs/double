@@ -1,4 +1,4 @@
-Template.customerPreferencePane._submitFn = (form, userId) => {
+Template.assistantCustomerPreferencePane._submitFn = (form, userId) => {
   let message = form.target.message.value;
   Customers.Preference.add(userId, message,
     () => {
@@ -6,16 +6,16 @@ Template.customerPreferencePane._submitFn = (form, userId) => {
     });
 };
 
-Template.customerPreferencePane.helpers({
+Template.assistantCustomerPreferencePane.helpers({
   getPreferences : (user)=> {
     return _.map(user.getPreferences(), (preference) => { return _.extend(preference, { userId : user._id }); });
   }
 });
 
-Template.customerPreferencePane.events({
+Template.assistantCustomerPreferencePane.events({
   "submit .add-preference" : function(e) {
     e.preventDefault();
-    return Template.customerPreferencePane._submitFn(e, this._id, this.isCurrent);
+    return Template.assistantCustomerPreferencePane._submitFn(e, this._id, this.isCurrent);
   },
   "click .remove" : function(e) {
     let pref = this;

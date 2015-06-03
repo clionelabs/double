@@ -1,4 +1,4 @@
-Template.assistantCreateTaskSchedule.events({
+Template.assistantTaskCreateSchedule.events({
   // TODO: user friendly inputs for recurrence rule
   "submit #new-task-schedule-form": function (event) {
     event.preventDefault();

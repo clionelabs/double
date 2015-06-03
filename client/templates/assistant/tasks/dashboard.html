@@ -1,0 +1,17 @@
+<Template name="assistantTasksDashboard">
+  <div class="container-fluid assistant-dashboard-task">
+    <div class="tasks">
+      {{#each tasks}}
+        {{> assistantTasksListItem}}
+      {{/each}}
+    </div>
+    <div class="task-detail">
+      {{> assistantTasksDetail getCurrentTask}}
+    </div>
+    <div class="conversation">
+      <div class="under-construction">
+        Under Construction
+      </div>
+    </div>
+  </div>
+</Template>
