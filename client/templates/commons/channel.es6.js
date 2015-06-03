@@ -1,3 +1,10 @@
+Template.channelTitle.helpers({
+  templateName() {
+    let suffix = s(this.category.toLowerCase()).capitalize().value();
+    return `channelTitle${suffix}`;
+  }
+});
+
 Template.channel.events({
   "click .assign-customer": function(event) {
     let customerId = this._id;

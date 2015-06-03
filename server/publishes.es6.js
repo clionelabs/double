@@ -58,3 +58,15 @@ Meteor.reactivePublish('unroutedChannels', function() {
     D.Messages.find({channelId: {$in: channelIds}})
   ];
 });
+
+Meteor.reactivePublish('routedChannels', function() {
+  if (!Users.isAssistant(this.userId)) {
+    return [];
+  }
+  let channels = D.Channels.find({customerId: {$exists: true}}).fetch();
+  let channelIds = _.pluck(channels, '_id');
+  return [
+    D.Channels.find({_id: {$in: channelIds}}),
+    D.Messages.find({channelId: {$in: channelIds}})
+  ];
+});

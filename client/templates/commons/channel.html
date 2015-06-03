@@ -1,3 +1,11 @@
+<Template name="channelTitle">
+  {{> Template.dynamic template=templateName}}
+</Template>
+
+<Template name="channelTitleSlack">
+  <i class="fa fa-slack"></i> {{extra.team.name}} - {{extra.channel.name}}
+</Template>
+
 <Template name="channel">
   {{> channelSlack}}
 </Template>
@@ -5,7 +13,6 @@
 <Template name="channelSlack">
   <div class="panel panel-default channel-container">
     <div class="panel-heading">
-      [Slack] {{extra.team.name}} - {{extra.channel.name}}
       <div class="pull-right">
         <div class="btn-group">
           <button type="button" class="btn btn-danger">Assign to...</button>
@@ -28,6 +35,14 @@
         {{> channelSlackMessage}}
       {{/each}}
     </div>
+  </div>
+</Template>
+
+<Template name="channelMessages">
+  <div class="container-fluid channel-messages-container">
+    {{#each messages}}
+      {{> channelSlackMessage}}
+    {{/each}}
   </div>
 </Template>
 
