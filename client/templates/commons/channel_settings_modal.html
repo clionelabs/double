@@ -1,0 +1,31 @@
+<Template name="channelSettingsModal">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{> channelTitle}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="btn-group">
+            <button type="button" class="btn btn-default">Assign to...</button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              {{#each availableCustomers}}
+                <li role="presentation"><a role="menuitem" href="#" class="assign-customer">{{displayName}}</a></li>
+              {{/each}}
+              <li class="divider"></li>
+              <li><a href="#" class="assign-none">Unassign</a></li>
+              <li><a href="#" class="assign-spam">Spam</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</Template>

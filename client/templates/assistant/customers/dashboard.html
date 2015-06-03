@@ -6,20 +6,7 @@
       {{/each }}
     </div>
     <div class="conversation">
-      <div class="container-fluid channel-tabs">
-        <ul class="nav nav-pills" role="tablist">
-          {{#each getCurrentCustomerChannels}}
-            <li role="presentation" class="select-channel {{isSelectedClass}}"><a href="#">{{> channelTitle}}</a>
-            <i class="fa fa-close remove-channel"></i>
-            </li>
-          {{/each}}
-        </ul>
-      </div>
-      <div class="container-fluid">
-        {{#if getCurrentCustomerSelectedChannel}}
-          {{> channelMessages getCurrentCustomerSelectedChannel}}
-        {{/if}}
-      </div>
+      {{> assistantCustomerConversation getCurrentCustomer}}
     </div>
     <div class="helpers">
       <div class="customer-detail">

@@ -1,14 +1,21 @@
 <template name="assistantUnroutedDashboard">
   <div class="container-fluid unrouted-channels-container">
-        <ul class="nav nav-pills" role="tablist">
-          {{#each channels}}
-            <li role="presentation" class="select-channel {{isSelectedClass}}"><a href="#">{{> channelTitle}}</a>
-            <i class="fa fa-close remove-channel"></i>
-            </li>
-          {{/each}}
-        </ul>
-    {{#each channels}}
-      {{> channel}}
-    {{/each}}
+    <div>
+      <input type="checkbox" id="show-spam-checkbox" name="show-spam">
+      <label for="show-spam-checkbox">Show Spam</label>
+    </div>
+
+    <div class="channel-tabs">
+      <ul class="nav nav-pills" role="tablist">
+        {{#each channels}}
+          <li role="presentation" class="select-channel {{isSelectedClass}}"><a href="#">{{> channelTitle}}</a>
+          <i class="fa fa-cog set-channel"></i>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+    {{#if getCurrentSelectedChannel}}
+      {{> channelMessages getCurrentSelectedChannel}}
+    {{/if}}
   </div>
 </template>
