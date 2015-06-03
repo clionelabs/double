@@ -18,9 +18,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 15px;
-      .selector {
-        cursor: pointer;
-      }
+
+      cursor: pointer;
       &.selected {
         background-color: lighten($pay-light-blue, 30%);
         border-radius: 5px;

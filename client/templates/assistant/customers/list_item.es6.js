@@ -47,7 +47,7 @@ Template.assistantCustomersListItem.events({
     Modal.show('customerEditForm', this);
   },
   "click .selector, click .name" : function(e, tmpl) {
-    Router.go('assistant.customers', { id : tmpl.data._id });
+    Router.go('assistant.customers', { _id : tmpl.data._id });
   }
 });
 
