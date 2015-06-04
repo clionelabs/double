@@ -14,7 +14,7 @@
             </button>
             <ul class="dropdown-menu" role="menu">
               {{#each availableCustomers}}
-                <li role="presentation"><a role="menuitem" href="#" class="assign-customer">{{displayName}}</a></li>
+                {{> channelSettingsModalAssignCustomer}}
               {{/each}}
               <li class="divider"></li>
               <li><a href="#" class="assign-none">Unassign</a></li>
@@ -28,4 +28,8 @@
       </div>
     </div>
   </div>
+</Template>
+
+<Template name="channelSettingsModalAssignCustomer">
+  <li role="presentation"><a role="menuitem" href="#" class="assign-customer">{{displayName}}</a></li>
 </Template>
