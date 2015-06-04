@@ -7,10 +7,17 @@
 </Template>
 
 <Template name="channelMessages">
-  <div class="container-fluid channel-messages-container">
-    {{#each messages}}
-      {{> channelSlackMessage}}
-    {{/each}}
+  {{#each messages}}
+    {{> channelSlackMessage}}
+  {{/each}}
+</Template>
+
+<Template name="channelReply">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="message..."/>
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button">Send</button>
+    </span>
   </div>
 </Template>
 
