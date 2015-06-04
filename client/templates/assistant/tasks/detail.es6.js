@@ -38,7 +38,7 @@ Template.assistantTasksDetailSubItem.events({
     let getTask = (taskId) => {
       return Tasks.findOne({ _id : taskId });
     };
-    Modal.show('assistantTaskTimeSheetEdit', _.partial(getTask, this.taskId));
+    Modal.show('assistantTasksTimeSheetEdit', _.partial(getTask, this.taskId));
   }
 });
 
