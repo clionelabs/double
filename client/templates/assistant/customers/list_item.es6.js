@@ -62,7 +62,7 @@ Template.assistantCustomersListItem.helpers({
   isSelected() {
     let currentCustomer = Session.get(SessionKeys.CURRENT_CUSTOMER);
     if (currentCustomer) {
-      return _.isEqual(this._id, currentCustomer._id) ? "selected flash animated" : "";
+      return _.isEqual(this._id, currentCustomer._id) ? "selected" : "";
     } else {
       return "";
     }
