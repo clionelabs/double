@@ -1,8 +1,7 @@
 Template.channelSettingsModal.helpers({
   availableCustomers() {
     let channelId = this._id;
-    let data = Router.current().data();
-    return data.customers.map((customer) => {
+    return Users.findCustomers().map((customer) => {
       return _.extend(customer, { channelId: channelId }, User);
     });
   }
