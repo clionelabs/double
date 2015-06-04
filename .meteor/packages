@@ -34,3 +34,5 @@ perak:markdown
 oaf:moment-duration-format
 harrison:babyparse
 double-core
+fortawesome:fontawesome
+mizzao:bootboxjs

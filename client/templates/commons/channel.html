@@ -1,33 +1,16 @@
-<Template name="channel">
-  {{> channelSlack}}
+<Template name="channelTitle">
+  {{> Template.dynamic template=templateName}}
 </Template>
 
-<Template name="channelSlack">
-  <div class="panel panel-default channel-container">
-    <div class="panel-heading">
-      [Slack] {{extra.team.name}} - {{extra.channel.name}}
-      <div class="pull-right">
-        <div class="btn-group">
-          <button type="button" class="btn btn-danger">Assign to...</button>
-          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            {{#each availableCustomers}}
-              <li role="presentation"><a role="menuitem" href="#" class="assign-customer">{{displayName}}</a></li>
-            {{/each}}
-            <li class="divider"></li>
-            <li><a href="#">Spam</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="panel-body">
-      {{#each messages}}
-        {{> channelSlackMessage}}
-      {{/each}}
-    </div>
+<Template name="channelTitleSlack">
+  <i class="fa fa-slack"></i> {{extra.team.name}} - {{extra.channel.name}}
+</Template>
+
+<Template name="channelMessages">
+  <div class="container-fluid channel-messages-container">
+    {{#each messages}}
+      {{> channelSlackMessage}}
+    {{/each}}
   </div>
 </Template>
 

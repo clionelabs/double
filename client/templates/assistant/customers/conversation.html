@@ -1,0 +1,20 @@
+<Template name="assistantCustomerConversation">
+  <div class="container-fluid channel-tabs">
+    <ul class="nav nav-pills" role="tablist">
+      {{#each channels}}
+        {{> assistantCustomerConversationChannel}}
+      {{/each}}
+    </ul>
+  </div>
+  <div class="container-fluid">
+    {{#if selectedChannel}}
+      {{> channelMessages selectedChannel}}
+    {{/if}}
+  </div>
+</Template>
+
+<Template name="assistantCustomerConversationChannel">
+  <li role="presentation" class="select-channel {{isSelectedClass}}"><a href="#">{{> channelTitle channel}}</a>
+  <i class="fa fa-cog set-channel"></i>
+  </li>
+</Template>
