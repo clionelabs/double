@@ -1,7 +1,7 @@
 let _getCurrentTaskSelector = {
   $where: function () {
     _.extend(this, Task.Prototype);
-    return this.isWorking();
+    return this.isWorking(Meteor.userId());
   }
 };
 

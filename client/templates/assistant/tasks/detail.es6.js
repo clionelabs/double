@@ -1,6 +1,6 @@
 Template.assistantTasksDetail.helpers(_.extend({
   isStartOrPause() {
-    return this.isWorking() ? 'Pause' : 'Start';
+    return this.isWorking(Meteor.userId()) ? 'Pause' : 'Start';
   },
   disabledIfTaskCompleted() {
     return this.isCompleted() ? "disabled" : "";
@@ -18,13 +18,13 @@ Template.assistantTasksDetail.events({
     Session.setAuth(SessionKeys.genLinkFormKey(this._id, this.isCurrent), true);
   },
   "click button.start": function() {
-    Tasks.startWork(this._id);
+    Tasks.startWork(this._id, Meteor.userId());
   },
   "click button.pause": function() {
-    Tasks.endWork(this._id);
+    Tasks.endWork(this._id, Meteor.userId());
   },
   'click .glyphicon-unchecked' : function(e) {
-    Tasks.endWork(this._id);
+    Tasks.endWork(this._id, Meteor.userId());
     Tasks.complete(this._id);
   }
 });
