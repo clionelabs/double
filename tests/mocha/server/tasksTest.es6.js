@@ -57,17 +57,17 @@ if (!(typeof MochaWeb === 'undefined')){
             title: 'title',
             statuses: [],
             references: [],
-            timesheets: [],
+            timesheets: {},
             deadline: null,
             createdAt: moment().valueOf(),
             completedAt: null
           };
-          chai.assert.deepEqual(Tasks.findOne(taskId, {transform: null}), expectedDoc);
+          chai.assert.deepEqual(Tasks.findOne(taskId, { transform: null }), expectedDoc);
         });
 
         it("valid - with schedulerId", function() {
           chai.assert.equal(Tasks.find().count(), 0);
-          var taskId = Tasks.create({requestorId: '1', responderId: '2', schedulerId: '3', title: 'title'});
+          var taskId = Tasks.create({ requestorId: '1', responderId: '2', schedulerId: '3', title: 'title' });
           var expectedDoc = {
             _id: taskId,
             requestorId: '1',
@@ -76,29 +76,29 @@ if (!(typeof MochaWeb === 'undefined')){
             title: 'title',
             statuses: [],
             references: [],
-            timesheets: [],
+            timesheets: {},
             deadline: null,
             createdAt: moment().valueOf(),
             completedAt: null
           };
-          chai.assert.deepEqual(Tasks.findOne(taskId, {transform: null}), expectedDoc);
+          chai.assert.deepEqual(Tasks.findOne(taskId, { transform: null }), expectedDoc);
         });
 
         it("invalid - missing requestorId", function() {
           chai.assert.throw(function() {
-            Tasks.create({responderId: '2', title: 'title'});
+            Tasks.create({ responderId: '2', title: 'title' });
           }, 'Invalid requestorId');
         });
 
         it("invalid - missing responderId", function() {
           chai.assert.throw(function() {
-            Tasks.create({requestorId: '1', title: 'title'});
+            Tasks.create({ requestorId: '1', title: 'title' });
           }, 'Invalid responderId');
         });
 
         it("invalid - missing title", function() {
           chai.assert.throw(function() {
-            Tasks.create({requestorId: '1', responderId: '2'});
+            Tasks.create({ requestorId: '1', responderId: '2' });
           }, 'Invalid title');
         });
       });
@@ -107,8 +107,9 @@ if (!(typeof MochaWeb === 'undefined')){
         var taskId;
         var requestorId = '1';
         var responderId = '2';
+        var userId = "a";
         beforeEach(function() {
-          taskId = Tasks.create({requestorId: requestorId, responderId: responderId, title: 'title'});
+          taskId = Tasks.create({ requestorId: requestorId, responderId: responderId, title: 'title' });
         });
 
         it("valid start - first work", function() {
@@ -116,14 +117,15 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt: 0,
             endedAt: null
           };
-          chai.assert.deepEqual(Tasks.findOne(taskId).timesheets, []);
-          Tasks.startWork(taskId);
+          chai.assert.deepEqual(Tasks.findOne(taskId).timesheets, {});
+          Tasks.startWork(taskId, userId);
+          let timesheetsOfA = Tasks.findOne(taskId).getWorks(userId);
           chai.assert.deepEqual(
-              _.map(Tasks.findOne(taskId).timesheets,
-                  function(timesheet) {
+              _.map(timesheetsOfA,
+                  function(t) {
                     return {
-                      startedAt : timesheet.startedAt,
-                      endedAt : timesheet.endedAt
+                      startedAt : t.startedAt,
+                      endedAt : t.endedAt
                     };
                   })
               , [expectedWork]
@@ -135,17 +137,20 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt: 0,
             endedAt: 10
           };
-          Tasks.update(taskId, {$set: {timesheets: [previousWork]}});
+          let modifier = {};
+          modifier.$push = {};
+          modifier.$push["timesheets." + userId] = previousWork;
+          Tasks.update(taskId, modifier);
 
           this.clock.tick(20);
           var expectedWork = {
             startedAt: 20,
             endedAt: null
           };
-          Tasks.startWork(taskId);
+          Tasks.startWork(taskId, userId);
 
           chai.assert.deepEqual(
-              _.map(Tasks.findOne(taskId).timesheets,
+              _.map(Tasks.findOne(taskId).timesheets[userId],
                   function(timesheet) {
                     return {
                       startedAt: timesheet.startedAt,
@@ -160,10 +165,13 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt: 0,
             endedAt: null
           };
-          Tasks.update(taskId, {$set: {timesheets: [previousWork]}});
+          let modifier = {};
+          modifier.$push = {};
+          modifier.$push["timesheets." + userId] = previousWork;
+          Tasks.update(taskId, modifier);
 
           chai.assert.throw(function() {
-            Tasks.startWork(taskId);
+            Tasks.startWork(taskId, userId);
           }, 'previous work has not ended yet');
         });
 
@@ -172,17 +180,20 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt: 0,
             endedAt: null
           };
-          Tasks.update(taskId, {$set: {timesheets: [previousWork]}});
+          let modifier = {};
+          modifier.$push = {};
+          modifier.$push["timesheets." + userId] = previousWork;
+          Tasks.update(taskId, modifier);
 
           this.clock.tick(10);
-          Tasks.endWork(taskId);
+          Tasks.endWork(taskId, userId);
 
           var expectedWork = {
             startedAt: 0,
             endedAt: 10
           };
           chai.assert.deepEqual(
-              _.map(Tasks.findOne(taskId).timesheets, function(timesheet) {
+              _.map(Tasks.findOne(taskId).timesheets[userId], function(timesheet) {
                 return {
                   startedAt : timesheet.startedAt,
                   endedAt: timesheet.endedAt
@@ -199,6 +210,8 @@ if (!(typeof MochaWeb === 'undefined')){
 
       describe("total duration", function() {
         var taskId;
+        var userId = "a";
+        var userId2 = "b";
         beforeEach(function() {
           taskId = Tasks.create({requestorId: '1', responderId: '2', title: 'title'});
         });
@@ -209,9 +222,12 @@ if (!(typeof MochaWeb === 'undefined')){
 
         it("in progress work", function() {
           var works = [
-            {startedAt: 0, endedAt: null}
+            { startedAt: 0, endedAt: null }
           ];
-          Tasks.update(taskId, {$set: {timesheets: works}});
+          let modifier = {};
+          modifier.$set = {};
+          modifier.$set["timesheets." + userId] = works;
+          Tasks.update(taskId, modifier);
 
           this.clock.tick(10);
           chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 10);
@@ -219,9 +235,12 @@ if (!(typeof MochaWeb === 'undefined')){
 
         it("single completed work", function() {
           var works = [
-            {startedAt: 0, endedAt: 5}
+            { startedAt: 0, endedAt: 5 }
           ];
-          Tasks.update(taskId, {$set: {timesheets: works}});
+          let modifier = {};
+          modifier.$set = {};
+          modifier.$set["timesheets." + userId] = works;
+          Tasks.update(taskId, modifier);
           chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 5);
 
           this.clock.tick(1000); // time pass should have no effect
@@ -230,20 +249,44 @@ if (!(typeof MochaWeb === 'undefined')){
 
         it("multiple completed work", function() {
           var works = [
-            {startedAt: 0, endedAt: 5},
-            {startedAt: 10, endedAt: 100}
+            { startedAt: 0, endedAt: 5 },
+            { startedAt: 10, endedAt: 100 }
           ];
-          Tasks.update(taskId, {$set: {timesheets: works}});
+          let modifier = {};
+          modifier.$set = {};
+          modifier.$set["timesheets." + userId] = works;
+          Tasks.update(taskId, modifier);
           chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 95);
 
           this.clock.tick(1000); // time pass should have no effect
           chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 95);
+        });
+
+        it("multiple userId", function() {
+          var works = [
+            { startedAt: 0, endedAt: 5 },
+            { startedAt: 10, endedAt: 100 }
+          ];
+          var works2 = [
+            { startedAt: 0, endedAt: 5 },
+            { startedAt: 10, endedAt: 100 }
+          ];
+          let modifier = {};
+          modifier.$set = {};
+          modifier.$set["timesheets." + userId] = works;
+          modifier.$set["timesheets." + userId2] = works2;
+          Tasks.update(taskId, modifier);
+          chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 190);
+
+          this.clock.tick(1000); // time pass should have no effect
+          chai.assert.equal(Tasks.findOne(taskId).totalDuration(), 190);
         });
       });
       describe("edit work", function() {
         var taskId;
         var requestorId = '1';
         var responderId = '2';
+        var userId = "a";
         beforeEach(function() {
           taskId = Tasks.create({requestorId: requestorId, responderId: responderId, title: 'title'});
         });
@@ -251,7 +294,7 @@ if (!(typeof MochaWeb === 'undefined')){
         it('no existing timesheet', function() {
 
           chai.assert.throw(function() {
-            Tasks.editWork(taskId, '2', 0, 10);
+            Tasks.editWork(taskId, userId, '2', 0, 10);
           }, "timesheet is empty");
         });
         it('one timesheet edit', function() {
@@ -260,13 +303,17 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt : 10,
             endedAt: 20
           };
-          Tasks.update( { _id : taskId }, { $push : { timesheets : originalWork}});
+          var modifier = {};
+          modifier.$set = {};
+          modifier.$set['timesheets.' + userId] = [ originalWork ];
+
+          Tasks.update( { _id : taskId }, modifier);
           var editWork = {
             startedAt : 20,
             endedAt : 30
           };
-          Tasks.editWork(taskId, originalWork._id, editWork.startedAt, editWork.endedAt);
-          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets, function(timesheet){
+          Tasks.editWork(taskId, userId, originalWork._id, editWork.startedAt, editWork.endedAt);
+          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets[userId], function(timesheet){
             return {
               startedAt : timesheet.startedAt,
               endedAt: timesheet.endedAt
@@ -283,7 +330,10 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt : 20,
             endedAt: 30
           }];
-          Tasks.update({_id : taskId}, { $pushAll : { timesheets : originalWorks}});
+          var modifier = {};
+          modifier.$set = {};
+          modifier.$set["timesheets." + userId] = originalWorks;
+          Tasks.update({ _id : taskId }, modifier);
           var editWork = {
             _id : originalWorks[0]._id,
             startedAt : 40,
@@ -297,8 +347,8 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt : 40,
             endedAt: 50
           }];
-          Tasks.editWork(taskId, editWork._id, editWork.startedAt, editWork.endedAt);
-          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets, function(timesheet){
+          Tasks.editWork(taskId, userId, editWork._id, editWork.startedAt, editWork.endedAt);
+          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets[userId], function(timesheet){
             return {
               startedAt : timesheet.startedAt,
               endedAt: timesheet.endedAt
@@ -315,7 +365,11 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt : 20,
             endedAt: 30
           }];
-          Tasks.update({_id : taskId}, { $pushAll : { timesheets : originalWorks}});
+          var modifier = {};
+          modifier.$set = {};
+          modifier.$set["timesheets." + userId] = originalWorks;
+          Tasks.update({ _id : taskId }, modifier);
+
           var editWork = {
             _id : originalWorks[1]._id,
             startedAt : 0,
@@ -329,8 +383,8 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt : 10,
             endedAt: 20
           }];
-          Tasks.editWork(taskId, editWork._id, editWork.startedAt, editWork.endedAt);
-          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets, function(timesheet){
+          Tasks.editWork(taskId, userId, editWork._id, editWork.startedAt, editWork.endedAt);
+          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets[userId], function(timesheet){
             return {
               startedAt : timesheet.startedAt,
               endedAt: timesheet.endedAt
@@ -351,7 +405,10 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt : 40,
             endedAt: 50
           }];
-          Tasks.update({_id : taskId}, { $pushAll : { timesheets : originalWorks}});
+          var modifier = {};
+          modifier.$set = {};
+          modifier.$set["timesheets." + userId] = originalWorks;
+          Tasks.update({ _id : taskId }, modifier);
           var editWork = {
             _id : originalWorks[2]._id,
             startedAt : 20,
@@ -368,8 +425,8 @@ if (!(typeof MochaWeb === 'undefined')){
             startedAt : 30,
             endedAt: 40
           }];
-          Tasks.editWork(taskId, editWork._id, editWork.startedAt, editWork.endedAt);
-          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets, function(timesheet){
+          Tasks.editWork(taskId, userId, editWork._id, editWork.startedAt, editWork.endedAt);
+          chai.assert.deepEqual(_.map(Tasks.findOne(taskId).timesheets[userId], function(timesheet){
             return {
               startedAt : timesheet.startedAt,
               endedAt: timesheet.endedAt
