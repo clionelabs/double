@@ -1,6 +1,6 @@
 <template name="assistantUnroutedDashboard">
   <div class="container-fluid unrouted-channels-container">
-    <div>
+    <div class="channel-filters">
       <input type="checkbox" id="show-spam-checkbox" name="show-spam">
       <label for="show-spam-checkbox">Show Spam</label>
     </div>
@@ -15,7 +15,12 @@
       </ul>
     </div>
     {{#if getCurrentSelectedChannel}}
-      {{> channelMessages getCurrentSelectedChannel}}
+      <div class="container-fluid selected-channel-messages">
+        {{> channelMessages getCurrentSelectedChannel}}
+      </div>
+      <div class="container-fluid selected-channel-reply">
+        {{> channelReply getCurrentSelectedChannel}}
+      </div>
     {{/if}}
   </div>
 </template>

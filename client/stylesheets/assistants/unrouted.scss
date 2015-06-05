@@ -1,0 +1,11 @@
+.unrouted-channels-container {
+  height: calc(100vh - 75px);
+  display: flex;
+  flex-direction: column;
+
+  .selected-channel-messages {
+    width: 100%;
+    flex: 1;
+    overflow-y: scroll;
+  }
+}

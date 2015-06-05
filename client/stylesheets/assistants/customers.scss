@@ -1,7 +1,7 @@
 @import "../variables";
 
 .assistant-dashboard-customer {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 75px);
   display: flex;
   >* {
     border-right: 1px solid $pay-grey;
@@ -29,7 +29,13 @@
 
   .conversation {
     flex : 6;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    .selected-channel-messages {
+      width: 100%;
+      flex: 1;
+      overflow-y: scroll;
+    }
   }
 
   .helpers {
