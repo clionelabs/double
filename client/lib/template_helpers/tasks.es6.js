@@ -5,7 +5,7 @@ TemplateHelpers.Task.Message = {
     return this.isCompleted() ? "glyphicon-ok" : "glyphicon-unchecked";
   },
   statusToMessage() {
-    let obj = this.getLatestStatus();
+    let obj = this.getLatestStatus(Meteor.userId());
     let createdTillNow = obj.createdAt - moment().valueOf();
     return {
       type   : "comment",

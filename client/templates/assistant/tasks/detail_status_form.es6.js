@@ -1,6 +1,6 @@
 Template.assistantTasksDetailStatusForm._submitFn = (form, taskId, isCurrent) => {
   let message = form.target.message.value;
-  Tasks.Status.change(message, taskId,
+  Tasks.Status.change(message, taskId, Meteor.userId(),
       () => {
         form.target.reset();
         Session.setAuth(SessionKeys.genStatusFormKey(taskId, isCurrent), false);
