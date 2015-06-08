@@ -23,6 +23,9 @@ Template.assistantCustomerConversationChannel.helpers({
     let channelId = this.channel._id;
     let key = SessionKeys.getCustomerSelectedChannelIdKey(customerId);
     return channelId === Session.get(key)? "active": "";
+  },
+  isNotReplied() {
+    return this.channel.isNotReplied();
   }
 });
 

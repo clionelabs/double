@@ -18,6 +18,9 @@
 
 <Template name="assistantCustomerConversationChannel">
   <li role="presentation" class="select-channel {{isSelectedClass}}"><a href="#">{{> channelTitle channel}}</a>
+  {{#if isNotReplied}}
+    <i class="fa fa-frown-o not-replied-channel"></i>
+  {{/if}}
   <i class="fa fa-cog set-channel"></i>
   </li>
 </Template>
