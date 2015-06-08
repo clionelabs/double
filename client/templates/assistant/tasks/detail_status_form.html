@@ -1,6 +1,6 @@
 <template name="assistantTasksDetailStatusForm">
   <form class="task-status-change" id="{{ genFormKey _id isCurrent }}">
-    <div class="form-container sub col-xs-12 col-sm-12 col-md-12 {{isStatusFormShown}}">
+    <div class="form-container sub {{isStatusFormShown}}">
       <input name="message" class="status-message" type="text" required/>
       <button class="submit" action="submit">Post</button>
     </div>
