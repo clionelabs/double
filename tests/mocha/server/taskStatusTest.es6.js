@@ -64,94 +64,69 @@ if (!(typeof MochaWeb === 'undefined')) {
       });
 
       it("test grep status within time from same user", function() {
+        var expectedStatuses = {};
+        expectedStatuses[userId] = [ testStatus, testStatus2 ];
         var modifier = {};
         modifier.$set = {};
-        modifier.$set['statuses.' + userId] = [ testStatus, testStatus2 ];
+        modifier.$set.statuses = expectedStatuses;
         Tasks.update({ _id : taskId }, modifier);
 
         var resultStatuses = Tasks.findOne({ _id : taskId })
                                 .getStatusesWithinTimeRange(0, 6);
 
-        var result = _.map(resultStatuses, function(status) {
-          return {
-            message : status.message,
-            createdAt : status.createdAt
-          };
-        });
-        chai.assert.deepEqual(result, [ testStatus, testStatus2 ]);
+        chai.assert.deepEqual(resultStatuses, expectedStatuses);
       });
 
       it("test grep status upper time range", function() {
+        var originalStatuses = {};
+        originalStatuses[userId] = [ testStatus, testStatus2 ];
+
+        var expectedStatuses = {};
+        expectedStatuses[userId] = [ testStatus ];
+
         var modifier = {};
         modifier.$set = {};
-        modifier.$set['statuses.' + userId] = [ testStatus, testStatus2 ];
+        modifier.$set.statuses = originalStatuses;
         Tasks.update({ _id : taskId }, modifier);
 
-        var resultStatuses = Tasks.findOne({ _id : taskId })
-            .getStatusesWithinTimeRange(0, 5);
+        var resultStatuses = Tasks.findOne({ _id : taskId }).getStatusesWithinTimeRange(0, 5);
 
-        var result = _.map(resultStatuses, function(status) {
-          return {
-            message : status.message,
-            createdAt : status.createdAt
-          };
-        });
-        chai.assert.deepEqual(result, [ testStatus ]);
+        chai.assert.deepEqual(resultStatuses, expectedStatuses);
       });
 
       it("test grep status lower time range", function() {
+        var originalStatuses = {};
+        originalStatuses[userId] = [ testStatus, testStatus2 ];
+
+        var expectedStatuses = {};
+        expectedStatuses[userId] = [ testStatus2 ];
+
         var modifier = {};
         modifier.$set = {};
-        modifier.$set['statuses.' + userId] = [ testStatus, testStatus2 ];
+        modifier.$set.statuses = originalStatuses;
         Tasks.update({ _id : taskId }, modifier);
 
-        var resultStatuses = Tasks.findOne({ _id : taskId })
-            .getStatusesWithinTimeRange(1, 6);
+        var resultStatuses = Tasks.findOne({ _id : taskId }).getStatusesWithinTimeRange(1, 6);
 
-        var result = _.map(resultStatuses, function(status) {
-          return {
-            message : status.message,
-            createdAt : status.createdAt
-          };
-        });
-        chai.assert.deepEqual(result, [testStatus2]);
+        chai.assert.deepEqual(resultStatuses, expectedStatuses);
       });
 
       it("test grep statuses within time from different user", function() {
-        var modifier = {};
-        modifier.$push = {};
-        modifier.$push['statuses.' + userId] = testStatus;
-        modifier.$push['statuses.' + userId2] = testStatus2;
-        Tasks.update({ _id : taskId }, modifier);
-
-        var result = _.map(Tasks.findOne({ _id : taskId })
-            .getStatusesWithinTimeRange(0, 6), function(status) {
-          return {
-            message : status.message,
-            createdAt : status.createdAt
-          };
-        });
-        chai.assert.deepEqual(result, [testStatus, testStatus2]);
-      });
-
-      it("test grep statuses sorted by createdAt", function() {
+        var originalStatuses = {};
+        originalStatuses[userId] = [ testStatus, testStatus2 ];
+        originalStatuses[userId2] = [ testStatus3, testStatus4 ];
+        var expectedStatuses = {};
+        expectedStatuses[userId] = [ testStatus, testStatus2 ];
+        expectedStatuses[userId2] = [ testStatus3 ];
         var modifier = {};
         modifier.$set = {};
-        modifier.$set['statuses.' + userId] = [ testStatus, testStatus2 ];
-        modifier.$set['statuses.' + userId2] = [ testStatus3, testStatus4 ];
+        modifier.$set.statuses = expectedStatuses;
         Tasks.update({ _id : taskId }, modifier);
 
-        var result = _.map(Tasks.findOne({ _id : taskId })
-            .getStatusesWithinTimeRange(0, 7), function(status) {
-          return {
-            message : status.message,
-            createdAt : status.createdAt
-          }
-        });
-        chai.assert.deepEqual(result, [testStatus, testStatus3, testStatus2, testStatus4 ]);
+        var resultStatuses = Tasks.findOne({ _id : taskId }).getStatusesWithinTimeRange(0, 6);
+
+        chai.assert.deepEqual(resultStatuses, expectedStatuses);
       });
-
-
     });
   });
 }
