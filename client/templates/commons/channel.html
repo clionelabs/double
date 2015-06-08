@@ -7,14 +7,20 @@
 </Template>
 
 <Template name="channelMessages">
-  {{#each messages}}
+    {{#each messages}}
+      {{> channelMessage}}
+    {{/each}}
+</Template>
+
+<Template name="channelMessage">
+  <div class="message">
     {{> channelSlackMessage}}
-  {{/each}}
+  </div>
 </Template>
 
 <Template name="channelReply">
   <div class="input-group">
-    <input type="text" class="form-control" placeholder="message..."/>
+    <input type="text" class="form-control" placeholder="message... (Under Construction)" disabled="disabled"/>
     <span class="input-group-btn">
       <button class="btn btn-default" type="button">Send</button>
     </span>
@@ -22,13 +28,11 @@
 </Template>
 
 <Template name="channelSlackMessage">
-  <div class="message">
-    <div class="header">
-      <strong class="primary-font">{{extra.userName}}</strong>
-      <small class="pull-right text-muted">{{formatTS extra.ts}}</small>
-    </div>
-    <div class="content">
-      {{content}}
-    </div>
+  <div class="header">
+    <strong class="primary-font">{{extra.userName}}</strong>
+    <small class="pull-right text-muted">{{formatTS extra.ts}}</small>
+  </div>
+  <div class="content">
+    {{content}}
   </div>
 </Template>
