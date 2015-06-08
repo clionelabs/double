@@ -1,4 +1,7 @@
 Template.task.helpers(_.extend({
+  getLatestStatus() {
+    return this.getLatestStatus(Meteor.userId());
+  },
   showRecurringCriteriaComponent : function() {
     if (this.recurringId) {
       return "taskRecurringCriteria";
@@ -14,7 +17,7 @@ Template.task.helpers(_.extend({
     }
   },
   showStatusComponent : function() {
-    if (this.getLatestStatus()) {
+    if (this.getLatestStatus(Meteor.userId())) {
       return "taskStatus";
     } else {
       return null;

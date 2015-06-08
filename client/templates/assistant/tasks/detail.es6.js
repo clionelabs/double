@@ -4,6 +4,9 @@ Template.assistantTasksDetail.helpers(_.extend({
   },
   disabledIfTaskCompleted() {
     return this.isCompleted() ? "disabled" : "";
+  },
+  getLatestStatus() {
+    return this.getLatestStatus(Meteor.userId());
   }
 }, TemplateHelpers.Task.Message));
 
