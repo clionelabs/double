@@ -66,5 +66,8 @@ Template.assistantCustomersListItem.helpers({
     } else {
       return "";
     }
+  },
+  hasNotRepliedClass() {
+    return this.hasNotRepliedConversation()? "not-replied": "";
   }
 });
