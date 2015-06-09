@@ -13,7 +13,7 @@
   }
 
   .tasks {
-    flex : 2;
+    flex : 0 0 calc(100% / 10 * 2);
     .task {
       padding: 15px;
       cursor: pointer;
@@ -25,10 +25,10 @@
   }
 
   .details {
-    flex : 8;
+    flex : 0 0 calc(100% / 10 * 5);
   }
 
   .conversation {
-    flex: 4;
+    flex: 0 0 calc(100% / 10 * 3);
   }
 }
