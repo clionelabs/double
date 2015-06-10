@@ -13,25 +13,28 @@
 </Template>
 
 <Template name="channelMessage">
-  <div class="message">
+  <div class="message {{inOutClass}}">
+    <div class="header">
+      <strong class="primary-font">{{userName}}</strong>
+      <small class="pull-right text-muted">{{formatTimestamp timestamp}}</small>
+    </div>
     {{> channelSlackMessage}}
   </div>
 </Template>
 
 <Template name="channelReply">
-  <div class="input-group">
-    <input type="text" class="form-control" placeholder="message... (Under Construction)" disabled="disabled"/>
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button">Send</button>
-    </span>
-  </div>
+  <form id="send-message-form">
+    <div class="input-group">
+      <input id="channelId" type="hidden" value="{{_id}}"/>
+      <input id="content" type="text" class="form-control" placeholder="message..."/>
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-default">Send</button>
+      </span>
+    </div>
+  </form>
 </Template>
 
 <Template name="channelSlackMessage">
-  <div class="header">
-    <strong class="primary-font">{{extra.userName}}</strong>
-    <small class="pull-right text-muted">{{formatTS extra.ts}}</small>
-  </div>
   <div class="content">
     {{content}}
   </div>
