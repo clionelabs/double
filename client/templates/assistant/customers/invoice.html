@@ -41,7 +41,7 @@
 <template name="taskTimesheetInvoiceItem">
   <div class="timesheet">
     <div class="date">{{ formatDate startedAt }}</div>
-    <div class="duration">{{ formatDuration duration }}</div>
+    <div class="duration">{{ formatDurationPrecise duration }}</div>
     <div class="statuses">
       {{#each statuses}}
         {{> taskTimesheetStatusInvoiceItem }}
