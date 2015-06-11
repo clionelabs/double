@@ -31,8 +31,8 @@ Template.taskInvoiceItem.helpers({
         return status.createdAt >= from && status.createdAt < to;
       });
 
+      let iS = 0;
       _.each(timesheets[userId], (timesheet, index, tss) => {
-        let iS = 0;
         let tsUserId = userId;
         let tsStatuses = [];
         let endAt = tss[index + 1] ? tss[index + 1].startedAt : to;
