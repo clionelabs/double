@@ -18,39 +18,37 @@ Template.taskInvoiceItem.helpers({
     let from = this.queryRange.from;
     let to = this.queryRange.to;
     let timesheets = _.clone(this.timesheets);
-    _.each(timesheets,
-        (timesheetsOfUser, ownerId, timesheets) => {
-          timesheets[ownerId] = _.filter(timesheetsOfUser, (timesheet) => {
-            return timesheet.startedAt >= from && timesheet.startedAt < to;
-          });
-        });
-    let statuses = this.statuses;
+    let statuses = _.clone(this.statuses);
+    let title = this.title;
 
-    return _.reduce(timesheets,
-        (memo, timesheetsOfUser, userId) => {
+    let result = [];
 
-          let timesheetsWithOwnerIdAndStatuses
-              = _.map(timesheetsOfUser,
-                    (timesheet, index) => {
-                      let statusesAfter = from;
-                      if (index !== 0) {
-                        statusesAfter = timesheet.startedAt;
-                      }
+    _.each(_.keys(timesheets), (userId)=>{
+      timesheets[userId] = _.filter(timesheets[userId], (timesheet)=> {
+        return timesheet.startedAt >= from && timesheet.startedAt < to;
+      });
+      statuses[userId] = _.filter(statuses[userId], (status)=> {
+        return status.createdAt >= from && status.createdAt < to;
+      });
 
-                      let statusesBefore = to;
-                      if (timesheetsOfUser[index+1]) {
-                        statusesBefore = timesheetsOfUser[index+1].startedAt;
-                      }
+      _.each(timesheets[userId], (timesheet, index, tss) => {
+        let iS = 0;
+        let tsUserId = userId;
+        let tsStatuses = [];
+        let endAt = tss[index + 1] ? tss[index + 1].startedAt : to;
 
-                      let statusesInRange = _.filter(statuses[userId], (status) => {
-                        return status.createdAt >= statusesAfter && status.createdAt < statusesBefore;
-                      });
+        while (statuses[userId][iS] && statuses[userId][iS].createdAt < endAt) {
+          tsStatuses.push(statuses[userId][iS]);
+          iS++;
+        }
 
-                      return _.extend({ userId: userId, statuses : statusesInRange }, timesheet);
-                    });
-          return memo.concat(timesheetsWithOwnerIdAndStatuses);
-        },
-        []);
+        timesheet = _.extend(timesheet, { userId : tsUserId, statuses : tsStatuses });
+      });
+      result = result.concat(timesheets[userId]);
+    });
+
+    return result;
+
   }
 
 });
