@@ -14,27 +14,11 @@ Meteor.reactivePublish('assistants', function() {
 });
 
 Meteor.publish('myTasks', function() {
-  return Tasks.find({
-    $or: [
-      { responderId: this.userId },
-      { requestorId: this.userId }
-    ]
-  });
+  return Tasks.find();
 });
 
 Meteor.reactivePublish('customers', function() {
-  if (Users.isAdmin(this.userId)) {
-    return Users.findCustomers();
-  } else if (Users.isAssistant(this.userId)) {
-    let placements = Placements.find(
-        { assistantId: this.userId },
-        { fields: { customerId: 1 }, reactive: true }
-    ).fetch();
-    let customerIds = _.pluck(placements, 'customerId');
-    return Users.findCustomers( { _id : { $in: customerIds }});
-  } else {
-    return [];
-  }
+  return Users.findCustomers();
 });
 
 Meteor.publish('placements', function() {

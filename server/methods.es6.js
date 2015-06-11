@@ -1,5 +1,7 @@
 Meteor.methods({
   createAssistant(data) {
+    if (!User.isAdmin(Meteor.userId())) return;
+
     let email = data.email;
     let firstname = data.firstname;
     let lastname = data.lastname;
@@ -21,6 +23,8 @@ Meteor.methods({
   },
 
   createCustomer(data) {
+    if (!User.isAdmin(Meteor.userId())) return;
+
     let email = data.email;
     let firstname = data.firstname;
     let lastname = data.lastname;
