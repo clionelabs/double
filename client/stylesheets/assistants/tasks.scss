@@ -14,6 +14,7 @@
 
   .tasks {
     flex : 0 0 calc(100% / 10 * 2);
+    overflow-y: scroll;
     .task {
       padding: 15px;
       cursor: pointer;
@@ -26,9 +27,11 @@
 
   .details {
     flex : 0 0 calc(100% / 10 * 5);
+    overflow-y: scroll;
   }
 
   .conversation {
     flex: 0 0 calc(100% / 10 * 3);
+    overflow-y: scroll;
   }
 }
