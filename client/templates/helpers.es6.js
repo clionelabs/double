@@ -9,3 +9,7 @@ Template.registerHelper("formatDateTime", function(date) {
 Template.registerHelper("formatDuration", function(duration) {
   return moment.duration(duration).humanize();
 });
+
+Template.registerHelper("formatDurationPrecise", function(duration) {
+  return moment.duration(duration).format('hh:mm:ss', { trim : false });
+});

@@ -71,25 +71,6 @@ Meteor.methods({
     }
     let user = Meteor.users.findOne(oldLink.userId);
     LoginLinks.createAndSendAccess(user);
-  },
-
-  exportTimesheet(from, to, customerId) {
-    let customer = Users.findOne({ _id : customerId });
-    let tasks = customerId ? Tasks.findRequestedBy(customerId).fetch() : Tasks.find().fetch();
-    let data = _.reduce(tasks, (memo, task) => {
-      memo.push( {
-        customerId : customer._id,
-        customerName : customer.displayName(),
-        taskId: task._id,
-        taskTitle: task.title,
-        taskStartAt: moment(task.createdAt).format(),
-        taskCompletedAt: task.completedAt ? moment(task.completedAt).format() : null,
-        taskDuration: task.totalDuration()
-      });
-      return memo;
-    }, []);
-
-    return CSV.export(data);
   }
 
 });
