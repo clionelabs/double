@@ -1,5 +1,7 @@
 <template name="assistantCustomerPreferencePane">
-  <div class="col-xs-12 col-sm-12 col-md-12 input-container">
+  <div class="btn btn-default export">Generate Invoice</div>
+  <div class="btn btn-default profile">Settings</div>
+  <div class="input-container">
     <form id="add-preference" class="add-preference">
       <label for="message"><i class="glyphicon glyphicon-heart"></i></label>
       <input name="message" class="preference-message" type="text" required/>
@@ -7,7 +9,7 @@
     </form>
   </div>
   {{#each getPreferences this }}
-    <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="preference">
       <i class="glyphicon glyphicon-heart"></i>
       {{message}}
       <i class="remove glyphicon glyphicon-minus-sign pull-right" data-id="{{_id}}"></i>
