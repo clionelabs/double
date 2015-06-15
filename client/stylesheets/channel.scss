@@ -1,27 +1,39 @@
+@import "variables";
+
 .channel-tabs {
+  padding: 15px 15px 0px 15px;
+  .customer-metrics {
+    .name {
+      font-size: 1.414em;
+      font-weight: 700;
+    }
+    padding-bottom: 10px;
+    border-bottom: 1px solid $double-grey2;
+    margin-bottom: 10px;
+  }
   ul {
     li {
       margin-right: 10px;
+      &.active {
+        a {
+          background: $double-dark-blue;
+          color: $double-white;
+        }
+      }
       a {
-        border: solid 1px #337ab7;
+        padding:5px;
+        display:inline-block;
+        background: $double-grey;
+        color: $double-grey3;
       }
     }
   }
   .remove-channel, .set-channel {
+    display:inline-block;
     cursor: pointer;
-    position: absolute;
-    right: -10px;
-    top: -10px;
-    color: white;
-    font-size: x-large;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   }
   .not-replied-channel {
-    position: absolute;
-    left: 50%;
-    top: -10px;
-    color: red;
-    font-size: x-large;
+    color: $double-red;
   }
 }
 .selected-channel-messages {
