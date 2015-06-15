@@ -2,14 +2,14 @@
 
 <Template name="layout">
   {{> notifications}}
-  <div class="navbar navbar-default" role="navigation">
+  <div class="double-navbar navbar navbar-default" role="navigation">
     <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav {{ isShownWhenLogin }}">
-        <li><a href="{{ urlFor route='assistant.customers' }}">Customers</a></li>
-        <li><a href="{{ urlFor route='assistant.tasks' }}">Tasks</a></li>
-        <li><a href="{{ urlFor route='assistant.unrouted' }}">Unrouted</a></li>
+      <ul class="dashboard-tabs nav navbar-nav {{ isShownWhenLogin }}">
+        <li class="{{isCustomerSelected}}"><a href="{{ urlFor route='assistant.customers' }}">Customers</a></li>
+        <li class="{{isRequestSelected}}"><a href="{{ urlFor route='assistant.tasks' }}">Requests</a></li>
+        <li class="{{isIncomingSelected}}"><a href="{{ urlFor route='assistant.unrouted' }}">Incoming</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right login">
           {{> loginButtons }} <!-- here -->
       </ul>
     </div>
