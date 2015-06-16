@@ -101,14 +101,12 @@
         padding-bottom: 30px;
 
         &.in {
-          padding-right: 25%;
           .content {
             padding:20px;
             background-color: $double-green;
           }
         }
         &.out {
-          padding-left: 25%;
           .content {
             padding:20px;
             background-color: $double-grey;
