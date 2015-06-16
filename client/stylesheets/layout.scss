@@ -1,3 +1,42 @@
+@import "variables";
+
 .mobile {
   font-size: 40px;
+}
+
+body .double-navbar {
+  background: $double-dark-blue;
+  color: $double-white;
+  margin-bottom:0;
+  border: 0;
+  border-radius: 0px;
+  .dashboard-tabs {
+    > li > a {
+      color: $double-white-half-transparent;
+      padding: 15px 5px 5px 5px;
+      margin: 0px 10px 8px 10px;
+      &:hover {
+        color: $double-white;
+        border-bottom: 3px solid $double-white;
+      }
+    }
+    > li.selected > a {
+      color: $double-white;
+      border-bottom: 3px solid $double-white;
+    }
+  }
+  .login {
+    > li > a {
+      color: $double-white-half-transparent;
+      padding: 15px 5px 5px 5px;
+      margin: 0px 10px 8px 10px;
+      &:hover {
+        color: $double-white;
+      }
+    }
+    > li.selected > a {
+      color: $double-white;
+    }
+  }
+
 }

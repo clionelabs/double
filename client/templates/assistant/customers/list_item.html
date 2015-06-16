@@ -1,10 +1,7 @@
 <template name="assistantCustomersListItem">
-<div class="col-md-12 col-sm-12 col-xs-12 customer {{isSelected}} {{hasNotRepliedClass}}">
+  <div class="customer {{isSelected}} {{hasNotRepliedClass}}">
     <div class="name {{animateIfIsCalling}}">
-      <i class="glyphicon glyphicon-triangle-right selector"></i>
-      {{displayName}}
+      <span class="status {{status}}">&#8226;</span>{{displayName}}
     </div>
-    <div class="pull-right profile glyphicon glyphicon-cog"></div>
-    <div class="pull-right export glyphicon glyphicon-usd" data-toggle="tooltip" data-placement="top" title="Show Invoice"></div>
   </div>
 </template>

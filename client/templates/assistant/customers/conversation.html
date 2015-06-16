@@ -1,5 +1,8 @@
 <Template name="assistantCustomerConversation">
-  <div class="container-fluid channel-tabs">
+  <div class="channel-tabs">
+    <div class="customer-metrics">
+      <div class="name">{{ displayName }}</div>
+    </div>
     <ul class="nav nav-pills" role="tablist">
       {{#each channels}}
         {{> assistantCustomerConversationChannel}}
@@ -7,20 +10,22 @@
     </ul>
   </div>
   {{#if selectedChannel}}
-    <div class="container-fluid selected-channel-messages">
+    <div class="selected-channel-messages">
       {{> channelMessages selectedChannel}}
     </div>
-    <div class="container-fluid selected-channel-reply">
+    <div class="selected-channel-reply">
       {{> channelReply selectedChannel}}
     </div>
   {{/if}}
 </Template>
 
 <Template name="assistantCustomerConversationChannel">
-  <li role="presentation" class="select-channel {{isSelectedClass}}"><a href="#">{{> channelTitle channel}}</a>
-  {{#if isNotReplied}}
-    <i class="fa fa-frown-o not-replied-channel"></i>
-  {{/if}}
-  <i class="fa fa-cog set-channel"></i>
+  <li role="presentation" class="select-channel {{isSelectedClass}}">
+    <a href="#">{{> channelTitle channel}}
+      {{#if isNotReplied}}
+        <i class="fa fa-frown-o not-replied-channel"></i>
+      {{/if}}
+      <i class="fa fa-angle-down set-channel"></i>
+    </a>
   </li>
 </Template>

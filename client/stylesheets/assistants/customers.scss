@@ -1,67 +1,198 @@
 @import "../variables";
 
 .assistant-dashboard-customer {
-  height: calc(100vh - 75px);
+  height: calc(100vh - 53px);
   display: flex;
   >* {
-    border-right: 1px solid $pay-grey;
     height: 100%;
-    &:last-child {
-      border-right: none;
-    }
   }
 
   .customers {
-    flex : 0 0 20%;
+    flex : 0 0 23.75%;
+    background: $double-grey;
+    overflow-y: scroll;
     .customer {
+      width : 100%;
       display:flex;
       justify-content: space-between;
       align-items: center;
       padding: 15px;
+      border-bottom: 1px solid $double-grey2;
 
       cursor: pointer;
       &.selected {
-        background-color: lighten($pay-light-blue, 30%);
-        border-radius: 5px;
+        border-left: 3px solid $double-red;
+        background: $double-white;
       }
       &.not-replied {
         color: red;
       }
+      .status {
+        font-size: 1.414em;
+        padding-right: 5px;
+        color : $double-red2;
+      }
+
     }
   }
 
   .conversation {
-    flex : 0 0 50%;
+    flex : 0 0 52.5%;
     display: flex;
     flex-direction: column;
+    .channel-tabs {
+      padding: 25px 25px 10px 25px;
+      .customer-metrics {
+        .name {
+          font-size: 1.414em;
+          font-weight: 700;
+        }
+        padding-bottom: 10px;
+        border-bottom: 1px solid $double-grey2;
+        margin-bottom: 10px;
+      }
+      ul {
+        li {
+          margin-right: 10px;
+          &.active {
+            a {
+              background: $double-dark-blue;
+              color: $double-white;
+            }
+          }
+          a {
+            padding:5px;
+            display:inline-block;
+            background: $double-grey;
+            color: $double-grey3;
+          }
+        }
+      }
+      .remove-channel, .set-channel {
+        display:inline-block;
+        cursor: pointer;
+      }
+      .not-replied-channel {
+        color: $double-red;
+      }
+    }
     .selected-channel-messages {
+      padding: 0px 25px 0px 25px;
       width: 100%;
       flex: 1;
       overflow-y: scroll;
+      flex: 1;
+      .message {
+        padding-bottom: 30px;
+
+        &.in {
+          padding-right: 25%;
+          .content {
+            padding:20px;
+            background-color: $double-green;
+          }
+        }
+        &.out {
+          padding-left: 25%;
+          .content {
+            padding:20px;
+            background-color: $double-grey;
+          }
+        }
+
+        .header {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-content: center;
+        }
+
+        .content {
+          margin: 0px;
+          color: $double-grey3;
+        }
+
+        &.outing, &.outing_delivered {
+          padding-left: 25%;
+          .content {
+            padding:20px;
+            background-color: $double-grey;
+          }
+        }
+      }
+    }
+    .selected-channel-reply {
+      background: $double-grey4;
+      padding:10px 25px;
     }
   }
 
   .helpers {
-    flex : 0 0 30%;
+    flex : 0 0 23.75%;
     display : flex;
     flex-direction: column;
+    background: $double-grey;
+    color: $double-grey3;
+    overflow-y: scroll;
+    h4 {
+      color: $double-black;
+    }
     .customer-detail {
-      min-height: 50%;
+      diplay: flex;
+      flex-direction: column;
       flex: 1;
-      border-bottom: 1px solid $pay-grey;
+      margin: 15px;
+      border-bottom: 1px solid $double-grey3;
+      .functions {
+        display : flex;
+        justify-content: center;
+        padding:5px 15px 20px 15px;
+        .btn {
+          border-radius: 0px;
+          border: 0;
+          background: $double-dark-blue;
+          color: $double-white;
+          flex : 0 0 45%;
+          margin: 0px 15px;
+
+        }
+      }
+      .add-preference {
+        display: flex;
+        margin-bottom: 15px;
+        .preference-message {
+          flex:1;
+          margin-right: 15px;
+        }
+        .submit {
+          border: 0;
+          padding: 0;
+          width: 40px;
+          height: 40px;
+          color: $double-white;
+          background-color: $double-grey2;
+        }
+      }
+      .preferences {
+        flex:1;
+        overflow-y: scroll;
+        .preference {
+          padding-bottom: 20px;
+        }
+      }
     }
     .task-related {
-      min-height: 50%;
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      margin: 15px;
       .tasks {
         width: 100%;
         overflow-y: scroll;
         flex : 1;
         .task {
-          padding: 20px 10px;
+          padding-bottom : 20px;
         }
       }
       .new-task-button {
