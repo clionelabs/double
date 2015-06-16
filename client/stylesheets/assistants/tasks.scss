@@ -1,37 +1,34 @@
 @import "../variables";
 
 .assistant-dashboard-task {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 55px);
   display: flex;
 
   >* {
-    border-right: 1px solid $pay-grey;
     height: 100%;
-    &:last-child {
-      border-right: none;
-    }
   }
 
   .tasks {
-    flex : 0 0 calc(100% / 10 * 2);
+    flex : 0 0 23.75%;
     overflow-y: scroll;
+    background: $double-grey;
     .task {
       padding: 15px;
       cursor: pointer;
       &.selected {
-        background-color: lighten($pay-light-blue, 30%);
-        border-radius: 5px;
+        background: $double-white;
+        border-left: 3px solid $double-red;
       }
     }
   }
 
-  .details {
-    flex : 0 0 calc(100% / 10 * 5);
+  .task-detail {
+    flex : 0 0 52.5%;
     overflow-y: scroll;
   }
 
   .conversation {
-    flex: 0 0 calc(100% / 10 * 3);
+    flex: 0 0 23.75%;
     overflow-y: scroll;
   }
 }
