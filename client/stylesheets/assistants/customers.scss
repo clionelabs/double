@@ -43,6 +43,21 @@
     .channel-tabs {
       padding: 25px 25px 10px 25px;
       .customer-metrics {
+        display : flex;
+        justify-content: space-between;
+        .functions {
+          align-self: flex-end;
+          display : flex;
+          justify-content: center;
+          padding:0px 15px 0px 15px;
+          .btn {
+            border-radius: 0px;
+            border: 0;
+            background: $double-dark-blue;
+            color: $double-white;
+            margin: 0px 15px;
+          }
+        }
         .name {
           font-size: 1.414em;
           font-weight: 700;
@@ -129,8 +144,6 @@
 
   .helpers {
     flex : 0 0 23.75%;
-    display : flex;
-    flex-direction: column;
     background: $double-grey;
     color: $double-grey3;
     overflow-y: scroll;
@@ -140,23 +153,8 @@
     .customer-detail {
       diplay: flex;
       flex-direction: column;
-      flex: 1;
       margin: 15px;
       border-bottom: 1px solid $double-grey3;
-      .functions {
-        display : flex;
-        justify-content: center;
-        padding:5px 15px 20px 15px;
-        .btn {
-          border-radius: 0px;
-          border: 0;
-          background: $double-dark-blue;
-          color: $double-white;
-          flex : 0 0 45%;
-          margin: 0px 15px;
-
-        }
-      }
       .add-preference {
         display: flex;
         margin-bottom: 15px;
@@ -175,14 +173,12 @@
       }
       .preferences {
         flex:1;
-        overflow-y: scroll;
         .preference {
           padding-bottom: 20px;
         }
       }
     }
     .task-related {
-      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
