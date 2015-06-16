@@ -1,18 +1,19 @@
 <template name="assistantCustomerPreferencePane">
-  <div class="btn btn-default export">Generate Invoice</div>
-  <div class="btn btn-default profile">Settings</div>
-  <div class="input-container">
-    <form id="add-preference" class="add-preference">
-      <label for="message"><i class="glyphicon glyphicon-heart"></i></label>
-      <input name="message" class="preference-message" type="text" required/>
-      <button class="submit" action="submit">Add</button>
-    </form>
+  <div class="functions">
+    <div class="btn btn-default export">Generate Invoice</div>
+    <div class="btn btn-default profile">Settings</div>
   </div>
-  {{#each getPreferences this }}
-    <div class="preference">
-      <i class="glyphicon glyphicon-heart"></i>
-      {{message}}
-      <i class="remove glyphicon glyphicon-minus-sign pull-right" data-id="{{_id}}"></i>
-    </div>
-  {{/each}}
+  <h4>Preferences</h4>
+  <form id="add-preference" class="add-preference">
+    <input name="message" class="preference-message" type="text" required placeholder="Preferences..."/>
+    <button class="submit" action="submit"><i class="glyphicon glyphicon-plus"></i></button>
+  </form>
+  <div class="preferences">
+    {{#each getPreferences this }}
+      <div class="preference">
+        {{message}}
+        <i class="remove glyphicon glyphicon-remove" data-id="{{_id}}"></i>
+      </div>
+    {{/each}}
+  </div>
 </template>

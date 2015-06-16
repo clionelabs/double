@@ -8,8 +8,9 @@
   }
 
   .customers {
-    flex : 0 0 20%;
+    flex : 0 0 23.75%;
     background: $double-grey;
+    overflow-y: scroll;
     .customer {
       width : 100%;
       display:flex;
@@ -36,7 +37,7 @@
   }
 
   .conversation {
-    flex : 0 0 50%;
+    flex : 0 0 52.5%;
     display: flex;
     flex-direction: column;
     .channel-tabs {
@@ -127,27 +128,71 @@
   }
 
   .helpers {
-    flex : 0 0 30%;
+    flex : 0 0 23.75%;
     display : flex;
     flex-direction: column;
     background: $double-grey;
+    color: $double-grey3;
+    overflow-y: scroll;
+    h4 {
+      color: $double-black;
+    }
     .customer-detail {
-      min-height: 50%;
+      diplay: flex;
+      flex-direction: column;
       flex: 1;
-      border-bottom: 1px solid $pay-grey;
+      margin: 15px;
+      border-bottom: 1px solid $double-grey3;
+      .functions {
+        display : flex;
+        justify-content: center;
+        padding:5px 15px 20px 15px;
+        .btn {
+          border-radius: 0px;
+          border: 0;
+          background: $double-dark-blue;
+          color: $double-white;
+          flex : 0 0 45%;
+          margin: 0px 15px;
+
+        }
+      }
+      .add-preference {
+        display: flex;
+        margin-bottom: 15px;
+        .preference-message {
+          flex:1;
+          margin-right: 15px;
+        }
+        .submit {
+          border: 0;
+          padding: 0;
+          width: 40px;
+          height: 40px;
+          color: $double-white;
+          background-color: $double-grey2;
+        }
+      }
+      .preferences {
+        flex:1;
+        overflow-y: scroll;
+        .preference {
+          padding-bottom: 20px;
+        }
+      }
     }
     .task-related {
-      min-height: 50%;
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      margin: 15px;
       .tasks {
         width: 100%;
         overflow-y: scroll;
         flex : 1;
         .task {
-          padding: 20px 10px;
+          padding-bottom : 20px;
         }
       }
       .new-task-button {
