@@ -8,15 +8,15 @@
         {{> assistantCustomerConversationChannel}}
       {{/each}}
     </ul>
-    {{#if selectedChannel}}
-      <div class="selected-channel-messages">
-        {{> channelMessages selectedChannel}}
-      </div>
-      <div class="selected-channel-reply">
-        {{> channelReply selectedChannel}}
-      </div>
-    {{/if}}
   </div>
+  {{#if selectedChannel}}
+    <div class="selected-channel-messages">
+      {{> channelMessages selectedChannel}}
+    </div>
+    <div class="selected-channel-reply">
+      {{> channelReply selectedChannel}}
+    </div>
+  {{/if}}
 </Template>
 
 <Template name="assistantCustomerConversationChannel">
