@@ -1,7 +1,9 @@
 @import "variables";
 
 .channel-tabs {
-  padding: 15px 15px 0px 15px;
+  padding: 25px 25px 0px 25px;
+  height: 100%;
+  overflow-y: scroll;
   .customer-metrics {
     .name {
       font-size: 1.414em;
@@ -38,8 +40,22 @@
 }
 .selected-channel-messages {
   .message {
-    padding: 10px 2px;
-    border-bottom: 1px dotted #B3A9A9;
+    padding-bottom: 30px;
+
+    &.in {
+      padding-right: 30%;
+      .content {
+        padding:20px;
+        background-color: $double-green;
+      }
+    }
+    &.out {
+      padding-left: 30%;
+      .content {
+        padding:20px;
+        background-color: $double-grey;
+      }
+    }
 
     .content {
       margin: 0px;
