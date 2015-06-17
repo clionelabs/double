@@ -173,6 +173,9 @@
         flex:1;
         .preference {
           padding-bottom: 20px;
+          .remove {
+            cursor: pointer;
+          }
         }
       }
     }
