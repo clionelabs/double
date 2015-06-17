@@ -22,10 +22,6 @@ Template.assistantCustomerConversation.onRendered(function() {
 Template.assistantCustomerConversation.events({
   "click .profile" : function() {
     Modal.show('customerEditForm', this);
-  },
-  "click .remove" : function(e) {
-    let pref = this;
-    Customers.Preference.delete(pref.userId, pref._id);
   }
 });
 
