@@ -19,14 +19,14 @@ Template.assistantTasksDetailDescriptionForm.helpers({
 });
 
 Template.assistantTasksDetailDescriptionForm.events({
-  'click .edit-description': function(e) {
+  'click i.edit': function(e) {
     Session.setAuth(SessionKeys.genDescriptionFormKey(this._id), true);
   },
-  "submit .task-description-edit" : function(e) {
+  "submit form.edit" : function(e) {
     e.preventDefault();
     return Template.assistantTasksDetailDescriptionForm._submitFn(e, this._id);
   },
-  "keypress .task-description-edit textarea" : function(e) {
+  "keypress form.edit textarea" : function(e) {
     if (e.keyCode === 27) {//esc
       Session.setAuth(SessionKeys.genDescriptionFormKey(this._id), false);
     } else if (e.shiftKey && e.keyCode === 13) {

@@ -81,8 +81,8 @@
     }
 
     .updates {
-      border: 1px solid $double-light-blue;
-      background: $double-light-blue2;
+      border: 1px solid $double-light-blue2;
+      background: $double-light-blue;
       border-radius: 4px;
       nav ul {
         padding: 1em 1em 0em 1em;
@@ -113,6 +113,30 @@
         }
         .statuses-more {
           text-align: center;
+        }
+      }
+    }
+    .description {
+      .title {
+        color: $double-black;
+        i.edit {
+          cursor:pointer;
+        }
+      }
+      form.edit {
+        display:flex;
+        justify-content: space-between;
+        align-content: center;
+        width : 100%;
+        textarea {
+          height: 10em;
+          flex : 1;
+          border : 1px solid $double-grey2;
+        }
+        button.submit {
+          text-decoration: underline;
+          border : 1px solid $double-grey2;
+          background: none;
         }
       }
     }
