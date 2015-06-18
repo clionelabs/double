@@ -10,7 +10,6 @@
           </span>
           <span class="title">{{ title }}</span>
           <span class="total-time-used">{{formatDurationPrecise totalDuration }}</span>
-
         </h4>
       </div>
       <div class="metrics">
@@ -19,28 +18,19 @@
       </div>
     </div>
   </div>
-  <div class="others-info">
-    <div class="owner">Request Owner: </div>
-    <div class="responder">D/DD(s) in charge:</div>
+  <div class="other-info">
+    <div class="owner">Request Owner: {{ ownerName }}</div>
+    <div class="responder">D/DD(s) in charge: TODO</div>
     <div class="deadline"><i class="glyphicon glyphicon-calendar"></i></div>
     <div class="time-budget"><i class="glyphicon glyphicon-time"></i></div>
   </div>
   <div class="updates">
     <nav>
       <ul>
-        <li>Status</li>
+        <li class="active">Status</li>
       </ul>
     </nav>
-    <input type="text" class="status" name="status"/>
     {{> assistantTasksDetailStatusForm }}
-    <div class="statuses">
-      {{#if getLatestStatus}}
-        {{> assistantTasksDetailSubItem statusToMessage getLatestStatus }}
-      {{/if}}
-    </div>
-    <div class="statuses-more">
-      <i class="glyphicon glyphicon-chevron-down"></i>
-    </div>
   </div>
   <div class="description">
     {{> assistantTasksDetailDescriptionForm }}
@@ -48,7 +38,6 @@
   <div class="links">
     {{> assistantTasksDetailLinkForm }}
     {{#each referencesToMessage }}
-      {{> assistantTasksDetailSubItem this}}
     {{/each}}
   </div>
 </template>

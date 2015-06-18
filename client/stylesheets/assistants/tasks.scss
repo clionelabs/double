@@ -26,21 +26,18 @@
     flex : 0 0 52.5%;
     overflow-y: scroll;
     padding: 20px;
+    color: $double-grey3;
 
     >* {
       border-top: 1px solid $double-grey2;
+      margin-top: 20px;
       &:first-child {
         border-top : none;
+        margin-top: 0px;
       }
     }
 
     .title-metrics {
-      .metrics {
-        div {
-          display : inline-block;
-          padding-right : 1em;
-        }
-      }
       .title-bar h4 {
         width:100%;
         color: $double-black;
@@ -52,14 +49,54 @@
           display:inline-block;
           color: $double-grey2;
           padding: 8px;
-          &:before {
-            min-width: 18px;
-            min-height: 18px;
-          }
           text-align: center;
           border:1px solid $double-grey2;
         }
+      }
+      .metrics {
+        div {
+          display : inline-block;
+          padding-right : 1em;
+        }
+      }
+    }
 
+    .other-info {
+      display : flex;
+      padding-top:1em;
+      >* {
+        padding-right: 1em;
+        &:last-child {
+          padding-right: 0em;
+        }
+      }
+    }
+
+    .updates {
+      border: 1px solid $double-light-blue;
+      background: $double-light-blue2;
+      border-radius: 4px;
+      nav ul {
+        padding: 1em 1em 0em 1em;
+        list-style: none;
+        li.active {
+          color: $double-black;
+        }
+      }
+      .status-tab {
+        padding: 0em 1em;
+        input {
+          width: 100%;
+          border : none;
+          padding: 1em;
+        }
+        .statuses {
+          padding:1em 0em;
+
+        }
+        .statuses-more {
+          text-align: center;
+        }
       }
     }
   }

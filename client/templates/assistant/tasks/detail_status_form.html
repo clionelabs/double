@@ -1,8 +1,16 @@
 <template name="assistantTasksDetailStatusForm">
-  <form class="task-status-change" id="{{ genFormKey _id isCurrent }}">
-    <div class="form-container sub {{isStatusFormShown}}">
-      <input name="message" class="status-message" type="text" required/>
-      <button class="submit" action="submit">Post</button>
+  <div class="status-tab">
+    <form id="{{ genFormKey _id isCurrent }}">
+      <input name="message" class="message" type="text" required placeholder="Enter a new update..."/>
+    </form>
+    <div class="statuses">
+      {{#each getCombinedStatuses}}
+        <div class="date">{{formatDateTime createdAt}}</div>
+        <div class="message">{{ message }}</div>
+      {{/each}}
     </div>
-  </form>
+    <div class="statuses-more">
+      <i class="glyphicon glyphicon-chevron-down"></i>
+    </div>
+  </div>
 </template>
