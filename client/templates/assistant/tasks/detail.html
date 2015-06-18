@@ -1,34 +1,55 @@
 <template name="assistantTasksDetail">
-  <div class="task-item">
-    <div class="main">
-      <i class="glyphicon {{ checkedIfTaskCompleted }}"></i>
-      <span class="title">{{ title }}</span>
-      <i class="glyphicon glyphicon-pencil edit"></i>
-      <i class="glyphicon glyphicon-comment comment"></i>
-      <i class="glyphicon glyphicon-link link"></i>
-      <button class="btn btn-primary {{ isStartOrPause.toLowerCase }}" {{disabledIfTaskCompleted}}>
-        <i class="glyphicon glyphicon-time"></i> {{ isStartOrPause }}
-      </button>
+  <div class="header">
+    <div class="title-metrics">
+      <div class="title-bar">
+        <h4>
+          <span class ="functions">
+            <i class="function play fa fa-play"></i>
+            <i class="function mark-completed fa fa-check"></i>
+            <i class="function edit fa fa-pencil"></i>
+          </span>
+          <span class="title">{{ title }}</span>
+          <span class="total-time-used">{{formatDurationPrecise totalDuration }}</span>
+
+        </h4>
+      </div>
+      <div class="metrics">
+        <div class="last-updated">Last Updated Time: TODO</div>
+        <div class="last-logged-time">Last 7 Days: TODO</div>
+      </div>
     </div>
-    <div class="forms">
-      {{> assistantTasksDetailStatusForm }}
-      {{> assistantTasksDetailLinkForm }}
+  </div>
+  <div class="others-info">
+    <div class="owner">Request Owner: </div>
+    <div class="responder">D/DD(s) in charge:</div>
+    <div class="deadline"><i class="glyphicon glyphicon-calendar"></i></div>
+    <div class="time-budget"><i class="glyphicon glyphicon-time"></i></div>
+  </div>
+  <div class="updates">
+    <nav>
+      <ul>
+        <li>Status</li>
+      </ul>
+    </nav>
+    <input type="text" class="status" name="status"/>
+    {{> assistantTasksDetailStatusForm }}
+    <div class="statuses">
+      {{#if getLatestStatus}}
+        {{> assistantTasksDetailSubItem statusToMessage getLatestStatus }}
+      {{/if}}
     </div>
+    <div class="statuses-more">
+      <i class="glyphicon glyphicon-chevron-down"></i>
+    </div>
+  </div>
+  <div class="description">
     {{> assistantTasksDetailDescriptionForm }}
-    {{#if getLatestStatus}}
-      {{> assistantTasksDetailSubItem statusToMessage getLatestStatus }}
-    {{/if}}
+  </div>
+  <div class="links">
+    {{> assistantTasksDetailLinkForm }}
     {{#each referencesToMessage }}
       {{> assistantTasksDetailSubItem this}}
     {{/each}}
-    {{> assistantTasksDetailSubItem totalDurationToMessage this.totalDuration }}
   </div>
 </template>
 
-<template name="assistantTasksDetailSubItem">
-  <div class="sub {{ type }}-container">
-    <i class="glyphicon glyphicon-{{ type }} type"></i>
-    {{> Template.dynamic template=taskSubItemMessage }}
-    <i class="glyphicon glyphicon-minus-sign {{ type }}-delete {{ allowDelete type }}" data-task-id="{{ taskId }}"></i>
-  </div>
-</template>
