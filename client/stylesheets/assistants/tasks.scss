@@ -100,7 +100,16 @@
         }
         .statuses {
           padding:1em 0em;
-
+          .status {
+            padding-top:0.8em;
+            &:first-child {
+              padding-top:0;
+            }
+            display:flex;
+            .date-author {
+              flex : 0 0 15%;
+            }
+          }
         }
         .statuses-more {
           text-align: center;

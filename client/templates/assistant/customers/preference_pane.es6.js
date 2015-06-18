@@ -15,7 +15,7 @@ Template.assistantCustomerPreferencePane.helpers({
 Template.assistantCustomerPreferencePane.events({
   "submit .add-preference" : function(e) {
     e.preventDefault();
-    return Template.assistantCustomerPreferencePane._submitFn(e, this._id, this.isCurrent);
+    return Template.assistantCustomerPreferencePane._submitFn(e, this._id);
   },
   "click .remove" : function(e) {
     let pref = this;

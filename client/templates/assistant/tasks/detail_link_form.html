@@ -1,6 +1,6 @@
 <template name="assistantTasksDetailLinkForm">
   <div class="header"><h4>Links <i class="fa fa-plus add-link"></i></h4></div>
-  <form class="task-link-add" id="{{ genFormKey _id isCurrent }}">
+  <form class="task-link-add" id="{{ genFormKey _id }}">
     <div class="form-container sub {{isLinkFormShown}}">
       <label for="title">Title: </label><input name="title" class="link-title" type="text" required/>
       <label for="url">URL: </label><input name="url" class="link-url" type="url" required/>

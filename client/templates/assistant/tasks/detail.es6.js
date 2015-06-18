@@ -32,10 +32,10 @@ Template.assistantTasksDetail.onRendered(function() {
 
 Template.assistantTasksDetail.events({
   "click .comment" : function() {
-    Session.setAuth(SessionKeys.genStatusFormKey(this._id, this.isCurrent), true);
+    Session.setAuth(SessionKeys.genStatusFormKey(this._id), true);
   },
   "click .link" : function() {
-    Session.setAuth(SessionKeys.genLinkFormKey(this._id, this.isCurrent), true);
+    Session.setAuth(SessionKeys.genLinkFormKey(this._id), true);
   },
   "click .start": function() {
     Tasks.startWork(this._id, Meteor.userId());
