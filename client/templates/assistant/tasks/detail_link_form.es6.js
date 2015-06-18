@@ -1,4 +1,4 @@
-Template.assistantTasksDetailLinkForm._submitFn = (form, taskId) => {
+let _submitFn = (form, taskId) => {
   let title = form.target.title.value;
   let url = form.target.url.value;
   Tasks.References.add(title, url, taskId,
@@ -10,7 +10,7 @@ Template.assistantTasksDetailLinkForm._submitFn = (form, taskId) => {
 
 Template.assistantTasksDetailLinkForm.onRendered(function() {
   let selfTemplate = this;
-  selfTemplate.$('.form-container').on('transitionend onanimationend', function(e) {
+  selfTemplate.$('.sub').on('transitionend onanimationend', function(e) {
     if ($(e.target).height() > 1) {
       selfTemplate.$('.link-title').focus();
     }
@@ -18,22 +18,33 @@ Template.assistantTasksDetailLinkForm.onRendered(function() {
 });
 
 Template.assistantTasksDetailLinkForm.helpers({
-  isLinkFormShown : function() {
+  references() {
+    console.log(this);
+    return this.references;
+  },
+  isLinkFormShown() {
     return Session.get(SessionKeys.genLinkFormKey(this._id)) ? "" : "not-shown";
   },
-  genFormKey : function(taskId) {
+  genFormKey(taskId) {
     return SessionKeys.genLinkFormKey(taskId);
   }
 });
 
 Template.assistantTasksDetailLinkForm.events({
-  "submit .task-link-add" : function(e) {
-    e.preventDefault();
-    return Template.assistantTasksDetailLinkForm._submitFn(e, this._id);
+  "click i.add" : function() {
+    Session.setAuth(SessionKeys.genLinkFormKey(this._id), true);
   },
-  "keyup .task-link-add input" : function(e) {
+  "submit form.add" : function(e) {
+    e.preventDefault();
+    return _submitFn(e, this._id);
+  },
+  "keyup form.add input" : function(e) {
     if (e.keyCode === 27) {//esc
       Session.setAuth(SessionKeys.genLinkFormKey(this._id), false);
     }
+  },
+  "click .link-delete" : function(e) {
+    let taskId = $(e.target).data("task-id");
+    Tasks.References.delete(taskId, this._id);
   }
 });

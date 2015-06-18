@@ -29,15 +29,15 @@
     color: $double-grey3;
 
     >* {
-      border-top: 1px solid $double-grey2;
-      margin-top: 20px;
-      &:first-child {
-        border-top : none;
-        margin-top: 0px;
+      border-bottom: 1px solid $double-grey2;
+      margin-bottom: 20px;
+      &:last-child {
+        border-bottom : none;
       }
     }
 
     .title-metrics {
+      padding-bottom: 1em;
       .title-bar h4 {
         width:100%;
         color: $double-black;
@@ -70,8 +70,8 @@
     }
 
     .other-info {
+      padding-bottom: 1em;
       display : flex;
-      padding-top:1em;
       >* {
         padding-right: 1em;
         &:last-child {
@@ -116,28 +116,90 @@
         }
       }
     }
-    .description {
-      .title {
-        color: $double-black;
-        i.edit {
-          cursor:pointer;
+    .supporting-doc {
+      border-top : 1px solid $double-grey2;
+      >* {
+        margin-bottom: 2em;
+        h4 {
+          margin-bottom: 0.2em;
         }
       }
-      form.edit {
-        display:flex;
-        justify-content: space-between;
-        align-content: center;
-        width : 100%;
-        textarea {
-          height: 10em;
-          flex : 1;
-          border : 1px solid $double-grey2;
+      .description {
+        h4 {
+          color: $double-black;
+          i.edit {
+            padding-left:1em;
+            cursor: pointer;
+          }
         }
-        button.submit {
-          text-decoration: underline;
-          border : 1px solid $double-grey2;
-          background: none;
+        form.edit {
+          display: flex;
+          justify-content: space-between;
+          align-content: center;
+          width: 100%;
+          textarea {
+            height: 10em;
+            flex: 1;
+            border: 1px solid $double-grey2;
+          }
+          button.submit {
+            text-decoration: underline;
+            border: 1px solid $double-grey2;
+            background: none;
+          }
         }
+      }
+      .links {
+        h4 {
+          color: $double-black;
+          i.add {
+            padding-left:1em;
+            cursor: pointer;
+          }
+        }
+        .sub {
+          opacity: 1;
+          height: 39px;
+          transition: opacity 0.3s cubic-bezier(1, 0, 1, 0), height 0.2s linear;
+          &.not-shown {
+            opacity: 0;
+            height: 0px;
+            transition: opacity 0.3s cubic-bezier(0, 1, 0, 1), height 0.2s linear 0.1s;
+          }
+          form {
+            width: 100%;
+            display: flex;
+            align-content: center;
+            >* {
+              margin:0 8px;
+            }
+            >label {
+              line-height:39px;
+            }
+            >input {
+              padding:5px;
+            }
+            .link-url {
+              flex: 1;
+            }
+            button.submit {
+              text-decoration: underline;
+              border: 1px solid $double-grey2;
+              background: none;
+            }
+          }
+        }
+        .references{
+          margin-top:0.7em;
+          .reference {
+            .title {
+              color: $double-black;
+              font-weight: 700;
+            }
+            margin-bottom:0.7em;
+          }
+        }
+
       }
     }
   }

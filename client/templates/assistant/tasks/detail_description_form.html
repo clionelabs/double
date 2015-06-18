@@ -1,12 +1,14 @@
 <template name="assistantTasksDetailDescriptionForm">
-  <div class="title"><h4>Description <i class="edit fa fa-pencil"></i></h4></div>
-  <div class="sub {{isDescriptionFormShown}}">
-    <form class="edit" id="{{ genFormKey _id }}">
-      <textarea placeholder="You can use markdown! Shift-enter to submit." class="description" name="description">{{ description }}</textarea>
-      <button class="submit" action="submit">Save</button>
-    </form>
-  </div>
-  <div class="sub {{isDescriptionShown}}">
-    {{#markdown}}{{ description }}{{/markdown}}
+  <div class="description">
+    <h4>Description <i class="edit fa fa-pencil"></i></h4>
+    <div class="sub {{isDescriptionFormShown}}">
+      <form class="edit" id="{{ genFormKey _id }}">
+        <textarea placeholder="You can use markdown! Shift-enter to submit." class="description" name="description">{{ description }}</textarea>
+        <button class="submit" action="submit">Save</button>
+      </form>
+    </div>
+    <div class="sub {{isDescriptionShown}}">
+      {{#markdown}}{{ description }}{{/markdown}}
+    </div>
   </div>
 </template>

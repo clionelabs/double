@@ -34,9 +34,6 @@ Template.assistantTasksDetail.events({
   "click .comment" : function() {
     Session.setAuth(SessionKeys.genStatusFormKey(this._id), true);
   },
-  "click .link" : function() {
-    Session.setAuth(SessionKeys.genLinkFormKey(this._id), true);
-  },
   "click .start": function() {
     Tasks.startWork(this._id, Meteor.userId());
   },
@@ -54,17 +51,3 @@ Template.assistantTasksDetail.events({
   }
 });
 
-/*
-Template.assistantTasksDetailSubItem.events({
-  "click .link-delete" : function(e) {
-    let taskId = $(e.target).data("task-id");
-    Tasks.References.delete(taskId, this._id);
-  },
-});
-
-Template.assistantTasksDetailSubItem.helpers(_.extend({
-  allowDelete : function(type) {
-    return _.contains(["link"], type) ? "" : "hidden";
-  }
-}, TemplateHelpers.Task.SubItem));
-*/

@@ -1,4 +1,4 @@
-Template.task.helpers(_.extend({
+Template.task.helpers({
   getLatestStatus() {
     return this.getLatestStatus(Meteor.userId());
   },
@@ -37,6 +37,4 @@ Template.task.helpers(_.extend({
       return null;
     }
   }
-}, TemplateHelpers.Task.Message));
-
-Template.customerTaskSubItem.helpers(TemplateHelpers.Task.SubItem);
+});

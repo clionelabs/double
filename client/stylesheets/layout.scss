@@ -3,6 +3,12 @@
 .mobile {
   font-size: 40px;
 }
+.dashboard {
+  a {
+    color: $double-grey3;
+    text-decoration: underline;
+  }
+}
 
 body .double-navbar {
   background: $double-dark-blue;
