@@ -4,12 +4,12 @@
       <div class="title-bar">
         <h4>
           <span class ="functions">
-            <i class="function play fa fa-play"></i>
-            <i class="function mark-completed fa fa-check"></i>
+            <i class="function work fa {{isStartOrPause}}"></i>
+            <i class="function complete fa fa-check {{ ifTaskCompleted }}"></i>
             <i class="function edit fa fa-pencil"></i>
           </span>
           <span class="title">{{ title }}</span>
-          <span class="total-time-used">{{formatDurationPrecise totalDuration }}</span>
+          <span class="total-time-used">{{ getFormattedTotalDuration }}</span>
         </h4>
       </div>
       <div class="metrics">
@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="other-info">
-    <div class="owner">Request Owner: {{ ownerName }}</div>
+    <div class="owner">Requested By: {{ ownerName }}</div>
     <div class="responder">D/DD(s) in charge: TODO</div>
     <div class="deadline"><i class="glyphicon glyphicon-calendar"></i></div>
     <div class="time-budget"><i class="glyphicon glyphicon-time"></i></div>
@@ -37,8 +37,6 @@
   </div>
   <div class="links">
     {{> assistantTasksDetailLinkForm }}
-    {{#each referencesToMessage }}
-    {{/each}}
   </div>
 </template>
 

@@ -51,6 +51,14 @@
           padding: 8px;
           text-align: center;
           border:1px solid $double-grey2;
+          cursor: pointer;
+          &.completed {
+            color: $double-green;
+            border:1px solid $double-green;
+          }
+        }
+        .total-time-used {
+          cursor:pointer;
         }
       }
       .metrics {

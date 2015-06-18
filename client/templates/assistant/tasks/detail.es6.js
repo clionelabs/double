@@ -1,48 +1,65 @@
-Template.assistantTasksDetail.helpers(_.extend({
+Template.assistantTasksDetail.helpers({
   isStartOrPause() {
-    return this.isWorking(Meteor.userId()) ? 'Pause' : 'Start';
+    return this.isWorking(Meteor.userId()) ? 'fa-pause pause' : 'fa-play start';
   },
-  disabledIfTaskCompleted() {
-    return this.isCompleted() ? "disabled" : "";
+  ifTaskCompleted() {
+    return this.isCompleted() ? "completed" : "not-completed";
   },
   getLatestStatus() {
     return this.getLatestStatus(Meteor.userId());
+  },
+  getFormattedTotalDuration() {
+    let formatter = UI._globalHelpers['formatDurationPrecise'];
+    return formatter(+Session.get(SessionKeys.CURRENT_TIME_USED));
   }
-}, TemplateHelpers.Task.Message));
+});
+
+let _timeoutFn = null;
+
+let _updateTimer = (task) => {
+  Session.setAuth(SessionKeys.CURRENT_TIME_USED, Tasks.findOne(task._id).totalDuration());
+};
+
+
+Template.assistantTasksDetail.onRendered(function() {
+  let task = this.data;
+  _updateTimer(task);
+  _timeoutFn = Meteor.setInterval(_.partial(
+    _updateTimer, task), 1000);
+
+});
+
 
 Template.assistantTasksDetail.events({
-  'click .edit': function(e) {
-    Session.setAuth(SessionKeys.genDescriptionFormKey(this._id, this.isCurrent), true);
-  },
   "click .comment" : function() {
     Session.setAuth(SessionKeys.genStatusFormKey(this._id, this.isCurrent), true);
   },
   "click .link" : function() {
     Session.setAuth(SessionKeys.genLinkFormKey(this._id, this.isCurrent), true);
   },
-  "click button.start": function() {
+  "click .start": function() {
     Tasks.startWork(this._id, Meteor.userId());
   },
-  "click button.pause": function() {
+  "click .pause": function() {
     Tasks.endWork(this._id, Meteor.userId());
   },
-  'click .glyphicon-unchecked' : function(e) {
-    Tasks.endWork(this._id, Meteor.userId());
+  'click .complete' : function(e) {
     Tasks.complete(this._id);
+  },
+  'click .total-time-used' : function() {
+    let getTask = (taskId) => {
+      return Tasks.findOne({ _id : taskId });
+    };
+    Modal.show('assistantTasksTimeSheetEdit', _.partial(getTask, this._id));
   }
 });
 
+/*
 Template.assistantTasksDetailSubItem.events({
   "click .link-delete" : function(e) {
     let taskId = $(e.target).data("task-id");
     Tasks.References.delete(taskId, this._id);
   },
-  'click .time-container' : function() {
-    let getTask = (taskId) => {
-      return Tasks.findOne({ _id : taskId });
-    };
-    Modal.show('assistantTasksTimeSheetEdit', _.partial(getTask, this.taskId));
-  }
 });
 
 Template.assistantTasksDetailSubItem.helpers(_.extend({
@@ -50,3 +67,4 @@ Template.assistantTasksDetailSubItem.helpers(_.extend({
     return _.contains(["link"], type) ? "" : "hidden";
   }
 }, TemplateHelpers.Task.SubItem));
+*/

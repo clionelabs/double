@@ -19,6 +19,9 @@ Template.assistantTasksDetailDescriptionForm.helpers({
 });
 
 Template.assistantTasksDetailDescriptionForm.events({
+  'click .edit-description': function(e) {
+    Session.setAuth(SessionKeys.genDescriptionFormKey(this._id, this.isCurrent), true);
+  },
   "submit .task-description-edit" : function(e) {
     e.preventDefault();
     return Template.assistantTasksDetailDescriptionForm._submitFn(e, this._id, this.isCurrent);

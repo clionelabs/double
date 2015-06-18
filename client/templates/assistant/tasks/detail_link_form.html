@@ -1,4 +1,5 @@
 <template name="assistantTasksDetailLinkForm">
+  <div class="header"><h4>Links <i class="fa fa-plus add-link"></i></h4></div>
   <form class="task-link-add" id="{{ genFormKey _id isCurrent }}">
     <div class="form-container sub {{isLinkFormShown}}">
       <label for="title">Title: </label><input name="title" class="link-title" type="text" required/>
@@ -6,4 +7,6 @@
       <button class="submit" action="submit">Post</button>
     </div>
   </form>
+  {{#each referencesToMessage }}
+  {{/each}}
 </template>
