@@ -22,7 +22,9 @@ Meteor.publish('inProcessTasks', function() {
 });
 
 Meteor.reactivePublish('customers', function() {
-  return Users.findCustomers();
+  let myPlacements = Placements.find({ assistantId : this.userId }).fetch();
+
+  return Users.findCustomers({ _id : { $in : _.pluck(myPlacements, 'customerId') } });
 });
 
 Meteor.publish('placements', function() {
