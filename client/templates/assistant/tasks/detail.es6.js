@@ -26,9 +26,11 @@ Template.assistantTasksDetail.onRendered(function() {
   _updateTimer(task);
   _timeoutFn = Meteor.setInterval(_.partial(
     _updateTimer, task), 1000);
-
 });
 
+Template.assistantTasksDetail.onDestroyed(function() {
+  Meteor.clearInterval(_timeoutFn);
+});
 
 Template.assistantTasksDetail.events({
   "click .comment" : function() {
