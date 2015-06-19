@@ -1,6 +1,7 @@
 Template.assistantCustomersDashboard.helpers({
   getCurrentCustomer() {
-    return _.extend(Session.get(SessionKeys.CURRENT_CUSTOMER), Customer, User);
+    let rawUser = Session.get(SessionKeys.CURRENT_CUSTOMER);
+    return rawUser ? _.extend(rawUser, Customer, User) : EmptyCustomer;
   },
   getTasksOfSelectedCustomer() {
     let currentCustomer = Template.assistantCustomersDashboard.__helpers.get("getCurrentCustomer")();

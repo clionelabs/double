@@ -35,7 +35,7 @@ Template.assistantCustomerConversation.helpers({
       return {
         customer: customer,
         channel: channel
-      }
+      };
     });
   },
   selectedChannel() {
@@ -43,7 +43,7 @@ Template.assistantCustomerConversation.helpers({
     let customerId = customer._id;
     let key = SessionKeys.getCustomerSelectedChannelIdKey(customerId);
     let channelId = Session.get(key);
-    return channelId? D.Channels.findOne(channelId): null;
+    return channelId ? D.Channels.findOne(channelId) : null;
   }
 });
 

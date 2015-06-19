@@ -19,7 +19,6 @@ Template.assistantTasksDetailLinkForm.onRendered(function() {
 
 Template.assistantTasksDetailLinkForm.helpers({
   references() {
-    console.log(this);
     return this.references;
   },
   isLinkFormShown() {
