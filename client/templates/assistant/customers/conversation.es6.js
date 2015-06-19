@@ -1,22 +1,25 @@
 Template.assistantCustomerConversation.onRendered(function() {
-  let onDateRangePickerApply = function (customer, start, end, label) {
-    let invoiceRelated = {
-      customer : customer,
-      from : start.valueOf(),
-      to : end.valueOf(),
-      tasks : Tasks.find({ requestorId : customer._id })
+  let template = this;
+  Tracker.autorun(function() {
+    let onDateRangePickerApply = function (customer, start, end, label) {
+      let invoiceRelated = {
+        customer : customer,
+        from : start.valueOf(),
+        to : end.valueOf(),
+        tasks : Tasks.find({ requestorId : customer._id })
+      };
+      Modal.show("invoice", invoiceRelated);
     };
-    Modal.show("invoice", invoiceRelated);
-  };
 
-  this.$('.export').daterangepicker(
-      {
-        format: 'YYYY-MM-DD',
-        opens: 'right',
-        maxDate: moment()
-      },
-      _.partial(onDateRangePickerApply, this.data)
-  );
+    template.$('.export').daterangepicker(
+        {
+          format: 'YYYY-MM-DD',
+          opens: 'right',
+          maxDate: moment()
+        },
+        _.partial(onDateRangePickerApply, _.extend(Session.get(SessionKeys.CURRENT_CUSTOMER), Customer, User))
+    );
+  });
 });
 
 Template.assistantCustomerConversation.events({
