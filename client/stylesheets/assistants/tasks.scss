@@ -1,37 +1,212 @@
 @import "../variables";
 
 .assistant-dashboard-task {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 55px);
   display: flex;
 
   >* {
-    border-right: 1px solid $pay-grey;
     height: 100%;
-    &:last-child {
-      border-right: none;
-    }
   }
 
   .tasks {
-    flex : 0 0 calc(100% / 10 * 2);
+    flex : 0 0 23.75%;
     overflow-y: scroll;
+    background: $double-grey;
     .task {
       padding: 15px;
       cursor: pointer;
       &.selected {
-        background-color: lighten($pay-light-blue, 30%);
-        border-radius: 5px;
+        background: $double-white;
+        border-left: 3px solid $double-red;
       }
     }
   }
 
-  .details {
-    flex : 0 0 calc(100% / 10 * 5);
+  .task-detail {
+    flex : 0 0 52.5%;
     overflow-y: scroll;
+    padding: 20px;
+    color: $double-grey3;
+
+    >* {
+      border-bottom: 1px solid $double-grey2;
+      margin-bottom: 20px;
+      &:last-child {
+        border-bottom : none;
+      }
+    }
+
+    .title-metrics {
+      padding-bottom: 1em;
+      .title-bar h4 {
+        width:100%;
+        color: $double-black;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .function {
+          display:inline-block;
+          color: $double-grey2;
+          padding: 8px;
+          text-align: center;
+          border:1px solid $double-grey2;
+          cursor: pointer;
+          &.completed {
+            color: $double-green;
+            border:1px solid $double-green;
+          }
+        }
+        .total-time-used {
+          cursor:pointer;
+        }
+      }
+      .metrics {
+        div {
+          display : inline-block;
+          padding-right : 1em;
+        }
+      }
+    }
+
+    .other-info {
+      padding-bottom: 1em;
+      display : flex;
+      >* {
+        padding-right: 1em;
+        &:last-child {
+          padding-right: 0em;
+        }
+      }
+    }
+
+    .updates {
+      border: 1px solid $double-light-blue2;
+      background: $double-light-blue;
+      border-radius: 4px;
+      nav ul {
+        padding: 1em 1em 0em 1em;
+        list-style: none;
+        li.active {
+          color: $double-black;
+        }
+      }
+      .status-tab {
+        padding: 0em 1em;
+        input {
+          width: 100%;
+          border : none;
+          padding: 1em;
+        }
+        .statuses {
+          padding:1em 0em;
+          .status {
+            padding-top:0.8em;
+            &:first-child {
+              padding-top:0;
+            }
+            display:flex;
+            .date-author {
+              flex : 0 0 15%;
+            }
+          }
+        }
+        .statuses-more {
+          text-align: center;
+        }
+      }
+    }
+    .supporting-doc {
+      border-top : 1px solid $double-grey2;
+      >* {
+        margin-bottom: 2em;
+        h4 {
+          margin-bottom: 0.2em;
+        }
+      }
+      .description {
+        h4 {
+          color: $double-black;
+          i.edit {
+            padding-left:1em;
+            cursor: pointer;
+          }
+        }
+        form.edit {
+          display: flex;
+          justify-content: space-between;
+          align-content: center;
+          width: 100%;
+          textarea {
+            height: 10em;
+            flex: 1;
+            border: 1px solid $double-grey2;
+          }
+          button.submit {
+            text-decoration: underline;
+            border: 1px solid $double-grey2;
+            background: none;
+          }
+        }
+      }
+      .links {
+        h4 {
+          color: $double-black;
+          i.add {
+            padding-left:1em;
+            cursor: pointer;
+          }
+        }
+        .sub {
+          opacity: 1;
+          height: 39px;
+          transition: opacity 0.3s cubic-bezier(1, 0, 1, 0), height 0.2s linear;
+          &.not-shown {
+            opacity: 0;
+            height: 0px;
+            transition: opacity 0.3s cubic-bezier(0, 1, 0, 1), height 0.2s linear 0.1s;
+          }
+          form {
+            width: 100%;
+            display: flex;
+            align-content: center;
+            >* {
+              margin:0 8px;
+            }
+            >label {
+              line-height:39px;
+            }
+            >input {
+              padding:5px;
+            }
+            .link-url {
+              flex: 1;
+            }
+            button.submit {
+              text-decoration: underline;
+              border: 1px solid $double-grey2;
+              background: none;
+            }
+          }
+        }
+        .references{
+          margin-top:0.7em;
+          .reference {
+            .title {
+              color: $double-black;
+              font-weight: 700;
+            }
+            margin-bottom:0.7em;
+          }
+        }
+
+      }
+    }
   }
 
   .conversation {
-    flex: 0 0 calc(100% / 10 * 3);
+    flex: 0 0 23.75%;
     overflow-y: scroll;
+    background: $double-grey;
   }
 }

@@ -1,12 +1,9 @@
 SessionKeys = {
-  genStatusFormKey : (taskId, isCurrent) => {
-    return "isStatusFormShown" + "." + taskId  + (isCurrent ? ".current" : "");
+  genLinkFormKey : (taskId) => {
+    return "isLinkFormShown" + "." + taskId;
   },
-  genLinkFormKey : (taskId, isCurrent) => {
-    return "isLinkFormShown" + "." + taskId  + (isCurrent ? ".current" : "");
-  },
-  genDescriptionFormKey : (taskId, isCurrent) => {
-    return "isDescriptionFormShown" + "." + taskId  + (isCurrent ? ".current" : "");
+  genDescriptionFormKey : (taskId) => {
+    return "isDescriptionFormShown" + "." + taskId;
   },
   getCustomerSelectedChannelIdKey : (customerId) => {
     return "customerSelectedChannelId" + "." + customerId;

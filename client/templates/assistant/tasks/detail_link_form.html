@@ -1,9 +1,20 @@
 <template name="assistantTasksDetailLinkForm">
-  <form class="task-link-add" id="{{ genFormKey _id isCurrent }}">
-    <div class="form-container sub {{isLinkFormShown}}">
-      <label for="title">Title: </label><input name="title" class="link-title" type="text" required/>
-      <label for="url">URL: </label><input name="url" class="link-url" type="url" required/>
-      <button class="submit" action="submit">Post</button>
+  <div class="links">
+    <h4>Links <i class="fa fa-plus add"></i></h4>
+    <div class="sub {{isLinkFormShown}}">
+      <form class="add" id="{{ genFormKey _id }}">
+        <label for="title">Title: </label><input name="title" class="link-title" type="text" required/>
+        <label for="url">URL: </label><input name="url" class="link-url" type="url" required/>
+        <button class="submit" action="submit">Post</button>
+      </form>
     </div>
-  </form>
+    <div class="references">
+    {{#each references }}
+      <div class="reference">
+        <div class="title">{{ title }}</div>
+        <div class="url"><a href="{{url}}">{{url}}</a></div>
+      </div>
+    {{/each}}
+    </div>
+  </div>
 </template>

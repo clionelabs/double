@@ -1,34 +1,40 @@
 <template name="assistantTasksDetail">
-  <div class="task-item">
-    <div class="main">
-      <i class="glyphicon {{ checkedIfTaskCompleted }}"></i>
-      <span class="title">{{ title }}</span>
-      <i class="glyphicon glyphicon-pencil edit"></i>
-      <i class="glyphicon glyphicon-comment comment"></i>
-      <i class="glyphicon glyphicon-link link"></i>
-      <button class="btn btn-primary {{ isStartOrPause.toLowerCase }}" {{disabledIfTaskCompleted}}>
-        <i class="glyphicon glyphicon-time"></i> {{ isStartOrPause }}
-      </button>
+  <div class="header">
+    <div class="title-metrics">
+      <div class="title-bar">
+        <h4>
+          <span class ="functions">
+            <i class="function work fa {{isStartOrPause}}"></i>
+            <i class="function complete fa fa-check {{ ifTaskCompleted }}"></i>
+            <i class="function edit fa fa-pencil"></i>
+          </span>
+          <span class="title">{{ title }}</span>
+          <span class="total-time-used">{{ getFormattedTotalDuration }}</span>
+        </h4>
+      </div>
+      <div class="metrics">
+        <div class="last-updated">Last Updated Time: TODO</div>
+        <div class="last-logged-time">Last 7 Days: TODO</div>
+      </div>
     </div>
-    <div class="forms">
-      {{> assistantTasksDetailStatusForm }}
-      {{> assistantTasksDetailLinkForm }}
-    </div>
+  </div>
+  <div class="other-info">
+    <div class="owner">Requested By: {{ ownerName }}</div>
+    <div class="responder">D/DD(s) in charge: TODO</div>
+    <div class="deadline"><i class="glyphicon glyphicon-calendar"></i></div>
+    <div class="time-budget"><i class="glyphicon glyphicon-time"></i></div>
+  </div>
+  <div class="updates">
+    <nav>
+      <ul>
+        <li class="active">Status</li>
+      </ul>
+    </nav>
+    {{> assistantTasksDetailStatusForm }}
+  </div>
+  <div class="supporting-doc">
     {{> assistantTasksDetailDescriptionForm }}
-    {{#if getLatestStatus}}
-      {{> assistantTasksDetailSubItem statusToMessage getLatestStatus }}
-    {{/if}}
-    {{#each referencesToMessage }}
-      {{> assistantTasksDetailSubItem this}}
-    {{/each}}
-    {{> assistantTasksDetailSubItem totalDurationToMessage this.totalDuration }}
+    {{> assistantTasksDetailLinkForm }}
   </div>
 </template>
 
-<template name="assistantTasksDetailSubItem">
-  <div class="sub {{ type }}-container">
-    <i class="glyphicon glyphicon-{{ type }} type"></i>
-    {{> Template.dynamic template=taskSubItemMessage }}
-    <i class="glyphicon glyphicon-minus-sign {{ type }}-delete {{ allowDelete type }}" data-task-id="{{ taskId }}"></i>
-  </div>
-</template>

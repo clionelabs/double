@@ -6,6 +6,10 @@ Template.assistantTasksListItem.helpers({
     } else {
       return "";
     }
+  },
+  status() {
+    //TODO
+    return "offline";
   }
 });
 Template.assistantTasksListItem.events({
