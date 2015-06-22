@@ -1,7 +1,7 @@
 <template name="assistantCustomersDashboard">
   <div class="assistant-dashboard-customer">
     <div class="customers">
-      {{#each customers}}
+      {{#each getSortedCustomers}}
         {{> assistantCustomersListItem }}
       {{/each }}
     </div>

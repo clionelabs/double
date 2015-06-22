@@ -23,8 +23,9 @@ Meteor.publish('inProcessTasks', function() {
 
 Meteor.reactivePublish('customers', function() {
   let myPlacements = Placements.find({ assistantId : this.userId }).fetch();
+  let myCustomerIds = _.pluck(myPlacements, 'customerId');
 
-  return Users.findCustomers({ _id : { $in : _.pluck(myPlacements, 'customerId') } });
+  return Users.findCustomers({ _id : { $in :  myCustomerIds }});
 });
 
 Meteor.publish('placements', function() {
