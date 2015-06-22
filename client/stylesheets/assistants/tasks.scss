@@ -108,6 +108,10 @@
             display:flex;
             .date-author {
               flex : 0 0 15%;
+              .author {
+                font-style: italic;
+                font-size: 0.88em;
+              }
             }
           }
         }

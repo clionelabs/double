@@ -10,11 +10,15 @@ Template.assistantTasksDetailStatusForm.helpers({
   getFlattenedStatuses() {
     let statuses = _.reduce(this.statuses, (memo, statusesOfUser, userId) => {
       let flattenedStatuses = _.map(statusesOfUser, (status) => {
-        return _.extend(status, { userId : userId });
+        return _.extend(status, { assistant : Users.findOne({ _id : userId })});
       });
       return memo.concat(flattenedStatuses);
     }, []);
     return _.sortBy(statuses, 'createdAt').reverse();
+  },
+  getAssistantName() {
+    console.log(this);
+    return this.assistant.firstName();
   }
 });
 
