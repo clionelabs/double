@@ -10,6 +10,9 @@ Template.assistantTasksListItem.helpers({
   status() {
     //TODO
     return "offline";
+  },
+  getLastModified() {
+    return moment().subtract(moment(this.lastModified));
   }
 });
 Template.assistantTasksListItem.events({

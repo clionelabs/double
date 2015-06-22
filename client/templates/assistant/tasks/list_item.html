@@ -1,6 +1,6 @@
 <template name="assistantTasksListItem">
   <div class="task {{isSelected}}">
-    &#8226;
-    {{ title }}
+    <div class="title">&#8226;{{ title }}</div>
+    <div class="last-modified">{{formatDuration getLastModified}}</div>
   </div>
 </template>
