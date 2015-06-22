@@ -5,20 +5,20 @@ Template.assistantCustomersDashboard.helpers({
   },
   getSortedCustomers() {
     let customers = Users.findCustomers().fetch();
-    let myDChannels = D.Channels.find({ customerId : { $in : _.pluck(customers, '_id') }}).fetch();
-    myDChannels = _.sortBy(myDChannels, function(channel) { return channel.lastMessageTimestamp(); }).reverse();
-    let customersWithKeys = _.reduce(customers, function(memo, c) {
-      let customerWithKeys = {};
-      customerWithKeys[c._id] = c;
-      return _.extend(memo, customerWithKeys);
-    }, {});
-    return _.reduce(myDChannels, function(memo, channel) {
-      let customerWithLastMessageTimestamp
-          = _.extend(customersWithKeys[channel.customerId],
-              { lastMessageTimestamp : channel.lastMessageTimestamp() });
-      memo.push(customerWithLastMessageTimestamp);
+
+    let customersLastRepliedMap = _.reduce(customers, (memo, customer) => {
+      let myDChannels = D.Channels.find({ customerId : customer._id }).fetch();
+      let myDChannelWithLatestReplied
+          = _.max(myDChannels, function(channel) { return channel.lastMessageTimestamp(); });
+      memo[customer._id] = myDChannelWithLatestReplied.lastMessageTimestamp();
       return memo;
-    }, []);
+    }, {});
+
+    customers = _.map(customers, function(customer) {
+      return _.extend(customer, { lastMessageTimestamp : customersLastRepliedMap[customer._id]});
+    });
+
+    return _.sortBy(customers, function(customer) { return -1 * customer.lastMessageTimestamp; });
 
   }
 });

@@ -1,6 +1,7 @@
 Template.assistantCustomerConversation.onRendered(function() {
   let template = this;
   Tracker.autorun(function() {
+    if (!Session.get(SessionKeys.CURRENT_CUSTOMER)) return;
     let onDateRangePickerApply = function (customer, start, end, label) {
       let invoiceRelated = {
         customer : customer,
@@ -10,6 +11,7 @@ Template.assistantCustomerConversation.onRendered(function() {
       };
       Modal.show("invoice", invoiceRelated);
     };
+
 
     template.$('.export').daterangepicker(
         {
@@ -40,6 +42,7 @@ Template.assistantCustomerConversation.helpers({
   },
   selectedChannel() {
     let customer = Session.get(SessionKeys.CURRENT_CUSTOMER);
+    if (!customer) return null;
     let customerId = customer._id;
     let key = SessionKeys.getCustomerSelectedChannelIdKey(customerId);
     let channelId = Session.get(key);
