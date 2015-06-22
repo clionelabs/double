@@ -6,16 +6,11 @@ Template.assistantCustomersDashboard.helpers({
   getSortedCustomers() {
     let customers = Users.findCustomers().fetch();
 
-    let customersLastRepliedMap = _.reduce(customers, (memo, customer) => {
+    customers = _.map(customers, (customer) => {
       let myDChannels = D.Channels.find({ customerId : customer._id }).fetch();
       let myDChannelWithLatestReplied
           = _.max(myDChannels, function(channel) { return channel.lastMessageTimestamp(); });
-      memo[customer._id] = myDChannelWithLatestReplied.lastMessageTimestamp();
-      return memo;
-    }, {});
-
-    customers = _.map(customers, function(customer) {
-      return _.extend(customer, { lastMessageTimestamp : customersLastRepliedMap[customer._id]});
+      return _.extend(customer, { lastMessageTimestamp : myDChannelWithLatestReplied.lastMessageTimestamp() });
     });
 
     return _.sortBy(customers, function(customer) { return -1 * customer.lastMessageTimestamp; });
