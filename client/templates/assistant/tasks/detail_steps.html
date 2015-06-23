@@ -10,11 +10,9 @@
     <div class="steps">
       {{#each steps }}
         <div class="step">
-          <div class="message">
-            <i class="fa {{isCompletedCheckbox}} check"></i>
-            {{ text }}
-            <i class="fa fa-remove delete"></i>
-          </div>
+          <i class="fa {{isCompletedCheckbox}} check"></i>
+          {{ text }}
+          <i class="fa fa-remove delete"></i>
         </div>
       {{/each}}
     </div>

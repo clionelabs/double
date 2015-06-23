@@ -193,6 +193,20 @@
             }
           }
         }
+
+        .steps {
+          padding: 1em;
+          .step {
+            padding-bottom: 0.5em;
+            .check {
+              padding-right : 1em;
+            }
+            .delete {
+              padding-left: 1em;
+            }
+          }
+        }
+
         .references{
           margin-top:0.7em;
           .reference {
