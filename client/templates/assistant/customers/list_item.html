@@ -3,5 +3,8 @@
     <div class="name {{animateIfIsCalling}}">
       <span class="status {{status}}">&#8226;</span>{{displayName}}
     </div>
+    <div class="last-replied">
+      Last Message on: {{ formatDateTime lastMessageTimestamp }}
+    </div>
   </div>
 </template>
