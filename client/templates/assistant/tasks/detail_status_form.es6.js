@@ -17,7 +17,6 @@ Template.assistantTasksDetailStatusForm.helpers({
     return _.sortBy(statuses, 'createdAt').reverse();
   },
   getAssistantName() {
-    console.log(this);
     return this.assistant.firstName();
   }
 });

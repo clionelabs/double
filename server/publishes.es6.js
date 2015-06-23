@@ -42,7 +42,7 @@ Meteor.publish('placements', function() {
 });
 
 Meteor.reactivePublish('unroutedChannels', function() {
-  if (!Users.isAssistant(this.userId)) {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
     return [];
   }
   let channels = D.Channels.find({customerId: {$exists: false}}).fetch();
@@ -54,7 +54,7 @@ Meteor.reactivePublish('unroutedChannels', function() {
 });
 
 Meteor.reactivePublish('routedChannels', function() {
-  if (!Users.isAssistant(this.userId)) {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
     return [];
   }
   let channels = D.Channels.find({customerId: {$exists: true}}).fetch();
