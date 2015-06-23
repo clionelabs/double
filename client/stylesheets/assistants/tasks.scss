@@ -153,7 +153,7 @@
           }
         }
       }
-      .links {
+      .links, .checklist {
         h4 {
           color: $double-black;
           i.add {
@@ -183,7 +183,7 @@
             >input {
               padding:5px;
             }
-            .link-url {
+            .link-url, .text {
               flex: 1;
             }
             button.submit {

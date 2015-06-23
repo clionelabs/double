@@ -21,12 +21,12 @@ if (!(typeof MochaWeb === 'undefined')) {
         chai.assert.deepEqual(step.isCompleted, false);
 
       });
-      it('should complete checklist', function() {
+      it('should toggleComplete checklist', function() {
         var stepId = Random.id();
         _.extend(demoStep, { _id : stepId });
         Tasks.update({ _id : taskId }, { $push : { steps : demoStep }});
 
-        Tasks.Steps.complete(stepId, taskId);
+        Tasks.Steps.toggleComplete(taskId, stepId);
 
         task = Tasks.findOne({ _id : taskId });
         var step = _.filter(task.steps, function(step) { return _.isEqual(step._id, stepId); })[0];

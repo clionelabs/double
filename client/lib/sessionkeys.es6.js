@@ -2,6 +2,9 @@ SessionKeys = {
   genLinkFormKey : (taskId) => {
     return "isLinkFormShown" + "." + taskId;
   },
+  genStepFormKey : (taskId) => {
+    return "isStepFormShown" + "." + taskId;
+  },
   genDescriptionFormKey : (taskId) => {
     return "isDescriptionFormShown" + "." + taskId;
   },

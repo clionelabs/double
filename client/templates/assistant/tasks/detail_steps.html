@@ -1,0 +1,22 @@
+<template name="assistantTasksDetailStep">
+  <div class="checklist">
+    <h4>Checklist <i class="fa fa-plus add"></i></h4>
+    <div class="sub {{isStepFormShown}}">
+      <form class="add" id="{{ genFormKey _id }}">
+        <label for="text">Steps: </label><input name="text" class="text" type="text" required/>
+        <button class="submit" action="submit">Add</button>
+      </form>
+    </div>
+    <div class="steps">
+      {{#each steps }}
+        <div class="step">
+          <div class="message">
+            <i class="fa {{isCompletedCheckbox}} check"></i>
+            {{ text }}
+            <i class="fa fa-remove delete"></i>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
