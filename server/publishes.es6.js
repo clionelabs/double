@@ -1,5 +1,5 @@
 Meteor.reactivePublish('assistants', function() {
-  if (Users.isAdmin(this.userId)) {
+  if (Users.isAdmin(this.userId) || Users.isAssistant(this.userId)) {
     return Users.findAssistants();
   } else if (Users.isCustomer(this.userId)) {
     let placements = Placements.find(
