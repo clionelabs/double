@@ -28,7 +28,7 @@ Template.customerEditForm.events({
 
 Template.customerEditForm.helpers({
   getEmail() {
-    return this.emails[0].address;
+    return this.emails ? this.emails[0].address : null;
   },
   disabledIfEdit() {
     return this._id ? "disabled" : "";

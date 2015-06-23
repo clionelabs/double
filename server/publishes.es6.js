@@ -22,10 +22,13 @@ Meteor.publish('inProcessTasks', function() {
 });
 
 Meteor.reactivePublish('customers', function() {
-  let myPlacements = Placements.find({ assistantId : this.userId }).fetch();
-  let myCustomerIds = _.pluck(myPlacements, 'customerId');
-
-  return Users.findCustomers({ _id : { $in :  myCustomerIds }});
+  let selector = {};
+  if (!Users.isAdmin(this.userId)) {
+    let myPlacements = Placements.find({assistantId: this.userId}).fetch();
+    let myCustomerIds = _.pluck(myPlacements, 'customerId');
+    selector = { _id : { $in :  myCustomerIds }};
+  }
+  return Users.findCustomers(selector);
 });
 
 Meteor.publish('placements', function() {
