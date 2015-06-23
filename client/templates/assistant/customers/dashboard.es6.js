@@ -5,7 +5,6 @@ Template.assistantCustomersDashboard.helpers({
   },
   getSortedCustomers() {
     let customers = Users.findCustomers().fetch();
-
     customers = _.map(customers, (customer) => {
       let lastMessageTimestamp = null;
       let myDChannels = D.Channels.find({ customerId : customer._id }).fetch();
@@ -18,9 +17,11 @@ Template.assistantCustomersDashboard.helpers({
       }
       return _.extend(customer, { lastMessageTimestamp :  lastMessageTimestamp });
     });
-
     return _.sortBy(customers, function(customer) { return -1 * customer.lastMessageTimestamp; });
-
+  },
+  getTasksOfSelectedCustomer() {
+    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get("getCurrentCustomer")();
+    return Tasks.findRequestedBy(currentCustomer._id);
   }
 });
 
