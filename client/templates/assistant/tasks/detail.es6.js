@@ -11,6 +11,9 @@ Template.assistantTasksDetail.helpers({
   getFormattedTotalDuration() {
     let formatter = UI._globalHelpers['formatDurationPrecise'];
     return formatter(+Session.get(SessionKeys.CURRENT_TIME_USED));
+  },
+  getCustomerName() {
+    return Users.findCustomers({ _id : this.requestorId }).fetch()[0].displayName();
   }
 });
 
