@@ -17,7 +17,6 @@ Template.assistantTasksDetail.helpers({
   },
   last7DaysTimeUsed() {
     let weekBeforeTimestamp = moment().subtract(7, 'd').valueOf();
-    console.log(this);
     return _.reduce(this.timesheets, function(memo, timesheetsOfUser) {
       let totalTimeUsedOfUser = _.reduce(timesheetsOfUser, function(memo, timesheet) {
         if (timesheet.startedAt >= weekBeforeTimestamp) {
@@ -39,10 +38,14 @@ let _updateTimer = (task) => {
 
 
 Template.assistantTasksDetail.onRendered(function() {
-  let task = this.data;
-  _updateTimer(task);
-  _timeoutFn = Meteor.setInterval(_.partial(
-    _updateTimer, task), 1000);
+  Tracker.autorun(function() {
+    Meteor.clearInterval(_timeoutFn);
+    let task = Session.get(SessionKeys.CURRENT_TASK);
+    if (!task) { return; }
+    _updateTimer(task);
+    _timeoutFn = Meteor.setInterval(_.partial(
+      _updateTimer, task), 1000);
+  });
 });
 
 Template.assistantTasksDetail.onDestroyed(function() {
