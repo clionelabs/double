@@ -19,9 +19,6 @@ Meteor.publish('myTasks', function() {
 
 Meteor.publish('myInProcessTasks', function() {
   let selector = { completedAt : null };
-  if (!Users.isAdmin(this.userId)) {
-    _.extend(selector, { responderId : this.userId });
-  }
   return Tasks.find(selector);
 });
 
