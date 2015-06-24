@@ -157,7 +157,7 @@
           }
         }
       }
-      .links {
+      .links, .checklist {
         h4 {
           color: $double-black;
           i.add {
@@ -187,7 +187,7 @@
             >input {
               padding:5px;
             }
-            .link-url {
+            .link-url, .text {
               flex: 1;
             }
             button.submit {
@@ -197,6 +197,20 @@
             }
           }
         }
+
+        .steps {
+          padding: 1em;
+          .step {
+            padding-bottom: 0.5em;
+            .check {
+              padding-right : 1em;
+            }
+            .delete {
+              padding-left: 1em;
+            }
+          }
+        }
+
         .references{
           margin-top:0.7em;
           .reference {
