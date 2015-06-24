@@ -17,8 +17,8 @@ Meteor.publish('myTasks', function() {
   return Tasks.find();
 });
 
-Meteor.publish('inProcessTasks', function() {
-  return Tasks.find({ completedAt : null });
+Meteor.publish('myInProcessTasks', function() {
+  return Tasks.find({ completedAt : null, responderId : this.userId });
 });
 
 Meteor.reactivePublish('customers', function() {
