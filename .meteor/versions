@@ -53,6 +53,9 @@ localstorage@1.0.3
 logging@1.0.7
 meteor@1.1.6
 meteor-platform@1.2.2
+meteorhacks:kadira@2.22.0
+meteorhacks:kadira-debug@1.3.3
+meteorhacks:meteorx@1.3.1
 meteorhacks:ssr@2.1.2
 mike:mocha@0.5.4
 minifiers@1.1.5
@@ -61,6 +64,7 @@ mizzao:bootboxjs@4.4.0
 mobile-status-bar@1.0.3
 momentjs:moment@2.10.3
 mongo@1.1.0
+mongo-livedata@1.0.8
 mrt:later@1.6.1
 natestrauser:animate-css@3.2.6
 npm-bcrypt@0.7.8_2
