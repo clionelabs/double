@@ -214,11 +214,24 @@
         .references{
           margin-top:0.7em;
           .reference {
-            .title {
-              color: $double-black;
-              font-weight: 700;
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            .main {
+              flex : 1;
+              .title {
+                color: $double-black;
+                font-weight: 700;
+              }
+              margin-bottom: 0.7em;
             }
-            margin-bottom:0.7em;
+            .delete {
+              display : flex;
+              cursor : pointer;
+              .fa {
+                align-self: center;
+              }
+            }
           }
         }
 
