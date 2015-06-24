@@ -18,7 +18,11 @@ Meteor.publish('myTasks', function() {
 });
 
 Meteor.publish('myInProcessTasks', function() {
-  return Tasks.find({ completedAt : null, responderId : this.userId });
+  let selector = { completedAt : null };
+  if (!Users.isAdmin(this.userId)) {
+    _.extend(selector, { responderId : this.userId });
+  }
+  return Tasks.find(selector);
 });
 
 Meteor.reactivePublish('customers', function() {
