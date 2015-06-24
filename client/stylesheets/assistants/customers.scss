@@ -103,17 +103,15 @@
       overflow-y: scroll;
       flex: 1;
       .message {
-        padding-bottom: 30px;
+        padding-bottom: 15px;
 
         &.in {
           .content {
-            padding:20px;
             background-color: $double-green;
           }
         }
         &.out {
           .content {
-            padding:20px;
             background-color: $double-grey;
           }
         }
@@ -127,12 +125,13 @@
 
         .content {
           margin: 0px;
+          padding:5px 20px;
           color: $double-grey3;
         }
 
         &.outing, &.outing_delivered {
           .content {
-            padding:20px;
+            padding:10px 20px;
             background-color: $double-grey;
           }
         }
