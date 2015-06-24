@@ -11,8 +11,13 @@
     <div class="references">
     {{#each references }}
       <div class="reference">
-        <div class="title">{{ title }}</div>
-        <div class="url"><a href="{{url}}">{{url}}</a></div>
+        <div class="main">
+          <div class="title">{{ title }}</div>
+          <div class="url"><a href="{{url}}">{{url}}</a></div>
+        </div>
+        <div class="delete">
+          <i class="fa fa-remove"></i>
+        </div>
       </div>
     {{/each}}
     </div>

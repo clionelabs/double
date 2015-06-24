@@ -42,8 +42,8 @@ Template.assistantTasksDetailLinkForm.events({
       Session.setAuth(SessionKeys.genLinkFormKey(this._id), false);
     }
   },
-  "click .link-delete" : function(e) {
-    let taskId = $(e.target).data("task-id");
+  "click .delete" : function(e) {
+    let taskId = Session.get(SessionKeys.CURRENT_TASK)._id;
     Tasks.References.delete(taskId, this._id);
   }
 });
