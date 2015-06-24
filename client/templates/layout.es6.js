@@ -10,6 +10,16 @@ Template.layout.helpers({
   },
   isIncomingSelected() {
     return Router.current().route.path(this).indexOf('unrouted') !== -1 ? "selected" : "";
+  },
+  connectionStatus() {
+    return Meteor.status().status;
+  },
+  showWhenNotConnected() {
+    return Meteor.status().status === 'connected' ? 'hide' : Meteor.status().status;
+  },
+  toggleMargin() {
+    return Meteor.status().status === 'connected' ? '' : 'status-bar-shown';
   }
 
 });
+
