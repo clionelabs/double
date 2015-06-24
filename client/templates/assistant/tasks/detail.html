@@ -13,13 +13,13 @@
         </h4>
       </div>
       <div class="metrics">
-        <div class="last-updated">Last Updated Time: TODO</div>
-        <div class="last-logged-time">Last 7 Days: TODO</div>
+        <div class="last-updated">Last Updated Time: {{formatDateTime lastModified }}</div>
+        <div class="last-logged-time">Last 7 Days: {{formatDurationPrecise last7DaysTimeUsed }}</div>
       </div>
     </div>
   </div>
   <div class="other-info">
-    <div class="owner">Requested By: {{ ownerName }}</div>
+    <div class="owner">Requested By: {{ getCustomerName }}</div>
     <div class="responder">D/DD(s) in charge: TODO</div>
     <div class="deadline"><i class="glyphicon glyphicon-calendar"></i></div>
     <div class="time-budget"><i class="glyphicon glyphicon-time"></i></div>

@@ -11,6 +11,23 @@ Template.assistantTasksDetail.helpers({
   getFormattedTotalDuration() {
     let formatter = UI._globalHelpers['formatDurationPrecise'];
     return formatter(+Session.get(SessionKeys.CURRENT_TIME_USED));
+  },
+  getCustomerName() {
+    return Users.findOneCustomer({ _id : this.requestorId }).displayName();
+  },
+  last7DaysTimeUsed() {
+    let weekBeforeTimestamp = moment().subtract(7, 'd').valueOf();
+    console.log(this);
+    return _.reduce(this.timesheets, function(memo, timesheetsOfUser) {
+      let totalTimeUsedOfUser = _.reduce(timesheetsOfUser, function(memo, timesheet) {
+        if (timesheet.startedAt >= weekBeforeTimestamp) {
+          return memo + timesheet.duration();
+        } else {
+          return memo;
+        }
+      }, 0);
+      return memo + totalTimeUsedOfUser;
+    }, 0);
   }
 });
 
