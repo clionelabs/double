@@ -14,6 +14,20 @@ Template.assistantTasksDetail.helpers({
   },
   getCustomerName() {
     return Users.findCustomers({ _id : this.requestorId }).fetch()[0].displayName();
+  },
+  last7DaysTimeUsed() {
+    let weekBeforeTimestamp = moment().subtract(7, 'd').valueOf();
+    console.log(this);
+    return _.reduce(this.timesheets, function(memo, timesheetsOfUser) {
+      let totalTimeUsedOfUser = _.reduce(timesheetsOfUser, function(memo, timesheet) {
+        if (timesheet.startedAt >= weekBeforeTimestamp) {
+          return memo + timesheet.duration();
+        } else {
+          return memo;
+        }
+      }, 0);
+      return memo + totalTimeUsedOfUser;
+    }, 0);
   }
 });
 
