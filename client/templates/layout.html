@@ -2,18 +2,26 @@
 
 <Template name="layout">
   {{> notifications}}
-  <div class="double-navbar navbar navbar-default" role="navigation">
+  <div class="status {{ connectionStatus }}">{{connectionStatus}}</div>
+  <div class="double-navbar navbar navbar-default {{toggleMargin}}" role="navigation">
     <div class="navbar-collapse collapse">
-      <ul class="dashboard-tabs nav navbar-nav {{ isShownWhenLogin }}">
-        <li class="{{isCustomerSelected}}"><a href="{{ urlFor route='assistant.customers' }}">Customers</a></li>
-        <li class="{{isRequestSelected}}"><a href="{{ urlFor route='assistant.tasks' }}">Requests</a></li>
-        <li class="{{isIncomingSelected}}"><a href="{{ urlFor route='assistant.unrouted' }}">Incoming</a></li>
+      <ul class="dashboard-tabs nav navbar-nav">
+        <li class="{{isCustomerSelected}} {{ isShownWhenLogin }}">
+          <a href="{{ urlFor route='assistant.customers' }}">Customers</a>
+        </li>
+        <li class="{{isRequestSelected}} {{ isShownWhenLogin }}">
+          <a href="{{ urlFor route='assistant.tasks' }}">Requests</a>
+        </li>
+        <li class="{{isIncomingSelected}} {{ isShownWhenLogin }}">
+          <a href="{{ urlFor route='assistant.unrouted' }}">Incoming</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right login">
-          {{> loginButtons }} <!-- here -->
+        {{> loginButtons }} <!-- here -->
       </ul>
     </div>
   </div>
+
   <div class="dashboard">
     {{> yield}}
   </div>
