@@ -20,6 +20,13 @@ Template.channelMessage.helpers({
   }
 });
 
+Template.channelMessages.onCreated(function() {
+  let instance = this;
+  let channel = this.data;
+  let channelId = channel._id;
+  instance.subscribe('channelMessages', channelId);
+});
+
 Template.channelMessages.helpers({
   messages() {
     return this.messages({sort: {timestamp: 1}});

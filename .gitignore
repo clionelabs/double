@@ -12,3 +12,6 @@ packages/
 
 #project specific
 /private/settings.json
+
+#kadira
+/server/kidira.es6.js

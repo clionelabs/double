@@ -48,9 +48,14 @@ Meteor.reactivePublish('unroutedChannels', function() {
   }
   let channels = D.Channels.find({customerId: {$exists: false}}).fetch();
   let channelIds = _.pluck(channels, '_id');
+  let messageIds = _.reduce(channels, function(memo, channel) {
+    let lastMessage = channel.lastMessage();
+    if (lastMessage) memo.push(lastMessage._id);
+    return memo;
+  }, []);
   return [
     D.Channels.find({_id: {$in: channelIds}}),
-    D.Messages.find({channelId: {$in: channelIds}})
+    D.Messages.find({_id: {$in: messageIds}})
   ];
 });
 
@@ -60,8 +65,22 @@ Meteor.reactivePublish('routedChannels', function() {
   }
   let channels = D.Channels.find({customerId: {$exists: true}}).fetch();
   let channelIds = _.pluck(channels, '_id');
+  let messageIds = _.reduce(channels, function(memo, channel) {
+    let lastMessage = channel.lastMessage();
+    if (lastMessage) memo.push(lastMessage._id);
+    return memo;
+  }, []);
   return [
     D.Channels.find({_id: {$in: channelIds}}),
-    D.Messages.find({channelId: {$in: channelIds}})
+    D.Messages.find({_id: {$in: messageIds}})
   ];
+});
+
+Meteor.publish('channelMessages', function(channelId) {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    return [];
+  }
+  return [
+    D.Messages.find({channelId: channelId})
+  ]
 });
