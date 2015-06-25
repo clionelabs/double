@@ -18,24 +18,31 @@ body>.status {
   text-align: center;
   width: 100%;
   background: transparentize($double-green, 0.1);
-  transition: all 0.5s;
   &.waiting, &.connecting {
     background: transparentize($double-red2, 0.1);
     color: $double-dark-blue;
-    transition: all 0.5s;
+    transition: height 0.5s ease 0.5s;
+    height: 20px;
   }
   &.failed, &.offline {
     background: transparentize($double-red, 0.3);
     color: $double-dark-blue;
-    transition: all 0.5s;
+    transition: height 0.5s ease 0.5s;
+    height: 20px;
+  }
+  &.connected {
+    transition: height 0.5s ease 0.5s;
+    height: 0px;
   }
 }
 
 body .double-navbar {
   &.status-bar-shown {
+    transition: margin-top 0.5s ease 0.5s;
     margin-top: -20px;
     z-index: -1;
   }
+  transition: margin-top 0.5s ease 0.5s;
   background: $double-dark-blue;
   color: $double-white;
   margin-bottom:0;

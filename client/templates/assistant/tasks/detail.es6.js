@@ -63,7 +63,7 @@ Template.assistantTasksDetail.events({
     Tasks.endWork(this._id, Meteor.userId());
   },
   'click .complete' : function(e) {
-    Tasks.toggleComplete(this._id);
+    Tasks.complete(this._id);
   },
   'click .total-time-used' : function() {
     let getTask = (taskId) => {
