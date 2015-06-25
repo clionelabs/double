@@ -20,13 +20,13 @@ body>.status {
   background: transparentize($double-green, 0.1);
   &.waiting, &.connecting {
     background: transparentize($double-red2, 0.1);
-    color: $double-dark-blue;
+    color: $double-white;
     transition: height 0.5s ease 0.5s;
     height: 20px;
   }
   &.failed, &.offline {
     background: transparentize($double-red, 0.3);
-    color: $double-dark-blue;
+    color: $double-white;
     transition: height 0.5s ease 0.5s;
     height: 20px;
   }
