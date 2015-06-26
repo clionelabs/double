@@ -22,9 +22,22 @@ Template.channelMessage.helpers({
 
 Template.channelMessages.onCreated(function() {
   let instance = this;
+  instance.autorun(function() {
+    let customerId = Session.get(SessionKeys.CURRENT_CUSTOMER)._id;
+    let channelId = Session.get(SessionKeys.getCustomerSelectedChannelIdKey(customerId));
+    let key = SessionKeys.getNumberOfMessageLoadedOfChannelKey(channelId);
+    if (!Session.get(key, 0)) {
+      Session.setAuth(Meteor.settings.public.messages.defaultLimitOfSubscription);
+    }
+    instance.subscribe('channelMessagesSorted', channelId, Session.get(key));
+  });
+});
+
+Template.channelMessages.onDestroyed(function() {
   let channel = this.data;
   let channelId = channel._id;
-  instance.subscribe('channelMessages', channelId);
+  Session.setAuth(SessionKeys.getNumberOfMessageLoadedOfChannelKey(channelId),
+      Meteor.settings.public.messages.defaultLimitOfSubscription);
 });
 
 Template.channelMessages.helpers({

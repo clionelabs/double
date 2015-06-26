@@ -15,5 +15,11 @@
   "adminAccount": {
     "email": "admin@askdouble.com",
     "password": "1"
+  },
+  "public" : {
+    "messages": {
+      "defaultLimitOfSubscription": 100,
+      "increase": 100
+    }
   }
 }

@@ -76,11 +76,11 @@ Meteor.reactivePublish('routedChannels', function() {
   ];
 });
 
-Meteor.publish('channelMessages', function(channelId) {
+Meteor.publish('channelMessagesSorted', function(channelId, limit = 10) {
   if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
     return [];
   }
   return [
-    D.Messages.find({channelId: channelId})
-  ]
+    D.Messages.find({ channelId: String(channelId) }, { limit : +limit, sort : { timestamp : -1 }})
+  ];
 });
