@@ -1,6 +1,11 @@
 Template.channelMessage.onRendered(function() {
-  let $messageDiv = this.$(".message").parent();
-  $messageDiv.scrollTop($messageDiv.prop("scrollHeight"));
+  let customerId = Session.get(SessionKeys.CURRENT_CUSTOMER)._id;
+  let channelId = Session.get(SessionKeys.getCustomerSelectedChannelIdKey(customerId));
+  let channelIsBottom = Session.get(SessionKeys.isConversationScrollToBottom(channelId));
+  if (channelIsBottom) {
+    let $messageDiv = this.$(".message").parent();
+    $messageDiv.scrollTop($messageDiv.prop("scrollHeight"));
+  }
 });
 
 Template.channelMessage.helpers({
@@ -27,22 +32,44 @@ Template.channelMessages.onCreated(function() {
     let channelId = Session.get(SessionKeys.getCustomerSelectedChannelIdKey(customerId));
     let key = SessionKeys.getNumberOfMessageLoadedOfChannelKey(channelId);
     if (!Session.get(key, 0)) {
-      Session.setAuth(Meteor.settings.public.messages.defaultLimitOfSubscription);
+      Session.setAuth(key, Meteor.settings.public.messages.defaultLimitOfSubscription);
     }
     instance.subscribe('channelMessagesSorted', channelId, Session.get(key));
   });
 });
 
-Template.channelMessages.onDestroyed(function() {
-  let channel = this.data;
-  let channelId = channel._id;
-  Session.setAuth(SessionKeys.getNumberOfMessageLoadedOfChannelKey(channelId),
-      Meteor.settings.public.messages.defaultLimitOfSubscription);
+Template.channelMessage.onRendered(function() {
+  $('.selected-channel-messages').scroll(function(e) {
+    if ($(this).scrollTop() + $(this).height() > $(this).prop('scrollHeight') - 50) {
+      let customerId = Session.get(SessionKeys.CURRENT_CUSTOMER)._id;
+      let channelId = Session.get(SessionKeys.getCustomerSelectedChannelIdKey(customerId));
+      let channelIsBottom = Session.get(SessionKeys.isConversationScrollToBottom(channelId));
+      if (!channelIsBottom) {
+        Session.setAuth(SessionKeys.isConversationScrollToBottom(channelId), true);
+      }
+    } else if ($(this).scrollTop() + $(this).height() === $(this).prop('scrollHeight') - 50) {
+      let customerId = Session.get(SessionKeys.CURRENT_CUSTOMER)._id;
+      let channelId = Session.get(SessionKeys.getCustomerSelectedChannelIdKey(customerId));
+      let channelIsBottom = Session.get(SessionKeys.isConversationScrollToBottom(channelId));
+      if (channelIsBottom) {
+        Session.setAuth(SessionKeys.isConversationScrollToBottom(channelId), false);
+      }
+    }
+  });
 });
 
 Template.channelMessages.helpers({
   messages() {
     return this.messages({sort: {timestamp: 1}});
+  }
+});
+
+Template.channelMessages.events({
+  "click .load-more" : function(e) {
+    let key = SessionKeys.getNumberOfMessageLoadedOfChannelKey(this._id);
+    let num = Session.get(key);
+    Session.setAuth(key,
+        num + Meteor.settings.public.messages.increase);
   }
 });
 

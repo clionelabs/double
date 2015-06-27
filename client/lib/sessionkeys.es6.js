@@ -24,5 +24,8 @@ SessionKeys = {
   CURRENT_ASSISTANT_TAB : "CURRENT_ASSISTANT_TAB",
   CURRENT_TASK : "CURRENT_TASK",
   CURRENT_UNASSIGNED_CHANNEL_ID: "SessionKeys.CURRENT_UNASSIGNED_CHANNEL_ID",
-  UNASSIGNED_SHOW_SPAM: "UNASSIGNED_SHOW_SPAM"
+  UNASSIGNED_SHOW_SPAM: "UNASSIGNED_SHOW_SPAM",
+  isConversationScrollToBottom : (channelId) => {
+    return "isConversationScrollToBottom." + channelId;
+  }
 };
