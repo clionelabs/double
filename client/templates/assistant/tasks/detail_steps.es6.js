@@ -20,11 +20,17 @@ Template.assistantTasksDetailStep.helpers({
   isStepFormShown() {
     return Session.get(SessionKeys.genStepFormKey(this._id)) ? "" : "not-shown";
   },
-  genFormKey(taskId) {
-    return SessionKeys.genStepFormKey(taskId);
+  genFormKey() {
+    return SessionKeys.genStepFormKey(this._id);
   },
   isCompletedCheckbox() {
     return this.isCompleted ? "fa-check-square-o" : "fa-square-o";
+  },
+  stepsWithTaskId() {
+    let taskId = this._id;
+    return _.map(this.steps, function(step) {
+      return _.extend({}, { taskId : taskId }, step);
+    });
   }
 });
 
@@ -42,11 +48,9 @@ Template.assistantTasksDetailStep.events({
     }
   },
   "click .check" : function(e) {
-    let taskId = Session.get(SessionKeys.CURRENT_TASK)._id;
-    Tasks.Steps.toggleComplete(taskId, this._id);
+    Tasks.Steps.toggleComplete(this.taskId, this._id);
   },
   "click .delete" : function(e) {
-    let taskId = Session.get(SessionKeys.CURRENT_TASK)._id;
-    Tasks.Steps.delete(taskId, this._id);
+    Tasks.Steps.delete(this.taskId, this._id);
   }
 });

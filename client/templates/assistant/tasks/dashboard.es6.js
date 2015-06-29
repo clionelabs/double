@@ -11,6 +11,12 @@ Template.assistantTasksDashboard.getRunningTask = () => {
 
 Template.assistantTasksDashboard.helpers({
   getCurrentTask() {
-    return Task.transform(Session.get(SessionKeys.CURRENT_TASK));
+    return this.currentTask;
+  },
+  tasksWithIsCurrent() {
+    let currentTask = this.currentTask;
+    return _.map(this.tasks.fetch(), function(task) {
+      return _.extend({}, { isCurrent : (currentTask._id === task._id) }, task);
+    });
   }
 });

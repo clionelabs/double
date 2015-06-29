@@ -19,7 +19,10 @@ Template.assistantTasksDetailLinkForm.onRendered(function() {
 
 Template.assistantTasksDetailLinkForm.helpers({
   references() {
-    return this.references;
+    let taskId = this._id;
+    return _.map(this.references, function(reference) {
+      return _.extend({}, { taskId : taskId },reference);
+    });
   },
   isLinkFormShown() {
     return Session.get(SessionKeys.genLinkFormKey(this._id)) ? "" : "not-shown";
@@ -43,7 +46,6 @@ Template.assistantTasksDetailLinkForm.events({
     }
   },
   "click .delete" : function(e) {
-    let taskId = Session.get(SessionKeys.CURRENT_TASK)._id;
-    Tasks.References.delete(taskId, this._id);
+    Tasks.References.delete(this.taskId, this._id);
   }
 });

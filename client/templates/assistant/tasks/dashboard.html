@@ -1,7 +1,7 @@
 <Template name="assistantTasksDashboard">
   <div class="assistant-dashboard-task">
     <div class="tasks">
-      {{#each tasks}}
+      {{#each tasksWithIsCurrent}}
         {{> assistantTasksListItem}}
       {{/each}}
     </div>

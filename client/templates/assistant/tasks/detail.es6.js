@@ -38,10 +38,10 @@ let _updateTimer = (task) => {
 
 
 Template.assistantTasksDetail.onRendered(function() {
-  Tracker.autorun(function() {
+  let instance = this;
+  let task = instance.data;
+  instance.autorun(function() {
     Meteor.clearInterval(_timeoutFn);
-    let task = Session.get(SessionKeys.CURRENT_TASK);
-    if (!task) { return; }
     _updateTimer(task);
     _timeoutFn = Meteor.setInterval(_.partial(
       _updateTimer, task), 1000);
