@@ -18,12 +18,8 @@
       </ul>
     </div>
     {{#if getCurrentSelectedChannel}}
-      <div class="container-fluid selected-channel-messages">
-        {{> channelMessages getCurrentSelectedChannel}}
-      </div>
-      <div class="container-fluid selected-channel-reply">
-        {{> channelReply getCurrentSelectedChannel}}
-      </div>
+      {{> channelMessages getCurrentSelectedChannel}}
+      {{> channelReply getCurrentSelectedChannel}}
     {{/if}}
   </div>
 </template>

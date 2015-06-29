@@ -14,12 +14,8 @@
     </ul>
   </div>
   {{#if selectedChannel}}
-    <div class="selected-channel-messages">
-      {{> channelMessages selectedChannel}}
-    </div>
-    <div class="selected-channel-reply">
-      {{> channelReply selectedChannel}}
-    </div>
+    {{> channelMessages selectedChannel}}
+    {{> channelReply selectedChannel}}
   {{/if}}
 </Template>
 

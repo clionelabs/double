@@ -11,9 +11,6 @@ SessionKeys = {
   getCustomerSelectedChannelIdKey : (customerId) => {
     return "customerSelectedChannelId" + "." + customerId;
   },
-  getNumberOfMessageLoadedOfChannelKey : (channelId) => {
-    return "numberOfMessagesLoaded" + "." + channelId;
-  },
   CURRENT_TIME_USED : "CURRENT_TIME_USED",
   IS_CALLING : "IS_CALLING",
   IS_CONNECTED : "IS_CONNECTED",
@@ -24,8 +21,5 @@ SessionKeys = {
   CURRENT_ASSISTANT_TAB : "CURRENT_ASSISTANT_TAB",
   CURRENT_TASK : "CURRENT_TASK",
   CURRENT_UNASSIGNED_CHANNEL_ID: "SessionKeys.CURRENT_UNASSIGNED_CHANNEL_ID",
-  UNASSIGNED_SHOW_SPAM: "UNASSIGNED_SHOW_SPAM",
-  isConversationScrollToBottom : (channelId) => {
-    return "isConversationScrollToBottom." + channelId;
-  }
+  UNASSIGNED_SHOW_SPAM: "UNASSIGNED_SHOW_SPAM"
 };
