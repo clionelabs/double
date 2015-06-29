@@ -81,6 +81,6 @@ Meteor.publish('channelMessagesSorted', function(channelId, limit = 10) {
     return [];
   }
   return [
-    D.Messages.find({ channelId: String(channelId) }, { limit : +limit, sort : { timestamp : -1 }})
+    D.Messages.find({ channelId: channelId }, { limit : +limit, sort : { timestamp : -1 }})
   ];
 });
