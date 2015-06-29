@@ -97,6 +97,13 @@
       }
     }
     .selected-channel-messages {
+      .load-more {
+        color:$double-black;
+        background: $double-grey;
+        width:100%;
+        text-align: center;
+        cursor: pointer;
+      }
       padding: 0px 25px 0px 25px;
       width: 100%;
       flex: 1;

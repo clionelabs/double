@@ -1,6 +1,8 @@
 Template.channelMessage.onRendered(function() {
   let $messageDiv = this.$(".message").parent();
-  $messageDiv.scrollTop($messageDiv.prop("scrollHeight"));
+  if ($messageDiv.hasClass("isBottom")) {
+    $messageDiv.scrollTop($messageDiv.prop("scrollHeight"));
+  }
 });
 
 Template.channelMessage.helpers({
@@ -21,15 +23,41 @@ Template.channelMessage.helpers({
 });
 
 Template.channelMessages.onCreated(function() {
-  let instance = this;
-  let channel = this.data;
-  let channelId = channel._id;
-  instance.subscribe('channelMessages', channelId);
+  let instance = Template.instance();
+  instance.autorun(function() {
+    let channelId = Template.currentData()._id;
+    instance.currentNumberOfSubscription = Meteor.settings.public.messages.defaultLimitOfSubscription;
+    instance.subscribe('channelMessagesSorted', channelId, instance.currentNumberOfSubscription, function() {
+      instance.$('.selected-channel-messages').addClass("isBottom");
+      instance.$('.selected-channel-messages').scroll(function(e) {
+        if ($(this).scrollTop() + $(this).height() > $(this).prop('scrollHeight') - 50) {
+          $(this).addClass("isBottom");
+        } else if ( ($(this).scrollTop() + $(this).height() <= $(this).prop('scrollHeight') - 50) &&
+            ($(this).scrollTop() + $(this).height() > $(this).prop('scrollHeight') - 150) ) {
+          $(this).removeClass("isBottom");
+        }
+      });
+    });
+  });
 });
 
 Template.channelMessages.helpers({
   messages() {
     return this.messages({sort: {timestamp: 1}});
+  },
+  loadingSpinner() {
+
+    return "fa-spin fa-spinner";
+  }
+});
+
+Template.channelMessages.events({
+  "click .load-more" : function(e, instance) {
+    instance.currentNumberOfSubscription += Meteor.settings.public.messages.increase;
+    $('.load-more>.loading-indicator').addClass('fa-spin').addClass('fa-spinner').removeClass('fa-angle-up');
+    instance.subscribe('channelMessagesSorted', instance.data._id, instance.currentNumberOfSubscription, function() {
+      $('.load-more>.loading-indicator').removeClass('fa-spin').removeClass('fa-spinner').addClass('fa-angle-up');
+    });
   }
 });
 
