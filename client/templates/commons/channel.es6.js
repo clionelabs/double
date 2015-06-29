@@ -1,9 +1,6 @@
 Template.channelMessage.onRendered(function() {
-  let customerId = Session.get(SessionKeys.CURRENT_CUSTOMER)._id;
-  let channelId = Session.get(SessionKeys.getCustomerSelectedChannelIdKey(customerId));
-  let channelIsBottom = Session.get(SessionKeys.isConversationScrollToBottom(channelId));
-  if (channelIsBottom) {
-    let $messageDiv = this.$(".message").parent();
+  let $messageDiv = this.$(".message").parent();
+  if ($messageDiv.hasClass("isBottom")) {
     $messageDiv.scrollTop($messageDiv.prop("scrollHeight"));
   }
 });
@@ -27,40 +24,18 @@ Template.channelMessage.helpers({
 
 Template.channelMessages.onCreated(function() {
   let instance = this;
-  instance.autorun(function() {
-    let customerId = Session.get(SessionKeys.CURRENT_CUSTOMER)._id;
-    let channelId = Session.get(SessionKeys.getCustomerSelectedChannelIdKey(customerId));
-    let key = SessionKeys.getNumberOfMessageLoadedOfChannelKey(channelId);
-    if (!Session.get(key, 0)) {
-      Session.setAuth(key, Meteor.settings.public.messages.defaultLimitOfSubscription);
-    }
-    instance.subscribe('channelMessagesSorted', channelId, Session.get(key));
-  });
-  instance.autorun(function() {
-    let data = instance.data;
-    console.log(data);
-  });
+  let channelId = this.data._id;
+  this.currentNumberOfSubscription = Meteor.settings.public.messages.defaultLimitOfSubscription;
+  instance.subscribe('channelMessagesSorted', channelId, this.currentNumberOfSubscription);
 });
 
 Template.channelMessages.onRendered(function() {
   $('.selected-channel-messages').scroll(function(e) {
     if ($(this).scrollTop() + $(this).height() > $(this).prop('scrollHeight') - 50) {
-      let customerId = Session.get(SessionKeys.CURRENT_CUSTOMER)._id;
-      let channelId = Session.get(SessionKeys.getCustomerSelectedChannelIdKey(customerId));
-      let channelIsBottom = Session.get(SessionKeys.isConversationScrollToBottom(channelId));
-      console.log(true);
-      if (!channelIsBottom) {
-        Session.setAuth(SessionKeys.isConversationScrollToBottom(channelId), true);
-      }
+      $(this).addClass("isBottom");
     } else if ( ($(this).scrollTop() + $(this).height() <= $(this).prop('scrollHeight') - 50) &&
         ($(this).scrollTop() + $(this).height() > $(this).prop('scrollHeight') - 150) ) {
-      let customerId = Session.get(SessionKeys.CURRENT_CUSTOMER)._id;
-      let channelId = Session.get(SessionKeys.getCustomerSelectedChannelIdKey(customerId));
-      let channelIsBottom = Session.get(SessionKeys.isConversationScrollToBottom(channelId));
-      console.log(false);
-      if (channelIsBottom) {
-        Session.setAuth(SessionKeys.isConversationScrollToBottom(channelId), false);
-      }
+      $(this).removeClass("isBottom");
     }
   });
 });
@@ -72,11 +47,9 @@ Template.channelMessages.helpers({
 });
 
 Template.channelMessages.events({
-  "click .load-more" : function(e) {
-    let key = SessionKeys.getNumberOfMessageLoadedOfChannelKey(this._id);
-    let num = Session.get(key);
-    Session.setAuth(key,
-        num + Meteor.settings.public.messages.increase);
+  "click .load-more" : function(e, instance) {
+    instance.currentNumberOfSubscription += Meteor.settings.public.messages.increase;
+    instance.subscribe('channelMessagesSorted', instance.data._id, instance.currentNumberOfSubscription);
   }
 });
 
