@@ -36,21 +36,28 @@ Template.channelMessages.onCreated(function() {
     }
     instance.subscribe('channelMessagesSorted', channelId, Session.get(key));
   });
+  instance.autorun(function() {
+    let data = instance.data;
+    console.log(data);
+  });
 });
 
-Template.channelMessage.onRendered(function() {
+Template.channelMessages.onRendered(function() {
   $('.selected-channel-messages').scroll(function(e) {
     if ($(this).scrollTop() + $(this).height() > $(this).prop('scrollHeight') - 50) {
       let customerId = Session.get(SessionKeys.CURRENT_CUSTOMER)._id;
       let channelId = Session.get(SessionKeys.getCustomerSelectedChannelIdKey(customerId));
       let channelIsBottom = Session.get(SessionKeys.isConversationScrollToBottom(channelId));
+      console.log(true);
       if (!channelIsBottom) {
         Session.setAuth(SessionKeys.isConversationScrollToBottom(channelId), true);
       }
-    } else if ($(this).scrollTop() + $(this).height() === $(this).prop('scrollHeight') - 50) {
+    } else if ( ($(this).scrollTop() + $(this).height() <= $(this).prop('scrollHeight') - 50) &&
+        ($(this).scrollTop() + $(this).height() > $(this).prop('scrollHeight') - 150) ) {
       let customerId = Session.get(SessionKeys.CURRENT_CUSTOMER)._id;
       let channelId = Session.get(SessionKeys.getCustomerSelectedChannelIdKey(customerId));
       let channelIsBottom = Session.get(SessionKeys.isConversationScrollToBottom(channelId));
+      console.log(false);
       if (channelIsBottom) {
         Session.setAuth(SessionKeys.isConversationScrollToBottom(channelId), false);
       }
