@@ -27,9 +27,7 @@ Template.channelMessages.onCreated(function() {
   instance.autorun(function() {
     let channelId = Template.currentData()._id;
     instance.currentNumberOfSubscription = Meteor.settings.public.messages.defaultLimitOfSubscription;
-    $('.load-more>.loading-indicator').addClass('fa-spin').addClass('fa-spinner').removeClass('fa-angle-up');
     instance.subscribe('channelMessagesSorted', channelId, instance.currentNumberOfSubscription, function() {
-      $('.load-more>.loading-indicator').removeClass('fa-spin').removeClass('fa-spinner').addClass('fa-angle-up');
       instance.$('.selected-channel-messages').addClass("isBottom");
       instance.$('.selected-channel-messages').scroll(function(e) {
         if ($(this).scrollTop() + $(this).height() > $(this).prop('scrollHeight') - 50) {
