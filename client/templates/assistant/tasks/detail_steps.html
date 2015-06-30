@@ -2,13 +2,13 @@
   <div class="checklist">
     <h4>Checklist <i class="fa fa-plus add"></i></h4>
     <div class="sub {{isStepFormShown}}">
-      <form class="add" id="{{ genFormKey _id }}">
+      <form class="add" id="{{ genFormKey }}">
         <label for="text">Steps: </label><input name="text" class="text" type="text" required/>
         <button class="submit" action="submit">Add</button>
       </form>
     </div>
     <div class="steps">
-      {{#each steps }}
+      {{#each stepsWithTaskId }}
         <div class="step">
           <i class="fa {{isCompletedCheckbox}} check"></i>
           {{ text }}

@@ -1,11 +1,13 @@
 Template.assistantCustomersDashboard.helpers({
   getCurrentCustomer() {
-    let rawUser = Session.get(SessionKeys.CURRENT_CUSTOMER);
-    return rawUser ? _.extend(rawUser, Customer, User) : EmptyCustomer;
+    return Template.currentData().currentCustomer;
   },
   getSortedCustomers() {
-    let customers = Users.findCustomers().fetch();
-    customers = _.map(customers, (customer) => {
+    let currentCustomer = Template.currentData().currentCustomer;
+    let customers = Template.currentData().customers;
+    if (!customers) return;
+
+    customers = _.map(customers.fetch(), (customer) => {
       let lastMessageTimestamp = null;
       let myDChannels = D.Channels.find({ customerId : customer._id }).fetch();
       if (!_.isEmpty(myDChannels)) {
@@ -15,19 +17,23 @@ Template.assistantCustomersDashboard.helpers({
         });
         lastMessageTimestamp = myDChannelWithLatestReplied.lastMessageTimestamp();
       }
-      return _.extend(customer, { lastMessageTimestamp :  lastMessageTimestamp });
+      return _.extend(customer,
+          {
+            lastMessageTimestamp :  lastMessageTimestamp,
+            isCurrent : (customer._id === currentCustomer._id)
+          });
     });
     return _.sortBy(customers, function(customer) { return -1 * customer.lastMessageTimestamp; });
   },
   getTasksOfSelectedCustomer() {
-    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get("getCurrentCustomer")();
+    let currentCustomer = Template.currentData().currentCustomer;
     return Tasks.findRequestedBy(currentCustomer._id);
   }
 });
 
 Template.assistantCustomersDashboard.events({
-  "click .new-task-button": function() {
-    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get('getCurrentCustomer')();
+  "click .new-task-button": function(e, tmpl) {
+    let currentCustomer = Template.currentData().currentCustomer;
     let data = {
       customerId: currentCustomer._id
     };
