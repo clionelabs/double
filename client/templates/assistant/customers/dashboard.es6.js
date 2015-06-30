@@ -4,7 +4,14 @@ Template.assistantCustomersDashboard.helpers({
   },
   getSortedCustomers() {
     let currentCustomer = Template.currentData().currentCustomer;
-    let customers = Template.currentData().customers;
+
+    let selector = {};
+    if (!Users.isAdmin(Meteor.userId())) {
+      let myPlacements = Placements.find({assistantId: Meteor.userId()}).fetch();
+      let myCustomerIds = _.pluck(myPlacements, 'customerId');
+      selector = {_id: {$in: myCustomerIds}};
+    }
+    let customers = Users.findCustomers(selector);
     if (!customers) return;
 
     customers = _.map(customers.fetch(), (customer) => {
@@ -17,6 +24,7 @@ Template.assistantCustomersDashboard.helpers({
         });
         lastMessageTimestamp = myDChannelWithLatestReplied.lastMessageTimestamp();
       }
+
       return _.extend(customer,
           {
             lastMessageTimestamp :  lastMessageTimestamp,
