@@ -1,7 +1,8 @@
 Template.assistantCustomerConversation.onRendered(function() {
   let template = this;
-  Tracker.autorun(function() {
-    if (!Session.get(SessionKeys.CURRENT_CUSTOMER)) return;
+  let customer = this.data;
+  template.autorun(function() {
+    if (!customer._id) return;
     let onDateRangePickerApply = function (customer, start, end, label) {
       let invoiceRelated = {
         customer : customer,
@@ -19,7 +20,7 @@ Template.assistantCustomerConversation.onRendered(function() {
           opens: 'right',
           maxDate: moment()
         },
-        _.partial(onDateRangePickerApply, _.extend(Session.get(SessionKeys.CURRENT_CUSTOMER), Customer, User))
+        _.partial(onDateRangePickerApply, customer)
     );
   });
 });
@@ -41,8 +42,8 @@ Template.assistantCustomerConversation.helpers({
     });
   },
   selectedChannel() {
-    let customer = Session.get(SessionKeys.CURRENT_CUSTOMER);
-    if (!customer) return null;
+    let customer = this;
+    if (!customer._id) return null;
     let customerId = customer._id;
     let key = SessionKeys.getCustomerSelectedChannelIdKey(customerId);
     let channelId = Session.get(key);

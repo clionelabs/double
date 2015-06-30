@@ -1,10 +1,10 @@
 Template.assistantCustomersDashboard.helpers({
   getCurrentCustomer() {
-    let rawUser = Session.get(SessionKeys.CURRENT_CUSTOMER);
-    return rawUser ? _.extend(rawUser, Customer, User) : EmptyCustomer;
+    return this.currentCustomer;
   },
   getSortedCustomers() {
-    let customers = Users.findCustomers().fetch();
+    let currentCustomer = this.currentCustomer;
+    let customers = this.customers.fetch();
     customers = _.map(customers, (customer) => {
       let lastMessageTimestamp = null;
       let myDChannels = D.Channels.find({ customerId : customer._id }).fetch();
@@ -15,12 +15,16 @@ Template.assistantCustomersDashboard.helpers({
         });
         lastMessageTimestamp = myDChannelWithLatestReplied.lastMessageTimestamp();
       }
-      return _.extend(customer, { lastMessageTimestamp :  lastMessageTimestamp });
+      return _.extend(customer,
+          {
+            lastMessageTimestamp :  lastMessageTimestamp,
+            isCurrent : (customer._id === currentCustomer._id)
+          });
     });
     return _.sortBy(customers, function(customer) { return -1 * customer.lastMessageTimestamp; });
   },
   getTasksOfSelectedCustomer() {
-    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get("getCurrentCustomer")();
+    let currentCustomer = this.currentCustomer;
     return Tasks.findRequestedBy(currentCustomer._id);
   }
 });

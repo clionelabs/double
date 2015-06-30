@@ -17,12 +17,7 @@ Template.assistantCustomersListItem.helpers({
     return (thisCustomer.isCalling()) ? "animated infinite wobble" : "";
   },
   isSelected() {
-    let currentCustomer = Session.get(SessionKeys.CURRENT_CUSTOMER);
-    if (currentCustomer) {
-      return _.isEqual(this._id, currentCustomer._id) ? "selected" : "";
-    } else {
-      return "";
-    }
+    return this.isCurrent ? "selected" : "";
   },
   hasNotRepliedClass() {
     return this.hasNotRepliedConversation()? "not-replied": "";
