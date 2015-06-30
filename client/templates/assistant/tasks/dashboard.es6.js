@@ -11,7 +11,7 @@ Template.assistantTasksDashboard.getRunningTask = () => {
 
 Template.assistantTasksDashboard.helpers({
   getCurrentTask() {
-    return this.currentTask;
+    return Router.current().data().currentTask;
   },
   tasksWithIsCurrent() {
     let currentTask = this.currentTask;

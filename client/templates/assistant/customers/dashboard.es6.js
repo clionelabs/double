@@ -1,11 +1,13 @@
 Template.assistantCustomersDashboard.helpers({
   getCurrentCustomer() {
-    return this.currentCustomer;
+    return Router.current().data().currentCustomer;
   },
   getSortedCustomers() {
-    let currentCustomer = this.currentCustomer;
-    let customers = this.customers.fetch();
-    customers = _.map(customers, (customer) => {
+    let currentCustomer = Router.current().data().currentCustomer;
+    let customers = Router.current().data().customers;
+    if (!customers) return;
+
+    customers = _.map(customers.fetch(), (customer) => {
       let lastMessageTimestamp = null;
       let myDChannels = D.Channels.find({ customerId : customer._id }).fetch();
       if (!_.isEmpty(myDChannels)) {
@@ -24,14 +26,14 @@ Template.assistantCustomersDashboard.helpers({
     return _.sortBy(customers, function(customer) { return -1 * customer.lastMessageTimestamp; });
   },
   getTasksOfSelectedCustomer() {
-    let currentCustomer = this.currentCustomer;
+    let currentCustomer = Router.current().data().currentCustomer;
     return Tasks.findRequestedBy(currentCustomer._id);
   }
 });
 
 Template.assistantCustomersDashboard.events({
-  "click .new-task-button": function() {
-    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get('getCurrentCustomer')();
+  "click .new-task-button": function(e, tmpl) {
+    let currentCustomer = Router.current().data().currentCustomer;
     let data = {
       customerId: currentCustomer._id
     };

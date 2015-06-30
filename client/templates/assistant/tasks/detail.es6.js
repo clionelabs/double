@@ -14,7 +14,8 @@ Template.assistantTasksDetail.helpers({
     return formatter(this.totalDuration());
   },
   getCustomerName() {
-    return Users.findOneCustomer({ _id : this.requestorId }).displayName();
+    let customer = Users.findOneCustomer({ _id : this.requestorId });
+    if (customer) { return customer.displayName(); }
   },
   last7DaysTimeUsed() {
     let weekBeforeTimestamp = moment().subtract(7, 'd').valueOf();
