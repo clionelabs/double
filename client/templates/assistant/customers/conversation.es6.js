@@ -1,7 +1,8 @@
 Template.assistantCustomerConversation.onRendered(function() {
   let template = this;
   template.autorun(function() {
-    let customer = Router.current().data().currentCustomer;
+
+    let customer = Template.currentData();
     if (customer._id === EmptyCustomer._id) return;
     let onDateRangePickerApply = function (customer, start, end, label) {
       let invoiceRelated = {
@@ -27,7 +28,7 @@ Template.assistantCustomerConversation.onRendered(function() {
 
 Template.assistantCustomerConversation.events({
   "click .profile" : function() {
-    let currentCustomer = Router.current().data().currentCustomer;
+    let currentCustomer = Template.currentData().currentCustomer;
     Modal.show('customerEditForm', currentCustomer);
   }
 });
