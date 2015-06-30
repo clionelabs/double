@@ -24,11 +24,6 @@ Meteor.publish('myInProcessTasks', function() {
 
 Meteor.reactivePublish('customers', function() {
   let selector = {};
-  if (!Users.isAdmin(this.userId)) {
-    let myPlacements = Placements.find({assistantId: this.userId}).fetch();
-    let myCustomerIds = _.pluck(myPlacements, 'customerId');
-    selector = { _id : { $in :  myCustomerIds }};
-  }
   return Users.findCustomers(selector);
 });
 
