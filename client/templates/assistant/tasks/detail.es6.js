@@ -9,8 +9,9 @@ Template.assistantTasksDetail.helpers({
     return this.getLatestStatus(Meteor.userId());
   },
   getFormattedTotalDuration() {
+    _timerDep.depend();
     let formatter = UI._globalHelpers['formatDurationPrecise'];
-    return formatter(+Session.get(SessionKeys.CURRENT_TIME_USED));
+    return formatter(this.totalDuration());
   },
   getCustomerName() {
     return Users.findOneCustomer({ _id : this.requestorId }).displayName();
@@ -30,26 +31,24 @@ Template.assistantTasksDetail.helpers({
   }
 });
 
-let _timeoutFn = null;
+let _timerDep = new Tracker.Dependency();
+let _timerFn = null;
 
-let _updateTimer = (task) => {
-  Session.setAuth(SessionKeys.CURRENT_TIME_USED, Tasks.findOne(task._id).totalDuration());
+let _updateTimer = () => {
+  _timerDep.changed();
 };
-
 
 Template.assistantTasksDetail.onRendered(function() {
   let instance = this;
   let task = instance.data;
   instance.autorun(function() {
-    Meteor.clearInterval(_timeoutFn);
-    _updateTimer(task);
-    _timeoutFn = Meteor.setInterval(_.partial(
-      _updateTimer, task), 1000);
+    _updateTimer();
+    _timerFn = Meteor.setInterval(_updateTimer, 1000);
   });
 });
 
 Template.assistantTasksDetail.onDestroyed(function() {
-  Meteor.clearInterval(_timeoutFn);
+  Meteor.clearInterval(_timerFn);
 });
 
 Template.assistantTasksDetail.events({
