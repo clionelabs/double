@@ -1,18 +1,23 @@
 Template.assistantUnroutedDashboard.helpers({
   channels() {
     let showSpam = Template.currentData().isShowSpam === 'true';
+    let selectedChannelId = Template.currentData().selectedChannelId;
     let selector = { customerId: { $exists: false }};
     if (!showSpam) {
       _.extend(selector, { isSpam : false });
     }
-    return D.Channels.find(selector);
+    let channels = D.Channels.find(selector).fetch();
+    return _.map(channels, function(channel){
+      return _.extend({}, channel, { isCurrent : channel._id === selectedChannelId });
+    });
   },
   isSelectedClass() {
-    return this._id === Session.get(SessionKeys.CURRENT_UNASSIGNED_CHANNEL_ID)? "active": "";
+    let channel = this;
+    return (channel.isCurrent) ? "active": "";
   },
   getCurrentSelectedChannel() {
-    let channelId = Session.get(SessionKeys.CURRENT_UNASSIGNED_CHANNEL_ID);
-    return channelId? D.Channels.findOne(channelId): null;
+    let channelId = Template.currentData().selectedChannelId;
+    return channelId ? D.Channels.findOne(channelId) : null;
   }
 });
 
@@ -23,11 +28,17 @@ Template.assistantUnroutedDashboard.onRendered(function() {
 
 Template.assistantUnroutedDashboard.events({
   "click #show-spam-checkbox": function(event) {
+    let showSpam = Template.currentData().isShowSpam === 'true';
     Router.go('assistant.unrouted', {}, { query : "isShowSpam=" + event.target.checked });
   },
 
   "click .select-channel": function() {
-    Session.setAuth(SessionKeys.CURRENT_UNASSIGNED_CHANNEL_ID, this._id);
+    let isShowSpam = Template.currentData().isShowSpam === 'true';
+    let channel = this;
+    let selectedChannelId = this._id;
+    Router.go('assistant.unrouted',
+        {},
+        { query : "isShowSpam=" + isShowSpam + "&selectedChannelId=" + selectedChannelId });
   },
 
   "click .set-channel": function(event) {
