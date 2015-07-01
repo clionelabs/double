@@ -7,8 +7,11 @@ let _submitFn = (form, taskId) => {
       });
 };
 
+let isStepFormShownDep = new Tracker.Dependency();
+
 Template.assistantTasksDetailStep.onRendered(function() {
   let selfTemplate = this;
+  Template.currentData().isStepFormShown = false;
   selfTemplate.$('.sub').on('transitionend onanimationend', function(e) {
     if ($(e.target).height() > 1) {
       selfTemplate.$('.link-title').focus();
@@ -18,10 +21,8 @@ Template.assistantTasksDetailStep.onRendered(function() {
 
 Template.assistantTasksDetailStep.helpers({
   isStepFormShown() {
-    return Session.get(SessionKeys.genStepFormKey(this._id)) ? "" : "not-shown";
-  },
-  genFormKey() {
-    return SessionKeys.genStepFormKey(this._id);
+    isStepFormShownDep.depend();
+    return Template.currentData().isStepFormShown ? "" : "not-shown";
   },
   isCompletedCheckbox() {
     return this.isCompleted ? "fa-check-square-o" : "fa-square-o";
@@ -36,7 +37,8 @@ Template.assistantTasksDetailStep.helpers({
 
 Template.assistantTasksDetailStep.events({
   "click i.add" : function() {
-    Session.setAuth(SessionKeys.genStepFormKey(this._id), true);
+    Template.currentData().isStepFormShown = true;
+    isStepFormShownDep.changed();
   },
   "submit form.add" : function(e) {
     e.preventDefault();
@@ -44,7 +46,8 @@ Template.assistantTasksDetailStep.events({
   },
   "keyup form.add input" : function(e) {
     if (e.keyCode === 27) {//esc
-      Session.setAuth(SessionKeys.genStepFormKey(this._id), false);
+      Template.currentData().isStepFormShown = false;
+      isStepFormShownDep.changed();
     }
   },
   "click .check" : function(e) {

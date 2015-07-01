@@ -1,7 +1,4 @@
 SessionKeys = {
-  genStepFormKey : (taskId) => {
-    return "isStepFormShown" + "." + taskId;
-  },
   genDescriptionFormKey : (taskId) => {
     return "isDescriptionFormShown" + "." + taskId;
   },
