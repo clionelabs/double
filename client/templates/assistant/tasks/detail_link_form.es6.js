@@ -4,12 +4,16 @@ let _submitFn = (form, taskId) => {
   Tasks.References.add(title, url, taskId,
       () => {
         form.target.reset();
-        Session.setAuth(SessionKeys.genLinkFormKey(taskId), false);
+        selfTemplate.data.isLinkFormShown = false;
+        isLinkFormShownDep.changed();
       });
 };
 
+let isLinkFormShownDep = new Tracker.Dependency();
+
 Template.assistantTasksDetailLinkForm.onRendered(function() {
   let selfTemplate = this;
+  selfTemplate.data.isLinkFormShown = false;
   selfTemplate.$('.sub').on('transitionend onanimationend', function(e) {
     if ($(e.target).height() > 1) {
       selfTemplate.$('.link-title').focus();
@@ -25,16 +29,16 @@ Template.assistantTasksDetailLinkForm.helpers({
     });
   },
   isLinkFormShown() {
-    return Session.get(SessionKeys.genLinkFormKey(this._id)) ? "" : "not-shown";
-  },
-  genFormKey(taskId) {
-    return SessionKeys.genLinkFormKey(taskId);
+    let task = Template.currentData();
+    isLinkFormShownDep.depend();
+    return task.isLinkFormShown ? "" : "not-shown";
   }
 });
 
 Template.assistantTasksDetailLinkForm.events({
   "click i.add" : function() {
-    Session.setAuth(SessionKeys.genLinkFormKey(this._id), true);
+    Template.currentData().isLinkFormShown = true;
+    isLinkFormShownDep.changed();
   },
   "submit form.add" : function(e) {
     e.preventDefault();
@@ -42,7 +46,8 @@ Template.assistantTasksDetailLinkForm.events({
   },
   "keyup form.add input" : function(e) {
     if (e.keyCode === 27) {//esc
-      Session.setAuth(SessionKeys.genLinkFormKey(this._id), false);
+      Template.currentData().isLinkFormShown = false;
+      isLinkFormShownDep.changed();
     }
   },
   "click .delete" : function(e) {
