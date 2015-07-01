@@ -70,8 +70,6 @@ Template.assistantCustomerConversationChannel.events({
   },
   "click .set-channel": function(event) {
     event.stopPropagation();
-    let key = SessionKeys.getCustomerSelectedChannelIdKey(this.customer._id);
-    Session.set(key, null);
     Modal.show('channelSettingsModal', this.channel);
   }
 });
