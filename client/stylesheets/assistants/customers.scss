@@ -75,12 +75,13 @@
         li {
           margin-right: 10px;
           &.active {
-            a {
+            span {
               background: $double-dark-blue;
               color: $double-white;
             }
           }
-          a {
+          span {
+            cursor: pointer;
             padding:5px;
             display:inline-block;
             background: $double-grey;

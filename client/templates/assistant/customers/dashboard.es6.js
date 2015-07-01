@@ -1,6 +1,13 @@
 Template.assistantCustomersDashboard.helpers({
   getCurrentCustomer() {
-    return Template.currentData().currentCustomer;
+    let selectedChannel = Template.currentData().selectedChannel;
+    let currentCustomer = Template.currentData().currentCustomer;
+    if (selectedChannel) {
+      return _.extend(currentCustomer,
+          { selectedChannelId: selectedChannel._id });
+    } else {
+      return currentCustomer;
+    }
   },
   getSortedCustomers() {
     let currentCustomer = Template.currentData().currentCustomer;

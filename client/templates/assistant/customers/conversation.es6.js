@@ -44,21 +44,18 @@ Template.assistantCustomerConversation.helpers({
     });
   },
   selectedChannel() {
-    let customer = this;
-    if (!customer._id) return null;
-    let customerId = customer._id;
-    let key = SessionKeys.getCustomerSelectedChannelIdKey(customerId);
-    let channelId = Session.get(key);
-    return channelId ? D.Channels.findOne(channelId) : null;
+    let customer = Template.currentData();
+    return customer.selectedChannelId ? D.Channels.findOne(customer.selectedChannelId) : null;
   }
 });
 
 Template.assistantCustomerConversationChannel.helpers({
   isSelectedClass() {
-    let customerId = this.customer._id;
-    let channelId = this.channel._id;
-    let key = SessionKeys.getCustomerSelectedChannelIdKey(customerId);
-    return channelId === Session.get(key)? "active": "";
+    let data = Template.currentData();
+    let customerId = data.customer._id;
+    let channelId = data.channel._id;
+    let selectedChannelId = data.customer.selectedChannelId;
+    return channelId === selectedChannelId ? "active": "";
   },
   isNotReplied() {
     return this.channel.isNotReplied();
@@ -67,8 +64,9 @@ Template.assistantCustomerConversationChannel.helpers({
 
 Template.assistantCustomerConversationChannel.events({
   "click .select-channel": function() {
-    let key = SessionKeys.getCustomerSelectedChannelIdKey(this.customer._id);
-    Session.set(key, this.channel._id);
+    let customer = Template.currentData().customer;
+    let channel = Template.currentData().channel;
+    Router.go('assistant.customers', { _id : customer._id }, { query : 'selectedChannel=' + channel._id });
   },
   "click .set-channel": function(event) {
     event.stopPropagation();

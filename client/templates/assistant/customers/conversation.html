@@ -21,11 +21,12 @@
 
 <Template name="assistantCustomerConversationChannel">
   <li role="presentation" class="select-channel {{isSelectedClass}}">
-    <a href="#">{{> channelTitle channel}}
+    <span>
+      {{> channelTitle channel}}
       {{#if isNotReplied}}
         <i class="fa fa-frown-o not-replied-channel"></i>
       {{/if}}
       <i class="fa fa-angle-down set-channel"></i>
-    </a>
+    </span>
   </li>
 </Template>
