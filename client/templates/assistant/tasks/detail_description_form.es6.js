@@ -1,37 +1,49 @@
-Template.assistantTasksDetailDescriptionForm._submitFn = (form, taskId) => {
+let _submitFn = (data, form, taskId) => {
   let description = form.target.description.value;
   Tasks.Description.edit(description, taskId,
       () => {
-        Session.setAuth(SessionKeys.genDescriptionFormKey(taskId), false);
+        data.isDescriptionFormShown = false;
+        isDescriptionFormShownDep.changed();
       });
 };
+let isDescriptionFormShownDep = new Tracker.Dependency();
+
+Template.assistantTasksDetailDescriptionForm.onCreated(function() {
+  Template.currentData().isDescriptionFormShown = false;
+  isDescriptionFormShownDep.changed();
+});
 
 Template.assistantTasksDetailDescriptionForm.helpers({
   isDescriptionFormShown : function() {
-    return Session.get(SessionKeys.genDescriptionFormKey(this._id)) ? "" : "hide";
+    isDescriptionFormShownDep.depend();
+    return Template.currentData().isDescriptionFormShown ? "" : "hide";
   },
   isDescriptionShown : function() {
-    return Session.get(SessionKeys.genDescriptionFormKey(this._id)) ? "hide" : "";
-  },
-  genFormKey : function(taskId) {
-    return SessionKeys.genDescriptionFormKey(taskId);
+    isDescriptionFormShownDep.depend();
+    return Template.currentData().isDescriptionFormShown ? "hide" : "";
   }
 });
 
 Template.assistantTasksDetailDescriptionForm.events({
   'click i.edit': function(e) {
-    Session.setAuth(SessionKeys.genDescriptionFormKey(this._id), true);
+    Template.currentData().isDescriptionFormShown = true;
+    isDescriptionFormShownDep.changed();
   },
   "submit form.edit" : function(e) {
     e.preventDefault();
-    return Template.assistantTasksDetailDescriptionForm._submitFn(e, this._id);
+    return _submitFn(Template.currentData(), e, this._id);
   },
-  "keypress form.edit textarea" : function(e) {
-    if (e.keyCode === 27) {//esc
-      Session.setAuth(SessionKeys.genDescriptionFormKey(this._id), false);
-    } else if (e.shiftKey && e.keyCode === 13) {
+  "keypress form.edit textarea" : function(e, tmpl) {
+    if (e.shiftKey && e.keyCode === 13) {
       e.preventDefault();
-      $('.task-description-edit').submit();
+      $(tmpl.$('form.edit')[0]).submit();
+    }
+  },
+  "keyup form.edit textarea" : function(e) {
+    if (e.keyCode === 27) {//esc
+      Template.currentData().isDescriptionFormShown = false;
+      isDescriptionFormShownDep.changed();
     }
   }
 });
+
