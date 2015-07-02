@@ -1,29 +1,44 @@
 Template.assistantUnroutedDashboard.helpers({
   channels() {
-    let showSpam = Session.get(SessionKeys.UNASSIGNED_SHOW_SPAM);
-    if (showSpam) {
-      return D.Channels.find({customerId: {$exists: false}, isSpam: true});
-    } else {
-      return D.Channels.find({customerId: {$exists: false}, isSpam: {$ne: true}});
+    let showSpam = Template.currentData().isShowSpam === 'true';
+    let selectedChannelId = Template.currentData().selectedChannelId;
+    let selector = { customerId: { $exists: false }};
+    if (!showSpam) {
+      _.extend(selector, { isSpam : false });
     }
+    let channels = D.Channels.find(selector).fetch();
+    return _.map(channels, function(channel){
+      return _.extend({}, channel, { isCurrent : channel._id === selectedChannelId });
+    });
   },
   isSelectedClass() {
-    return this._id === Session.get(SessionKeys.CURRENT_UNASSIGNED_CHANNEL_ID)? "active": "";
+    let channel = this;
+    return (channel.isCurrent) ? "active": "";
   },
   getCurrentSelectedChannel() {
-    let channelId = Session.get(SessionKeys.CURRENT_UNASSIGNED_CHANNEL_ID);
-    return channelId? D.Channels.findOne(channelId): null;
+    let channelId = Template.currentData().selectedChannelId;
+    return channelId ? D.Channels.findOne(channelId) : null;
   }
+});
+
+Template.assistantUnroutedDashboard.onRendered(function() {
+  let isShowSpam = Template.currentData().isShowSpam === 'true';
+  this.$('#show-spam-checkbox').prop("checked", isShowSpam);
 });
 
 Template.assistantUnroutedDashboard.events({
   "click #show-spam-checkbox": function(event) {
-    Session.set(SessionKeys.UNASSIGNED_SHOW_SPAM, event.target.checked);
-    Session.setAuth(SessionKeys.CURRENT_UNASSIGNED_CHANNEL_ID, null);
+    let showSpam = Template.currentData().isShowSpam === 'true';
+    Router.go('assistant.unrouted', {}, { query : "isShowSpam=" + event.target.checked });
   },
 
   "click .select-channel": function() {
-    Session.setAuth(SessionKeys.CURRENT_UNASSIGNED_CHANNEL_ID, this._id);
+    let isShowSpam = Template.currentData().isShowSpam === 'true';
+    let channel = this;
+    let selectedChannelId = this._id;
+    Router.go('assistant.unrouted',
+        {},
+        { query : "isShowSpam=" + isShowSpam + "&selectedChannelId=" + selectedChannelId });
   },
 
   "click .set-channel": function(event) {

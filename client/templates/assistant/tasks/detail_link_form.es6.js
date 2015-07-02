@@ -1,12 +1,16 @@
-let _submitFn = (form, taskId) => {
+let _submitFn = (data, form, taskId) => {
   let title = form.target.title.value;
   let url = form.target.url.value;
   Tasks.References.add(title, url, taskId,
       () => {
         form.target.reset();
-        Session.setAuth(SessionKeys.genLinkFormKey(taskId), false);
+        data.isLinkFormShown.set(false);
       });
 };
+
+Template.assistantTasksDetailLinkForm.onCreated(function() {
+  Template.currentData().isLinkFormShown = new ReactiveVar(false);
+});
 
 Template.assistantTasksDetailLinkForm.onRendered(function() {
   let selfTemplate = this;
@@ -21,28 +25,26 @@ Template.assistantTasksDetailLinkForm.helpers({
   references() {
     let taskId = this._id;
     return _.map(this.references, function(reference) {
-      return _.extend({}, { taskId : taskId },reference);
+      return _.extend({}, { taskId : taskId }, reference);
     });
   },
   isLinkFormShown() {
-    return Session.get(SessionKeys.genLinkFormKey(this._id)) ? "" : "not-shown";
-  },
-  genFormKey(taskId) {
-    return SessionKeys.genLinkFormKey(taskId);
+    let task = Template.currentData();
+    return task.isLinkFormShown.get() ? "" : "not-shown";
   }
 });
 
 Template.assistantTasksDetailLinkForm.events({
   "click i.add" : function() {
-    Session.setAuth(SessionKeys.genLinkFormKey(this._id), true);
+    Template.currentData().isLinkFormShown.set(true);
   },
   "submit form.add" : function(e) {
     e.preventDefault();
-    return _submitFn(e, this._id);
+    return _submitFn(Template.currentData(), e, this._id);
   },
   "keyup form.add input" : function(e) {
     if (e.keyCode === 27) {//esc
-      Session.setAuth(SessionKeys.genLinkFormKey(this._id), false);
+      Template.currentData().isLinkFormShown.set(false);
     }
   },
   "click .delete" : function(e) {

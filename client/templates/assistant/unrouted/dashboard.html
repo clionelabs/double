@@ -8,11 +8,14 @@
     <div class="channel-tabs">
       <ul class="nav nav-pills" role="tablist">
         {{#each channels}}
-          <li role="presentation" class="select-channel {{isSelectedClass}}"><a href="#">{{> channelTitle}}</a>
-          {{#if isNotReplied}}
-            <i class="fa fa-frown-o not-replied-channel"></i>
-          {{/if}}
-          <i class="fa fa-cog set-channel"></i>
+          <li role="presentation" class="select-channel {{isSelectedClass}}">
+            <span>
+              {{> channelTitle}}
+              {{#if isNotReplied}}
+                <i class="fa fa-frown-o not-replied-channel"></i>
+              {{/if}}
+              <i class="fa fa-cog set-channel"></i>
+            </span>
           </li>
         {{/each}}
       </ul>
