@@ -28,11 +28,11 @@ Template.assistantCustomerConversation.onRendered(function() {
 
 Template.assistantCustomerConversation.events({
   "click .profile" : function() {
-    let currentCustomer = Template.currentData().currentCustomer;
+    let currentCustomer = Template.currentData();
     Modal.show('customerEditForm', currentCustomer);
   },
   "click .show-link-payment" : function() {
-    let currentCustomer = Template.currentData().currentCustomer;
+    let currentCustomer = Template.currentData();
     Modal.show('customerPaymentLink', currentCustomer);
   }
 });
