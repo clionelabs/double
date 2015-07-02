@@ -4,8 +4,7 @@ let _submitFn = (data, form, taskId) => {
   Tasks.References.add(title, url, taskId,
       () => {
         form.target.reset();
-        data.isLinkFormShown = false;
-        isLinkFormShownDep.changed();
+        data.isLinkFormShown.set(false);
       });
 };
 
