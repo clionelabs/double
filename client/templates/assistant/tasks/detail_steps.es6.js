@@ -1,9 +1,10 @@
-let _submitFn = (form, taskId) => {
+let _submitFn = (data, form, taskId) => {
   let text = form.target.text.value;
   Tasks.Steps.add(text, taskId,
       () => {
         form.target.reset();
-        Session.setAuth(SessionKeys.genStepFormKey(taskId), false);
+        data.isStepFormShown = false;
+        isStepFormShownDep.changed();
       });
 };
 
@@ -42,7 +43,7 @@ Template.assistantTasksDetailStep.events({
   },
   "submit form.add" : function(e) {
     e.preventDefault();
-    return _submitFn(e, this._id);
+    return _submitFn(Template.currentData(), e, this._id);
   },
   "keyup form.add input" : function(e) {
     if (e.keyCode === 27) {//esc

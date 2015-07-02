@@ -1,10 +1,10 @@
-let _submitFn = (tmpl, form, taskId) => {
+let _submitFn = (data, form, taskId) => {
   let title = form.target.title.value;
   let url = form.target.url.value;
   Tasks.References.add(title, url, taskId,
       () => {
         form.target.reset();
-        tmpl.data.isLinkFormShown = false;
+        data.isLinkFormShown = false;
         isLinkFormShownDep.changed();
       });
 };
@@ -40,9 +40,9 @@ Template.assistantTasksDetailLinkForm.events({
     Template.currentData().isLinkFormShown = true;
     isLinkFormShownDep.changed();
   },
-  "submit form.add" : function(e, tmpl) {
+  "submit form.add" : function(e) {
     e.preventDefault();
-    return _submitFn(tmpl, e, this._id);
+    return _submitFn(Template.currentData(), e, this._id);
   },
   "keyup form.add input" : function(e) {
     if (e.keyCode === 27) {//esc
