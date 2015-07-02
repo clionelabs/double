@@ -74,6 +74,12 @@ Template.channelReply.events({
     let form = event.target;
     let channelId = form.channelId.value;
     let content = form.content.value;
+    if (!content) return false;
+
+    // avoid sending multiple times
+    if ($(form.content).attr("disabled")) {
+      return false;
+    }
 
     let doc = {
       channelId: channelId,
