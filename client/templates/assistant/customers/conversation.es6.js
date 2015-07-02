@@ -28,8 +28,12 @@ Template.assistantCustomerConversation.onRendered(function() {
 
 Template.assistantCustomerConversation.events({
   "click .profile" : function() {
-    let currentCustomer = Template.currentData().currentCustomer;
+    let currentCustomer = Template.currentData();
     Modal.show('customerEditForm', currentCustomer);
+  },
+  "click .show-link-payment" : function() {
+    let currentCustomer = Template.currentData();
+    Modal.show('customerPaymentLink', currentCustomer);
   }
 });
 
@@ -50,6 +54,10 @@ Template.assistantCustomerConversation.helpers({
     let key = SessionKeys.getCustomerSelectedChannelIdKey(customerId);
     let channelId = Session.get(key);
     return channelId ? D.Channels.findOne(channelId) : null;
+  },
+  hasNoPaymentMethod() {
+    //TODO add check payment method
+    return true;
   }
 });
 
