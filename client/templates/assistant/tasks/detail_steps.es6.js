@@ -3,16 +3,16 @@ let _submitFn = (data, form, taskId) => {
   Tasks.Steps.add(text, taskId,
       () => {
         form.target.reset();
-        data.isStepFormShown = false;
-        isStepFormShownDep.changed();
+        data.isStepFormShown.set(false);
       });
 };
 
-let isStepFormShownDep = new Tracker.Dependency();
+Template.assistantTasksDetailStep.onCreated(function() {
+  Template.currentData().isStepFormShown = new ReactiveVar(false);
+});
 
 Template.assistantTasksDetailStep.onRendered(function() {
   let selfTemplate = this;
-  Template.currentData().isStepFormShown = false;
   selfTemplate.$('.sub').on('transitionend onanimationend', function(e) {
     if ($(e.target).height() > 1) {
       selfTemplate.$('.link-title').focus();
@@ -22,8 +22,7 @@ Template.assistantTasksDetailStep.onRendered(function() {
 
 Template.assistantTasksDetailStep.helpers({
   isStepFormShown() {
-    isStepFormShownDep.depend();
-    return Template.currentData().isStepFormShown ? "" : "not-shown";
+    return Template.currentData().isStepFormShown.get() ? "" : "not-shown";
   },
   isCompletedCheckbox() {
     return this.isCompleted ? "fa-check-square-o" : "fa-square-o";
@@ -38,8 +37,7 @@ Template.assistantTasksDetailStep.helpers({
 
 Template.assistantTasksDetailStep.events({
   "click i.add" : function() {
-    Template.currentData().isStepFormShown = true;
-    isStepFormShownDep.changed();
+    Template.currentData().isStepFormShown.set(true);
   },
   "submit form.add" : function(e) {
     e.preventDefault();
@@ -47,8 +45,7 @@ Template.assistantTasksDetailStep.events({
   },
   "keyup form.add input" : function(e) {
     if (e.keyCode === 27) {//esc
-      Template.currentData().isStepFormShown = false;
-      isStepFormShownDep.changed();
+      Template.currentData().isStepFormShown.set(false);
     }
   },
   "click .check" : function(e) {

@@ -2,32 +2,28 @@ let _submitFn = (data, form, taskId) => {
   let description = form.target.description.value;
   Tasks.Description.edit(description, taskId,
       () => {
-        data.isDescriptionFormShown = false;
-        isDescriptionFormShownDep.changed();
+        data.isDescriptionFormShown.set(false);
       });
 };
-let isDescriptionFormShownDep = new Tracker.Dependency();
+
 
 Template.assistantTasksDetailDescriptionForm.onCreated(function() {
-  Template.currentData().isDescriptionFormShown = false;
-  isDescriptionFormShownDep.changed();
+  Template.currentData().isDescriptionFormShown = new ReactiveVar(false);
 });
 
 Template.assistantTasksDetailDescriptionForm.helpers({
   isDescriptionFormShown : function() {
-    isDescriptionFormShownDep.depend();
-    return Template.currentData().isDescriptionFormShown ? "" : "hide";
+    return Template.currentData().isDescriptionFormShown.get() ? "" : "hide";
   },
   isDescriptionShown : function() {
-    isDescriptionFormShownDep.depend();
-    return Template.currentData().isDescriptionFormShown ? "hide" : "";
+    return Template.currentData().isDescriptionFormShown.get() ? "hide" : "";
   }
 });
 
 Template.assistantTasksDetailDescriptionForm.events({
   'click i.edit': function(e) {
-    Template.currentData().isDescriptionFormShown = true;
-    isDescriptionFormShownDep.changed();
+
+    Template.currentData().isDescriptionFormShown.set(true);
   },
   "submit form.edit" : function(e) {
     e.preventDefault();
@@ -41,8 +37,7 @@ Template.assistantTasksDetailDescriptionForm.events({
   },
   "keyup form.edit textarea" : function(e) {
     if (e.keyCode === 27) {//esc
-      Template.currentData().isDescriptionFormShown = false;
-      isDescriptionFormShownDep.changed();
+      Template.currentData().isDescriptionFormShown.set(false);
     }
   }
 });

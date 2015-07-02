@@ -1,7 +1,6 @@
 Template.assistantCustomerConversation.onRendered(function() {
   let template = this;
   template.autorun(function() {
-
     let customer = Template.currentData();
     if (customer._id === EmptyCustomer._id) return;
     let onDateRangePickerApply = function (customer, start, end, label) {
