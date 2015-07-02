@@ -62,6 +62,16 @@
             color: $double-white;
             margin: 0px 15px;
           }
+          .dropdown {
+            .btn {
+              background: transparent;
+              color: $double-black;
+            }
+            li {
+              padding: 5px 10px 5px 10px;
+              cursor: pointer;
+            }
+          }
         }
         .name {
           font-size: 1.414em;
