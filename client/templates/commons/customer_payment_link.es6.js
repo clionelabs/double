@@ -1,7 +1,11 @@
 Template.customerPaymentLink.helpers({
   getCustomerPaymentLink() {
-    //TODO add
-    return 'https://www.google.com';
+    let customer = this;
+    if (customer.payment && customer.payment.authURL) {
+      return customer.payment.authURL;
+    } else {
+      return "NOT AVAILABLE"; // normally, it's not supposed to happen
+    }
   }
 });
 

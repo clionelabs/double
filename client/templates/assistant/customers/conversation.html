@@ -13,9 +13,12 @@
           </div>
           <ul class="dropdown-menu" aria-labelledby="user.settings">
             <li class="profile">User Profile</li>
-            {{#if hasNoPaymentMethod }}
-              <li class="show-link-payment">Show Add Payment URL</li>
-            {{/if }}
+            <li class="show-link-payment">
+              {{#if hasPaymentMethod}}
+                <i class="fa fa-check"></i>
+              {{/if}}
+              Show Add Payment URL
+            </li>
           </ul>
         </div>
       </div>
