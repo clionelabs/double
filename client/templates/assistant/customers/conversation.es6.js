@@ -50,9 +50,9 @@ Template.assistantCustomerConversation.helpers({
     let customer = Template.currentData();
     return customer.selectedChannelId ? D.Channels.findOne(customer.selectedChannelId) : null;
   },
-  hasNoPaymentMethod() {
-    //TODO add check payment method
-    return true;
+  hasPaymentMethod() {
+    let customer = this;
+    return customer.payment && customer.payment.isAuthorized;
   }
 });
 
