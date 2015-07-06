@@ -1,31 +1,16 @@
-Template.assistantCustomerConversation.onRendered(function() {
-  let template = this;
-  template.autorun(function() {
-    let customer = Template.currentData();
-    if (customer._id === EmptyCustomer._id) return;
-    let onDateRangePickerApply = function (customer, start, end, label) {
-      let invoiceRelated = {
-        customer : customer,
-        from : start.valueOf(),
-        to : end.valueOf(),
-        tasks : Tasks.find({ requestorId : customer._id })
-      };
-      Modal.show("invoice", invoiceRelated);
-    };
-
-
-    template.$('.export').daterangepicker(
-        {
-          format: 'YYYY-MM-DD',
-          opens: 'right',
-          maxDate: moment()
-        },
-        _.partial(onDateRangePickerApply, customer)
-    );
-  });
-});
-
 Template.assistantCustomerConversation.events({
+  "click .add-invoice" : function() {
+    let currentCustomer = Template.currentData();
+    let from = new ReactiveVar(moment().subtract(7, 'd').valueOf());
+    let to = new ReactiveVar(moment().valueOf());
+    let invoiceRelated = {
+      customer : currentCustomer,
+      tasks : Tasks.find({ requestorId : currentCustomer._id }),
+      from: from,
+      to: to
+    };
+    Modal.show("invoiceCreate", invoiceRelated);
+  },
   "click .profile" : function() {
     let currentCustomer = Template.currentData();
     Modal.show('customerEditForm', currentCustomer);

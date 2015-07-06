@@ -3,7 +3,19 @@
     <div class="customer-metrics">
       <div class="name">{{ displayName }}</div>
       <div class="functions">
-        <div class="btn btn-default export">Generate Invoice</div>
+        <div class="dropdown">
+          <div class="btn btn-default dropdown" id="user.invoices"
+              data-toggle="dropdown"
+              aria-expanded="false"
+              aria-haspopup="true">Invoices</div>
+          <ul class="dropdown-menu" aria-labelledby="user.invoices">
+            <li class="add-invoice"><i class="fa fa-plus"></i>&nbsp;Invoice</li>
+            {{#each invoices }}
+              <li class="invoice">{{invoiceRange}}</li>
+            {{/each}}
+          </ul>
+        </div>
+
         <div class="dropdown">
           <div id='user.settings' class="btn btn-default settings dropdown"
             aria-haspopup="true" aria-expanded="false"

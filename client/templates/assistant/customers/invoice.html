@@ -1,21 +1,19 @@
-<template name="invoice">
+<template name="invoiceCreate">
   <div class="modal fade">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">{{ customer.displayName }}</h4>
+          <h4 class="modal-title">{{ customer.displayName }}
+          </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body ">
-          <div class="invoice">
-            <div class="header">
-              <div>Requests</div>
-              <div>Date</div>
-              <div>Duration</div>
-              <div>Updates</div>
+          <div class="controls">
+            <div class="range">
+              From <input type="date" class="from"/> to
+              <input type="date" class="to"/>
             </div>
-              {{#each getTasksWithQuery}}
-                {{> taskInvoiceItem }}
-              {{/each}}
+            <div class="btn btn-default generate-draft">Generate Draft</div>
           </div>
         </div>
         <div class="modal-footer">
@@ -23,33 +21,4 @@
       </div>
     </div>
   </div>
-</template>
-
-<template name="taskInvoiceItem">
-  <div class="item">
-    <div class="title">{{ title }}</div>
-    <div class="timesheets">
-      {{#each getTimeSheets }}
-        {{> taskTimesheetInvoiceItem }}
-      {{else}}
-        <div></div>
-      {{/each}}
-    </div>
-  </div>
-</template>
-
-<template name="taskTimesheetInvoiceItem">
-  <div class="timesheet">
-    <div class="date">{{ formatDate startedAt }}</div>
-    <div class="duration">{{ formatDurationPrecise duration }}</div>
-    <div class="statuses">
-      {{#each statuses}}
-        {{> taskTimesheetStatusInvoiceItem }}
-      {{/each}}
-    </div>
-  </div>
-</template>
-
-<template name="taskTimesheetStatusInvoiceItem">
-  <div class="message">{{ message }}</div>
 </template>
