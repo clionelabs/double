@@ -22,7 +22,7 @@ Meteor.publish('myInProcessTasks', function() {
   return Tasks.find(selector);
 });
 
-Meteor.reactivePublish('customers', function() {
+Meteor.publish('customers', function() {
   let selector = {};
   return Users.findCustomers(selector);
 });
@@ -44,7 +44,7 @@ Meteor.reactivePublish('unroutedChannels', function() {
   let channels = D.Channels.find({customerId: {$exists: false}}).fetch();
   let channelIds = _.pluck(channels, '_id');
   let messageIds = _.reduce(channels, function(memo, channel) {
-    let lastMessage = channel.lastMessage();
+    let lastMessage = D.Messages.findOne({channelId: channel._id}, {sort: {timestamp: -1}, reactive: true});
     if (lastMessage) memo.push(lastMessage._id);
     return memo;
   }, []);
@@ -61,7 +61,7 @@ Meteor.reactivePublish('routedChannels', function() {
   let channels = D.Channels.find({customerId: {$exists: true}}).fetch();
   let channelIds = _.pluck(channels, '_id');
   let messageIds = _.reduce(channels, function(memo, channel) {
-    let lastMessage = channel.lastMessage();
+    let lastMessage = D.Messages.findOne({channelId: channel._id}, {sort: {timestamp: -1}, reactive: true});
     if (lastMessage) memo.push(lastMessage._id);
     return memo;
   }, []);
