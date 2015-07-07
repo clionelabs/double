@@ -1,0 +1,15 @@
+<template name="assistantInvoiceDashboard">
+  <div class="assistant-dashboard-invoices">
+    <div class="invoices">
+      <div class="customer-name">
+        {{ currentCustomer.displayName }}
+      </div>
+      {{#each getSortedInvoices}}
+        {{> assistantInvoicesListItem}}
+      {{/each }}
+    </div>
+    <div class="invoice">
+      {{> assistantInvoicePreview getCurrentInvoice}}
+    </div>
+  </div>
+</template>

@@ -58,7 +58,7 @@ Template.assistantCustomerConversationChannel.events({
   "click .select-channel": function() {
     let customer = Template.currentData().customer;
     let channel = Template.currentData().channel;
-    Router.go('assistant.customers', { _id : customer._id }, { query : 'selectedChannel=' + channel._id });
+    Router.go('assistant.customers.selected', { _id : customer._id }, { query : 'selectedChannel=' + channel._id });
   },
   "click .set-channel": function(event) {
     event.stopPropagation();
