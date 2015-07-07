@@ -7,8 +7,10 @@
     height: 100%;
   }
 
-  .invoices {
+  .invoices-left-sidebar {
     flex : 0 0 23.75%;
+    display: flex;
+    flex-direction: column;
     background: $double-grey;
     overflow-y: scroll;
     .customer-name {
@@ -16,25 +18,34 @@
       font-size: 1.441em;
       background: $double-grey2;
     }
-    .invoice {
-      width : 100%;
-      display:flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 15px;
-      border-bottom: 1px solid $double-grey2;
-
-      cursor: pointer;
-      &.selected {
-        border-left: 3px solid $double-red;
-        background: $double-white;
+    .invoices {
+      flex : 1;
+      overflow-y: scroll;
+      .invoice {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 15px;
+        border-bottom: 1px solid $double-grey2;
+        cursor: pointer;
+        &.selected {
+          border-left: 3px solid $double-red;
+          background: $double-white;
+        }
+        .status {
+          font-style: italic;
+          font-size: 0.88em;
+        }
       }
-      .status {
-        font-style: italic;
-        font-size: 0.88em;
-      }
+    }
 
+    .add-invoice {
+      background: $double-dark-blue;
+      color: $double-white;
+      text-align: center;
+      padding:10px 0px;
     }
   }
 }

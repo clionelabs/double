@@ -4,16 +4,7 @@
       <div class="name">{{ displayName }}</div>
       <div class="functions">
         <div class="dropdown">
-          <div class="btn btn-default dropdown" id="user.invoices"
-              data-toggle="dropdown"
-              aria-expanded="false"
-              aria-haspopup="true">Invoices</div>
-          <ul class="dropdown-menu" aria-labelledby="user.invoices">
-            <li class="add-invoice"><i class="fa fa-plus"></i>&nbsp;Invoice</li>
-            {{#each invoices }}
-              <li class="invoice">{{invoiceRange}}</li>
-            {{/each}}
-          </ul>
+          <div class="btn btn-default invoices">Invoices</div>
         </div>
 
         <div class="dropdown">

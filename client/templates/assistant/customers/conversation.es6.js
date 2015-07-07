@@ -1,15 +1,7 @@
 Template.assistantCustomerConversation.events({
-  "click .add-invoice" : function() {
-    let currentCustomer = Template.currentData();
-    let from = new ReactiveVar(moment().subtract(7, 'd').valueOf());
-    let to = new ReactiveVar(moment().valueOf());
-    let invoiceRelated = {
-      customer : currentCustomer,
-      tasks : Tasks.find({ requestorId : currentCustomer._id }),
-      from: from,
-      to: to
-    };
-    Modal.show("invoiceCreate", invoiceRelated);
+  "click .invoices" : function() {
+    let currentCustomer = this;
+    Router.go("assistant.customers.invoices", { customerId : currentCustomer._id });
   },
   "click .profile" : function() {
     let currentCustomer = Template.currentData();

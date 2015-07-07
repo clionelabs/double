@@ -18,3 +18,18 @@ Template.assistantInvoiceDashboard.helpers({
     return this.currentInvoice;
   }
 });
+
+Template.assistantInvoiceDashboard.events({
+  "click .add-invoice" : function() {
+    let currentCustomer = this.currentCustomer;
+    let from = new ReactiveVar(moment().subtract(7, 'd').valueOf());
+    let to = new ReactiveVar(moment().valueOf());
+    let invoiceRelated = {
+      customer : currentCustomer,
+      tasks : Tasks.find({ requestorId : currentCustomer._id }),
+      from: from,
+      to: to
+    };
+    Modal.show("invoiceCreate", invoiceRelated);
+  }
+});
