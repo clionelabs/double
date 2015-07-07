@@ -236,53 +236,10 @@
   }
 }
 
-.invoice {
+.invoice-create {
   width : 100%;
-  .header {
-    font-weight: 700;
-    display : flex;
-    flex-direction: row;
-    align-content: stretch;
-    >div {
-      flex : 0 0 20%;
-    }
-    >:last-child {
-      flex : 0 0 40%;
-    }
-  }
-  .item {
-    border-top: 1px solid $pay-black;
-    &:nth-child(odd) {
-      background: lighten($pay-grey, 30%);
-    }
-    display : flex;
-    flex-direction: row;
-    align-content: stretch;
-    .title {
-      flex : 0 0 20%;
-    }
-    .timesheets {
-      display : flex;
-      flex-direction: column;
-      flex : 0 0 80%;
-
-      .timesheet {
-        display: flex;
-        flex-direction: row;
-        .date {
-          flex : 0 0 25%;
-        }
-        .duration {
-          flex : 0 0 25%;
-        }
-        .statuses {
-          flex: 0 0 50%;
-          display : flex;
-          flex-direction: column;
-          .message {
-          }
-        }
-      }
-    }
-  }
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
