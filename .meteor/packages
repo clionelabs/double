@@ -40,3 +40,5 @@ meteorhacks:kadira
 meteorhacks:kadira-debug
 meteorhacks:subs-manager
 reactive-var
+agnito:autogrow
+raix:handlebar-helpers

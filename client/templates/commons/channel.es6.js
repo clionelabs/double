@@ -68,30 +68,47 @@ Template.channelTitle.helpers({
   }
 });
 
+Template.channelReply._submit = function(form) {
+  let channelId = form.channelId.value;
+  let content = form.content.value;
+  if (!content) return false;
+
+  // avoid sending multiple times
+  if ($(form.content).attr("disabled")) {
+    return false;
+  }
+
+  let doc = {
+    channelId: channelId,
+    content: content,
+    inOut: D.Messages.InOut.OUTING,
+    timestamp: moment().valueOf()
+  }
+  $(form.content).attr("disabled", "disabled");
+  D.Messages.insert(doc, function(error) {
+    // TODO: handle error
+    $(form.content).val('');
+    $(form.content).css('height', 'auto');
+    $(form.content).removeAttr("disabled");
+  });
+}
+
+Template.channelReply.onRendered(function() {
+  $("textarea.autogrow").autogrow({animate: false});
+});
+
 Template.channelReply.events({
+  "keydown textarea.autogrow": function (e) {
+    if (e.keyCode == 13 && !e.shiftKey && !e.ctrlKey && !e.altKey) {
+      event.preventDefault();
+      let form = event.target.form;
+      Template.channelReply._submit(form);
+    }
+  },
+
   "submit #send-message-form": function (event) {
     event.preventDefault();
     let form = event.target;
-    let channelId = form.channelId.value;
-    let content = form.content.value;
-    if (!content) return false;
-
-    // avoid sending multiple times
-    if ($(form.content).attr("disabled")) {
-      return false;
-    }
-
-    let doc = {
-      channelId: channelId,
-      content: content,
-      inOut: D.Messages.InOut.OUTING,
-      timestamp: moment().valueOf()
-    }
-    $(form.content).attr("disabled", "disabled");
-    D.Messages.insert(doc, function(error) {
-      // TODO: handle error
-      $(form.content).val('');
-      $(form.content).removeAttr("disabled");
-    });
+    Template.channelReply._submit(form);
   }
 });
