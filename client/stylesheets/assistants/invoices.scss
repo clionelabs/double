@@ -79,3 +79,103 @@
     }
   }
 }
+
+.invoice-printout {
+  margin : 15px;
+  .key {
+    text-align : right;
+  }
+  header {
+    background: $double-grey2;
+    color: $double-dark-blue;
+    font-size: 1.889em;
+    text-align: center;
+    padding: 30px 0px;
+    margin : 15px 0px;
+  }
+
+  .summaries {
+    display : flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .calculations {
+      .value {
+        text-align : right;
+        margin-left: 2em;
+      }
+      .minute {
+        margin-bottom : 10px;
+      }
+    }
+    margin-bottom: 15px;
+  }
+  
+  table {
+    margin-bottom: 0px;
+  }
+
+  .time-based-items, .one-time-purchases {
+    tr {
+      th {
+        background: $double-grey2;
+        border-bottom: 1px solid black;
+      }
+    }
+    tr {
+      th, td {
+        padding: 5px 10px;
+      }
+    }
+  }
+
+  .time-based-items {
+    tr {
+      th, td {
+        &:first-child {
+          width: 10%;
+          min-width: 100px;
+        }
+        &:nth-child(2) {
+          width: 35%;
+        }
+        &:nth-child(3) {
+          width: 35%;
+        }
+
+        &:nth-child(4) {
+          width: 10%;
+          min-width: 80px;
+        }
+        &:nth-child(5) {
+          width: 10%;
+          min-width: 80px;
+          display : flex;
+          justify-content: space-around;
+        }
+      }
+    }
+  }
+
+  .one-time-purchases {
+    tr {
+      th, td {
+        &:first-child {
+          width: 85%;
+        }
+        &:last-child {
+          width: 15%;
+          min-width : 150px;
+        }
+      }
+    }
+  }
+
+  .add {
+    width: 100%;
+    text-align : center;
+    background: $double-green;
+    color: $double-black;
+    margin-bottom: 20px;
+    padding: 5px;
+  }
+}
