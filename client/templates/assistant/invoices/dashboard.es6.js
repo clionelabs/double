@@ -15,7 +15,8 @@ Template.assistantInvoiceDashboard.helpers({
     );
   },
   getCurrentInvoice() {
-    return this.currentInvoice;
+    let currentCustomer = this.currentCustomer;
+    return _.extend(this.currentInvoice, { customerFirstName : currentCustomer.firstName() });
   }
 });
 

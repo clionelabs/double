@@ -14,7 +14,7 @@
     background: $double-grey;
     overflow-y: scroll;
     .customer-name {
-      padding : 5px 15px;
+      padding : 8px 15px;
       font-size: 1.441em;
       background: $double-grey2;
     }
@@ -46,6 +46,36 @@
       color: $double-white;
       text-align: center;
       padding:10px 0px;
+    }
+  }
+
+  .invoice-content {
+    display : flex;
+    flex-direction: column;
+    width: 100%;
+    .header {
+      margin : 0 auto;
+      display : flex;
+      align-content: center;
+      justify-content: space-between;
+      padding: 15px 0;
+      width : 80%;
+      span {
+        font-size: 1.44em;
+      }
+      .charge {
+        border : 0;
+        background : $double-dark-blue;
+        padding : 5px 10px;
+        color: $double-white;
+      }
+    }
+    .content {
+      flex: 1;
+      width : 80%;
+      margin : 0 auto;
+      overflow-y : scroll;
+      border: 1px solid $double-grey3;
     }
   }
 }
