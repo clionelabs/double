@@ -6,39 +6,45 @@
     <div class="summaries">
       <div class="service-period">
         <div class="line">
-          <div class="key">Service Period: </div><div class="value"></div>
+          <div class="key">Service Period: </div><div class="value">{{ formateDateShortMonth from }}</div>
         </div>
         <div class="line">
-          <div class="key">To: </div><div class="value"></div>
+          <div class="key">To: </div><div class="value">{{ formateDateShortMonth to }}</div>
         </div>
       </div>
       <div class="calculations">
         <div class="minute">
           <div class="line">
             <div class="key">Minutes used this period: </div>
-            <div class="value"></div>
+            <div class="value">{{formatDurationPrecise totalDuration}}</div>
           </div>
           <div class="line">
             <div class="key">Rebate in minutes: </div>
-            <div class="value"></div>
+            <div class="value">
+              {{formatDurationPrecise rebate }}
+              <i class="fa fa-pencil edit-rebate {{showIfEditable}}"></i>
+            </div>
           </div>
           <div class="line">
             <div class="key">Minutes payable: </div>
-            <div class="value"></div>
+            <div class="value">{{formatDurationPrecise timePayable }}</div>
           </div>
         </div>
         <div class="money">
           <div class="line">
             <div class="key">Minute rate (HKD):</div>
-            <div class="value"></div>
+            <div class="value">6.00</div>
           </div>
           <div class="line">
-            <div class="key">Effective rate with TODO discount</div>
-            <div class="value"></div>
+            <div class="key">Effective rate(HKD):</div>
+            <div class="value">
+              {{formatAmount effectiveRate}}
+              <i class="fa fa-pencil edit-effective-rate {{showIfEditable}}"></i>
+            </div>
           </div>
           <div class="line">
             <div class="key">Payment debited (HKD)</div>
-            <div class="value"></div>
+            <div class="value">{{formatAmount debit}}</div>
           </div>
         </div>
       </div>
@@ -53,13 +59,7 @@
           <th>&nbsp;</th>
         </tr>
         {{#each timeBasedItems}}
-          <tr>
-            <td>{{ date }}</td>
-            <td>{{ title }}</td>
-            <td>{{ updates }}</td>
-            <td>{{ formatDurationPrecise totalDuration }}</td>
-            <td><i class="fa fa-pencil {{showIfEditable}}"></i><i class="fa fa-remove {{showIfEditable}}"></i></td>
-          </tr>
+          {{> assistantInvoiceActualFormTimeBasedItem }}
         {{/each}}
       </table>
       <div class="add-time-based-item add {{showIfEditable}}">+ Entry</div>

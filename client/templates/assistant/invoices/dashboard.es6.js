@@ -16,7 +16,11 @@ Template.assistantInvoiceDashboard.helpers({
   },
   getCurrentInvoice() {
     let currentCustomer = this.currentCustomer;
-    return _.extend(this.currentInvoice, { customerFirstName : currentCustomer.firstName() });
+    return _.extend(this.currentInvoice,
+        {
+          customerFirstName : currentCustomer.firstName(),
+          isEditing : new ReactiveVar(false)
+        });
   }
 });
 

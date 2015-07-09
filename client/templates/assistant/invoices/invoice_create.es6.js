@@ -34,8 +34,8 @@ Template.invoiceCreate.events({
 
     let from = Template.currentData().from.get();
     let to = Template.currentData().to.get();
-    let tasks = Template.currentData().tasks.fetch();
     let customer = Template.currentData().customer;
+    let tasks = Tasks.find({ requestorId : customer._id }).fetch();
 
     let invoiceId = Invoices.insert(Invoice.convertFromTasks(from, to, tasks, customer._id), (err, invoiceId) => {
       tmpl.$('.loading').addClass('hide');
