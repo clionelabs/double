@@ -19,6 +19,16 @@ Template.channelMessage.helpers({
       default:
         return '';
     }
+  },
+  isPending() {
+    return this.inOut !== D.Messages.InOut.IN && this.inOut !== D.Messages.InOut.OUT;
+  }
+});
+
+Template.channelMessage.events({
+  'click .cancel': function(e) {
+    e.preventDefault();
+    D.Messages.remove(this._id);
   }
 });
 
