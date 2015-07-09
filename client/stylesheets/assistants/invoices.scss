@@ -150,7 +150,6 @@
   .time-based-items {
     tr {
       th, td {
-
         input {
           width: 100%;
           &[disabled] {
@@ -181,8 +180,13 @@
         &:nth-child(5) {
           width: 10%;
           min-width: 80px;
+        }
+      }
+      td {
+        &:nth-child(5) {
           display : flex;
           justify-content: space-around;
+          align-content: center;
           .save {
             text-decoration: underline;
           }

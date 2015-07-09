@@ -20,8 +20,19 @@ Template.assistantsInvoiceActualForm.helpers({
         }), 'title');
   },
   oneTimePurchases() {
+    let invoiceId = this._id
     let status = this.status;
-    return _.map(this.oneTimePurchases, (oneTimePurchase) => { return _.extend(oneTimePurchase, { status : status }); });
+    return _.map(
+        this.oneTimePurchases,
+          (oneTimePurchase, i, oneTimePurchases) => {
+            return _.extend({}, oneTimePurchase,
+                {
+                  isEditing : new ReactiveVar(false),
+                  invoiceId : invoiceId,
+                  oneTimePurchases : oneTimePurchases,
+                  status : status
+                });
+          });
   }
 });
 
@@ -40,5 +51,19 @@ Template.assistantsInvoiceActualForm.events({
           { timeBasedItems : newTimeBasedItem
             }});
 
+  },
+  "click .add-one-time-purchase" : function() {
+    let invoice = this;
+    let selector = { _id : invoice._id };
+    let newOneTimePurchase = {
+      _id : Random.id(),
+      title : "",
+      amount : 0.0,
+      isNew : true
+    };
+    Invoices.update(selector,
+        { $push :
+        { oneTimePurchases : newOneTimePurchase
+        }});
   }
 });

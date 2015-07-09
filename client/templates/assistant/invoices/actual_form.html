@@ -67,12 +67,10 @@
           <tr>
             <th>Item</th>
             <th>Amount(HKD)</th>
+            <th>&nbsp;</th>
           </tr>
           {{#each oneTimePurchases }}
-            <tr>
-              <td>{{ item }}</td>
-              <td>{{ amount }}</td>
-            </tr>
+            {{> assistantInvoiceActualFormOneTimePurchase }}
           {{/each}}
       </table>
       <div class="add-one-time-purchase add">+ Entry</div>

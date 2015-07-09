@@ -20,14 +20,12 @@ Template.assistantInvoiceActualFormTimeBasedItem.helpers({
 Template.assistantInvoiceActualFormTimeBasedItem.events({
   "click .edit" : function(e, tmpl) {
     let state = this;
-    let index = $(tmpl.firstNode).index() - 1;
     state.isEditing.set(true);
   },
   "click .save" : function(e, tmpl) {
     tmpl.$('.loading').removeClass('hide');
 
     let timeBasedItemWithExtraInfo = this;
-    let index = $(tmpl.firstNode).index() - 1;
     let newTimeBasedItem = {
       _id : timeBasedItemWithExtraInfo._id,
       date : moment(tmpl.$('.date').val()).format('YYYY-MM-DD'),

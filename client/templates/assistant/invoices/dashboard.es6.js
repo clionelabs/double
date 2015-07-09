@@ -25,6 +25,7 @@ Template.assistantInvoiceDashboard.helpers({
   assistantInvoicePreview() {
     return this.currentInvoice ? "assistantInvoicePreview" : null;
   }
+
 });
 
 Template.assistantInvoiceDashboard.events({
