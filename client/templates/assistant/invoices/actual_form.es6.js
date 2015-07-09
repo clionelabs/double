@@ -6,7 +6,7 @@ Template.assistantsInvoiceActualForm.helpers({
   timeBasedItems() {
     let invoiceId = this._id
     let status = this.status;
-    return _.map(
+    return _.sortBy(_.map(
         this.timeBasedItems,
         (timeBasedItem, i, timeBasedItems) => {
           return _.extend({},
@@ -17,7 +17,7 @@ Template.assistantsInvoiceActualForm.helpers({
                 isEditing : new ReactiveVar(false),
                 timeBasedItems : timeBasedItems
               });
-        });
+        }), 'title');
   },
   oneTimePurchases() {
     let status = this.status;

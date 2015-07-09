@@ -8,7 +8,7 @@ Template.assistantInvoiceDashboard.helpers({
           }),
         function(invoice) {
           let additionInfo = {};
-          additionInfo.isCurrent = (invoice._id === currentInvoice._id);
+          additionInfo.isCurrent = currentInvoice && (invoice._id === currentInvoice._id);
           additionInfo.currentCustomerId = currentCustomer._id;
           return _.extend(invoice, additionInfo);
         }
@@ -16,11 +16,14 @@ Template.assistantInvoiceDashboard.helpers({
   },
   getCurrentInvoice() {
     let currentCustomer = this.currentCustomer;
-    return _.extend(this.currentInvoice,
+    return _.extend({}, this.currentInvoice,
         {
           customerFirstName : currentCustomer.firstName(),
           isEditing : new ReactiveVar(false)
         });
+  },
+  assistantInvoicePreview() {
+    return this.currentInvoice ? "assistantInvoicePreview" : null;
   }
 });
 

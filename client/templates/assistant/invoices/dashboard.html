@@ -12,7 +12,7 @@
       <div class="add-invoice">+ Add Invoice</div>
     </div>
     <div class="invoice-content">
-      {{> assistantInvoicePreview getCurrentInvoice}}
+      {{>Template.dynamic template=assistantInvoicePreview data=getCurrentInvoice}}
     </div>
   </div>
 </template>
