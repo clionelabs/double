@@ -1,5 +1,8 @@
 Template.assistantInvoiceActualFormTimeBasedItem.onRendered(function() {
   let tmpl = this;
+  if (tmpl.data.isNew) {
+    tmpl.data.isEditing.set(true);
+  }
   _.extend(tmpl.data, { isEditable : Invoice.ProtoType.isEditable });
   $('textarea.autogrow').autogrow({ onInitialize: true });
 });
