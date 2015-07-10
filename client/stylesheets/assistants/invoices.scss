@@ -81,9 +81,9 @@
 }
 
 .invoice-printout {
-  margin : 15px;
+  margin: 15px;
   .key {
-    text-align : right;
+    text-align: right;
   }
   .line {
     display: flex;
@@ -95,16 +95,16 @@
     font-size: 1.889em;
     text-align: center;
     padding: 30px 0px;
-    margin : 15px 0px;
+    margin: 15px 0px;
   }
 
   .summaries {
-    display : flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     .service-period {
       .key {
-        width : 100px;
+        width: 100px;
       }
       .value {
         margin-left: 1em;
@@ -116,19 +116,32 @@
       }
       .value {
         width: 85px;
-        text-align : right;
+        text-align: right;
         margin-left: 2em;
         .fa {
-          margin-left : 5px;
+          margin-left: 5px;
         }
       }
       .minute {
-        margin-bottom : 10px;
+        margin-bottom: 10px;
+      }
+      .money {
+        margin-bottom: 10px;
+      }
+      .rebate, .effective-rate {
+        width: 100%;
+        text-align: right;
+        padding: 0px;
+        border: 1px solid $double-grey2;
+        .not-editable {
+          border: 0;
+        }
       }
     }
     margin-bottom: 15px;
   }
-  
+
+
   table {
     margin-bottom: 0px;
   }
@@ -144,12 +157,7 @@
       th, td {
         padding: 5px 10px;
       }
-    }
-  }
-
-  .time-based-items {
-    tr {
-      th, td {
+      td {
         input {
           width: 100%;
           &[disabled] {
@@ -157,6 +165,21 @@
             background: transparent;
           }
         }
+        &:last-child {
+          display: flex;
+          justify-content: space-around;
+          align-content: center;
+          .save {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .time-based-items {
+    tr {
+      th, td {
         textarea {
           width: 100%;
           min-height: 100px;
@@ -182,28 +205,25 @@
           min-width: 80px;
         }
       }
-      td {
-        &:nth-child(5) {
-          display : flex;
-          justify-content: space-around;
-          align-content: center;
-          .save {
-            text-decoration: underline;
-          }
-        }
-      }
     }
   }
 
   .one-time-purchases {
     tr {
       th, td {
+        input {
+          width : 100%
+        }
         &:first-child {
-          width: 85%;
+          width: 65%;
+        }
+        &:nth-child(2) {
+          width: 25%;
+
         }
         &:last-child {
-          width: 15%;
-          min-width : 150px;
+          width: 10%;
+          min-width : 80px;
         }
       }
     }
