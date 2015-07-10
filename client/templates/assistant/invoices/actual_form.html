@@ -21,8 +21,11 @@
           <div class="line">
             <div class="key">Rebate in minutes: </div>
             <div class="value">
-              {{formatDurationPrecise rebate }}
-              <i class="fa fa-pencil edit-rebate {{showIfEditable}}"></i>
+              <input
+                  class='rebate'
+                  type='text'
+                  value='{{formatDurationPrecise rebate }}'
+                  >
             </div>
           </div>
           <div class="line">
@@ -38,8 +41,12 @@
           <div class="line">
             <div class="key">Effective rate(HKD):</div>
             <div class="value">
-              {{formatAmount effectiveRate}}
-              <i class="fa fa-pencil edit-effective-rate {{showIfEditable}}"></i>
+              <input
+                  class='effective-rate'
+                  type='text'
+                  value='{{formatAmount effectiveRate}}'
+                  >
+
             </div>
           </div>
           <div class="line">

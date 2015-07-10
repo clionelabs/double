@@ -20,7 +20,7 @@ Template.assistantsInvoiceActualForm.helpers({
         }), 'title');
   },
   oneTimePurchases() {
-    let invoiceId = this._id
+    let invoiceId = this._id;
     let status = this.status;
     return _.map(
         this.oneTimePurchases,
@@ -46,5 +46,17 @@ Template.assistantsInvoiceActualForm.events({
     let invoice = this;
     let invoiceId = invoice._id;
     Invoice.OneTimePurchase.createEmpty(invoiceId);
+  },
+  "blur input.rebate" : function(e, tmpl) {
+    console.log('rebate', this);
+    let invoiceId = tmpl.data._id;
+    let newRebate = moment.duration(e.currentTarget.value).valueOf();
+    Invoices.update({ _id : invoiceId }, { $set : { rebate : newRebate }});
+  },
+  "blur input.effective-rate" : function(e, tmpl) {
+    console.log('effective-rate', this);
+    let invoiceId = tmpl.data._id;
+    let newEffectiveRate = parseFloat(e.currentTarget.value);
+    Invoices.update({ _id : invoiceId }, { $set : { effectiveRate : newEffectiveRate }});
   }
 });

@@ -20,4 +20,8 @@ Template.registerHelper("formatDurationPrecise", function(duration) {
 
 Template.registerHelper("formatAmount", function(amount) {
   return numeral(amount).format('0,0.00');
-})
+});
+
+Template.registerHelper('enableIfIsEditing', function(isEditing) {
+  return isEditing.get() ? "false" : "true";
+});
