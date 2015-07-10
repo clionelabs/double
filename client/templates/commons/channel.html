@@ -21,7 +21,15 @@
       <strong class="primary-font">{{userName}}</strong>
       <small class="text-muted">{{formatTimestamp timestamp}}</small>
     </div>
-    {{> channelSlackMessage}}
+    <div class="content">
+      {{> channelSlackMessage}}
+      {{#if isPending}}
+        <div class="pending">
+          <span class="animated flash infinite">Delivering...</span>
+          <a href="#" class="cancel">Cancel</a>
+        </div>
+      {{/if}}
+    </div>
   </div>
 </Template>
 
@@ -40,7 +48,5 @@
 </Template>
 
 <Template name="channelSlackMessage">
-  <div class="content">
-    {{nl2br content}}
-  </div>
+  {{nl2br content}}
 </Template>
