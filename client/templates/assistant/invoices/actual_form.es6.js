@@ -54,16 +54,7 @@ Template.assistantsInvoiceActualForm.events({
   },
   "click .add-one-time-purchase" : function() {
     let invoice = this;
-    let selector = { _id : invoice._id };
-    let newOneTimePurchase = {
-      _id : Random.id(),
-      title : "",
-      amount : 0.0,
-      isNew : true
-    };
-    Invoices.update(selector,
-        { $push :
-        { oneTimePurchases : newOneTimePurchase
-        }});
+    let invoiceId = invoice._id;
+    Invoice.OneTimePurchase.createEmpty(invoiceId);
   }
 });

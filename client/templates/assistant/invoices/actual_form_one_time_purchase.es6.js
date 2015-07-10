@@ -25,45 +25,26 @@ Template.assistantInvoiceActualFormOneTimePurchase.events({
     tmpl.$('.loading').removeClass('hide');
 
     let oneTimePurchaseWithExtraInfo = this;
-    let newOneTimePurchase = {
-      _id : oneTimePurchaseWithExtraInfo._id,
-      title : tmpl.$('.title').val(),
-      amount : parseFloat(tmpl.$('.amount').val())
-    };
-    console.log(newOneTimePurchase);
-    let newOneTimePurchases = _.map(oneTimePurchaseWithExtraInfo.oneTimePurchases, function(oneTimePurchase) {
-      if (oneTimePurchase._id === newOneTimePurchase._id) {
-        return newOneTimePurchase;
-      } else {
-        return oneTimePurchase;
-      }
-    });
-
-    let selector = { _id : oneTimePurchaseWithExtraInfo.invoiceId };
-    Invoices.update(selector,
-        { $set : { oneTimePurchases : newOneTimePurchases }},
-        function() {
+    Invoice.OneTimePurchase.update(
+        oneTimePurchaseWithExtraInfo._id,
+        oneTimePurchaseWithExtraInfo.invoiceId,
+        tmpl.$('.title').val(),
+        parseFloat(tmpl.$('.amount').val()),
+        function () {
           tmpl.$('.loading').addClass('hide');
           oneTimePurchaseWithExtraInfo.isEditing.set(false);
-        }
-    );
+        });
   },
   "click .delete" : function(e, tmpl) {
     let oneTimePurchaseWithExtraInfo = this;
 
-    oneTimePurchaseWithExtraInfo.oneTimePurchases =
-        _.filter(oneTimePurchaseWithExtraInfo.oneTimePurchases, function (oneTimePurchase) {
-          return oneTimePurchaseWithExtraInfo._id !== oneTimePurchase._id;
-        });
-
-    let selector = { _id : oneTimePurchaseWithExtraInfo.invoiceId };
-    Invoices.update(selector,
-        { $set : { oneTimePurchases : oneTimePurchaseWithExtraInfo.timeBasedItems }},
+    Invoice.OneTimePurchase.delete(
+        oneTimePurchaseWithExtraInfo._id,
+        oneTimePurchaseWithExtraInfo.invoiceId,
         function() {
           tmpl.$('.loading').addClass('hide');
           oneTimePurchaseWithExtraInfo.isEditing.set(false);
-        }
-    );
+        });
   }
 });
 
