@@ -40,11 +40,7 @@ Template.assistantInvoiceActualFormOneTimePurchase.events({
 
     Invoice.OneTimePurchase.delete(
         oneTimePurchaseWithExtraInfo._id,
-        oneTimePurchaseWithExtraInfo.invoiceId,
-        function() {
-          tmpl.$('.loading').addClass('hide');
-          oneTimePurchaseWithExtraInfo.isEditing.set(false);
-        });
+        oneTimePurchaseWithExtraInfo.invoiceId);
   }
 });
 

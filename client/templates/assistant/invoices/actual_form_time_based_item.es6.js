@@ -24,26 +24,14 @@ Template.assistantInvoiceActualFormTimeBasedItem.events({
   },
   "click .save" : function(e, tmpl) {
     tmpl.$('.loading').removeClass('hide');
-
     let timeBasedItemWithExtraInfo = this;
-    let newTimeBasedItem = {
-      _id : timeBasedItemWithExtraInfo._id,
-      date : moment(tmpl.$('.date').val()).format('YYYY-MM-DD'),
-      title : tmpl.$('.title').val(),
-      updates : tmpl.$('.updates').val(),
-      totalDuration : moment.duration(tmpl.$('.duration').val()).valueOf()
-    };
-    let newTimeBasedItems = _.map(timeBasedItemWithExtraInfo.timeBasedItems, function(timeBasedItem) {
-      if (timeBasedItem._id === newTimeBasedItem._id) {
-        return newTimeBasedItem;
-      } else {
-        return timeBasedItem;
-      }
-    });
-
-    let selector = { _id : timeBasedItemWithExtraInfo.invoiceId };
-    Invoices.update(selector,
-        { $set : { timeBasedItems : newTimeBasedItems }},
+    Invoice.TimeBasedItem.update(
+        timeBasedItemWithExtraInfo._id,
+        timeBasedItemWithExtraInfo.invoiceId,
+        moment(tmpl.$('.date').val()).format('YYYY-MM-DD'),
+        tmpl.$('.title').val(),
+        tmpl.$('.updates').val(),
+        moment.duration(tmpl.$('.duration').val()).valueOf(),
         function() {
           tmpl.$('.loading').addClass('hide');
           timeBasedItemWithExtraInfo.isEditing.set(false);
@@ -52,20 +40,9 @@ Template.assistantInvoiceActualFormTimeBasedItem.events({
   },
   "click .delete" : function(e, tmpl) {
     let timeBasedItemWithExtraInfo = this;
-
-    this.timeBasedItems =
-        _.filter(timeBasedItemWithExtraInfo.timeBasedItems, function (timeBasedItem) {
-          return timeBasedItemWithExtraInfo._id !== timeBasedItem._id;
-        });
-
-    let selector = { _id : timeBasedItemWithExtraInfo.invoiceId };
-    Invoices.update(selector,
-        { $set : { timeBasedItems : timeBasedItemWithExtraInfo.timeBasedItems }},
-        function() {
-          tmpl.$('.loading').addClass('hide');
-          timeBasedItemWithExtraInfo.isEditing.set(false);
-        }
-    );
+    Invoice.TimeBasedItem.delete(
+        timeBasedItemWithExtraInfo._id,
+        timeBasedItemWithExtraInfo.invoiceId);
   }
 });
 

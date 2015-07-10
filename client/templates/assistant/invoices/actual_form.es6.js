@@ -39,18 +39,8 @@ Template.assistantsInvoiceActualForm.helpers({
 Template.assistantsInvoiceActualForm.events({
   "click .add-time-based-item" : function() {
     let invoice = this;
-    let selector = { _id : invoice._id };
-    let newTimeBasedItem = {
-      _id : Random.id(),
-      totalDuration : 0,
-      date : moment().format('YYYY-MM-DD'),
-      isNew : true
-    };
-    Invoices.update(selector,
-        { $push :
-          { timeBasedItems : newTimeBasedItem
-            }});
-
+    let invoiceId = invoice._id;
+    Invoice.TimeBasedItem.createEmpty(invoiceId);
   },
   "click .add-one-time-purchase" : function() {
     let invoice = this;
