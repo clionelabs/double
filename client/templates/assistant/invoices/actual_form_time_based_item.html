@@ -1,0 +1,28 @@
+<template name="assistantInvoiceActualFormTimeBasedItem">
+  <tr>
+    <td><input class='date' type='date' value='{{ date }}' disabled='{{#if isNotEditing }}true{{/if}}'></td>
+    <td><input class='title' type='text' value='{{ title }}' disabled='{{#if isNotEditing }}true{{/if}}'></td>
+    <td>
+      <textarea class="autogrow updates {{#if isNotEditing }}hide{{/if}}"
+                rows="4"
+                data-autogrow-start-height="20px"
+          >{{updates}}</textarea>
+      <div class='updates {{#if isEditing }}hide{{/if}}'>
+        {{#markdown}}{{ updates }}{{/markdown}}
+      </div>
+    </td>
+    <td>
+      <input class="duration"
+             type='text'
+             value='{{ formatDurationPrecise totalDuration }}'
+             disabled='{{#if isNotEditing }}true{{/if}}'
+             >
+    </td>
+    <td>
+      <span class="save {{#if isNotEditing }}hide{{/if}}">Save</span>
+      <i class="fa fa-spin fa-spinner loading hide"></i>
+      <i class="fa fa-pencil edit {{#if isEditing }}hide{{/if}}"></i>
+      <i class="fa fa-trash delete {{#if isEditing }}hide{{/if}}"></i>
+    </td>
+  </tr>
+</template>

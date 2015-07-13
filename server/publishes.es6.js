@@ -73,9 +73,18 @@ Meteor.reactivePublish('routedChannels', function() {
 
 Meteor.publish('channelMessagesSorted', function(channelId, limit = 10) {
   if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
-    return [];
+    return null;
   }
   return [
     D.Messages.find({ channelId: channelId }, { limit : +limit, sort : { timestamp : -1 }})
   ];
+});
+
+Meteor.publish("invoices", function() {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    return null;
+  } else {
+    return Invoices.find();
+  }
+
 });

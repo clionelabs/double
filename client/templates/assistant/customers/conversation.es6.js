@@ -1,31 +1,8 @@
-Template.assistantCustomerConversation.onRendered(function() {
-  let template = this;
-  template.autorun(function() {
-    let customer = Template.currentData();
-    if (customer._id === EmptyCustomer._id) return;
-    let onDateRangePickerApply = function (customer, start, end, label) {
-      let invoiceRelated = {
-        customer : customer,
-        from : start.valueOf(),
-        to : end.valueOf(),
-        tasks : Tasks.find({ requestorId : customer._id })
-      };
-      Modal.show("invoice", invoiceRelated);
-    };
-
-
-    template.$('.export').daterangepicker(
-        {
-          format: 'YYYY-MM-DD',
-          opens: 'right',
-          maxDate: moment()
-        },
-        _.partial(onDateRangePickerApply, customer)
-    );
-  });
-});
-
 Template.assistantCustomerConversation.events({
+  "click .invoices" : function() {
+    let currentCustomer = this;
+    Router.go("assistant.customers.invoices", { customerId : currentCustomer._id });
+  },
   "click .profile" : function() {
     let currentCustomer = Template.currentData();
     Modal.show('customerEditForm', currentCustomer);
@@ -73,7 +50,7 @@ Template.assistantCustomerConversationChannel.events({
   "click .select-channel": function() {
     let customer = Template.currentData().customer;
     let channel = Template.currentData().channel;
-    Router.go('assistant.customers', { _id : customer._id }, { query : 'selectedChannel=' + channel._id });
+    Router.go('assistant.customers.selected', { _id : customer._id }, { query : 'selectedChannel=' + channel._id });
   },
   "click .set-channel": function(event) {
     event.stopPropagation();

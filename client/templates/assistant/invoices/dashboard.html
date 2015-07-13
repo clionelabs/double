@@ -1,0 +1,18 @@
+<template name="assistantInvoiceDashboard">
+  <div class="assistant-dashboard-invoices">
+    <div class="invoices-left-sidebar">
+      <div class="customer-name">
+        {{ currentCustomer.displayName }}
+      </div>
+      <div class="invoices">
+        {{#each getSortedInvoices}}
+          {{> assistantInvoicesListItem}}
+        {{/each }}
+      </div>
+      <div class="add-invoice">+ Add Invoice</div>
+    </div>
+    <div class="invoice-content">
+      {{>Template.dynamic template=assistantInvoicePreview data=getCurrentInvoice}}
+    </div>
+  </div>
+</template>

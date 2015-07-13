@@ -1,0 +1,25 @@
+<template name="invoiceCreate">
+  <div class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">{{ customer.displayName }}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="invoice-create">
+            <div class="range">
+              From <input type="date" class="from"/> to
+              <input type="date" class="to"/><i class="fa fa-spin fa-spinner hide loading"></i>
+            </div>
+            <div class="btn btn-default generate-draft">Generate Draft</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

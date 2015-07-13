@@ -1,0 +1,26 @@
+<template name="assistantInvoiceActualFormOneTimePurchase">
+  <tr>
+    <td>
+      <input
+        class="title"
+        type='text'
+        value='{{ title }}'
+        disabled='{{#if isNotEditing }}true{{/if}}'>
+    </td>
+    <td>
+      <input
+          inputmode='numeric'
+          class="amount"
+          type='number'
+          value='{{ amount }}'
+          step="0.01"
+          disabled='{{#if isNotEditing }}true{{/if}}'>
+    </td>
+    <td>
+      <span class="save {{#if isNotEditing }}hide{{/if}}">Save</span>
+      <i class="fa fa-spin fa-spinner loading hide"></i>
+      <i class="fa fa-pencil edit {{#if isEditing }}hide{{/if}}"></i>
+      <i class="fa fa-trash delete {{#if isEditing }}hide{{/if}}"></i>
+    </td>
+  </tr>
+</template>
