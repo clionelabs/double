@@ -8,10 +8,6 @@ let _submitFn = (data, form, taskId) => {
       });
 };
 
-Template.assistantTasksDetailLinkForm.onCreated(function() {
-  Template.currentData().isLinkFormShown = new ReactiveVar(false);
-});
-
 Template.assistantTasksDetailLinkForm.onRendered(function() {
   let selfTemplate = this;
   selfTemplate.$('.sub').on('transitionend onanimationend', function(e) {

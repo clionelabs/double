@@ -1,6 +1,12 @@
 Template.assistantTasksDashboard.helpers({
   getCurrentTask() {
-    return Template.currentData().currentTask;
+    let currentTask = this.currentTask;
+    return _.extend({}, {
+            isDescriptionFormShown : new ReactiveVar(false),
+            isLinkFormShown: new ReactiveVar(false),
+            isStepFormShown : new ReactiveVar(false)
+          },
+        currentTask);
   },
   tasksWithIsCurrent() {
     let currentTask = Template.currentData().currentTask;

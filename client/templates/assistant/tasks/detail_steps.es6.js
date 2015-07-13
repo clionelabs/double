@@ -7,10 +7,6 @@ let _submitFn = (data, form, taskId) => {
       });
 };
 
-Template.assistantTasksDetailStep.onCreated(function() {
-  Template.currentData().isStepFormShown = new ReactiveVar(false);
-});
-
 Template.assistantTasksDetailStep.onRendered(function() {
   let selfTemplate = this;
   selfTemplate.$('.sub').on('transitionend onanimationend', function(e) {

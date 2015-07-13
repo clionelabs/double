@@ -6,11 +6,6 @@ let _submitFn = (data, form, taskId) => {
       });
 };
 
-
-Template.assistantTasksDetailDescriptionForm.onCreated(function() {
-  Template.currentData().isDescriptionFormShown = new ReactiveVar(false);
-});
-
 Template.assistantTasksDetailDescriptionForm.helpers({
   isDescriptionFormShown : function() {
     return Template.currentData().isDescriptionFormShown.get() ? "" : "hide";
