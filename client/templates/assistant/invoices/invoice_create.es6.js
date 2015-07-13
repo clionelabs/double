@@ -15,16 +15,16 @@ Template.invoiceCreate.onRendered(function() {
 Template.invoiceCreate.helpers({
   getTasksWithQuery() {
     let tasks = this.tasks.fetch();
+    let from = this.from.get();
+    let to = this.to.get();
 
-    let extendTask = (from, to, task) => {
-      return _.extend({
+    return _.map(tasks, function(task) {
+      return _.extend({}, {
         queryRange : {
           from: from,
           to: to
-        }
-      }, task);
-    };
-    return _.map(tasks, _.partial(extendTask, this.from.get(), this.to.get()));
+        }}, task);
+    });
   }
 });
 
