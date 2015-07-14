@@ -154,6 +154,9 @@
       }
     }
     tr {
+      &:nth-child(2n+1) {
+        background : $double-grey;
+      }
       th, td {
         padding: 5px 10px;
       }
@@ -169,6 +172,9 @@
           display: flex;
           justify-content: space-around;
           align-content: center;
+          i {
+            cursor: pointer;
+          }
           .save {
             text-decoration: underline;
           }
