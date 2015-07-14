@@ -1,0 +1,26 @@
+.emoji-dropdown {
+  width: 300px;
+  height: 200px;
+  overflow-y: scroll;
+  padding-top: 0px;
+  ul.emoji-categories {
+    li.emoji-category {
+      a {
+        cursor: pointer;
+        padding: 5px;
+      }
+    }
+  }
+  ul.emoji-items {
+    padding-left: 5px;
+    padding-top: 10px;
+    li.emoji-item {
+      cursor: pointer;
+      display: inline;
+      list-style-type: none;
+      img {
+        margin: 4px;
+      }
+    }
+  }
+}

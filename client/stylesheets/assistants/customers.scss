@@ -156,6 +156,10 @@
             width: 150px;
             padding-left: 10px;
           }
+
+          img.emoji {
+            width: 20px;
+          }
         }
 
         &.outing, &.outing_delivered {
@@ -169,6 +173,22 @@
     .selected-channel-reply {
       background: $double-grey4;
       padding:10px 25px;
+
+      #send-message-form {
+        div.dropup {
+          position: absolute;
+          right: 60px;
+          z-index: 10;
+          button {
+            border-color: transparent;
+            background-color: transparent;
+            padding: 8px 0px;
+          }
+        }
+        button.submit {
+          width: 60px;
+        }
+      }
     }
   }
 
