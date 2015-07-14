@@ -48,13 +48,11 @@ Template.assistantsInvoiceActualForm.events({
     Invoice.OneTimePurchase.createEmpty(invoiceId);
   },
   "blur input.rebate" : function(e, tmpl) {
-    console.log('rebate', this);
     let invoiceId = tmpl.data._id;
     let newRebate = moment.duration(e.currentTarget.value).valueOf();
     Invoices.update({ _id : invoiceId }, { $set : { rebate : newRebate }});
   },
   "blur input.effective-rate" : function(e, tmpl) {
-    console.log('effective-rate', this);
     let invoiceId = tmpl.data._id;
     let newEffectiveRate = parseFloat(e.currentTarget.value);
     Invoices.update({ _id : invoiceId }, { $set : { effectiveRate : newEffectiveRate }});
