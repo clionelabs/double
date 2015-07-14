@@ -107,6 +107,36 @@ Template.channelReply.onRendered(function() {
   $("textarea.autogrow").autogrow({animate: false});
 });
 
+Template.channelReply.onCreated(function() {
+  this.selectedEmojiCategory = new ReactiveVar('people');
+});
+
+Template.channelReply.helpers({
+  emojiListCategories() {
+    let instance = Template.instance();
+    let selectedCategory = instance.selectedEmojiCategory.get();
+    let extendedList = _.map(emojiList, function(emoji) {
+      return {
+        category: emoji.category,
+        example: emoji.items[0],
+        selected: selectedCategory === emoji.category
+      }
+    });
+    return extendedList;
+  },
+  emojiItems() {
+    let instance = Template.instance();
+    let selectedCategory = instance.selectedEmojiCategory.get();
+    let items = [];
+    _.each(emojiList, function(emoji) {
+      if (emoji.category === selectedCategory) {
+        items = emoji.items;
+      }
+    });
+    return items;
+  }
+});
+
 Template.channelReply.events({
   "keydown textarea.autogrow": function (e) {
     if (e.keyCode == 13 && !e.shiftKey && !e.ctrlKey && !e.altKey) {
@@ -120,5 +150,19 @@ Template.channelReply.events({
     event.preventDefault();
     let form = event.target;
     Template.channelReply._submit(form);
+  },
+
+  "click .emoji-category": function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    let instance = Template.instance();
+    instance.selectedEmojiCategory.set(this.category);
+  },
+
+  "click .emoji-item": function(event) {
+    let code = `:${this}:`;
+    let $textarea = $("#send-message-form").find("#content");
+    $textarea.val($textarea.val() + code);
+    $textarea.focus();
   }
 });

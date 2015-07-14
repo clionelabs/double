@@ -86,5 +86,4 @@ Meteor.publish("invoices", function() {
   } else {
     return Invoices.find();
   }
-
 });

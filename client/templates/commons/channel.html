@@ -38,6 +38,24 @@
     <form id="send-message-form">
       <div class="input-group">
         <input id="channelId" type="hidden" value="{{_id}}"/>
+
+        <div class="dropup clearfix">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuEmoji" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{#emojione}}:smile:{{/emojione}}
+          </button>
+          <div class="emoji-dropdown dropdown-menu" aria-labelledby="dropdownMenuEmoji">
+            <ul class="emoji-categories nav nav-tabs">
+              {{#each emojiListCategories}}
+              <li role="presentation" class="emoji-category {{#if selected}}active{{/if}}"><a href="#">{{#emojione}}:{{example}}:{{/emojione}}</a></li>
+              {{/each}}
+            </ul>
+            <ul class="emoji-items">
+              {{#each emojiItems}}
+                <li class="emoji-item">{{#emojione}}:{{this}}:{{/emojione}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
         <textarea id="content" class="form-control autogrow" placeholder="Shift+Enter to start a newline" rows="1"></textarea>
         <span class="input-group-btn">
           <button type="submit" class="btn btn-default">Send</button>
@@ -48,5 +66,5 @@
 </Template>
 
 <Template name="channelSlackMessage">
-  {{nl2br content}}
+  {{{formatMessage content}}}
 </Template>
