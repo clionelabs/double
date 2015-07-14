@@ -31,3 +31,7 @@ Template.registerHelper("formatMessage", function(text) {
   text = UI._globalHelpers['nl2br'](text);
   return text;
 });
+
+Template.registerHelper('not', function(x) {
+  return !x;
+});

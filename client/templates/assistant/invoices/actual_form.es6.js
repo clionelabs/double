@@ -1,40 +1,22 @@
-
-Template.assistantsInvoiceActualForm.helpers({
+let actualFormCommonHelpers = {
+  fillHeaderIfEditable() {
+    return this.isEditable() ? "tableHeaderFiller" : null;
+  },
   showIfEditable() {
-    return this.status === Invoice.Status.Draft ? "" : "hide";
-  },
-  timeBasedItems() {
-    let invoiceId = this._id
-    let status = this.status;
-    return _.sortBy(_.map(
-        this.timeBasedItems,
-        (timeBasedItem, i, timeBasedItems) => {
-          return _.extend({},
-              timeBasedItem,
-              {
-                status : status,
-                invoiceId : invoiceId,
-                isEditing : new ReactiveVar(false),
-                timeBasedItems : timeBasedItems
-              });
-        }), 'title');
-  },
-  oneTimePurchases() {
-    let invoiceId = this._id;
-    let status = this.status;
-    return _.map(
-        this.oneTimePurchases,
-          (oneTimePurchase, i, oneTimePurchases) => {
-            return _.extend({}, oneTimePurchase,
-                {
-                  isEditing : new ReactiveVar(false),
-                  invoiceId : invoiceId,
-                  oneTimePurchases : oneTimePurchases,
-                  status : status
-                });
-          });
+    return this.isEditable() ? "" : "hide";
   }
-});
+};
+
+Template.assistantsInvoiceActualForm.helpers(_.extend({
+  showOneTimePurchases() {
+    return (this.oneTimePurchases && this.oneTimePurchases.length) || this.isEditable()
+              ? "assistantsInvoiceActualFormOneTimePurchasesTable" : "";
+  },
+  showTimeBasedItems() {
+    return (this.timeBasedItems && this.timeBasedItems.length) || this.isEditable()
+        ? "assistantsInvoiceActualFormTimeBasedItemsTable" : "";
+  }
+}, actualFormCommonHelpers));
 
 Template.assistantsInvoiceActualForm.events({
   "click .add-time-based-item" : function() {
@@ -58,3 +40,45 @@ Template.assistantsInvoiceActualForm.events({
     Invoices.update({ _id : invoiceId }, { $set : { effectiveRate : newEffectiveRate }});
   }
 });
+
+Template.assistantsInvoiceActualFormTimeBasedItemsTable.helpers(_.extend({
+  timeBasedItems() {
+    let invoiceId = this._id;
+    let status = this.status;
+    let isStatic = this.isStatic;
+    return _.sortBy(_.map(
+        this.timeBasedItems,
+        (timeBasedItem, i, timeBasedItems) => {
+          return _.extend({},
+              timeBasedItem,
+              {
+                isEditable : Invoice.ProtoType.isEditable,
+                isStatic: isStatic,
+                isEditing : new ReactiveVar(false),
+                status : status,
+                invoiceId : invoiceId
+              });
+        }), 'title');
+  }
+}, actualFormCommonHelpers));
+
+Template.assistantsInvoiceActualFormOneTimePurchasesTable.helpers(_.extend({
+  oneTimePurchases() {
+    let invoiceId = this._id;
+    let status = this.status;
+    let isStatic = this.isStatic;
+    return _.sortBy(_.map(
+        this.oneTimePurchases,
+          (oneTimePurchase, i, oneTimePurchases) => {
+            return _.extend({}, oneTimePurchase,
+                {
+                  isEditable : Invoice.ProtoType.isEditable,
+                  isStatic: isStatic,
+                  isEditing : new ReactiveVar(false),
+                  invoiceId : invoiceId,
+                  oneTimePurchases : oneTimePurchases,
+                  status : status
+                });
+          }));
+  }
+}, actualFormCommonHelpers));

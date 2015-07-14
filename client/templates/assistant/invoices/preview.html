@@ -1,5 +1,10 @@
 <template name="assistantInvoicePreview">
-  <div class="header"><span>Invoice</span><button class="charge">Charge</button></div>
+  <div class="header">
+    <span>Invoice</span>
+    <div class="buttons">
+      <button class="generate">Output</button>
+      <button class="charge">Charge</button></div>
+    </div>
   <div class="content">
     {{> assistantsInvoiceActualForm }}
   </div>

@@ -14,15 +14,17 @@
     <td>
       <input class="duration"
              type='text'
-             value='{{ formatDurationPrecise totalDurationInSecond }}'
+             value='{{ formatDurationPrecise roundedTotalDurationToSecond }}'
              disabled='{{#if isNotEditing }}true{{/if}}'
              >
     </td>
+    {{#if isEditable }}
     <td>
       <span class="save {{#if isNotEditing }}hide{{/if}}">Save</span>
       <i class="fa fa-spin fa-spinner loading hide"></i>
       <i class="fa fa-pencil edit {{#if isEditing }}hide{{/if}}"></i>
       <i class="fa fa-trash delete {{#if isEditing }}hide{{/if}}"></i>
     </td>
+    {{/if}}
   </tr>
 </template>

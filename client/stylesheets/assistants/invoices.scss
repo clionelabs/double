@@ -63,7 +63,7 @@
       span {
         font-size: 1.44em;
       }
-      .charge {
+      button {
         border : 0;
         background : $double-dark-blue;
         padding : 5px 10px;
@@ -243,4 +243,47 @@
     margin-bottom: 20px;
     padding: 5px;
   }
+}
+
+.static {
+  .time-based-items {
+    tr {
+      th, td {
+        textarea {
+          width: 100%;
+          min-height: 100px;
+        }
+        &:first-child {
+          width: 15%;
+          min-width: 120px;
+        }
+        &:nth-child(2) {
+          width: 25%;
+        }
+        &:nth-child(3) {
+          width: 50%;
+
+        }
+
+        &:nth-child(4) {
+          width: 10%;
+          min-width: 120px;
+        }
+      }
+    }
+  }
+  .one-time-purchases {
+    tr {
+      th, td {
+        &:first-child {
+          width: 85%;
+        }
+        &:nth-child(2) {
+          width: 15%;
+
+        }
+      }
+    }
+  }
+
 }
