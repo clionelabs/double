@@ -218,12 +218,16 @@
     tr {
       th, td {
         input {
-          width : 100%
+          width : 100%;
         }
         &:first-child {
-          width: 65%;
+          width: 15%;
+          min-width : 120px;
         }
         &:nth-child(2) {
+          width: 55%;
+        }
+        &:nth-child(3) {
           width: 25%;
 
         }
@@ -242,6 +246,10 @@
     color: $double-black;
     margin-bottom: 20px;
     padding: 5px;
+  }
+
+  footer {
+    margin-top: 20px;
   }
 }
 
@@ -268,6 +276,8 @@
         &:nth-child(4) {
           width: 10%;
           min-width: 120px;
+          text-align: right;
+          display : table-cell;
         }
       }
     }
@@ -275,12 +285,16 @@
   .one-time-purchases {
     tr {
       th, td {
-        &:first-child {
-          width: 85%;
+        &:nth-child(1) {
+          width: 15%;
         }
         &:nth-child(2) {
+          width: 70%;
+        }
+        &:nth-child(3) {
           width: 15%;
-
+          display : table-cell;
+          text-align: right;
         }
       }
     }

@@ -18,6 +18,7 @@ Template.assistantInvoiceDashboard.helpers({
     let currentCustomer = this.currentCustomer;
     return _.extend({}, this.currentInvoice,
         {
+          isCustomerPaymentMethodAvailable: currentCustomer.hasPaymentMethod(),
           customerFullName: currentCustomer.displayName(),
           customerFirstName : currentCustomer.firstName(),
           isEditing : new ReactiveVar(false)

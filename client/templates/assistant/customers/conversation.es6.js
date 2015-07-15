@@ -28,8 +28,7 @@ Template.assistantCustomerConversation.helpers({
     return customer.selectedChannelId ? D.Channels.findOne(customer.selectedChannelId) : null;
   },
   hasPaymentMethod() {
-    let customer = this;
-    return customer.payment && customer.payment.isAuthorized;
+    return this.hasPaymentMethod();
   }
 });
 

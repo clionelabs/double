@@ -28,6 +28,7 @@ Template.assistantInvoiceActualFormOneTimePurchase.events({
     Invoice.OneTimePurchase.update(
         oneTimePurchaseWithExtraInfo._id,
         oneTimePurchaseWithExtraInfo.invoiceId,
+        moment(tmpl.$('.date').val()).format('YYYY-MM-DD'),
         tmpl.$('.title').val(),
         parseFloat(tmpl.$('.amount').val()),
         function () {

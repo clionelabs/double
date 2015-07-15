@@ -6,20 +6,20 @@
     <div class="summaries">
       <div class="service-period">
         <div class="line">
-          <div class="key">Service Period: </div><div class="value">{{ formateDateShortMonth from }}</div>
+          <div class="key">Service Period: </div><div class="value">{{ formatDateMonth from }}</div>
         </div>
         <div class="line">
-          <div class="key">To: </div><div class="value">{{ formateDateShortMonth to }}</div>
+          <div class="key">To: </div><div class="value">{{ formatDateMonth to }}</div>
         </div>
       </div>
       <div class="calculations">
         <div class="minute">
           <div class="line">
-            <div class="key">Minutes used this period: </div>
+            <div class="key">Time used this period: </div>
             <div class="value">{{formatDurationPrecise roundedTotalDurationToSecond}}</div>
           </div>
           <div class="line">
-            <div class="key">Rebate in minutes: </div>
+            <div class="key">Time Rebate available: </div>
             <div class="value">
               {{#if isEditable }}
               <input
@@ -33,8 +33,8 @@
             </div>
           </div>
           <div class="line">
-            <div class="key">Minutes payable: </div>
-            <div class="value">{{formatDurationPrecise minutePayable }}</div>
+            <div class="key">Time payable: </div>
+            <div class="value">{{formatDurationPrecise timePayable }}</div>
           </div>
         </div>
         <div class="money">
@@ -43,7 +43,7 @@
             <div class="value">6.00</div>
           </div>
           <div class="line">
-            <div class="key">Effective rate(HKD):</div>
+            <div class="key">Effective rate (HKD):</div>
             <div class="value">
               {{#if isEditable }}
                 <input
@@ -59,17 +59,17 @@
             </div>
           </div>
           <div class="line">
-            <div class="key">Time Based Item total: </div>
+            <div class="key">Total Usage Charge: </div>
             <div class="value">{{formatAmount timeBasedItemsTotal}}</div>
           </div>
         </div>
         <div class="total">
           <div class="line">
-            <div class="key">One Time Purchase total: </div>
+            <div class="key">Other Charges: </div>
             <div class="value">{{formatAmount oneTimePurchasesTotal}}</div>
           </div>
           <div class="line">
-            <div class="key">Payment debited (HKD)</div>
+            <div class="key">Payment {{ debitedOrDue }} (HKD)</div>
             <div class="value">{{formatAmount debit}}</div>
           </div>
         </div>
@@ -100,6 +100,7 @@
 <template name="assistantsInvoiceActualFormOneTimePurchasesTable">
   <table class="table table-responsive one-time-purchases">
     <tr>
+      <th>Date</th>
       <th>Item</th>
       <th>Amount(HKD)</th>
       {{>Template.dynamic template=fillHeaderIfEditable}}
@@ -116,7 +117,7 @@
     <tr>
       <th>Date</th>
       <th>Requests</th>
-      <th>Updates</th>
+      <th>Actions</th>
       <th>Duration</th>
       {{>Template.dynamic template=fillHeaderIfEditable}}
     </tr>

@@ -15,6 +15,9 @@ Template.assistantsInvoiceActualForm.helpers(_.extend({
   showTimeBasedItems() {
     return (this.timeBasedItems && this.timeBasedItems.length) || this.isEditable()
         ? "assistantsInvoiceActualFormTimeBasedItemsTable" : "";
+  },
+  debitedOrDue() {
+    return this.isCustomerPaymentMethodAvailable ? 'debited' : 'due';
   }
 }, actualFormCommonHelpers));
 
@@ -46,7 +49,8 @@ Template.assistantsInvoiceActualFormTimeBasedItemsTable.helpers(_.extend({
     let invoiceId = this._id;
     let status = this.status;
     let isStatic = this.isStatic;
-    return _.sortBy(_.map(
+
+    let argTimeBasedItems = _.map(
         this.timeBasedItems,
         (timeBasedItem, i, timeBasedItems) => {
           return _.extend({},
@@ -58,7 +62,13 @@ Template.assistantsInvoiceActualFormTimeBasedItemsTable.helpers(_.extend({
                 status : status,
                 invoiceId : invoiceId
               });
-        }), 'title');
+        });
+    return _(argTimeBasedItems)
+            .chain()
+            .sortBy('totalDuration')
+            .sortBy('updates')
+            .sortBy('date')
+            .sortBy('title').value();
   }
 }, actualFormCommonHelpers));
 
@@ -67,7 +77,7 @@ Template.assistantsInvoiceActualFormOneTimePurchasesTable.helpers(_.extend({
     let invoiceId = this._id;
     let status = this.status;
     let isStatic = this.isStatic;
-    return _.sortBy(_.map(
+    let argOneTimePurchases = _.map(
         this.oneTimePurchases,
           (oneTimePurchase, i, oneTimePurchases) => {
             return _.extend({}, oneTimePurchase,
@@ -79,6 +89,11 @@ Template.assistantsInvoiceActualFormOneTimePurchasesTable.helpers(_.extend({
                   oneTimePurchases : oneTimePurchases,
                   status : status
                 });
-          }));
+          });
+    return _(argOneTimePurchases)
+        .chain()
+        .sortBy('amount')
+        .sortBy('title')
+        .sortBy('date').value();
   }
 }, actualFormCommonHelpers));

@@ -6,8 +6,8 @@ Template.registerHelper("formatDateTime", function(date) {
   return moment(date).format('YYYY-MM-DD HH:mm:ss');
 });
 
-Template.registerHelper("formateDateShortMonth", function(date) {
-  return moment(date).format('MMM DD, YYYY');
+Template.registerHelper("formatDateMonth", function(date) {
+  return moment(date).format('MMMM DD, YYYY');
 });
 
 Template.registerHelper("formatDuration", function(duration) {
