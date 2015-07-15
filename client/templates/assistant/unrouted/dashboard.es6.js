@@ -3,8 +3,10 @@ Template.assistantUnroutedDashboard.helpers({
     let showSpam = Template.currentData().isShowSpam === 'true';
     let selectedChannelId = Template.currentData().selectedChannelId;
     let selector = { customerId: { $exists: false }};
-    if (!showSpam) {
-      _.extend(selector, { isSpam : false });
+    if (showSpam) {
+      _.extend(selector, { isSpam: true });
+    } else {
+      _.extend(selector, { isSpam: {$ne: true} });
     }
     let channels = D.Channels.find(selector).fetch();
     return _.map(channels, function(channel){
