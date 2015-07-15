@@ -1,11 +1,15 @@
 Template.assistantTasksTimeSheetEdit.helpers({
   getTimesheetsWithTaskId() {
     let task = this;
-    if (task.timesheets && task.timesheets[Meteor.userId()]) {
-      return _.map(task.timesheets[Meteor.userId()],
-          (timesheet) => {
-            return _.extend({ taskId: task._id }, timesheet);
-          });
+    if (task.timesheets) {
+      return _.reduce(_.keys(task.timesheets),
+          (memo, userId) => {
+            let assistantName = Users.findOneAssistant({ _id : userId }).firstName();
+            let result = _.map(task.timesheets[userId], (timesheet) => {
+              return _.extend({}, { taskId: task._id, assistantName: assistantName }, timesheet);
+            });
+            return memo.concat(result);
+          }, []);
     } else {
       return [];
     }
