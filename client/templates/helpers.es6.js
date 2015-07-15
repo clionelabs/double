@@ -17,6 +17,9 @@ Template.registerHelper("formatDuration", function(duration) {
 Template.registerHelper("formatDurationPrecise", function(duration) {
   return moment.duration(duration).format('hh:mm:ss', { trim : false });
 });
+Template.registerHelper("formatDurationPreciseMs", function(duration) {
+  return moment.duration(duration).format('hh:mm:ss SSS', { trim : false });
+});
 
 Template.registerHelper("formatAmount", function(amount) {
   return numeral(amount).format('0,0.00');
