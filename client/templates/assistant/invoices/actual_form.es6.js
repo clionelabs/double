@@ -17,7 +17,7 @@ Template.assistantsInvoiceActualForm.helpers(_.extend({
         ? "assistantsInvoiceActualFormTimeBasedItemsTable" : "";
   },
   debitedOrDue() {
-    return this.isCustomerPaymentMethodAvailable ? 'debited' : 'due';
+    return this.isCustomerPaymentMethodAvailable ? 'Debited' : 'Due';
   }
 }, actualFormCommonHelpers));
 
