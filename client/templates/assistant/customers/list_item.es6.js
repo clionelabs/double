@@ -21,6 +21,9 @@ Template.assistantCustomersListItem.helpers({
   },
   hasNotRepliedClass() {
     return this.hasNotRepliedConversation()? "not-replied": "";
+  },
+  isOnline() {
+    return this.isOnline();
   }
 });
 
