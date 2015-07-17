@@ -1,3 +1,6 @@
+Template.assistantCustomerConversation.onRendered(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});
 Template.assistantCustomerConversation.events({
   "click .invoices" : function() {
     let currentCustomer = this;

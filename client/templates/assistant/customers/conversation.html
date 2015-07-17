@@ -1,10 +1,17 @@
 <Template name="assistantCustomerConversation">
   <div class="channel-tabs">
     <div class="customer-metrics">
-      <div class="name">{{ displayName }}</div>
+      <div class="name">
+        {{ displayName }}
+        {{#if hasPaymentMethod}}
+          <i class="has-payment-method fa fa-check-circle-o"
+             data-toggle="tooltip" data-placement="bottom" title="This customer can be charged automatically"
+              ></i>
+        {{/if}}
+      </div>
       <div class="functions">
         <div class="dropdown">
-          <div class="btn btn-default invoices">Invoices</div>
+          <div class="btn btn-default invoices">Usage Report</div>
         </div>
 
         <div class="dropdown">
@@ -16,12 +23,9 @@
           </div>
           <ul class="dropdown-menu" aria-labelledby="user.settings">
             <li class="profile">User Profile</li>
-            <li class="show-link-payment">
-              {{#if hasPaymentMethod}}
-                <i class="fa fa-check"></i>
-              {{/if}}
-              Show Add Payment URL
-            </li>
+            {{#if not hasPaymentMethod }}
+            <li class="show-link-payment">Add Payment URL</li>
+            {{/if}}
           </ul>
         </div>
       </div>
