@@ -1,7 +1,7 @@
 <template name="assistantCustomersListItem">
   <div class="customer {{isSelected}} {{hasNotRepliedClass}}">
     <div class="name {{animateIfIsCalling}}">
-      <span class="status {{status}}">&#8226;</span>{{displayName}}
+      <i class="status {{#if isOnline}}online{{/if}} fa fa-circle"></i> {{displayName}}
     </div>
     <div class="last-replied">
       Last Message on: {{ formatDateTime lastMessageTimestamp }}

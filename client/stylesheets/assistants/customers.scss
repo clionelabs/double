@@ -29,9 +29,11 @@
         color: red;
       }
       .status {
-        font-size: 1.414em;
-        padding-right: 5px;
+        font-size: 10px;
         color : $double-red2;
+        &.online {
+          color : $double-green2;
+        }
       }
       .last-replied {
         font-style: italic;
