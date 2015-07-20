@@ -5,25 +5,26 @@ if (Meteor.isServer) {
         let userId;
         let taskId = 1;
         beforeEach(function () {
-          userId = Meteor.users.insert({});
+          userId = Meteor.users.insert({profile : {}});
           this.clock = sinon.useFakeTimers();
           this.clock.tick(1);
         });
 
         it("should start current work", function () {
           Customers.startTask(userId, taskId);
-          chai.assert.equal(Meteor.users.findOne(userId).currentTask.taskId, taskId);
-          chai.assert.equal(Meteor.users.findOne(userId).currentTask.status, Customers.TaskStatus.Started);
-          chai.assert.equal(Meteor.users.findOne(userId).currentTask.startedAt, 1);
+          console.log("users", Meteor.users.findOne(userId));
+          chai.assert.equal(Meteor.users.findOne(userId).profile.currentTask.taskId, taskId);
+          chai.assert.equal(Meteor.users.findOne(userId).profile.currentTask.status, Customers.TaskStatus.Started);
+          chai.assert.equal(Meteor.users.findOne(userId).profile.currentTask.startedAt, 1);
         });
         it("should end current work", function () {
           Customers.startTask(userId, taskId);
           this.clock.tick(10);
           Customers.endTask(userId, taskId);
-          chai.assert.equal(Meteor.users.findOne(userId).currentTask.taskId, taskId);
-          chai.assert.equal(Meteor.users.findOne(userId).currentTask.status, Customers.TaskStatus.Stopped);
-          chai.assert.equal(Meteor.users.findOne(userId).currentTask.startedAt, 1);
-          chai.assert.equal(Meteor.users.findOne(userId).currentTask.endedAt, 11);
+          chai.assert.equal(Meteor.users.findOne(userId).profile.currentTask.taskId, taskId);
+          chai.assert.equal(Meteor.users.findOne(userId).profile.currentTask.status, Customers.TaskStatus.Stopped);
+          chai.assert.equal(Meteor.users.findOne(userId).profile.currentTask.startedAt, 1);
+          chai.assert.equal(Meteor.users.findOne(userId).profile.currentTask.endedAt, 11);
         });
         it("should not start if there is current work", function () {
           Customers.startTask(userId, taskId);
@@ -45,7 +46,7 @@ if (Meteor.isServer) {
           this.clock.tick(10);
           console.log('user', Meteor.users.findOne(userId));
           Customers.bankTask(userId, taskId);
-          chai.assert(!Meteor.users.findOne(userId).currentTask);
+          chai.assert(!Meteor.users.findOne(userId).profile.currentTask);
         });
         it("should not bank started work", function () {
           Customers.startTask(userId, taskId);
