@@ -9,9 +9,16 @@
 <Template name="channelMessages">
   <div class="selected-channel-messages">
     <div class="load-more"><i class="loading-indicator fa"></i><br/>Load More</div>
-      {{#each messages}}
-        {{> channelMessage}}
-      {{/each}}
+    {{#each messages}}
+      <div class="row">
+        <div class="col-xs-11">
+          {{> channelMessage}}
+        </div>
+        <div class="col-xs-1 selection {{#if selected}}selected{{/if}}">
+          <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+        </div>
+      </div>
+    {{/each}}
   </div>
 </Template>
 
@@ -22,6 +29,15 @@
       <small class="text-muted">{{formatTimestamp timestamp}}</small>
     </div>
     <div class="content">
+      <div>
+        {{#each taggedTasks}}
+          <span class="task-tag label label-primary">
+            <span class="title">{{title}}</span>
+            <span class="separator">|</span>
+            <i class="remove-tag fa fa-times"></i>
+          </span>
+        {{/each}}
+      </div>
       {{> channelSlackMessage}}
       {{#if isPending}}
         <div class="pending">

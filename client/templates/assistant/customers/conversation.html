@@ -18,8 +18,7 @@
           <div id='user.settings' class="btn btn-default settings dropdown"
             aria-haspopup="true" aria-expanded="false"
             data-toggle="dropdown">
-            <i class="fa fa-cog">
-            </i>
+            <i class="fa fa-cog"></i>
           </div>
           <ul class="dropdown-menu" aria-labelledby="user.settings">
             <li class="profile">User Profile</li>
@@ -30,11 +29,26 @@
         </div>
       </div>
     </div>
-    <ul class="nav nav-pills" role="tablist">
-      {{#each channels}}
-        {{> assistantCustomerConversationChannel}}
-      {{/each}}
-    </ul>
+    <div class="row">
+      <div class="col-xs-9">
+        <ul class="nav nav-pills" role="tablist">
+          {{#each channels}}
+            {{> assistantCustomerConversationChannel}}
+          {{/each}}
+        </ul>
+      </div>
+      <div class="col-xs-3 selection-control">
+        {{#if isAnyMessageSelected}}
+          <button class="btn btn-default dropdown-toggle tag-selection" type="button" data-toggle="dropdown">Add to</button>
+          <ul class="dropdown-menu dropdown-menu-right">
+            {{#each tasks}}
+              <li><a href="#" class="tag-task">{{title}}</a></li>
+            {{/each}}
+          </ul>
+          <button type="button" class="btn btn-default cancel-selection">Cancel</button>
+        {{/if}}
+      </div>
+    </div>
   </div>
   {{#if selectedChannel}}
     {{> channelMessages selectedChannel}}

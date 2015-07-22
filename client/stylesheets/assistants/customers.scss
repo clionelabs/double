@@ -117,6 +117,22 @@
         color: $double-red;
       }
     }
+    .selection-control {
+      text-align: right;
+      padding: 0px 15px 0px 0px;
+      .btn {
+        padding: 3px 10px;
+        border-radius: 0px;
+        &.tag-selection {
+          background: $double-black;
+          color: white;
+        }
+        &.cancel-selection {
+          background: $double-grey;
+          color: $double-grey3;
+        }
+      }
+    }
     .selected-channel-messages {
       .load-more {
         color:$double-white;
@@ -132,6 +148,23 @@
       flex: 1;
       .message {
         padding-bottom: 15px;
+
+        .task-tag {
+          margin-right: 10px;
+          .title {
+            cursor: pointer;
+          }
+          .separator {
+            margin-left: 3px;
+            margin-right: 3px;
+          }
+          .remove-tag {
+            cursor: pointer;
+            &:hover {
+              color: #818181;
+            }
+          }
+        }
 
         &.in {
           .content {
@@ -172,6 +205,17 @@
             padding:10px 20px;
             background-color: $double-grey;
           }
+        }
+      }
+      .selection {
+        cursor: pointer;
+        opacity: 0.1;
+        font-size: 30px;
+        margin-top: 20px;
+        padding: 0px;
+
+        &.selected {
+          opacity: 1.0;
         }
       }
     }
