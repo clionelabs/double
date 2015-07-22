@@ -214,6 +214,10 @@
         margin-top: 20px;
         padding: 0px;
 
+        &:hover {
+          opacity: 1.0;
+        }
+
         &.selected {
           opacity: 1.0;
         }
