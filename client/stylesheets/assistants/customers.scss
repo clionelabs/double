@@ -145,68 +145,6 @@
       width: 100%;
       flex: 1;
       overflow-y: scroll;
-      flex: 1;
-      .message {
-        padding-bottom: 15px;
-
-        .task-tag {
-          margin-right: 10px;
-          .title {
-            cursor: pointer;
-          }
-          .separator {
-            margin-left: 3px;
-            margin-right: 3px;
-          }
-          .remove-tag {
-            cursor: pointer;
-            &:hover {
-              color: #818181;
-            }
-          }
-        }
-
-        &.in {
-          .content {
-            background-color: $double-green;
-          }
-        }
-        &.out {
-          .content {
-            background-color: $double-grey;
-          }
-        }
-
-        .header {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-content: center;
-        }
-
-        .content {
-          margin: 0px;
-          padding:5px 20px;
-          color: $double-grey3;
-
-          .pending {
-            border: dashed 1px;
-            width: 150px;
-            padding-left: 10px;
-          }
-
-          img.emoji {
-            width: 20px;
-          }
-        }
-
-        &.outing, &.outing_delivered {
-          .content {
-            padding:10px 20px;
-            background-color: $double-grey;
-          }
-        }
-      }
       .selection {
         cursor: pointer;
         opacity: 0.1;
