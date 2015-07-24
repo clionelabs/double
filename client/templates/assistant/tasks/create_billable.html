@@ -1,0 +1,26 @@
+<template name="assistantTasksCreateBillable">
+  <div class="modal fade">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Billable</h4>
+        </div>
+        <div class="modal-body billable-creator">
+          <div class="statuses">
+            <svg class="timeline">
+            </svg>
+          </div>
+          <div class="billables">
+            <table class="table-responsive">
+              <tr>
+                <th>Actions</th>
+                <th>Duration</th>
+              </tr>
+            </table>
+            <button class="bank-time">Bank in {{formatDurationPrecise totalTime }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

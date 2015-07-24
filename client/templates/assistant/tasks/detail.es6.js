@@ -1,4 +1,8 @@
 Template.assistantTasksDetail.helpers({
+  isWorking() {
+    let currentAssistant = Users.findOneAssistant(Meteor.userId());
+    return currentAssistant.currentTask();
+  },
   isStartOrPause() {
     return this.isWorking(Meteor.userId()) ? 'fa-pause pause' : 'fa-play start';
   },
@@ -57,9 +61,12 @@ Template.assistantTasksDetail.events({
     Session.setAuth(SessionKeys.genStatusFormKey(this._id), true);
   },
   "click .start": function() {
+    Assistants.startTask(Meteor.userId(), this._id);
     Tasks.startWork(this._id, Meteor.userId());
   },
   "click .pause": function() {
+    Assistants.endTask(Meteor.userId(), this._id);
+    Modal.show('assistantTasksCreateBillable', this);
     Tasks.endWork(this._id, Meteor.userId());
   },
   'click .complete' : function(e) {
@@ -70,6 +77,15 @@ Template.assistantTasksDetail.events({
       return Tasks.findOne({ _id : taskId });
     };
     Modal.show('assistantTasksTimeSheetEdit', _.partial(getTask, this._id));
+  }
+});
+
+Template.assistantTasksDetail.onRendered(function() {
+  let currentAssistant = Users.findOneAssistant(Meteor.userId());
+  let currentTask = this.data;
+  let assistantCurrentTaskStatus = currentAssistant.currentTask();
+  if (assistantCurrentTaskStatus && assistantCurrentTaskStatus.status === Assistants.TaskStatus.Stopped) {
+    Modal.show('assistantTasksCreateBillable', currentTask);
   }
 });
 

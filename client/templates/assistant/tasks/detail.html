@@ -1,41 +1,43 @@
 <template name="assistantTasksDetail">
-  <div class="header">
-    <div class="title-metrics">
-      <div class="title-bar">
-        <h4>
-          <span class ="functions">
-            <i class="function work fa {{isStartOrPause}}"></i>
-            <i class="function complete fa fa-check {{ ifTaskCompleted }}"></i>
-            <i class="function edit fa fa-pencil"></i>
-          </span>
-          <span class="title">{{ title }}</span>
-          <span class="total-time-used">{{ getFormattedTotalDuration }}</span>
-        </h4>
-      </div>
-      <div class="metrics">
-        <div class="last-updated">Last Updated Time: {{formatDateTime lastModified }}</div>
-        <div class="last-logged-time">Last 7 Days: {{formatDurationPrecise last7DaysTimeUsed }}</div>
+  <div class="task-detail {{#if isWorking }}working {{/if}}">
+    <div class="header">
+      <div class="title-metrics">
+        <div class="title-bar">
+          <h4>
+            <span class ="functions">
+              <i class="function work fa {{isStartOrPause}}"></i>
+              <i class="function complete fa fa-check {{ ifTaskCompleted }}"></i>
+              <i class="function edit fa fa-pencil"></i>
+            </span>
+            <span class="title">{{ title }}</span>
+            <span class="total-time-used">{{ getFormattedTotalDuration }}</span>
+          </h4>
+        </div>
+        <div class="metrics">
+          <div class="last-updated">Last Updated Time: {{formatDateTime lastModified }}</div>
+          <div class="last-logged-time">Last 7 Days: {{formatDurationPrecise last7DaysTimeUsed }}</div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="other-info">
-    <div class="owner">Requested By: {{ getCustomerName }}</div>
-    <div class="responder">D/DD(s) in charge: TODO</div>
-    <div class="deadline"><i class="glyphicon glyphicon-calendar"></i></div>
-    <div class="time-budget"><i class="glyphicon glyphicon-time"></i></div>
-  </div>
-  <div class="updates">
-    <nav>
-      <ul>
-        <li class="active">Status</li>
-      </ul>
-    </nav>
-    {{> assistantTasksDetailStatusForm }}
-  </div>
-  <div class="supporting-doc">
-    {{> assistantTasksDetailDescriptionForm }}
-    {{> assistantTasksDetailStep }}
-    {{> assistantTasksDetailLinkForm }}
+    <div class="other-info">
+      <div class="owner">Requested By: {{ getCustomerName }}</div>
+      <div class="responder">D/DD(s) in charge: TODO</div>
+      <div class="deadline"><i class="glyphicon glyphicon-calendar"></i></div>
+      <div class="time-budget"><i class="glyphicon glyphicon-time"></i></div>
+    </div>
+    <div class="updates">
+      <nav>
+        <ul>
+          <li class="active">Status</li>
+        </ul>
+      </nav>
+      {{> assistantTasksDetailStatusForm }}
+    </div>
+    <div class="supporting-doc">
+      {{> assistantTasksDetailDescriptionForm }}
+      {{> assistantTasksDetailStep }}
+      {{> assistantTasksDetailLinkForm }}
+    </div>
   </div>
 </template>
 
