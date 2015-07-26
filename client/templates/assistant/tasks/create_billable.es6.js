@@ -201,7 +201,7 @@ Template.assistantTasksCreateBillable.events({
     let updates = _.map(this.steps, function(step) {
       let result = {};
       let _id = step._id;
-      let selector = `input.duration[data-id='${_id}'`
+      let selector = `input.duration[data-id='${_id}']`;
       let timeToBeAdded = moment.duration($(selector).val()).asMilliseconds();
       return {
         stepId : step._id,
