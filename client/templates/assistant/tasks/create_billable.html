@@ -20,7 +20,7 @@
               {{#each steps}}
                 <tr>
                   <td>{{text}}</td>
-                  <td><input class="duration"></td>
+                  <td><input class="duration" data-id="{{_id}}"></td>
                   <td>+ <span class=''>{{formatDurationPrecise duration}}</span></td>
                 </tr>
               {{/each}}

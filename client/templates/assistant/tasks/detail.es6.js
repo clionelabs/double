@@ -1,3 +1,10 @@
+let prepBillableModalData = (data) => {
+  return _.extend({
+              totalTime : new ReactiveVar(0)
+            },
+            data);
+};
+
 Template.assistantTasksDetail.helpers({
   isWorking() {
     let currentAssistant = Users.findOneAssistant(Meteor.userId());
@@ -66,7 +73,8 @@ Template.assistantTasksDetail.events({
   },
   "click .pause": function() {
     Assistants.endTask(Meteor.userId(), this._id);
-    Modal.show('assistantTasksCreateBillable', this);
+    Modal.show('assistantTasksCreateBillable',
+        prepBillableModalData(this));
     Tasks.endWork(this._id, Meteor.userId());
   },
   'click .complete' : function(e) {
@@ -85,7 +93,7 @@ Template.assistantTasksDetail.onRendered(function() {
   let currentTask = this.data;
   let assistantCurrentTaskStatus = currentAssistant.currentTask();
   if (assistantCurrentTaskStatus && assistantCurrentTaskStatus.status === Assistants.TaskStatus.Stopped) {
-    Modal.show('assistantTasksCreateBillable', currentTask);
+    Modal.show('assistantTasksCreateBillable', prepBillableModalData(currentTask));
   }
 });
 
