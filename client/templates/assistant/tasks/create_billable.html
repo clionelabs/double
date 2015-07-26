@@ -15,8 +15,17 @@
               <tr>
                 <th>Actions</th>
                 <th>Duration</th>
+                <th>Current</th>
               </tr>
+              {{#each steps}}
+                <tr>
+                  <td>{{text}}</td>
+                  <td><input class="duration"></td>
+                  <td>+ <span class=''>{{formatDurationPrecise duration}}</span></td>
+                </tr>
+              {{/each}}
             </table>
+            <div><a class="add-step">+Add Action</a></div>
             <button class="bank-time">Bank in {{formatDurationPrecise totalTime }}</button>
           </div>
         </div>

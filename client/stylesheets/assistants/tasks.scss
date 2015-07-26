@@ -262,10 +262,13 @@
 
 .billable-creator {
   display: flex;
+  justify-content: space-between;
   .statuses {
-    flex : 0 0 40%;
+    margin-left: 15px;
+    flex : 0 0 35%;
+    background-color: $double-grey;
     svg {
-      margin-left:40px;
+      padding-left:40px;
       .total-duration {
         font-weight: 700;
         font-style: italic;
@@ -274,14 +277,14 @@
         rect {
           z-index : -100;
         }
-        &:nth-child(3n) rect{
-          fill : $double-dark-blue3;
-        }
-        &:nth-child(3n+1) rect{
+        &:nth-child(3n) rect {
           fill : $double-dark-blue;
         }
-        &:nth-child(3n+2) rect{
+        &:nth-child(3n+1) rect {
           fill : $double-dark-blue2;
+        }
+        &:nth-child(3n+2) rect {
+          fill : $double-dark-blue3;
         }
 
         text {
@@ -302,13 +305,47 @@
 
   }
   .billables {
-    padding-top: 7px;
+    padding-top: 19px;
+    margin-right: 15px;
     table {
       th {
         text-decoration: underline;
+        text-align:center;
+        padding-bottom: 5px;
+      }
+      th,td {
+        &:first-child {
+          width : 70%;
+          text-align:left;
+        }
+        &:nth-child(2) {
+          width : 15%;
+          input {
+            width : 100%;
+          }
+        }
+        &:nth-child(3) {
+          width : 15%;
+        }
       }
     }
     flex : 0 0 60%;
+    .add-step {
+      border: 0;
+      background: none;
+      color: $double-grey3;
+      text-align : left;
+      font-style:italic;
+      display:block;
+    }
+    .bank-time {
+      padding: 10px;
+      border: none;
+      background: $double-dark-blue;
+      color: $double-white;
+      display:block;
+      margin: 25px auto;
+    }
   }
 }
 
