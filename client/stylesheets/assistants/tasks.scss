@@ -84,6 +84,15 @@
       }
     }
 
+    .tagged-messages {
+      h4 {
+        color: $double-black;
+      }
+      .task-tag {
+        display: none;
+      }
+    }
+
     .updates {
       border: 1px solid $double-light-blue2;
       background: $double-light-blue;

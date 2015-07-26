@@ -13,6 +13,23 @@ Template.assistantCustomerConversation.events({
   "click .show-link-payment" : function() {
     let currentCustomer = Template.currentData();
     Modal.show('customerPaymentLink', currentCustomer);
+  },
+  "click .cancel-selection": function() {
+    let currentCustomer = Template.currentData();
+    currentCustomer.selectedMessageIdsVar.set({});
+  },
+  "click .tag-task": function() {
+    let currentCustomer = Template.currentData();
+    let messageIds = currentCustomer.selectedMessageIdsVar.get();
+    let messageIdList = _.keys(messageIds);
+    let taskId = this._id;
+    Meteor.call('tagTask', messageIdList, taskId, function(error) {
+      if (error) {
+        Notifications.error("updated failed", "");
+      } else {
+        currentCustomer.selectedMessageIdsVar.set({});
+      }
+    });
   }
 });
 
@@ -28,10 +45,26 @@ Template.assistantCustomerConversation.helpers({
   },
   selectedChannel() {
     let customer = Template.currentData();
-    return customer.selectedChannelId ? D.Channels.findOne(customer.selectedChannelId) : null;
+    let channel = D.Channels.findOne(customer.selectedChannelId);
+    if (channel) {
+      _.extend(channel, {
+        selectedMessageIdsVar: customer.selectedMessageIdsVar
+      });
+    }
+    return channel;
   },
   hasPaymentMethod() {
     return this.hasPaymentMethod();
+  },
+  isAnyMessageSelected() {
+    let customer = Template.currentData();
+    if (!customer.selectedMessageIdsVar) return false;
+    let selectedMessageIds = customer.selectedMessageIdsVar.get();
+    return _.keys(selectedMessageIds).length > 0;
+  },
+  tasks() {
+    let customer = Template.currentData();
+    return Tasks.findRequestedBy(customer._id);
   }
 });
 

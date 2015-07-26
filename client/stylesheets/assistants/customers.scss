@@ -117,6 +117,22 @@
         color: $double-red;
       }
     }
+    .selection-control {
+      text-align: right;
+      padding: 0px 15px 0px 0px;
+      .btn {
+        padding: 3px 10px;
+        border-radius: 0px;
+        &.tag-selection {
+          background: $double-black;
+          color: white;
+        }
+        &.cancel-selection {
+          background: $double-grey;
+          color: $double-grey3;
+        }
+      }
+    }
     .selected-channel-messages {
       .load-more {
         color:$double-white;
@@ -129,49 +145,19 @@
       width: 100%;
       flex: 1;
       overflow-y: scroll;
-      flex: 1;
-      .message {
-        padding-bottom: 15px;
+      .selection {
+        cursor: pointer;
+        opacity: 0.1;
+        font-size: 30px;
+        margin-top: 20px;
+        padding: 0px;
 
-        &.in {
-          .content {
-            background-color: $double-green;
-          }
-        }
-        &.out {
-          .content {
-            background-color: $double-grey;
-          }
+        &:hover {
+          opacity: 1.0;
         }
 
-        .header {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-content: center;
-        }
-
-        .content {
-          margin: 0px;
-          padding:5px 20px;
-          color: $double-grey3;
-
-          .pending {
-            border: dashed 1px;
-            width: 150px;
-            padding-left: 10px;
-          }
-
-          img.emoji {
-            width: 20px;
-          }
-        }
-
-        &.outing, &.outing_delivered {
-          .content {
-            padding:10px 20px;
-            background-color: $double-grey;
-          }
+        &.selected {
+          opacity: 1.0;
         }
       }
     }

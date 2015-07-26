@@ -1,13 +1,17 @@
 Template.assistantCustomersDashboard.helpers({
-  getCurrentCustomer() {
+  conversationData() {
     let selectedChannel = Template.currentData().selectedChannel;
     let currentCustomer = Template.currentData().currentCustomer;
     if (selectedChannel) {
       return _.extend(currentCustomer,
-          { selectedChannelId: selectedChannel._id });
+          { selectedChannelId: selectedChannel._id,
+            selectedMessageIdsVar: new ReactiveVar({}) });
     } else {
       return currentCustomer;
     }
+  },
+  getCurrentCustomer() {
+    return Template.currentData().currentCustomer;
   },
   getSortedCustomers() {
     let currentCustomer = Template.currentData().currentCustomer;
