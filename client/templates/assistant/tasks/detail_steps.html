@@ -11,8 +11,8 @@
       {{#each stepsWithTaskId }}
         <div class="step">
           <i class="fa {{isCompletedCheckbox}} check"></i>
-          {{ text }}
-          <i class="fa fa-remove delete"></i>
+          {{ text }} | {{formatDurationPrecise duration }}
+          {{#if not duration }}<i class="fa fa-remove delete"></i>{{/if}}
         </div>
       {{/each}}
     </div>

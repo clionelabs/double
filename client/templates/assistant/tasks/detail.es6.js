@@ -1,4 +1,8 @@
 Template.assistantTasksDetail.helpers({
+  isWorking() {
+    let currentAssistant = Users.findOneAssistant(Meteor.userId());
+    return currentAssistant.currentTask();
+  },
   isStartOrPause() {
     return this.isWorking(Meteor.userId()) ? 'fa-pause pause' : 'fa-play start';
   },
@@ -41,8 +45,14 @@ let _updateTimer = () => {
 
 Template.assistantTasksDetail.onRendered(function() {
   let instance = this;
-  let task = instance.data;
   instance.autorun(function() {
+    let task = Tasks.findOne(instance.data._id);
+    let currentAssistant = Users.findOneAssistant(Meteor.userId());
+    let assistantCurrentTaskStatus = currentAssistant.currentTask();
+    if (assistantCurrentTaskStatus && assistantCurrentTaskStatus.status === Assistants.TaskStatus.Stopped) {
+      Modal.show('assistantTasksCreateBillable', task);
+    }
+
     _updateTimer();
     _timerFn = Meteor.setInterval(_updateTimer, 1000);
   });
@@ -57,9 +67,11 @@ Template.assistantTasksDetail.events({
     Session.setAuth(SessionKeys.genStatusFormKey(this._id), true);
   },
   "click .start": function() {
+    Assistants.startTask(Meteor.userId(), this._id);
     Tasks.startWork(this._id, Meteor.userId());
   },
   "click .pause": function() {
+    Assistants.endTask(Meteor.userId(), this._id);
     Tasks.endWork(this._id, Meteor.userId());
   },
   'click .complete' : function(e) {
@@ -72,4 +84,3 @@ Template.assistantTasksDetail.events({
     Modal.show('assistantTasksTimeSheetEdit', _.partial(getTask, this._id));
   }
 });
-

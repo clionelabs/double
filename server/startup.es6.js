@@ -6,7 +6,8 @@ Meteor.startup(() => {
     if (!Meteor.users.findOne({ emails: { $elemMatch: { address: email }}})) {
       Users.createAdmin({
         email: email,
-        password: password
+        password: password,
+        profile: {}
       });
     }
   }
