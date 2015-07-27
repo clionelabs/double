@@ -12,7 +12,8 @@ let shorten = (str = "") => {
 
 let compressStatuses = (statuses, fromTs, toTs, barHeight) => {
   let minHeight = 40; //hardcoded
-  let minTimeDiff = minHeight / barHeight * (toTs - fromTs);
+  let timeDiffPerPixel = (toTs - fromTs) / barHeight;
+  let minTimeDiff = minHeight / timeDiffPerPixel;
 
   let converted = _.map(statuses, function(status) {
     let displayItem = {};
