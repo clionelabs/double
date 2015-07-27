@@ -28,10 +28,10 @@ let compressStatuses = (sortedStatuses, fromTs, toTs, barHeight) => {
   });
   if (converted && converted.length) {
     if (converted[0].time !== fromTs) {
-      converted = _.union([{time: fromTs, message: "", userIds: []}], converted);
+      converted.unshift({ time: fromTs, message: "", userIds: [] });
     }
     if (converted[converted.length - 1].time !== toTs) {
-      converted = _.union(converted, [{time: toTs, message: "", userIds: []}]);
+      converted.push({ time: toTs, message: "", userIds: [] });
     }
     let result = _.clone(converted);
     for (let i = 1; i < result.length; i++) {
