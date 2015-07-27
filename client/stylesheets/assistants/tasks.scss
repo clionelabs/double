@@ -184,38 +184,6 @@
             cursor: pointer;
           }
         }
-        .sub {
-          opacity: 1;
-          height: 39px;
-          transition: opacity 0.3s cubic-bezier(1, 0, 1, 0), height 0.2s linear;
-          &.not-shown {
-            opacity: 0;
-            height: 0px;
-            transition: opacity 0.3s cubic-bezier(0, 1, 0, 1), height 0.2s linear 0.1s;
-          }
-          form {
-            width: 100%;
-            display: flex;
-            align-content: center;
-            >* {
-              margin:0 8px;
-            }
-            >label {
-              line-height:39px;
-            }
-            >input {
-              padding:5px;
-            }
-            .link-url, .text {
-              flex: 1;
-            }
-            button.submit {
-              text-decoration: underline;
-              border: 1px solid $double-grey2;
-              background: none;
-            }
-          }
-        }
 
         .steps {
           padding: 1em;
@@ -267,6 +235,40 @@
 
 .warning {
   margin: 0 15px;
+}
+
+.sub {
+  opacity: 1;
+  height: 39px;
+  transition: opacity 0.3s cubic-bezier(1, 0, 1, 0), height 0.2s linear;
+  &.not-shown {
+    opacity: 0;
+    height: 0px;
+    display : none;
+    transition: opacity 0.3s cubic-bezier(0, 1, 0, 1), height 0.2s linear 0.1s;
+  }
+  form {
+    width: 100%;
+    display: flex;
+    align-content: center;
+    >* {
+      margin:0 8px;
+    }
+    >label {
+      line-height:39px;
+    }
+    >input {
+      padding:5px;
+    }
+    .link-url, .text {
+      flex: 1;
+    }
+    button.submit {
+      text-decoration: underline;
+      border: 1px solid $double-grey2;
+      background: none;
+    }
+  }
 }
 
 .billable-creator {
@@ -346,6 +348,7 @@
       text-align : left;
       font-style:italic;
       display:block;
+      cursor:pointer;
     }
     .bank-time {
       padding: 10px;

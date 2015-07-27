@@ -201,10 +201,11 @@ Template.assistantTasksCreateBillable.helpers({
   totalTime() {
     return this.totalTime ? this.totalTime.get() : 0;
   },
-  steps() {
+  getSteps() {
+    let task = Tasks.findOne(this._id);
     let totalTime = this.totalTime;
-    return _.map(this.steps, function(step) {
-      return _.extend({}, { parentTotalTime : totalTime }, step);
+    return _.map(task.steps, function (step) {
+      return _.extend({}, { parentTotalTime: totalTime }, step);
     });
   }
 });
@@ -226,7 +227,7 @@ Template.assistantTasksCreateBillable.events({
     Modal.hide();
   },
   "click .add-step" : function() {
-
+    this.isStepFormShown.set(true);
   },
   "keyup input.duration, focusout input.duration" : function(e, tmpl) {
     let step = this;
