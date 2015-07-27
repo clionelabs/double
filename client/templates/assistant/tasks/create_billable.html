@@ -17,7 +17,7 @@
                 <th>Duration</th>
                 <th>Current</th>
               </tr>
-              {{#each steps}}
+              {{#each getSteps}}
                 <tr>
                   <td>{{text}}</td>
                   <td><input class="duration" data-id="{{_id}}" value="00:00:00"></td>
@@ -25,7 +25,8 @@
                 </tr>
               {{/each}}
             </table>
-            <div><a class="add-step">+Add Action</a></div>
+            {{> assistantTasksAddStep }}
+            <div><button class="add-step">+Add Action</button></div>
             <button class="bank-time">Bank in {{formatDurationPrecise totalTime }}</button>
           </div>
         </div>

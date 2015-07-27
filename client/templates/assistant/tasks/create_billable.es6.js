@@ -54,8 +54,10 @@ let compressStatuses = (sortedStatuses, fromTs, toTs, barHeight) => {
   }
 };
 
-Template.assistantTasksCreateBillable.onCreated(function() {
+Template.assistantTasksCreateBillable.onCreated(function(){
+
   _.extend(this.data, {
+        isStepFormShown : new ReactiveVar(false),
         totalTime : new ReactiveVar(0)
       });
 });
@@ -201,17 +203,19 @@ Template.assistantTasksCreateBillable.helpers({
   totalTime() {
     return this.totalTime ? this.totalTime.get() : 0;
   },
-  steps() {
+  getSteps() {
+    let task = Tasks.findOne(this._id);
     let totalTime = this.totalTime;
-    return _.map(this.steps, function(step) {
-      return _.extend({}, { parentTotalTime : totalTime }, step);
+    return _.map(task.steps, function (step) {
+      return _.extend({}, { parentTotalTime: totalTime }, step);
     });
   }
 });
 
 Template.assistantTasksCreateBillable.events({
   "click .bank-time" : function(e, tmpl) {
-    let updates = _.map(this.steps, function(step) {
+    let task = Tasks.findOne(this._id);
+    let updates = _.map(task.steps, function(step) {
       let result = {};
       let _id = step._id;
       let selector = `input.duration[data-id='${_id}']`;
@@ -221,12 +225,12 @@ Template.assistantTasksCreateBillable.events({
         timeToBeAdded : timeToBeAdded
       };
     });
-    Tasks.Steps.bankTime(this._id, updates);
-    Assistants.bankTask(Meteor.userId(), this._id);
+    Tasks.Steps.bankTime(task._id, updates);
+    Assistants.bankTask(Meteor.userId(), task._id);
     Modal.hide();
   },
   "click .add-step" : function() {
-
+    this.isStepFormShown.set(true);
   },
   "keyup input.duration, focusout input.duration" : function(e, tmpl) {
     let step = this;

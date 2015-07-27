@@ -46,11 +46,13 @@ let _updateTimer = () => {
 Template.assistantTasksDetail.onRendered(function() {
   let instance = this;
   instance.autorun(function() {
-    let task = Tasks.findOne(instance.data._id);
+    let task = instance.data;
     let currentAssistant = Users.findOneAssistant(Meteor.userId());
     let assistantCurrentTaskStatus = currentAssistant.currentTask();
     if (assistantCurrentTaskStatus && assistantCurrentTaskStatus.status === Assistants.TaskStatus.Stopped) {
       Modal.show('assistantTasksCreateBillable', task);
+    } else {
+      Modal.hide();
     }
 
     _updateTimer();
