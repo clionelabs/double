@@ -1,10 +1,3 @@
-let prepBillableModalData = (data) => {
-  return _.extend({
-              totalTime : new ReactiveVar(0)
-            },
-            data);
-};
-
 Template.assistantTasksDetail.helpers({
   isWorking() {
     let currentAssistant = Users.findOneAssistant(Meteor.userId());
@@ -57,7 +50,7 @@ Template.assistantTasksDetail.onRendered(function() {
     let currentAssistant = Users.findOneAssistant(Meteor.userId());
     let assistantCurrentTaskStatus = currentAssistant.currentTask();
     if (assistantCurrentTaskStatus && assistantCurrentTaskStatus.status === Assistants.TaskStatus.Stopped) {
-      Modal.show('assistantTasksCreateBillable', prepBillableModalData(task));
+      Modal.show('assistantTasksCreateBillable', task);
     }
 
     _updateTimer();

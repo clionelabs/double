@@ -54,6 +54,12 @@ let compressStatuses = (sortedStatuses, fromTs, toTs, barHeight) => {
   }
 };
 
+Template.assistantTasksCreateBillable.onCreated(function() {
+  _.extend(this.data, {
+        totalTime : new ReactiveVar(0)
+      });
+});
+
 Template.assistantTasksCreateBillable.onRendered(function() {
   let lastBankTaskTimestamp = Users.findOneAssistant(Meteor.userId()).lastBankTaskTimestamp(this.data._id);
   let statusesInRange = this.data.getStatusesWithinTimeRange(lastBankTaskTimestamp, moment().valueOf());
