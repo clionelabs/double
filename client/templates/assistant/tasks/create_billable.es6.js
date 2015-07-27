@@ -10,12 +10,12 @@ let shorten = (str = "") => {
   return _.isEqual(result,str) ? str : result + '...';
 };
 
-let compressStatuses = (statuses, fromTs, toTs, barHeight) => {
+let compressStatuses = (sortedStatuses, fromTs, toTs, barHeight) => {
   let minHeight = 40; //hardcoded
   let timeDiffPerPixel = (toTs - fromTs) / barHeight;
   let minTimeDiff = minHeight / timeDiffPerPixel;
 
-  let converted = _.map(statuses, function(status) {
+  let converted = _.map(sortedStatuses, function(status) {
     let displayItem = {};
     if (status.createdAt < fromTs) {
       displayItem.time = fromTs;
