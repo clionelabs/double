@@ -179,6 +179,14 @@ Template.assistantTasksCreateBillable.onRendered(function() {
                   return ts(d.time) + barHeadPadding + 5;
                 })
         ;
+
+    let andBefore =
+            chart.append('text')
+                .text(' & before ')
+                .attr('class', 'time')
+                .attr('x', -14)
+                .attr('y', barHeadPadding + 5 + 14);
+
   }
 
 });
