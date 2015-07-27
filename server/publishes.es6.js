@@ -80,6 +80,15 @@ Meteor.publish('channelMessagesSorted', function(channelId, limit = 10) {
   ];
 });
 
+Meteor.publish('taskTaggedMessages', function(taskId) {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    return null;
+  }
+  return [
+    D.Messages.find({ taggedTaskIds: {$in: [taskId]} })
+  ];
+});
+
 Meteor.publish("invoices", function() {
   if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
     return null;

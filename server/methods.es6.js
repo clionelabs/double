@@ -75,6 +75,10 @@ Meteor.methods({
     }
     let user = Meteor.users.findOne(oldLink.userId);
     LoginLinks.createAndSendAccess(user);
+  },
+
+  tagTask(messageIds, taskId) {
+    return Messages.tagTask(messageIds, taskId);
   }
 
 });
