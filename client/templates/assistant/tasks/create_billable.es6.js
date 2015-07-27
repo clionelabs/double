@@ -33,7 +33,6 @@ let compressStatuses = (statuses, fromTs, toTs, barHeight) => {
       converted = _.union(converted, [{time: toTs, message: "", userIds: []}]);
     }
     let result = _.clone(converted);
-
     for (let i = 1; i < result.length; i++) {
       if (result[i].time - result[i - 1].time < minTimeDiff) {
         result[i - 1].message
@@ -64,16 +63,15 @@ Template.assistantTasksCreateBillable.onRendered(function() {
     return _.union(memo, result);
   }, []);
   let sortedStatuses = _.sortBy(flattenedStatuses, 'createdAt');
+  let currentAssistant = Users.findOneAssistant(Meteor.userId());
+  let fromTs = currentAssistant.currentTask().startedAt;
+  let toTs = currentAssistant.currentTask().endedAt;
+  let barHeight = 520;
   let result = compressStatuses(
       sortedStatuses,
       fromTs,
       toTs,
       barHeight);
-
-  let barHeight = 520;
-  let currentAssistant = Users.findOneAssistant(Meteor.userId());
-  let fromTs = currentAssistant.currentTask().startedAt;
-  let toTs = currentAssistant.currentTask().endedAt;
 
   let height = 600;
   let width = 300;
@@ -127,7 +125,7 @@ Template.assistantTasksCreateBillable.onRendered(function() {
               return ts(d.time) + barHeadPadding;
             })
             .attr('class', function (d) {
-              return d.message ? "" : "hide"
+              return d.message ? "" : "hide";
             })
         ;
 
@@ -142,7 +140,7 @@ Template.assistantTasksCreateBillable.onRendered(function() {
                   .style("opacity", 1)
                   .text(d.message)
                   .style('left', (d3.event.pageX) + "px")
-                  .style('top', (d3.event.pageY) + "px")
+                  .style('top', (d3.event.pageY) + "px");
             })
         ;
     messages
@@ -215,7 +213,7 @@ Template.assistantTasksCreateBillable.events({
   "click .add-step" : function() {
 
   },
-  "keypress input.duration, focusout input.duration" : function(e, tmpl) {
+  "keyup input.duration, focusout input.duration" : function(e, tmpl) {
     let step = this;
     let times = [];
     $('input.duration').each(function() {
