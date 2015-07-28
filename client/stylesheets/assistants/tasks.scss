@@ -143,8 +143,78 @@
         }
       }
     }
-    .supporting-doc {
+    .invoice-related {
       border-top : 1px solid $double-grey2;
+      h4 {
+        color: $double-black;
+        i.add {
+          padding-left:1em;
+          cursor: pointer;
+        }
+      }
+
+      .steps {
+        padding: 1em;
+        .step {
+          padding-bottom: 0.5em;
+          .check {
+            padding-right : 1em;
+          }
+          .delete {
+            padding-left: 1em;
+          }
+        }
+      }
+      .one-time-purchase-area {
+        margin-bottom: 1em;
+        form {
+          display: flex;
+          button {
+            border : none;
+          }
+          input {
+            border: none;
+            padding:0 5px;
+            border: 1px solid $double-grey2;
+          }
+        }
+        .one-time-purchases {
+          margin-top : 1.1em;
+          .one-time-purchase {
+            margin-bottom: 0.7em;
+            .billed {
+              background: $double-green;
+              color: $double-black;
+            }
+            .unbilled {
+              background: $double-red2;
+              color: $double-white;
+            }
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            .main {
+              display: flex;
+              flex-direction: row;
+              flex: 1;
+              .title {
+                padding: 0px 1.1em;
+                color: $double-black;
+                font-weight: 700;
+              }
+            }
+            .delete {
+              display: flex;
+              cursor: pointer;
+              .fa {
+                align-self: center;
+              }
+            }
+          }
+        }
+      }
+    }
+    .supporting-doc {
       >* {
         margin-bottom: 2em;
         h4 {
@@ -176,7 +246,7 @@
           }
         }
       }
-      .links, .checklist {
+      .links {
         h4 {
           color: $double-black;
           i.add {
@@ -185,18 +255,6 @@
           }
         }
 
-        .steps {
-          padding: 1em;
-          .step {
-            padding-bottom: 0.5em;
-            .check {
-              padding-right : 1em;
-            }
-            .delete {
-              padding-left: 1em;
-            }
-          }
-        }
 
         .references{
           margin-top:0.7em;
@@ -240,12 +298,13 @@
 .sub {
   opacity: 1;
   min-height: 39px;
-  transition: opacity 0.3s cubic-bezier(1, 0, 1, 0), height 0.2s linear;
+  transition: opacity 0.3s cubic-bezier(1, 0, 1, 0), height 0.2s linear, display 0.2s linear;
   &.not-shown {
     opacity: 0;
+    min-height: 0px;
     height: 0px;
-    display : none;
-    transition: opacity 0.3s cubic-bezier(0, 1, 0, 1), height 0.2s linear 0.1s;
+    display: none;
+    transition: opacity 0.3s cubic-bezier(0, 1, 0, 1), height 0.2s linear 0.1s, display 0.2s linear;
   }
   form {
     width: 100%;
