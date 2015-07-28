@@ -3,10 +3,18 @@
     <h4>One Time Purchases<i class="fa fa-plus add"></i></h4>
     <div class="sub {{ isOneTimePurchaseFormShown }}">
       <form class="add" id="link.{{ _id }}">
-        <label for="title">Title: </label>
-        <input name="title" class="title" type="text" required/>
-        <label for="url">Amount: </label>
-        <input name="amount" class="amount" type="number" step="0.01" min="0" required/>
+        <fieldset>
+          <label for="date">Date: </label>
+          <input name="date" class="date" type="date" value="{{formatDate today}}" required/>
+        </fieldset>
+        <fieldset>
+          <label for="title">Title: </label>
+          <input name="title" class="title" type="text" required/>
+        </fieldset>
+        <fieldset>
+          <label for="url">Amount: </label>
+          <input name="amount" class="amount" type="number" step="0.01" min="0" required/>
+        </fieldset>
         <button class="submit" action="submit">Add</button>
       </form>
     </div>
@@ -14,12 +22,13 @@
       {{#each oneTimePurchases }}
         <div class="one-time-purchase">
           <div class="main">
-            <span class="badge {{ isBilledStr }}">{{ isBilledStr }}</span>
+            <!--<span class="badge {{ isBilledStr }}">{{ isBilledStr }}</span> -->
+            <div class="title">{{formatDate date }}</div>
             <div class="title">{{ title }}</div>
             <div class="amount">HKD {{formatAmount amount}}</div>
           </div>
           <div class="delete {{ hideIfBilled }}">
-            <i class="fa fa-remove"></i>
+            <i class="fa fa-remove delete"></i>
           </div>
         </div>
       {{/each}}

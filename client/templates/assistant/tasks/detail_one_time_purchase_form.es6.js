@@ -1,7 +1,8 @@
 let _submitFn = (tmpl, form, taskId) => {
+  let date = moment(form.target.date.value).valueOf();
   let title = form.target.title.value;
   let amount = Number.parseFloat(form.target.amount.value);
-  Tasks.OneTimePurchase.add(amount, title, taskId,
+  Tasks.OneTimePurchase.add(date, amount, title, taskId,
       () => {
         tmpl.isOneTimePurchaseFormShown.set(false);
       });
@@ -18,17 +19,28 @@ Template.assistantTasksDetailOneTimePurchaseForm.helpers({
   isOneTimePurchaseFormShown() {
     return Template.instance().isOneTimePurchaseFormShown.get() ? "" : "hide";
   },
+  today() {
+    return moment().valueOf();
+  }
+  /*
+  TODO add backed when there is last Bill Date for user
   isBilledStr() {
     return this.billedAt ? "billed" : "unbilled";
   },
   hideIfBilled() {
     return this.billedAt ? "hide" : "";
   }
+  */
 });
 
 Template.assistantTasksDetailOneTimePurchaseForm.events({
   'click i.add': function(e, tmpl) {
     tmpl.isOneTimePurchaseFormShown.set(true);
+  },
+  'click i.delete' : function() {
+    let oneTimePurchaseId = this._id;
+    let taskId = Template.parentData().currentTask._id;
+    Tasks.OneTimePurchase.delete(oneTimePurchaseId, taskId);
   },
   "submit form.add" : function(e,tmpl) {
     e.preventDefault();

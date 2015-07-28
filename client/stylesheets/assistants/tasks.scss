@@ -169,6 +169,22 @@
         margin-bottom: 1em;
         form {
           display: flex;
+
+          fieldset {
+
+            &:first-child {
+              flex : 0 0 calc(25% - 16px);
+            }
+            &:nth-child(2) {
+              flex : 0 0 calc(45% - 16px);
+            }
+            &:nth-child(3) {
+              flex : 0 0 calc(20% - 16px);
+            }
+            &:last-child {
+              flex : 0 0 calc(10% - 16px);
+            }
+          }
           button {
             border : none;
           }
@@ -176,6 +192,7 @@
             border: none;
             padding:0 5px;
             border: 1px solid $double-grey2;
+            width: 100%;
           }
         }
         .one-time-purchases {
@@ -193,6 +210,7 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
+
             .main {
               display: flex;
               flex-direction: row;
