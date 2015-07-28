@@ -1,0 +1,10 @@
+#admin-dashboard {
+  .online-status {
+    &.online {
+      color: green;
+    }
+    &.offline {
+      color: red;
+    }
+  }
+}

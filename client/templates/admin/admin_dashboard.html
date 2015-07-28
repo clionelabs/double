@@ -1,52 +1,56 @@
 <Template name="adminDashboard">
-  <div class="page-header">
-    <button id="new-assistant-button" type="button" class="btn btn-primary">New Assistant</button>
-    <button id="new-customer-button" type="button" class="btn btn-primary">New Customer</button>
-  </div>
+  <div id="admin-dashboard">
+    <div class="page-header">
+      <button id="new-assistant-button" type="button" class="btn btn-primary">New Assistant</button>
+      <button id="new-customer-button" type="button" class="btn btn-primary">New Customer</button>
+    </div>
 
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h3 class="panel-title" id="panel-title">List of Assistants</h3>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title" id="panel-title">List of Assistants</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Online Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each assistants}}
+            <tr>
+              <td>{{profile.firstname}}</td>
+              <td>{{profile.lastname}}</td>
+              <td><span class="online-status {{#if status.online}}online{{else}}offline{{/if}}"><i class="fa fa-user"></i></span></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="panel-body">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each assistants}}
-          <tr>
-            <td>{{profile.firstname}}</td>
-            <td>{{profile.lastname}}</td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-  </div>
 
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h3 class="panel-title" id="panel-title">List of Customers</h3>
-    </div>
-    <div class="panel-body">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Assigned Assistant</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each customers}}
-            {{> adminDashboardCustomerRow}}
-          {{/each}}
-        </tbody>
-      </table>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title" id="panel-title">List of Customers</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Assigned Assistant</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each customers}}
+              {{> adminDashboardCustomerRow}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </Template>
