@@ -46,7 +46,9 @@ Template.assistantCustomersDashboard.helpers({
   },
   getTasksOfSelectedCustomer() {
     let currentCustomer = Template.currentData().currentCustomer;
-    return Tasks.findRequestedBy(currentCustomer._id);
+    return _.sortBy(Tasks.findRequestedBy(currentCustomer._id).fetch(), function(task) {
+      return task.createdAt * -1;
+    });
   }
 });
 
