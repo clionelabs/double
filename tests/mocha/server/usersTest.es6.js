@@ -12,7 +12,6 @@ if (Meteor.isServer) {
 
         it("should start current work", function () {
           Assistants.startTask(userId, taskId);
-          console.log("users", Meteor.users.findOne(userId));
           chai.assert.equal(Meteor.users.findOne(userId).profile.currentTask.taskId, taskId);
           chai.assert.equal(Meteor.users.findOne(userId).profile.currentTask.status, Assistants.TaskStatus.Started);
           chai.assert.equal(Meteor.users.findOne(userId).profile.currentTask.startedAt, 1);
@@ -45,7 +44,6 @@ if (Meteor.isServer) {
           this.clock.tick(10);
           Assistants.endTask(userId, taskId);
           this.clock.tick(10);
-          console.log('user', Meteor.users.findOne(userId));
           Assistants.bankTask(userId, taskId);
           chai.assert(!Meteor.users.findOne(userId).profile.currentTask);
           chai.assert.notEqual(Meteor.users.findOne(userId).profile.lastBankTasksTimestamp[taskId], oriTs);
@@ -66,6 +64,28 @@ if (Meteor.isServer) {
         afterEach(function () {
           Meteor.users.remove({ _id: userId });
           this.clock.restore();
+        });
+      });
+
+      describe("user deduct rebate second", function() {
+        let userId;
+        beforeEach(function () {
+          userId = Meteor.users.insert({ profile: { rebateMs : 60000 }, roles : [ 'customer' ]});
+        });
+        it('should deduct rebate Ms', function() {
+          let numberOfColumnAffected = Customers.deductRebateMs(userId, 1000);
+          let user = Users.findOneCustomer(userId);
+          chai.assert.equal(numberOfColumnAffected, 1);
+          chai.assert.equal(user.profile.rebateMs, 59000);
+        });
+        it('should not be negative', function() {
+          let numberOfColumnAffected = Customers.deductRebateMs(userId, 100000);
+          let user = Users.findOneCustomer(userId);
+          chai.assert.equal(numberOfColumnAffected, 1);
+          chai.assert.equal(user.profile.rebateMs, 0);
+        });
+        afterEach(function () {
+          Meteor.users.remove({ _id: userId });
         });
       });
     });

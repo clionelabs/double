@@ -48,14 +48,16 @@ Meteor.methods({
     let email = data.email;
     let firstname = data.firstname;
     let lastname = data.lastname;
-    let plan = data.plan;
+    let hourlyRate = data.hourlyRate;
+    let rebateSecond = data.rebateSecond;
 
     Users.editCustomer(userId,
         {
           profile: {
             firstname: firstname,
             lastname: lastname,
-            plan: plan
+            hourlyRate: hourlyRate,
+            rebateSecond: rebateSecond
           }
         });
   },

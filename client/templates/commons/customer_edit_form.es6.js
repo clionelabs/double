@@ -8,7 +8,8 @@ Template.customerEditForm.events({
     let data = {
       firstname: form.firstname.value,
       lastname: form.lastname.value,
-      plan : { maxHour : form.maxhour.value }
+      hourlyRate : form.hourlyRate.value,
+      rebateSecond : moment.duration(form.rebateMs.value).asMilliseconds()
     };
 
     if (!isEdit) {
@@ -28,10 +29,12 @@ Template.customerEditForm.events({
 
 Template.customerEditForm.helpers({
   getEmail() {
-    console.log(this);
     return this.emails ? this.emails[0].address : null;
   },
   disabledIfEdit() {
     return this._id ? "disabled" : "";
+  },
+  rebateMs() {
+    return this.profile.rebateMs;
   }
 });
