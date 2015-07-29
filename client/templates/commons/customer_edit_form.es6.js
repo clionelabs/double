@@ -8,7 +8,8 @@ Template.customerEditForm.events({
     let data = {
       firstname: form.firstname.value,
       lastname: form.lastname.value,
-      plan : { maxHour : form.maxhour.value }
+      hourlyRate : form.hourlyRate.value,
+      creditMs : moment.duration(form.creditMs.value).asMilliseconds()
     };
 
     if (!isEdit) {
@@ -28,7 +29,6 @@ Template.customerEditForm.events({
 
 Template.customerEditForm.helpers({
   getEmail() {
-    console.log(this);
     return this.emails ? this.emails[0].address : null;
   },
   disabledIfEdit() {

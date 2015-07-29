@@ -16,19 +16,19 @@
         <div class="minute">
           <div class="line">
             <div class="key">Time Used This Period: </div>
-            <div class="value">{{formatDurationPrecise roundedTotalDurationToSecond}}</div>
+            <div class="value">{{formatDurationPrecise roundedInSecondTotalDuration}}</div>
           </div>
           <div class="line">
-            <div class="key">Time Rebate Available: </div>
+            <div class="key">Time Credit Available: </div>
             <div class="value">
               {{#if isEditable }}
               <input
-                  class='rebate'
+                  class='credit'
                   type='text'
-                  value='{{formatDurationPrecise rebate }}'
+                  value='{{formatDurationPrecise credit }}'
                   >
               {{else}}
-                {{formatDurationPrecise rebate}}
+                {{formatDurationPrecise credit}}
               {{/if}}
             </div>
           </div>

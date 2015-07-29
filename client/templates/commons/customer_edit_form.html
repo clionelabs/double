@@ -16,12 +16,24 @@
               <input type="lastname" class="form-control" id="lastname" placeholder="Last Name" value="{{profile.lastname}}">
             </div>
             <div class="form-group">
-              <label for="email">Email address</label>
+              <label for="email">Email Address</label>
               <input type="email" class="form-control" id="email" placeholder="Email Address" value="{{getEmail}}" {{disabledIfEdit}}>
             </div>
             <div class="form-group">
-              <label for="maxhour">Hour(s) per plan</label>
-              <input type="number" class="form-control" id="maxhour" placeholder="Hours" value="{{profile.plan.maxHour}}">
+              <label for="hourlyRate">Hourly Rate</label>
+              <input
+                  name='hourlyRate'
+                  type="number"
+                  class="form-control"
+                  id="hourlyRate"
+                  value="{{ profile.hourlyRate }}"
+                  step="0.01"
+                  min="0.01"
+                  >
+            </div>
+            <div class="form-group">
+              <label for="creditMs">Credit Left</label>
+              <input name='creditMs' type="text" class="form-control" id="creditMs" value="{{formatDurationPrecise creditMs }}">
             </div>
 
             <button type="submit" class="btn btn-default">Submit</button>

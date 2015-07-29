@@ -32,10 +32,10 @@ Template.assistantsInvoiceActualForm.events({
     let invoiceId = invoice._id;
     Invoice.OneTimePurchase.createEmpty(invoiceId);
   },
-  "blur input.rebate" : function(e, tmpl) {
+  "blur input.credit" : function(e, tmpl) {
     let invoiceId = tmpl.data._id;
-    let newRebate = moment.duration(e.currentTarget.value).valueOf();
-    Invoices.update({ _id : invoiceId }, { $set : { rebate : newRebate }});
+    let newCredit = moment.duration(e.currentTarget.value).valueOf();
+    Invoices.update({ _id : invoiceId }, { $set : { credit : newCredit }});
   },
   "blur input.effective-rate" : function(e, tmpl) {
     let invoiceId = tmpl.data._id;
