@@ -33,8 +33,5 @@ Template.customerEditForm.helpers({
   },
   disabledIfEdit() {
     return this._id ? "disabled" : "";
-  },
-  rebateMs() {
-    return this.profile.rebateMs;
   }
 });
