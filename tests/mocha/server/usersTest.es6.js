@@ -67,22 +67,22 @@ if (Meteor.isServer) {
         });
       });
 
-      describe("user deduct rebate second", function() {
+      describe("user deduct credit second", function() {
         let userId;
         beforeEach(function () {
-          userId = Meteor.users.insert({ profile: { rebateMs : 60000 }, roles : [ 'customer' ]});
+          userId = Meteor.users.insert({ profile: { creditMs : 60000 }, roles : [ 'customer' ]});
         });
-        it('should deduct rebate Ms', function() {
-          let numberOfColumnAffected = Customers.deductRebateMs(userId, 1000);
+        it('should deduct credit Ms', function() {
+          let numberOfColumnAffected = Customers.deductCreditMs(userId, 1000);
           let user = Users.findOneCustomer(userId);
           chai.assert.equal(numberOfColumnAffected, 1);
-          chai.assert.equal(user.profile.rebateMs, 59000);
+          chai.assert.equal(user.profile.creditMs, 59000);
         });
         it('should not be negative', function() {
-          let numberOfColumnAffected = Customers.deductRebateMs(userId, 100000);
+          let numberOfColumnAffected = Customers.deductCreditMs(userId, 100000);
           let user = Users.findOneCustomer(userId);
           chai.assert.equal(numberOfColumnAffected, 1);
-          chai.assert.equal(user.profile.rebateMs, 0);
+          chai.assert.equal(user.profile.creditMs, 0);
         });
         afterEach(function () {
           Meteor.users.remove({ _id: userId });

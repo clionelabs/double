@@ -49,7 +49,7 @@ Meteor.methods({
     let firstname = data.firstname;
     let lastname = data.lastname;
     let hourlyRate = data.hourlyRate;
-    let rebateSecond = data.rebateSecond;
+    let creditMs = data.creditMs;
 
     Users.editCustomer(userId,
         {
@@ -57,7 +57,7 @@ Meteor.methods({
             firstname: firstname,
             lastname: lastname,
             hourlyRate: hourlyRate,
-            rebateSecond: rebateSecond
+            creditMs: creditMs
           }
         });
   },
