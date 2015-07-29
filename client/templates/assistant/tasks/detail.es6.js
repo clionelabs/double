@@ -49,7 +49,10 @@ Template.assistantTasksDetail.onRendered(function() {
     let task = instance.data;
     let currentAssistant = Users.findOneAssistant(Meteor.userId());
     let assistantCurrentTaskStatus = currentAssistant.currentTask();
-    if (assistantCurrentTaskStatus && assistantCurrentTaskStatus.status === Assistants.TaskStatus.Stopped) {
+    if (assistantCurrentTaskStatus
+          && assistantCurrentTaskStatus.status === Assistants.TaskStatus.Stopped
+          && assistantCurrentTaskStatus.taskId === task._id
+        ) {
       Modal.show('assistantTasksCreateBillable', task);
     } else {
       Modal.hide();
