@@ -117,24 +117,17 @@ Template.channelReply._submit = function(form) {
   let content = form.content.value;
   if (!content) return false;
 
-  // avoid sending multiple times
-  if ($(form.content).attr("disabled")) {
-    return false;
-  }
-
   let doc = {
     channelId: channelId,
     content: content,
     inOut: D.Messages.InOut.OUTING,
     timestamp: moment().valueOf()
   }
-  $(form.content).attr("disabled", "disabled");
   D.Messages.insert(doc, function(error) {
     // TODO: handle error
-    $(form.content).val('');
-    $(form.content).css('height', 'auto');
-    $(form.content).removeAttr("disabled");
   });
+  $(form.content).val('');
+  $(form.content).css('height', 'auto');
 }
 
 Template.channelReply.onRendered(function() {
