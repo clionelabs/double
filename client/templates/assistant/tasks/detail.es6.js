@@ -46,7 +46,7 @@ let _updateTimer = () => {
 Template.assistantTasksDetail.onRendered(function() {
   let instance = this;
   instance.autorun(function() {
-    let task = instance.data;
+    let task = Template.currentData();
     let currentAssistant = Users.findOneAssistant(Meteor.userId());
     let assistantCurrentTaskStatus = currentAssistant.currentTask();
     if (assistantCurrentTaskStatus
