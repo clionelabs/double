@@ -1,5 +1,5 @@
 <template name="assistantsInvoiceActualForm">
-  <div class="invoice-printout {{#if not isEditable }}static{{/if}}">
+  <div class="invoice-printout static">
     <header>
       Double Usage Report: {{customerFullName}}
     </header>
@@ -21,15 +21,7 @@
           <div class="line">
             <div class="key">Time Credit Available: </div>
             <div class="value">
-              {{#if isEditable }}
-              <input
-                  class='credit'
-                  type='text'
-                  value='{{formatDurationPrecise credit }}'
-                  >
-              {{else}}
-                {{formatDurationPrecise credit}}
-              {{/if}}
+              {{formatDurationPrecise credit}}
             </div>
           </div>
           <div class="line">
@@ -45,17 +37,7 @@
           <div class="line">
             <div class="key">Effective Rate (HKD):</div>
             <div class="value">
-              {{#if isEditable }}
-                <input
-                  class='effective-rate'
-                  type='number'
-                  inputmode="numeric"
-                  step="0.01"
-                  value='{{formatAmount effectiveRate}}'
-                  >
-              {{else}}
-                {{formatAmount effectiveRate}}
-              {{/if}}
+              {{formatAmount effectiveRate}}
             </div>
           </div>
           <div class="line">
@@ -93,23 +75,17 @@
   </div>
 </template>
 
-<template name="tableHeaderFiller">
-  <th>&nbsp;</th>
-</template>
-
 <template name="assistantsInvoiceActualFormOneTimePurchasesTable">
   <table class="table table-responsive one-time-purchases">
     <tr>
       <th>Date</th>
       <th>Other Charges</th>
       <th>(HKD)</th>
-      {{>Template.dynamic template=fillHeaderIfEditable}}
     </tr>
     {{#each oneTimePurchases }}
       {{> assistantInvoiceActualFormOneTimePurchase }}
     {{/each}}
   </table>
-  <div class="add-one-time-purchase add {{showIfEditable}}">+ Entry</div>
 </template>
 
 <template name="assistantsInvoiceActualFormTimeBasedItemsTable">
@@ -119,11 +95,9 @@
       <th>Requests</th>
       <th>Actions</th>
       <th>Duration</th>
-      {{>Template.dynamic template=fillHeaderIfEditable}}
     </tr>
     {{#each timeBasedItems}}
       {{> assistantInvoiceActualFormTimeBasedItem }}
     {{/each}}
   </table>
-  <div class="add-time-based-item add {{showIfEditable}}">+ Entry</div>
 </template>
