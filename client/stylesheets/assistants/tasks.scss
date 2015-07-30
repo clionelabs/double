@@ -33,16 +33,17 @@
     color: $double-grey3;
     transition: background-color 0.7s 0.2s, color 0.7s 0.2s;
 
+    .function {
+      border : 1px solid $double-black;
+      min-height: 36px;
+      min-width: 36px;
+      border-radius: 3px;
+    }
+
     &.working {
       background-color: #FFEEEE;
       transition: background-color 0.7s 0.2s, color 0.7s 0.2s;
       color : $double-black;
-      .function {
-        border : 1px solid $double-black;
-        min-height: 36px;
-        min-width: 36px;
-        border-radius: 3px;
-      }
     }
 
     >* {

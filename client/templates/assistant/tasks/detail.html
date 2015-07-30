@@ -5,12 +5,15 @@
         <div class="title-bar">
           <h4>
             <span class ="functions">
-              <i class="function work fa {{isStartOrPause}}"></i>
+              <i class="function work {{isStartOrPause}}">
+                <i class="fa fa-{{isStartOrPause}}"></i>
+                <span class="timer {{#if not isWorking}}hide{{/if}}">{{formatDurationPrecise timer}}</span>
+              </i>
               <i class="function complete fa fa-check {{ ifTaskCompleted }}"></i>
               <i class="function edit fa fa-pencil"></i>
             </span>
             <span class="title">{{ title }}</span>
-            <span class="total-time-used">{{ getFormattedTotalDuration }}</span>
+            <span class="total-time-used">{{formatDurationPrecise totalDuration }}</span>
           </h4>
         </div>
         <div class="metrics">
