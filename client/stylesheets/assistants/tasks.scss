@@ -400,17 +400,23 @@
 
   }
   .billables {
-    padding-top: 19px;
     margin-right: 15px;
     table {
+      tr:nth-child(2n) {
+        background: darken($double-grey, 5%);
+      }
+      tr:nth-child(2n + 1) {
+        background: $double-grey;
+      }
       th {
         text-decoration: underline;
         text-align:center;
         padding-bottom: 5px;
       }
       th,td {
+        padding: 0.8em;
         &:first-child {
-          width : 70%;
+          width : 61%;
           text-align:left;
         }
         &:nth-child(2) {
@@ -420,7 +426,7 @@
           }
         }
         &:nth-child(3) {
-          width : 15%;
+          width : 19%;
         }
       }
     }
@@ -433,6 +439,7 @@
       font-style:italic;
       display:block;
       cursor:pointer;
+      padding: 0.8rem 0px 0px 0.8rem;
     }
     .bank-time {
       padding: 10px;
