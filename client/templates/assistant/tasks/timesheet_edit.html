@@ -1,26 +1,26 @@
 <template name="assistantTasksTimeSheetEdit">
   <div class="modal fade timesheet-edit" role="dialog" aria-hidden="true" aria-labelledby="assistantTaskTimeSheetEdit"
-    data-backdrop="static">
+    data-backdrop="static"
+       data-keyboard="false"
+      >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          Timesheet
+          Banked Time
         </div>
         <div class="modal-body">
           <div class="table-responsive">
             <table class="table table-condensed">
               <thead>
                 <tr>
-                  <th></th>
-                  <th>Double</th>
-                  <th>Started At</th>
-                  <th>Stopped At</th>
+                  <th>Date</th>
                   <th>Duration</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
-                {{#each getTimesheetsWithTaskId }}
+                {{#each sortedDurations }}
                   {{> timesheetItem }}
                 {{/each}}
               </tbody>
@@ -34,10 +34,14 @@
 
 <template name="timesheetItem">
   <tr class="timesheet-item">
-    <td><i data-task-id="{{ taskId }}" data-id="{{ _id }}" class="edit glyphicon glyphicon-pencil"></i></td>
-    <td>{{ assistantName }}</td>
-    <td>{{formatDateTime startedAt }}</td>
-    <td>{{formatDateTime endedAt }}</td>
-    <td>{{formatDurationPreciseMs duration }}</td>
+    {{#if isEditing}}
+      <td><input name="date" type="date" value="{{formatDate date}}"></td>
+      <td><input name="duration" type="text" value="{{formatDurationPrecise value }}"></td>
+      <td><button class="submit">Save</button><i class="fa fa-spin fa-spinner hide loading"></i></td>
+    {{else}}
+      <td>{{formatDate date}}</td>
+      <td>{{formatDurationPrecise value }}</td>
+      <td><i class="edit fa fa-pencil"></i><i class="delete fa fa-remove"></i></td>
+    {{/if}}
   </tr>
 </template>

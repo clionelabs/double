@@ -39,6 +39,9 @@
       color : $double-black;
       .function {
         border : 1px solid $double-black;
+        min-height: 36px;
+        min-width: 36px;
+        border-radius: 3px;
       }
     }
 
@@ -159,6 +162,10 @@
           padding-bottom: 0.5em;
           .check {
             padding-right : 1em;
+          }
+          .duration {
+            cursor: pointer;
+            text-decoration: underline;
           }
           .delete {
             padding-left: 1em;
@@ -445,4 +452,18 @@
   z-index: 10000;
   max-width: 200px;
   padding:0px 5px;
+}
+
+.timesheet-edit {
+  table tr {
+    th, td {
+      &:last-child {
+        text-align : center;
+        width : 20%;
+      }
+      .fa {
+        padding-right: 1em;
+      }
+    }
+  }
 }

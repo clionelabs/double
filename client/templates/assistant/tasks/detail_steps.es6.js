@@ -1,8 +1,4 @@
-
-Template.assistantTasksDetailStep.helpers({
-  isCompletedCheckbox() {
-    return this.isCompleted ? "fa-check-square-o" : "fa-square-o";
-  },
+Template.assistantTasksDetailSteps.helpers({
   stepsWithTaskId() {
     let taskId = this._id;
     return _.map(this.steps, function(step) {
@@ -11,14 +7,30 @@ Template.assistantTasksDetailStep.helpers({
   }
 });
 
-Template.assistantTasksDetailStep.events({
-  "click i.add" : function() {
+Template.assistantTasksDetailSteps.events({
+  "click i.add": function () {
     Template.currentData().isStepFormShown.set(true);
-  },
-  "click .check" : function(e) {
+  }
+});
+
+Template.assistantTasksDetailStep.helpers({
+  isCompletedCheckbox() {
+    return this.isCompleted ? "fa-check-square-o" : "fa-square-o";
+  }
+});
+
+Template.assistantTasksDetailStep.events({
+  "click .check": function (e) {
     Tasks.Steps.toggleComplete(this.taskId, this._id);
   },
-  "click .delete" : function(e) {
+  "click .delete": function (e) {
     Tasks.Steps.delete(this.taskId, this._id);
+  },
+  'click .duration' : function() {
+    Modal.show('assistantTasksTimeSheetEdit', this);
   }
+});
+
+Template.assistantTasksDetailStep.onRendered(function() {
+  this.$('[data-toggle="tooltip"]').tooltip();
 });

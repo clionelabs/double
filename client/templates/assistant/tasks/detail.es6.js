@@ -1,10 +1,14 @@
 Template.assistantTasksDetail.helpers({
   isWorking() {
     let currentAssistant = Users.findOneAssistant(Meteor.userId());
-    return currentAssistant.currentTask();
+    return currentAssistant && currentAssistant.currentTask() && currentAssistant.currentTask() === this._id;
   },
   isStartOrPause() {
-    return this.isWorking(Meteor.userId()) ? 'fa-pause pause' : 'fa-play start';
+    if (Users.isAdmin(Meteor.userId())) return 'fa-stop';
+
+    let currentAssistant = Users.findOneAssistant(Meteor.userId());
+    let currentTask = currentAssistant && currentAssistant.currentTask();
+    return currentTask && currentTask.taskId === this._id ? 'fa-pause pause' : 'fa-play start';
   },
   ifTaskCompleted() {
     return this.isCompleted() ? "completed" : "not-completed";
@@ -48,7 +52,7 @@ Template.assistantTasksDetail.onRendered(function() {
   instance.autorun(function() {
     let task = Template.currentData();
     let currentAssistant = Users.findOneAssistant(Meteor.userId());
-    let assistantCurrentTaskStatus = currentAssistant.currentTask();
+    let assistantCurrentTaskStatus = currentAssistant && currentAssistant.currentTask();
     if (assistantCurrentTaskStatus
           && assistantCurrentTaskStatus.status === Assistants.TaskStatus.Stopped
           && assistantCurrentTaskStatus.taskId === task._id
@@ -81,11 +85,5 @@ Template.assistantTasksDetail.events({
   },
   'click .complete' : function(e) {
     Tasks.complete(this._id);
-  },
-  'click .total-time-used' : function() {
-    let getTask = (taskId) => {
-      return Tasks.findOne({ _id : taskId });
-    };
-    Modal.show('assistantTasksTimeSheetEdit', _.partial(getTask, this._id));
   }
 });

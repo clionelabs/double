@@ -1,15 +1,21 @@
-<template name="assistantTasksDetailStep">
+<template name="assistantTasksDetailSteps">
   <div class="checklist">
     <h4>Actions <i class="fa fa-plus add"></i></h4>
     {{> assistantTasksAddStep }}
     <div class="steps">
       {{#each stepsWithTaskId }}
-        <div class="step">
-          <i class="fa {{isCompletedCheckbox}} check"></i>
-          {{ text }} | {{formatDurationPrecise duration }}
-          {{#if not duration }}<i class="fa fa-remove delete"></i>{{/if}}
-        </div>
+        {{> assistantTasksDetailStep }}
       {{/each}}
     </div>
+  </div>
+</template>
+
+<template name="assistantTasksDetailStep">
+  <div class="step">
+    <i class="fa {{isCompletedCheckbox}} check"></i>
+    {{ text }} | <span class='duration'
+                       data-toggle="tooltip" data-placement="top" title="Click to edit banked time"
+      >{{formatDurationPrecise duration }}</span>
+    {{#if not duration }}<i class="fa fa-remove delete"></i>{{/if}}
   </div>
 </template>

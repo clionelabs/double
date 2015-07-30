@@ -1,35 +1,51 @@
 Template.assistantTasksTimeSheetEdit.helpers({
-  getTimesheetsWithTaskId() {
-    let task = this;
-    if (task.timesheets) {
-      return _.reduce(_.keys(task.timesheets),
-          (memo, userId) => {
-            let assistantName = Users.findOneAssistant({ _id : userId }).firstName();
-            let result = _.map(task.timesheets[userId], (timesheet) => {
-              return _.extend({}, { taskId: task._id, assistantName: assistantName }, timesheet);
-            });
-            return memo.concat(result);
-          }, []);
-    } else {
-      return [];
+  sortedDurations() {
+    return _.sortBy(this.durations, function(duration) { return duration.date * -1; });
+  }
+});
+Template.timesheetItem.onCreated(function() {
+  Template.instance().isEditing = new ReactiveVar(false);
+});
+
+Template.timesheetItem.events({
+  "click .edit" : function() {
+    Template.instance().isEditing.set(true);
+  },
+  "click .delete" : function(e, tmpl) {
+    let duration = Template.currentData();
+    let stepWithTaskId = Template.parentData();
+    Tasks.Steps.Durations.delete(
+        stepWithTaskId.taskId, stepWithTaskId._id, duration._id,
+        function () {
+          tmpl.isEditing.set(false);
+        });
+  },
+  "keyup input" : function(e, tmpl) {
+    if (e.keyCode === 27) {
+      tmpl.isEditing.set(false);
+    } else if (e.keyCode === 13) {
+      tmpl.$('.submit').click();
     }
+  },
+  "click .submit" : function(e, tmpl) {
+    let loadingSpinner = tmpl.$('.loading');
+    loadingSpinner.removeClass('hide');
+
+    let duration = Template.currentData();
+    let stepWithTaskId = Template.parentData();
+    let date = moment(tmpl.$('input[name="date"]').val()).valueOf();
+    let value = moment.duration(tmpl.$('input[name="duration"]').val()).asMilliseconds();
+    Tasks.Steps.Durations.edit(
+        stepWithTaskId.taskId, stepWithTaskId._id, duration._id,
+        date, value, function() {
+          tmpl.isEditing.set(false);
+          loadingSpinner.addClass('hide');
+        });
   }
 });
 
-
-Template.timesheetItem.onRendered(function() {
-  let timesheet = this.data;
-  this.$('.edit').daterangepicker({
-    startDate : moment(timesheet.startedAt),
-    endDate : moment(timesheet.endedAt),
-    maxDate: moment(),
-    timePickerIncrement: 1,
-    timePicker : true,
-    timePicker12Hour : false,
-    timePickerSeconds : true,
-    open : "left"
-  });
-  this.$('.edit').on('apply.daterangepicker', function(event, picker) {
-    Tasks.editWork(timesheet.taskId, Meteor.userId(), timesheet._id, picker.startDate.valueOf(), picker.endDate.valueOf());
-  });
+Template.timesheetItem.helpers({
+  isEditing() {
+    return Template.instance().isEditing.get();
+  }
 });
