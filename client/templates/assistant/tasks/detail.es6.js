@@ -27,15 +27,8 @@ Template.assistantTasksDetail.helpers({
   },
   last7DaysTimeUsed() {
     let weekBeforeTimestamp = moment().subtract(7, 'd').valueOf();
-    return _.reduce(this.timesheets, function(memo, timesheetsOfUser) {
-      let totalTimeUsedOfUser = _.reduce(timesheetsOfUser, function(memo, timesheet) {
-        if (timesheet.startedAt >= weekBeforeTimestamp) {
-          return memo + timesheet.duration();
-        } else {
-          return memo;
-        }
-      }, 0);
-      return memo + totalTimeUsedOfUser;
+    return _.reduce(this.steps, function(memo, step) {
+      return memo + step.duration(weekBeforeTimestamp, moment().valueOf());
     }, 0);
   }
 });
