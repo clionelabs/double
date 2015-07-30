@@ -1,7 +1,7 @@
 Template.assistantTasksDetail.helpers({
   isWorking() {
     let currentAssistant = Users.findOneAssistant(Meteor.userId());
-    return currentAssistant && currentAssistant.currentTask();
+    return currentAssistant && currentAssistant.currentTask() && currentAssistant.currentTask() === this._id;
   },
   isStartOrPause() {
     if (Users.isAdmin(Meteor.userId())) return 'fa-stop';
