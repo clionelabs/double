@@ -5,7 +5,6 @@ Template.assistantTasksDetail.onCreated(function() {
 
 Template.assistantTasksDetail.helpers({
   timer() {
-    console.log(Template.instance().timer);
     return Template.instance().timer.get();
   },
   isWorking() {
