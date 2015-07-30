@@ -236,6 +236,10 @@
         flex : 1;
         .task {
           padding-bottom : 5px;
+          .color-label {
+            display: inline-block;
+            width: 5px;
+          }
         }
       }
       .new-task-button {
