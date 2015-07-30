@@ -1,47 +1,13 @@
 <template name="assistantInvoiceActualFormOneTimePurchase">
   <tr>
     <td>
-    {{#if isEditing }}
-    <input
-        class="date"
-        type='date'
-        value='{{formatDate date }}'
-        >
-    {{else}}
       {{formatDateMonth date}}
-    {{/if}}
     </td>
     <td>
-      {{#if isEditing }}
-      <input
-        class="title"
-        type='text'
-        value='{{ title }}'
-          >
-      {{else}}
-        {{title}}
-      {{/if}}
+      {{title}}
     </td>
     <td>
-      {{#if isEditing }}
-      <input
-          inputmode='numeric'
-          class="amount"
-          type='number'
-          value='{{ amount }}'
-          step="0.01"
-          >
-      {{else}}
-        {{formatAmount amount }}
-      {{/if}}
+      {{formatAmount amount }}
     </td>
-    {{#if isEditable }}
-    <td>
-      <span class="save {{#if isNotEditing }}hide{{/if}}">Save</span>
-      <i class="fa fa-spin fa-spinner loading hide"></i>
-      <i class="fa fa-pencil edit {{#if isEditing }}hide{{/if}}"></i>
-      <i class="fa fa-trash delete {{#if isEditing }}hide{{/if}}"></i>
-    </td>
-    {{/if}}
   </tr>
 </template>

@@ -206,8 +206,10 @@ Template.assistantTasksCreateBillable.helpers({
   getSteps() {
     let task = Tasks.findOne(this._id);
     let totalTime = this.totalTime;
-    return _.map(task.steps, function (step) {
+    return _.filter(_.map(task.steps, function (step) {
       return _.extend({}, { parentTotalTime: totalTime }, step);
+    }), function(step) {
+      return !step.isCompleted;
     });
   }
 });

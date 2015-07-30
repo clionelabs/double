@@ -27,15 +27,8 @@ Template.assistantTasksDetail.helpers({
   },
   last7DaysTimeUsed() {
     let weekBeforeTimestamp = moment().subtract(7, 'd').valueOf();
-    return _.reduce(this.timesheets, function(memo, timesheetsOfUser) {
-      let totalTimeUsedOfUser = _.reduce(timesheetsOfUser, function(memo, timesheet) {
-        if (timesheet.startedAt >= weekBeforeTimestamp) {
-          return memo + timesheet.duration();
-        } else {
-          return memo;
-        }
-      }, 0);
-      return memo + totalTimeUsedOfUser;
+    return _.reduce(this.steps, function(memo, step) {
+      return memo + step.duration(weekBeforeTimestamp, moment().valueOf());
     }, 0);
   }
 });
@@ -72,16 +65,11 @@ Template.assistantTasksDetail.onDestroyed(function() {
 });
 
 Template.assistantTasksDetail.events({
-  "click .comment" : function() {
-    Session.setAuth(SessionKeys.genStatusFormKey(this._id), true);
-  },
   "click .start": function() {
     Assistants.startTask(Meteor.userId(), this._id);
-    Tasks.startWork(this._id, Meteor.userId());
   },
   "click .pause": function() {
     Assistants.endTask(Meteor.userId(), this._id);
-    Tasks.endWork(this._id, Meteor.userId());
   },
   'click .complete' : function(e) {
     Tasks.complete(this._id);

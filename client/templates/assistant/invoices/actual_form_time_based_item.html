@@ -1,45 +1,18 @@
 <template name="assistantInvoiceActualFormTimeBasedItem">
   <tr>
     <td>
-      {{#if isEditing }}
-        <input class='date' type='date' value='{{ date }}'>
-      {{else}}
-        {{formatDateMonth date}}
-      {{/if}}
+      {{formatDateMonth date}}
     </td>
     <td>
-      {{#if isEditing }}
-        <input class='title' type='text' value='{{ title }}'>
-      {{else}}
-        {{title}}
-      {{/if}}
+      {{title}}
     </td>
     <td>
-      <textarea class="autogrow updates {{#if isNotEditing }}hide{{/if}}"
-                rows="4"
-                data-autogrow-start-height="20px"
-          >{{updates}}</textarea>
-      <div class='updates {{#if isEditing }}hide{{/if}}'>
+      <div class='updates'>
         {{#markdown}}{{ updates }}{{/markdown}}
       </div>
     </td>
     <td>
-      {{#if isEditing }}
-        <input class="duration"
-             type='text'
-             value='{{ formatDurationPrecise roundedInSecondTotalDuration }}'
-             >
-      {{ else }}
-        {{formatDurationPrecise roundedInSecondTotalDuration }}
-      {{/if}}
+      {{formatDurationPrecise roundedInSecondTotalDuration }}
     </td>
-    {{#if isEditable }}
-    <td>
-      <span class="save {{#if isNotEditing }}hide{{/if}}">Save</span>
-      <i class="fa fa-spin fa-spinner loading hide"></i>
-      <i class="fa fa-pencil edit {{#if isEditing }}hide{{/if}}"></i>
-      <i class="fa fa-trash delete {{#if isEditing }}hide{{/if}}"></i>
-    </td>
-    {{/if}}
   </tr>
 </template>
