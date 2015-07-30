@@ -72,16 +72,11 @@ Template.assistantTasksDetail.onDestroyed(function() {
 });
 
 Template.assistantTasksDetail.events({
-  "click .comment" : function() {
-    Session.setAuth(SessionKeys.genStatusFormKey(this._id), true);
-  },
   "click .start": function() {
     Assistants.startTask(Meteor.userId(), this._id);
-    Tasks.startWork(this._id, Meteor.userId());
   },
   "click .pause": function() {
     Assistants.endTask(Meteor.userId(), this._id);
-    Tasks.endWork(this._id, Meteor.userId());
   },
   'click .complete' : function(e) {
     Tasks.complete(this._id);
