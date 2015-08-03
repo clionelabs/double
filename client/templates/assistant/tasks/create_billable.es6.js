@@ -217,7 +217,7 @@ Template.assistantTasksCreateBillable.helpers({
 Template.assistantTasksCreateBillable.events({
   "click .bank-time" : function(e, tmpl) {
     let task = Tasks.findOne(this._id);
-    let updates = _.map(task.steps, function(step) {
+    let updates = _.filter(_.map(task.steps, function(step) {
       let result = {};
       let _id = step._id;
       let selector = `input.duration[data-id='${_id}']`;
@@ -226,6 +226,8 @@ Template.assistantTasksCreateBillable.events({
         stepId : step._id,
         timeToBeAdded : timeToBeAdded
       };
+    }), function(update) {
+      return update.timeToBeAdded;
     });
     Tasks.Steps.bankTime(task._id, updates);
     Assistants.bankTask(Meteor.userId(), task._id);
