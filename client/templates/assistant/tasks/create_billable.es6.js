@@ -3,7 +3,7 @@ let shorten = (str = "") => {
   let messageChunk = str.split(' ');
   let result = "";
   for (let i = 0; i < messageChunk.length; i++) {
-    if (result.length < limit) {
+    if (result.length + messageChunk[i].length < limit) {
       result = result + messageChunk[i] + (i === messageChunk.length - 1 ? "" : " ");
     }
   }
@@ -13,7 +13,7 @@ let shorten = (str = "") => {
 let compressStatuses = (sortedStatuses, fromTs, toTs, barHeight) => {
   let minHeight = 40; //hardcoded
   let timeDiffPerPixel = (toTs - fromTs) / barHeight;
-  let minTimeDiff = minHeight / timeDiffPerPixel;
+  let minTimeDiff = timeDiffPerPixel * minHeight;
 
   let converted = _.map(sortedStatuses, function(status) {
     let displayItem = {};
@@ -55,9 +55,7 @@ let compressStatuses = (sortedStatuses, fromTs, toTs, barHeight) => {
 };
 
 Template.assistantTasksCreateBillable.onCreated(function(){
-
-  _.extend(this.data, {
-        isStepFormShown : new ReactiveVar(false),
+  _.extend(this, {
         totalTime : new ReactiveVar(0)
       });
 });
@@ -150,12 +148,20 @@ Template.assistantTasksCreateBillable.onRendered(function() {
                   .text(d.message)
                   .style('left', (d3.event.pageX) + "px")
                   .style('top', (d3.event.pageY) + "px");
+              setTimeout(function() {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 1e-6);
+              }, 4000);
             })
         ;
     messages
         .append('text')
         .text(function (d) {
           return shorten(d.message);
+        })
+        .attr('class', function(d) {
+          return d.message === shorten(d.message) ? '' : 'message';
         })
         .attr('x', 55 + thickness * 2)
         .attr('y', function (d) {
@@ -201,11 +207,11 @@ Template.assistantTasksCreateBillable.onRendered(function() {
 });
 Template.assistantTasksCreateBillable.helpers({
   totalTime() {
-    return this.totalTime ? this.totalTime.get() : 0;
+    return Template.instance().totalTime.get();
   },
   getSteps() {
     let task = Tasks.findOne(this._id);
-    let totalTime = this.totalTime;
+    let totalTime = Template.instance().totalTime;
     return _.filter(_.map(task.steps, function (step) {
       return _.extend({}, { parentTotalTime: totalTime }, step);
     }), function(step) {
@@ -232,9 +238,6 @@ Template.assistantTasksCreateBillable.events({
     Tasks.Steps.bankTime(task._id, updates);
     Assistants.bankTask(Meteor.userId(), task._id);
     Modal.hide();
-  },
-  "click .add-step" : function() {
-    this.isStepFormShown.set(true);
   },
   "keyup input.duration, focusout input.duration" : function(e, tmpl) {
     let step = this;
