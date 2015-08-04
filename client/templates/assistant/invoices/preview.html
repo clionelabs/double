@@ -2,9 +2,13 @@
   <div class="header">
     <span>Invoice</span>
     <div class="buttons">
+      <button class="charge">Charge</button>
       <button class="generate">Output</button>
-      <button class="charge">Charge</button></div>
+      {{#if isDraft }}
+      <button class="delete btn-danger">Delete</button>
+      {{/if }}
     </div>
+  </div>
   <div class="content">
     {{> assistantsInvoiceActualForm }}
   </div>
