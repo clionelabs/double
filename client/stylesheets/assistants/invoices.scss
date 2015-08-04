@@ -34,9 +34,15 @@
           border-left: 3px solid $double-red;
           background: $double-white;
         }
-        .status {
+        .status.badge {
           font-style: italic;
           font-size: 0.88em;
+          &.issued {
+            background : $double-green2;
+          }
+          &.draft {
+            background : $double-light-blue2;
+          }
         }
       }
     }
