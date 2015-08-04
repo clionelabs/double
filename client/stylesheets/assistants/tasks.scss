@@ -389,7 +389,10 @@
         text {
           font-family: Arial;
           fill: $double-black;
-          cursor : pointer;
+          cursor: pointer;
+          &.message {
+            text-decoration: underline;
+          }
           &.user-name {
             font-style: italic;
           }

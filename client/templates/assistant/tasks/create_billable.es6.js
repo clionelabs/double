@@ -3,7 +3,7 @@ let shorten = (str = "") => {
   let messageChunk = str.split(' ');
   let result = "";
   for (let i = 0; i < messageChunk.length; i++) {
-    if (result.length < limit) {
+    if (result.length + messageChunk[i].length < limit) {
       result = result + messageChunk[i] + (i === messageChunk.length - 1 ? "" : " ");
     }
   }
@@ -14,7 +14,6 @@ let compressStatuses = (sortedStatuses, fromTs, toTs, barHeight) => {
   let minHeight = 40; //hardcoded
   let timeDiffPerPixel = (toTs - fromTs) / barHeight;
   let minTimeDiff = timeDiffPerPixel * minHeight;
-  console.log(minTimeDiff);
 
   let converted = _.map(sortedStatuses, function(status) {
     let displayItem = {};
@@ -149,12 +148,20 @@ Template.assistantTasksCreateBillable.onRendered(function() {
                   .text(d.message)
                   .style('left', (d3.event.pageX) + "px")
                   .style('top', (d3.event.pageY) + "px");
+              setTimeout(function() {
+                div.transition()
+                    .duration(500)
+                    .style("opacity", 1e-6);
+              }, 4000);
             })
         ;
     messages
         .append('text')
         .text(function (d) {
           return shorten(d.message);
+        })
+        .attr('class', function(d) {
+          return d.message === shorten(d.message) ? '' : 'message';
         })
         .attr('x', 55 + thickness * 2)
         .attr('y', function (d) {
