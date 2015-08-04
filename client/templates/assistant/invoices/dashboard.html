@@ -1,8 +1,9 @@
 <template name="assistantInvoiceDashboard">
   <div class="assistant-dashboard-invoices">
     <div class="invoices-left-sidebar">
-      <div class="customer-name">
-        {{ currentCustomer.displayName }}
+      <div class="left-sidebar-header">
+        <div class="customer-name">{{ currentCustomer.displayName }}</div>
+        <div>Last Billed: {{ formatDate getLastBilledDate }}</div>
       </div>
       <div class="invoices">
         {{#each getSortedInvoices}}

@@ -1,4 +1,8 @@
 Template.assistantInvoiceDashboard.helpers({
+  getLastBilledDate() {
+    let lastBilledDate = Invoices.findLastBilledDate({ customerId : this.currentCustomer._id });
+    return lastBilledDate;
+  },
   getSortedInvoices() {
     let currentInvoice = this.currentInvoice;
     let currentCustomer = this.currentCustomer;
