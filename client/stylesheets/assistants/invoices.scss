@@ -310,5 +310,19 @@
       }
     }
   }
+}
 
+.invoice-create {
+  .form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .warn {
+    margin : 0.5em 0;
+    padding: 0.5em;
+    background: $double-red;
+    color: $double-white;
+  }
 }
