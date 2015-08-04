@@ -7,29 +7,40 @@ let _submitFn = (data, form, taskId) => {
       });
 };
 
+Template.assistantTasksAddStep.onCreated(function() {
+
+  _.extend(this, {
+    isStepFormShown: new ReactiveVar(false)
+  });
+});
+
 Template.assistantTasksAddStep.onRendered(function() {
   let selfTemplate = this;
   selfTemplate.$('.sub').on('transitionend onanimationend', function(e) {
+    console.log('file');
     if ($(e.target).height() > 1) {
-      selfTemplate.$('.link-title').focus();
+      selfTemplate.$('.text').focus();
     }
   });
 });
 
 Template.assistantTasksAddStep.helpers({
   isStepFormShown() {
-    return Template.currentData().isStepFormShown.get() ? "" : "not-shown";
+    return Template.instance().isStepFormShown.get() ? "" : "not-shown";
   }
 });
 
 Template.assistantTasksAddStep.events({
+  "click .add-step" : function(e, tmpl) {
+    tmpl.isStepFormShown.set(true);
+  },
   "submit form.add" : function(e) {
     e.preventDefault();
     return _submitFn(Template.currentData(), e, this._id);
   },
-  "keyup form.add input" : function(e) {
+  "keyup form.add input" : function(e, tmpl) {
     if (e.keyCode === 27) {//esc
-      Template.currentData().isStepFormShown.set(false);
+      tmpl.isStepFormShown.set(false);
     }
   }
 });

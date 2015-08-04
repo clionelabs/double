@@ -1,8 +1,9 @@
 <template name="assistantTasksAddStep">
-  <div class="sub {{isStepFormShown}}">
+  <div class="sub {{ isStepFormShown }} add-step-form">
     <form class="add" id="step.{{ _id }}">
-      <label for="text">Action: </label><input name="text" class="text" type="text" required/>
+      <input name="text" class="text" type="text" required placeholder="Describe your action here, press enter to add."/>
       <button class="submit" action="submit">Add</button>
     </form>
   </div>
+  <div class="add-step">+ Add Action</div>
 </template>

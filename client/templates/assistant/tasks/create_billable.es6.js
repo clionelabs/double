@@ -13,7 +13,8 @@ let shorten = (str = "") => {
 let compressStatuses = (sortedStatuses, fromTs, toTs, barHeight) => {
   let minHeight = 40; //hardcoded
   let timeDiffPerPixel = (toTs - fromTs) / barHeight;
-  let minTimeDiff = minHeight / timeDiffPerPixel;
+  let minTimeDiff = timeDiffPerPixel * minHeight;
+  console.log(minTimeDiff);
 
   let converted = _.map(sortedStatuses, function(status) {
     let displayItem = {};
@@ -55,9 +56,7 @@ let compressStatuses = (sortedStatuses, fromTs, toTs, barHeight) => {
 };
 
 Template.assistantTasksCreateBillable.onCreated(function(){
-
-  _.extend(this.data, {
-        isStepFormShown : new ReactiveVar(false),
+  _.extend(this, {
         totalTime : new ReactiveVar(0)
       });
 });
@@ -201,11 +200,11 @@ Template.assistantTasksCreateBillable.onRendered(function() {
 });
 Template.assistantTasksCreateBillable.helpers({
   totalTime() {
-    return this.totalTime ? this.totalTime.get() : 0;
+    return Template.instance().totalTime.get();
   },
   getSteps() {
     let task = Tasks.findOne(this._id);
-    let totalTime = this.totalTime;
+    let totalTime = Template.instance().totalTime;
     return _.filter(_.map(task.steps, function (step) {
       return _.extend({}, { parentTotalTime: totalTime }, step);
     }), function(step) {
@@ -232,9 +231,6 @@ Template.assistantTasksCreateBillable.events({
     Tasks.Steps.bankTime(task._id, updates);
     Assistants.bankTask(Meteor.userId(), task._id);
     Modal.hide();
-  },
-  "click .add-step" : function() {
-    this.isStepFormShown.set(true);
   },
   "keyup input.duration, focusout input.duration" : function(e, tmpl) {
     let step = this;

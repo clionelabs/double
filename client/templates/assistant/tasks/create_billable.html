@@ -21,13 +21,14 @@
                 <tr>
                   <td>{{text}}</td>
                   <td><input data-id='{{_id}}' class="duration" placeholder="00:00:00"></td>
-                  <td>+ <span class=''>{{formatDurationPrecise duration}}</span></td>
+                  <td>+ <span class='current-duration'>{{formatDurationPrecise duration}}</span></td>
                 </tr>
               {{/each}}
             </table>
-            {{> assistantTasksAddStep }}
-            <div class="add-step">+Add Action</div>
-            <button class="bank-time">Bank in {{formatDurationPrecise totalTime }}</button>
+            {{#if isStepFormShown }}
+              {{> assistantTasksAddStep }}
+            {{/if }}
+            <button class="bank-time">Bank {{formatDurationPrecise totalTime }}</button>
           </div>
         </div>
       </div>

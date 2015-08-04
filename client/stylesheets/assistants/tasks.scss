@@ -324,13 +324,16 @@
 .sub {
   opacity: 1;
   min-height: 39px;
-  transition: opacity 0.3s cubic-bezier(1, 0, 1, 0), height 0.2s linear, display 0.2s linear;
+  transition: opacity 0.3s cubic-bezier(1, 0, 1, 0), height 0.2s linear;
   &.not-shown {
     opacity: 0;
     min-height: 0px;
     height: 0px;
-    display: none;
-    transition: opacity 0.3s cubic-bezier(0, 1, 0, 1), height 0.2s linear 0.1s, display 0.2s linear;
+    padding : 0px;
+    transition: opacity 0.3s cubic-bezier(0, 1, 0, 1), height 0.2s linear 0.1s;
+    form {
+      display:none;
+    }
   }
   form {
     width: 100%;
@@ -441,6 +444,16 @@
       display:block;
       cursor:pointer;
       padding: 0.8rem 0px 0px 0.8rem;
+    }
+
+    .add-step-form {
+      padding: 0.8em 0;
+      >form>* {
+        margin: 0;
+      }
+      button {
+        border : 0px;
+      }
     }
     .bank-time {
       padding: 10px;
