@@ -68,6 +68,9 @@
         background : $double-dark-blue;
         padding : 5px 10px;
         color: $double-white;
+        &.btn-danger {
+          background: $double-red;
+        }
       }
     }
     .content {
