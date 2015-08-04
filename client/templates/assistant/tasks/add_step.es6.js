@@ -22,6 +22,7 @@ Template.assistantTasksAddStep.onRendered(function() {
       selfTemplate.$('.text').focus();
     }
   });
+  selfTemplate.$('[data-toggle="tooltip"]').tooltip();
 });
 
 Template.assistantTasksAddStep.helpers({
