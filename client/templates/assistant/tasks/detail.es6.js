@@ -1,9 +1,32 @@
 Template.assistantTasksDetail.onCreated(function() {
   Template.instance().timer = new ReactiveVar(0);
   Template.instance().timerFn = null;
+  Template.instance().showTitleEdit = new ReactiveVar(false);
+});
+
+Template.assistantTasksDetail.onRendered(function() {
+  let instance = this;
+  instance.autorun(function() {
+    let task = Template.currentData();
+    let currentAssistant = Users.findOneAssistant(Meteor.userId());
+    let assistantCurrentTaskStatus = currentAssistant && currentAssistant.currentTask();
+    if (assistantCurrentTaskStatus
+        && assistantCurrentTaskStatus.status === Assistants.TaskStatus.Stopped
+        && assistantCurrentTaskStatus.taskId === task._id
+    ) {
+      Modal.show('assistantTasksCreateBillable', task);
+    } else {
+      Modal.hide();
+    }
+
+  });
+  instance.$('[data-toggle="tooltip"]').tooltip();
 });
 
 Template.assistantTasksDetail.helpers({
+  isTitleEditShown() {
+    return Template.instance().showTitleEdit.get();
+  },
   timer() {
     return Template.instance().timer.get();
   },
@@ -46,24 +69,6 @@ let _stopTimer = (rTimer, timerFn) => {
   Meteor.clearInterval(timerFn);
 };
 
-Template.assistantTasksDetail.onRendered(function() {
-  let instance = this;
-  instance.autorun(function() {
-    let task = Template.currentData();
-    let currentAssistant = Users.findOneAssistant(Meteor.userId());
-    let assistantCurrentTaskStatus = currentAssistant && currentAssistant.currentTask();
-    if (assistantCurrentTaskStatus
-          && assistantCurrentTaskStatus.status === Assistants.TaskStatus.Stopped
-          && assistantCurrentTaskStatus.taskId === task._id
-        ) {
-      Modal.show('assistantTasksCreateBillable', task);
-    } else {
-      Modal.hide();
-    }
-
-  });
-});
-
 Template.assistantTasksDetail.events({
   "click .play": function(e, tmpl) {
     Assistants.startTask(Meteor.userId(), this._id);
@@ -76,5 +81,21 @@ Template.assistantTasksDetail.events({
   },
   'click .complete' : function(e) {
     Tasks.complete(this._id);
+  },
+  'click .edit' : function(e, tmpl) {
+    tmpl.showTitleEdit.set(true);
+  },
+  'keyup .title-bar [name="title"]' : function(e, tmpl) {
+    if (e.keyCode === 27) {
+      tmpl.showTitleEdit.set(false);
+    } else if (e.keyCode === 13) {
+      tmpl.$('.title-bar .save').click();
+    }
+  },
+  'click .save' : function(e, tmpl) {
+    let newTitle = tmpl.$('.title-bar input[name="title"]').val();
+    Tasks.editTitle(this._id, newTitle, () => {
+      tmpl.showTitleEdit.set(false);
+    });
   }
 });

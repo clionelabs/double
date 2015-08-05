@@ -75,8 +75,9 @@
             border:1px solid $double-green;
           }
         }
-        .total-time-used {
-          cursor:pointer;
+        .save {
+          border : none;
+          background : transparent;
         }
       }
       .metrics {
