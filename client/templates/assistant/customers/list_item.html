@@ -3,8 +3,13 @@
     <div class="name {{animateIfIsCalling}}">
       <i class="status {{#if isOnline}}online{{/if}} fa fa-circle"></i> {{displayName}}
     </div>
-    <div class="last-replied">
-      Last Message on: {{ formatDateTime lastMessageTimestamp }}
+    <div class="detail">
+      <div class="last-replied">
+        Last Message: {{ formatDateTime lastMessageTimestamp }}
+      </div>
+      <div class="">
+        Time to charge: {{ formatDurationPrecise tasksNotBilledTime }}
+      </div>
     </div>
   </div>
 </template>
