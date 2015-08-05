@@ -12,7 +12,13 @@
               <i class="function complete fa fa-check {{ ifTaskCompleted }}"></i>
               <i class="function edit fa fa-pencil"></i>
             </span>
-            <span class="title">{{ title }}</span>
+            {{#if isTitleEditShown }}
+              <input name="title"
+                     value="{{title}}"/>
+              <button class="save"><i class="fa fa-check"></i></button>
+            {{else}}
+              <span class="title">{{ title }}</span>
+            {{/if}}
             <span class="total-time-used">{{formatDurationPrecise totalDuration }}</span>
           </h4>
         </div>
