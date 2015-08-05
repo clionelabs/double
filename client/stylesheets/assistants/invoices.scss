@@ -13,10 +13,12 @@
     flex-direction: column;
     background: $double-grey;
     overflow-y: scroll;
-    .customer-name {
-      padding : 8px 15px;
-      font-size: 1.441em;
+    .left-sidebar-header {
+      padding: 8px 15px;
       background: $double-grey2;
+      .customer-name {
+        font-size: 1.441em;
+      }
     }
     .invoices {
       flex : 1;
@@ -308,5 +310,19 @@
       }
     }
   }
+}
 
+.invoice-create {
+  .form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .warn {
+    margin : 0.5em 0;
+    padding: 0.5em;
+    background: $double-red;
+    color: $double-white;
+  }
 }

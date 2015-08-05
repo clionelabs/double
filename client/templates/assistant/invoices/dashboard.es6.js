@@ -1,4 +1,8 @@
 Template.assistantInvoiceDashboard.helpers({
+  getLastBilledDate() {
+    let lastBilledDate = Invoices.findLastBilledDate({ customerId : this.currentCustomer._id });
+    return lastBilledDate;
+  },
   getSortedInvoices() {
     let currentInvoice = this.currentInvoice;
     let currentCustomer = this.currentCustomer;
@@ -33,13 +37,9 @@ Template.assistantInvoiceDashboard.helpers({
 Template.assistantInvoiceDashboard.events({
   "click .add-invoice" : function() {
     let currentCustomer = this.currentCustomer;
-    let from = new ReactiveVar(moment().subtract(7, 'd').valueOf());
-    let to = new ReactiveVar(moment().valueOf());
     let invoiceRelated = {
       customer : currentCustomer,
-      tasks : Tasks.find({ requestorId : currentCustomer._id }),
-      from: from,
-      to: to
+      tasks : Tasks.find({ requestorId : currentCustomer._id })
     };
     Modal.show("invoiceCreate", invoiceRelated);
   }

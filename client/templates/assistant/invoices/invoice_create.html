@@ -1,5 +1,5 @@
 <template name="invoiceCreate">
-  <div class="modal fade">
+  <div class="modal fade invoice-create">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -9,7 +9,8 @@
           <h4 class="modal-title">{{ customer.displayName }}</h4>
         </div>
         <div class="modal-body">
-          <div class="invoice-create">
+          <div class="warn hide">Are you sure the date range is before the last bill date?</div>
+          <div class="form">
             <div class="range">
               From <input type="date" class="from"/> to
               <input type="date" class="to"/><i class="fa fa-spin fa-spinner hide loading"></i>

@@ -1,17 +1,17 @@
 Template.registerHelper("formatDate", function(date) {
-  return moment(date).format('YYYY-MM-DD');
+  return date ? moment(date).format('YYYY-MM-DD') : '---';
 });
 
 Template.registerHelper("formatDateTime", function(date) {
-  return moment(date).format('YYYY-MM-DD HH:mm:ss');
+  return  date ? moment(date).format('YYYY-MM-DD HH:mm:ss') : '---';
 });
 
 Template.registerHelper("formatDateMonth", function(date) {
-  return moment(date).format('MMMM DD, YYYY');
+  return  date ? moment(date).format('MMMM DD, YYYY') : '---';
 });
 
 Template.registerHelper("formatDuration", function(duration) {
-  return moment.duration(duration).humanize();
+  return duration ? moment.duration(duration).humanize() : '---';
 });
 
 Template.registerHelper("formatDurationPrecise", function(duration) {

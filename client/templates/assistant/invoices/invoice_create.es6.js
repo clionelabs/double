@@ -1,14 +1,25 @@
+Template.invoiceCreate.onCreated(function() {
+
+  this.from = new ReactiveVar(moment().subtract(7, 'd').valueOf());
+  this.to = new ReactiveVar(moment().valueOf());
+});
 Template.invoiceCreate.onRendered(function() {
-  let from = Template.currentData().from;
-  let to = Template.currentData().to;
+  let from = this.from;
+  let to = this.to;
   let formatter = UI._globalHelpers['formatDate'];
-  this.$('input.from').val(formatter(from.get())).on('blur', function() {
-    let fromTs = moment($(this).val(), 'YYYY-MM-DD').valueOf();
-    from.set(fromTs);
-  });
-  this.$('input.to').val(formatter(to.get())).on('blur', function(){
-    let toTs = moment($(this).val(), 'YYYY-MM-DD').valueOf();
-    to.set(toTs);
+  let fromInput = this.$('input.from');
+  let toInput = this.$('input.to');
+  fromInput.val(formatter(from.get()));
+  toInput.val(formatter(to.get()));
+
+  let customerId = this.data.customer._id;
+  this.autorun(function() {
+    let lastBilledDate = Invoices.findLastBilledDate({ customerId : customerId });
+    if (from.get() < lastBilledDate || to.get() < lastBilledDate) {
+      Template.instance().$('.warn').removeClass('hide');
+    } else {
+      Template.instance().$('.warn').addClass('hide');
+    }
   });
 });
 
@@ -32,8 +43,8 @@ Template.invoiceCreate.events({
   "click .generate-draft" : function(e, tmpl) {
     tmpl.$('.loading').removeClass('hide');
 
-    let from = Template.currentData().from.get();
-    let to = Template.currentData().to.get();
+    let from = tmpl.from.get();
+    let to = tmpl.to.get();
     let customer = Template.currentData().customer;
     let tasks = Tasks.find({ requestorId : customer._id }).fetch();
 
@@ -42,8 +53,16 @@ Template.invoiceCreate.events({
       Router.go('assistant.customers.invoices.selected', { customerId : customer._id, invoiceId : invoiceId });
       Modal.hide();
     });
-
+  },
+  "change input.from" : function(e, tmpl) {
+    let fromTs = moment($(e.currentTarget).val()).valueOf();
+    tmpl.from.set(fromTs);
+  },
+  "change input.to" : function(e, tmpl) {
+    let toTs = moment($(e.currentTarget).val()).valueOf();
+    tmpl.to.set(toTs);
   }
+
 });
 
 
