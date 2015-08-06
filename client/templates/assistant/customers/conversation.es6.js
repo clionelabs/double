@@ -64,7 +64,9 @@ Template.assistantCustomerConversation.helpers({
   },
   tasks() {
     let customer = Template.currentData();
-    return Tasks.findRequestedBy(customer._id);
+    return _.sortBy(Tasks.findRequestedBy(customer._id).fetch(), function(task) {
+      return task.createdAt * -1;
+    });
   }
 });
 
