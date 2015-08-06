@@ -47,6 +47,7 @@ iron:router@1.0.9
 iron:url@1.0.9
 jquery@1.11.3_2
 json@1.0.3
+konecty:autolinker@1.0.2
 launch-screen@1.0.2
 lepozepo:reactive-publish@0.1.7
 less@1.0.14
