@@ -8,9 +8,8 @@ Template.assistantTasksDetailSteps.helpers({
 });
 
 Template.assistantTasksDetailSteps.events({
-  "click i.add": function (e, tmpl) {
+  "click i.add": function () {
     Template.currentData().isStepFormShown.set(true);
-    console.log(tmpl.$('.add-step-form'));
   }
 });
 
