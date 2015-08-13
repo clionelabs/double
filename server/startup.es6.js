@@ -1,3 +1,7 @@
+let setupIndexes = function() {
+  D.Messages._ensureIndex({channelId: 1});
+}
+
 Meteor.startup(() => {
   if (Meteor.settings.adminAccount) {
     let email = Meteor.settings.adminAccount.email;
@@ -25,4 +29,6 @@ Meteor.startup(() => {
   SyncedCron.start();
 
   TaskSchedulers.startup();
+
+  setupIndexes();
 });
