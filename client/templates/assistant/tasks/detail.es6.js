@@ -35,7 +35,7 @@ Template.assistantTasksDetail.helpers({
     return currentAssistant && currentAssistant.currentTask() && currentAssistant.currentTask().taskId === this._id;
   },
   isStartOrPause() {
-    if (Users.isAdmin(Meteor.userId())) return 'fa-stop';
+    if (Users.isAdmin(Meteor.userId())) return 'stop';
 
     let currentAssistant = Users.findOneAssistant(Meteor.userId());
     let currentTask = currentAssistant && currentAssistant.currentTask();
@@ -46,6 +46,9 @@ Template.assistantTasksDetail.helpers({
   },
   getLatestStatus() {
     return this.getLatestStatus(Meteor.userId());
+  },
+  getRequestorId() {
+    return { _id : this.requestorId };
   },
   getCustomerName() {
     let customer = Users.findOneCustomer({ _id : this.requestorId });

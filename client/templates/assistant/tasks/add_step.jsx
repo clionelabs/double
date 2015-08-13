@@ -11,7 +11,7 @@ AssistantTasksAddStep = ReactMeteor.createClass({
   render() {
     return (
       <div className='assistant-tasks-add-step'>
-      <h4>Actions <i className="fa fa-plus" onClick={ this.handleOpenClick }></i></h4>
+      <h4>Actions <i className="fa fa-plus add" onClick={ this.handleOpenClick }></i></h4>
       <AssistantTasksAddStepForm ref='assistantTasksAddStepForm' taskId={ this.props.taskId }/>
       </div>
     );

@@ -29,18 +29,10 @@
       </div>
     </div>
     <div class="other-info">
-      <div class="owner">Requested By: {{ getCustomerName }}</div>
+      <div class="owner">Requested By: <a href='{{urlFor route='assistant.customers.selected' data=getRequestorId }}'>{{ getCustomerName }}</a></div>
       <div class="responder">D/DD(s) in charge: TODO</div>
       <div class="deadline"><i class="glyphicon glyphicon-calendar"></i></div>
       <div class="time-budget"><i class="glyphicon glyphicon-time"></i></div>
-    </div>
-    <div class="updates">
-      <nav>
-        <ul>
-          <li class="active">Status</li>
-        </ul>
-      </nav>
-      {{> assistantTasksDetailStatusForm }}
     </div>
     <div class="invoice-related">
       {{> assistantTasksDetailSteps }}

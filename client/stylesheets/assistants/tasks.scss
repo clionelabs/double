@@ -8,20 +8,36 @@
     height: 100%;
   }
 
-  .tasks {
-    flex : 0 0 23.75%;
+  .left-sidebar {
+    flex: 0 0 23.75%;
     overflow-y: scroll;
     background: $double-grey;
-    .task {
-      padding: 15px;
-      cursor: pointer;
-      .last-modified {
-        font-style: italic;
-        font-size: 0.88em;
+    .filters {
+      width : 100%;
+      display : flex;
+      >* {
+        padding: 1em;
+        flex: 0 0 50%;
+        width:50%;
+        text-align: center;
+        &.active {
+          background: $double-dark-blue;
+          color: $double-white;
+        }
       }
-      &.selected {
-        background: $double-white;
-        border-left: 3px solid $double-red;
+    }
+    .tasks {
+      .task {
+        padding: 15px;
+        cursor: pointer;
+        .last-modified {
+          font-style: italic;
+          font-size: 0.88em;
+        }
+        &.selected {
+          background: $double-white;
+          border-left: 0.5em solid $double-red;
+        }
       }
     }
   }
@@ -29,7 +45,7 @@
   .task-detail {
     flex : 0 0 52.5%;
     overflow-y: scroll;
-    padding: 20px;
+    padding: 1em;
     color: $double-grey3;
     transition: background-color 0.7s 0.2s, color 0.7s 0.2s;
 
@@ -108,48 +124,10 @@
       }
     }
 
-    .updates {
-      border: 1px solid $double-light-blue2;
-      background: $double-light-blue;
-      border-radius: 4px;
-      nav ul {
-        padding: 1em 1em 0em 1em;
-        list-style: none;
-        li.active {
-          color: $double-black;
-        }
-      }
-      .status-tab {
-        padding: 0em 1em;
-        input {
-          width: 100%;
-          border : none;
-          padding: 1em;
-        }
-        .statuses {
-          padding:1em 0em;
-          .status {
-            padding-top:0.8em;
-            &:first-child {
-              padding-top:0;
-            }
-            display:flex;
-            .date-author {
-              flex : 0 0 15%;
-              .author {
-                font-style: italic;
-                font-size: 0.88em;
-              }
-            }
-          }
-        }
-        .statuses-more {
-          text-align: center;
-        }
-      }
-    }
     .invoice-related {
       border-top : 1px solid $double-grey2;
+      background: $double-grey;
+      padding: 1em;
       h4 {
         color: $double-black;
         i.add {
@@ -241,7 +219,9 @@
         }
       }
     }
+
     .supporting-doc {
+      padding: 1em;
       >* {
         margin-bottom: 2em;
         h4 {
@@ -281,8 +261,6 @@
             cursor: pointer;
           }
         }
-
-
         .references{
           margin-top:0.7em;
           .reference {
@@ -306,7 +284,12 @@
             }
           }
         }
-
+      }
+      .tagged-messages {
+        i.add {
+          padding-left:1em;
+          cursor: pointer;
+        }
       }
     }
   }
@@ -315,6 +298,50 @@
     flex: 0 0 23.75%;
     overflow-y: scroll;
     background: $double-grey;
+  }
+
+  .right-pane {
+    padding:1em;
+    .updates {
+      border: 1px solid $double-light-blue2;
+      background: $double-light-blue;
+      border-radius: 4px;
+      nav ul {
+        padding: 1em 1em 0em 1em;
+        list-style: none;
+        li.active {
+          color: $double-black;
+        }
+      }
+      .status-tab {
+        padding: 0em 1em;
+        input {
+          width: 100%;
+          border : none;
+          padding: 1em;
+        }
+        .statuses {
+          padding:1em 0em;
+          .status {
+            padding-top:0.8em;
+            &:first-child {
+              padding-top:0;
+            }
+            display:flex;
+            .date-author {
+              flex : 0 0 15%;
+              .author {
+                font-style: italic;
+                font-size: 0.88em;
+              }
+            }
+          }
+        }
+        .statuses-more {
+          text-align: center;
+        }
+      }
+    }
   }
 }
 
