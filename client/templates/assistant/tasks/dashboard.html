@@ -1,14 +1,28 @@
 <Template name="assistantTasksDashboard">
   <div class="assistant-dashboard-task">
-    <div class="tasks">
-      {{#each tasksWithIsCurrent}}
-        {{> assistantTasksListItem}}
-      {{/each}}
+    <div class="left-sidebar">
+      <div class="left-sidebar-header">
+        <div class="filters">
+          <span class="current {{ filterIsCurrent }}">Current</span><span class="completed {{filterIsCompleted}}">Completed</span>
+        </div>
+      </div>
+      <div class="tasks">
+        {{#each tasksWithIsCurrent}}
+          {{> assistantTasksListItem}}
+        {{/each}}
+      </div>
     </div>
       {{> assistantTasksDetail getCurrentTask}}
     <div class="conversation">
-      <div class="under-construction">
-        Under Construction
+      <div class="right-pane">
+        <div class="updates">
+          <nav>
+            <ul>
+              <li class="active">Status</li>
+            </ul>
+          </nav>
+          {{> assistantTasksDetailStatusForm getCurrentTask}}
+        </div>
       </div>
     </div>
   </div>
