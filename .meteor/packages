@@ -11,7 +11,6 @@ ian:accounts-ui-bootstrap-3
 twbs:bootstrap
 peppelg:bootstrap-3-modal
 alanning:roles
-grigio:babel
 email
 tap:i18n
 fourseven:scss
@@ -46,3 +45,5 @@ qnub:emojione
 d3
 mizzao:user-status
 konecty:autolinker
+reactjs:react
+grigio:babel
