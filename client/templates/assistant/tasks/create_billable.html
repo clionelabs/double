@@ -26,7 +26,7 @@
               {{/each}}
             </table>
             {{#if isStepFormShown }}
-              {{> assistantTasksAddStep }}
+              {{> assistantTasksAddStepBankTime taskId=_id }}
             {{/if }}
             <button class="bank-time">Bank {{formatDurationPrecise totalTime }}</button>
           </div>

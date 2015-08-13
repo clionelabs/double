@@ -4,13 +4,7 @@ Template.assistantTasksDetailSteps.helpers({
     return _.map(this.steps, function(step) {
       return _.extend({}, { taskId : taskId }, step);
     });
-  }
-});
-
-Template.assistantTasksDetailSteps.events({
-  "click i.add": function () {
-    Template.currentData().isStepFormShown.set(true);
-  }
+  },
 });
 
 Template.assistantTasksDetailStep.helpers({

@@ -1,7 +1,6 @@
 <template name="assistantTasksDetailSteps">
   <div class="checklist">
-    <h4>Actions <i class="fa fa-plus add"></i></h4>
-    {{> assistantTasksAddStep }}
+    {{> assistantTasksAddStep taskId=_id }}
     <div class="steps">
       {{#each stepsWithTaskId }}
         {{> assistantTasksDetailStep }}
