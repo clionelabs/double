@@ -1,7 +1,3 @@
-Template.assistantTasksDetailSteps.onCreated(function() {
-  Template.instance().isFormShown = new ReactiveVar(false);
-});
-
 Template.assistantTasksDetailSteps.helpers({
   stepsWithTaskId() {
     let taskId = this._id;
@@ -9,15 +5,6 @@ Template.assistantTasksDetailSteps.helpers({
       return _.extend({}, { taskId : taskId }, step);
     });
   },
-  getIsShown() {
-    return Template.instance().isFormShown;
-  }
-});
-
-Template.assistantTasksDetailSteps.events({
-  "click i.add": function () {
-    Template.instance().isFormShown.set(true);
-  }
 });
 
 Template.assistantTasksDetailStep.helpers({
