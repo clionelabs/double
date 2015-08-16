@@ -3,18 +3,8 @@
     {{> assistantTasksAddStep taskId=_id }}
     <div class="steps">
       {{#each stepsWithTaskId }}
-        {{> assistantTasksDetailStep }}
+        {{> assistantTasksDetailStep step=rThis}}
       {{/each}}
     </div>
-  </div>
-</template>
-
-<template name="assistantTasksDetailStep">
-  <div class="step">
-    <i class="fa {{isCompletedCheckbox}} check"></i>
-    {{ text }} | <span class='duration'
-                       data-toggle="tooltip" data-placement="top" title="Click to edit banked time"
-      >{{formatDurationPrecise duration }}</span>
-    {{#if not duration }}<i class="fa fa-remove delete"></i>{{/if}}
   </div>
 </template>

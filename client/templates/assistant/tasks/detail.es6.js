@@ -73,19 +73,19 @@ let _stopTimer = (rTimer, timerFn) => {
 };
 
 Template.assistantTasksDetail.events({
-  "click .play": function(e, tmpl) {
+  "click .functions .play": function(e, tmpl) {
     Assistants.startTask(Meteor.userId(), this._id);
     _updateTimer(tmpl.timer);
     tmpl.timerFn = Meteor.setInterval(_.partial(_updateTimer, tmpl.timer), 1000);
   },
-  "click .pause": function(e, tmpl) {
+  "click .functions .pause": function(e, tmpl) {
     Assistants.endTask(Meteor.userId(), this._id);
     Meteor.clearInterval(tmpl.timerFn);
   },
-  'click .complete' : function(e) {
+  'click .functions .complete' : function(e) {
     Tasks.complete(this._id);
   },
-  'click .edit' : function(e, tmpl) {
+  'click .functions .edit' : function(e, tmpl) {
     tmpl.showTitleEdit.set(true);
   },
   'keyup .title-bar [name="title"]' : function(e, tmpl) {

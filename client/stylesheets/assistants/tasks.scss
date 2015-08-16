@@ -142,12 +142,18 @@
           padding-bottom: 0.5em;
           .check {
             padding-right : 1em;
+            cursor: pointer;
+          }
+          .edit {
+            cursor: pointer;
+            padding : 0 0.5em;
           }
           .duration {
             cursor: pointer;
             text-decoration: underline;
           }
           .delete {
+            cursor: pointer;
             padding-left: 1em;
           }
         }
