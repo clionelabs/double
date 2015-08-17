@@ -20,6 +20,9 @@
     "messages": {
       "defaultLimitOfSubscription": 100,
       "increase": 100
+    },
+    "analyticsSettings" : {
+      "Heap" : { "appId" : "858831651" }
     }
   }
 }
