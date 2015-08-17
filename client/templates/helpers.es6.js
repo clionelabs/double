@@ -7,6 +7,9 @@ DateFormatter = {
   },
   toDateMonthString : (date) => {
     return  date ? moment(date).format('MMMM DD, YYYY') : '---';
+  },
+  toDateShortMonthString : (date) => {
+    return  date ? moment(date).format('MMM DD, YYYY') : '---';
   }
 };
 
@@ -31,6 +34,7 @@ AmountFormatter = {
 Template.registerHelper("formatDate", DateFormatter.toDateString);
 Template.registerHelper("formatDateTime", DateFormatter.toDateTimeString);
 Template.registerHelper("formatDateMonth", DateFormatter.toDateMonthString);
+Template.registerHelper('formatDateShortMonth', DateFormatter.toDateShortMonthString);
 Template.registerHelper("formatDuration", DurationFormatter.toString);
 Template.registerHelper("formatDurationPrecise", DurationFormatter.toPreciseString);
 Template.registerHelper("formatDurationPreciseMs", DurationFormatter.toPreciseMsString);

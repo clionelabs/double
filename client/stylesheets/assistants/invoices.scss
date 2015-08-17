@@ -273,11 +273,11 @@
           min-height: 100px;
         }
         &:first-child {
-          width: 15%;
-          min-width: 120px;
+          width: 25%;
         }
         &:nth-child(2) {
-          width: 25%;
+          width: 15%;
+          min-width: 120px;
         }
         &:nth-child(3) {
           width: 50%;
