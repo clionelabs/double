@@ -20,6 +20,9 @@
     "messages": {
       "defaultLimitOfSubscription": 100,
       "increase": 100
+    },
+    "analyticsSettings" : {
+      "heap" : { "apiKey" : "2928721958" }
     }
   }
 }
