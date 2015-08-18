@@ -95,5 +95,6 @@ Template.assistantCustomerConversationChannel.events({
   "click .set-channel": function(event) {
     event.stopPropagation();
     Modal.show('channelSettingsModal', this.channel);
+    return true;
   }
 });

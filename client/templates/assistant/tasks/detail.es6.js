@@ -91,15 +91,12 @@ Template.assistantTasksDetail.events({
   'keyup .title-bar [name="title"]' : function(e, tmpl) {
     if (e.keyCode === 27) {
       tmpl.showTitleEdit.set(false);
-    } else if (e.keyCode === 13) {
-      tmpl.$('.title-bar .save').click();
     }
   },
   'submit #title-edit' : function(e, tmpl) {
     e.preventDefault();
     let newTitle = tmpl.$('.title-bar input[name="title"]').val();
     let edit = Tasks.editTitle(this._id, newTitle);
-    console.log(edit);
     if (edit) {
       tmpl.showTitleEdit.set(false);
       return true;
