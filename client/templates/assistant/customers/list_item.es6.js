@@ -3,12 +3,12 @@ Template.assistantCustomersListItem.events({
   "click .profile" : function() {
     Modal.show('customerEditForm', this);
   },
-  "click .customer" : function(e, tmpl) {
-    Router.go('assistant.customers.selected', { _id : tmpl.data._id });
-  }
 });
 
 Template.assistantCustomersListItem.helpers({
+  getRouteData() {
+    return { _id : this._id };
+  },
   tasks() {
     return Tasks.find({ requestorId: this._id }, { sort: { title: 1 }});
   },

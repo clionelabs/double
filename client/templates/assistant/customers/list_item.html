@@ -1,15 +1,17 @@
 <template name="assistantCustomersListItem">
-  <div class="customer {{isSelected}} {{hasNotRepliedClass}}">
-    <div class="name {{animateIfIsCalling}}">
-      <i class="status {{#if isOnline}}online{{/if}} fa fa-circle"></i> {{displayName}}
-    </div>
-    <div class="detail">
-      <div class="last-replied">
-        Last Message: {{ formatDateTime lastMessageTimestamp }}
+  <a class='customer-list-item' href="{{urlFor route='assistant.customers.selected' data=getRouteData }}">
+    <div class="customer {{isSelected}} {{hasNotRepliedClass}}">
+      <div class="name {{animateIfIsCalling}}">
+        <i class="status {{#if isOnline}}online{{/if}} fa fa-circle"></i> {{displayName}}
       </div>
-      <div class="">
-        Uncharged time: {{ formatDurationPrecise tasksNotBilledTime }}
+      <div class="detail">
+        <div class="last-replied">
+          Last Message: {{ formatDateTime lastMessageTimestamp }}
+        </div>
+        <div class="">
+          Uncharged time: {{ formatDurationPrecise tasksNotBilledTime }}
+        </div>
       </div>
     </div>
-  </div>
+  </a>
 </template>

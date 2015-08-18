@@ -80,15 +80,18 @@ Template.assistantCustomerConversationChannel.helpers({
   },
   isNotReplied() {
     return this.channel.isNotReplied();
+  },
+  getSelectChannelData() {
+    let customer = Template.currentData().customer;
+    return { _id : customer._id };
+  },
+  getSelectChannelQuery() {
+    let channel = Template.currentData().channel;
+    return { selectedChannel : channel._id };
   }
 });
 
 Template.assistantCustomerConversationChannel.events({
-  "click .select-channel": function() {
-    let customer = Template.currentData().customer;
-    let channel = Template.currentData().channel;
-    Router.go('assistant.customers.selected', { _id : customer._id }, { query : 'selectedChannel=' + channel._id });
-  },
   "click .set-channel": function(event) {
     event.stopPropagation();
     Modal.show('channelSettingsModal', this.channel);

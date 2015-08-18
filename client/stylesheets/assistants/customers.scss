@@ -11,35 +11,38 @@
     flex : 0 0 23.75%;
     background: $double-grey;
     overflow-y: scroll;
-    .customer {
-      width : 100%;
-      display:flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 15px;
-      border-bottom: 1px solid $double-grey2;
+    .customer-list-item {
+      text-decoration: none;
+      color: $double-black;
+      .customer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 15px;
+        border-bottom: 1px solid $double-grey2;
 
-      cursor: pointer;
-      &.selected {
-        border-left: 3px solid $double-red;
-        background: $double-white;
-      }
-      &.not-replied {
-        color: red;
-      }
-      .status {
-        font-size: 10px;
-        color : $double-red2;
-        &.online {
-          color : $double-green2;
+        cursor: pointer;
+        &.selected {
+          border-left: 3px solid $double-red;
+          background: $double-white;
+        }
+        &.not-replied {
+          color: red;
+        }
+        .status {
+          font-size: 10px;
+          color: $double-red2;
+          &.online {
+            color: $double-green2;
+          }
+        }
+        .detail {
+          font-style: italic;
+          font-size: 0.88em;
         }
       }
-      .detail {
-        font-style: italic;
-        font-size: 0.88em;
-      }
-
     }
   }
 
@@ -95,12 +98,14 @@
         li.select-channel {
           margin-right: 10px;
           &.active {
-            span {
+            a {
               background: $double-dark-blue;
               color: $double-white;
+              text-decoration: underline;
             }
           }
-          span {
+          a {
+            text-decoration: none;
             cursor: pointer;
             padding:5px;
             display:inline-block;

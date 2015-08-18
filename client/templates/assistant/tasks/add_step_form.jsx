@@ -38,7 +38,7 @@ AssistantTasksAddStepForm = ReactMeteor.createClass({
   render() {
     return (
         <div className={ "sub add-step-form " + this.shownOr() }>
-        <form onSubmit={ this.handleSubmit } className="add" id={ 'step.' + this.props._id }>
+        <form onSubmit={ this.handleSubmit } className="add" id={ 'edit-step' }>
         <input onChange={ this.handleInputOnChange }
                onKeyUp={ this.handleKeyUp }
                name="text"
