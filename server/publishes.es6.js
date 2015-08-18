@@ -37,38 +37,18 @@ Meteor.publish('placements', function() {
   }
 });
 
-Meteor.reactivePublish('unroutedChannels', function() {
+Meteor.publish('unroutedChannels', function() {
   if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
     return [];
   }
-  let channels = D.Channels.find({customerId: {$exists: false}}).fetch();
-  let channelIds = _.pluck(channels, '_id');
-  let messageIds = _.reduce(channels, function(memo, channel) {
-    let lastMessage = D.Messages.findOne({channelId: channel._id}, {sort: {timestamp: -1}, reactive: true});
-    if (lastMessage) memo.push(lastMessage._id);
-    return memo;
-  }, []);
-  return [
-    D.Channels.find({_id: {$in: channelIds}}),
-    D.Messages.find({_id: {$in: messageIds}})
-  ];
+  return D.Channels.find({customerId: {$exists: false}});
 });
 
-Meteor.reactivePublish('routedChannels', function() {
+Meteor.publish('routedChannels', function() {
   if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
     return [];
   }
-  let channels = D.Channels.find({customerId: {$exists: true}}).fetch();
-  let channelIds = _.pluck(channels, '_id');
-  let messageIds = _.reduce(channels, function(memo, channel) {
-    let lastMessage = D.Messages.findOne({channelId: channel._id}, {sort: {timestamp: -1}, reactive: true});
-    if (lastMessage) memo.push(lastMessage._id);
-    return memo;
-  }, []);
-  return [
-    D.Channels.find({_id: {$in: channelIds}}),
-    D.Messages.find({_id: {$in: messageIds}})
-  ];
+  return D.Channels.find({customerId: {$exists: true}});
 });
 
 Meteor.publish('channelMessagesSorted', function(channelId, limit = 10) {
