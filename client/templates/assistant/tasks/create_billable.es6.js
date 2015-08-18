@@ -222,6 +222,7 @@ Template.assistantTasksCreateBillable.helpers({
 
 Template.assistantTasksCreateBillable.events({
   "click .bank-time" : function(e, tmpl) {
+    e.preventDefault();
     let task = Tasks.findOne(this._id);
     let updates = _.filter(_.map(task.steps, function(step) {
       let result = {};

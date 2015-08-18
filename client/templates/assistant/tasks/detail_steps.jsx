@@ -64,6 +64,7 @@ AssistantTasksDetailStep = ReactMeteor.createClass({
             { this.state.text }<i className='fa fa-pencil edit'></i></span>
           <form className={ 'edit-action-title ' + (this.state.isEditing ? "" : "hide") }
                 onSubmit={ this.handleEditFormSubmit }
+                id='edit-action-title'
               >
             <input type='text'
                    className="edit-title"

@@ -1,6 +1,8 @@
 <template name="assistantTasksListItem">
-  <div class="task {{isSelected}}">
-    <div class="title">&#8226;{{ title }}</div>
-    <div class="last-modified">{{formatDuration getLastModified}}</div>
-  </div>
+  <a class='task-list-item' href="{{urlFor route='assistant.tasks' data=getRouteData }}">
+    <div class="task {{isSelected}}">
+      <div class="title">&#8226;{{ title }}</div>
+      <div class="last-modified">{{formatDuration getLastModified}}</div>
+    </div>
+  </a>
 </template>

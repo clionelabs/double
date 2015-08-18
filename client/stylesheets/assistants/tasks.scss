@@ -27,16 +27,20 @@
       }
     }
     .tasks {
-      .task {
-        padding: 15px;
-        cursor: pointer;
-        .last-modified {
-          font-style: italic;
-          font-size: 0.88em;
-        }
-        &.selected {
-          background: $double-white;
-          border-left: 0.5em solid $double-red;
+      .task-list-item {
+        text-decoration: none;
+        color: $double-black;
+        .task {
+          padding: 15px;
+          cursor: pointer;
+          .last-modified {
+            font-style: italic;
+            font-size: 0.88em;
+          }
+          &.selected {
+            background: $double-white;
+            border-left: 0.5em solid $double-red;
+          }
         }
       }
     }
