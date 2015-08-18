@@ -95,10 +95,16 @@ Template.assistantTasksDetail.events({
       tmpl.$('.title-bar .save').click();
     }
   },
-  'click .save' : function(e, tmpl) {
+  'submit #title-edit' : function(e, tmpl) {
+    e.preventDefault();
     let newTitle = tmpl.$('.title-bar input[name="title"]').val();
-    Tasks.editTitle(this._id, newTitle, () => {
+    let edit = Tasks.editTitle(this._id, newTitle);
+    console.log(edit);
+    if (edit) {
       tmpl.showTitleEdit.set(false);
-    });
+      return true;
+    } else {
+      return false;
+    }
   }
 });
