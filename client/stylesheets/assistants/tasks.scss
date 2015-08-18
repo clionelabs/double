@@ -172,6 +172,19 @@
             cursor: pointer;
             padding-left: 1em;
           }
+
+          .edit-action-title {
+            display: inline-flex;
+            width: 50%;
+            input {
+              flex : 1;
+            }
+            button {
+              border: none;
+              background: transparent;
+            }
+          }
+
         }
       }
       .one-time-purchase-area {
