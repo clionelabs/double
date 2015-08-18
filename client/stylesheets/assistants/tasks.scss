@@ -83,21 +83,33 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        .function {
-          display:inline-block;
-          color: $double-grey3;
-          padding: 8px;
-          text-align: center;
-          border:1px solid $double-grey3;
-          cursor: pointer;
-          &.completed {
-            color: $double-green;
-            border:1px solid $double-green;
+
+        #title-edit {
+          width:100%;
+          input {
+            width:80%;
+          }
+          .save {
+            border : none;
+            background : transparent;
           }
         }
-        .save {
-          border : none;
-          background : transparent;
+
+        .functions {
+          min-width : 130px;
+          width : 130px;
+          .function {
+            display: inline-block;
+            color: $double-grey3;
+            padding: 8px;
+            text-align: center;
+            border: 1px solid $double-grey3;
+            cursor: pointer;
+            &.completed {
+              color: $double-green;
+              border: 1px solid $double-green;
+            }
+          }
         }
       }
       .metrics {
