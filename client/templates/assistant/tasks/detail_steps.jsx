@@ -12,7 +12,7 @@ AssistantTasksDetailStep = ReactMeteor.createClass({
     var step = task.steps.filter(function(step) {
       return step._id === this.props.step._id;
     }.bind(this))[0];
-    return _.extend(step, { taskId : task._id });
+    return _.extend({}, step, { taskId : task._id });
   },
   isCompletedCheckbox() {
     return this.props.step.isCompleted ? "fa-check-square-o" : "fa-square-o";
@@ -46,7 +46,7 @@ AssistantTasksDetailStep = ReactMeteor.createClass({
   },
   render() {
     var deleteButton;
-    if (this.props.step.duration() === 0) {
+    if (this.state.duration() === 0) {
       deleteButton = <i className="fa fa-remove delete"
                         onClick={ this.handleDeleteClick }
           ></i>;
