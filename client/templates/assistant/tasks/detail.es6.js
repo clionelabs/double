@@ -15,12 +15,25 @@ Template.assistantTasksDetail.onRendered(function() {
         && assistantCurrentTaskStatus.taskId === task._id
     ) {
       Modal.show('assistantTasksCreateBillable', task);
+    } else if (assistantCurrentTaskStatus && assistantCurrentTaskStatus.status === Assistants.TaskStatus.Started) {
+      console.log('hello');
+      let startedAt = assistantCurrentTaskStatus.startedAt;
+      let current = moment().valueOf();
+      instance.timer.set(current - startedAt);
     } else {
       Modal.hide();
     }
 
   });
+  if (instance.timer.get() !== 0) {
+    _updateTimer(instance.timer);
+    instance.timerFn = Meteor.setInterval(_.partial(_updateTimer, instance.timer), 1000);
+  }
   instance.$('[data-toggle="tooltip"]').tooltip();
+});
+
+Template.assistantTasksDetail.onDestroyed(function() {
+  Meteor.clearInterval(this.timerFn);
 });
 
 Template.assistantTasksDetail.helpers({
@@ -64,6 +77,7 @@ Template.assistantTasksDetail.helpers({
 
 
 let _updateTimer = (rTimer) => {
+  console.log(rTimer.get());
   rTimer.set(rTimer.get() + 1000);
 };
 
