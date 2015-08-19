@@ -122,13 +122,14 @@ Template.channelReply._submit = function(form) {
     content: content,
     inOut: D.Messages.InOut.OUTING,
     timestamp: moment().valueOf()
-  }
+  };
   D.Messages.insert(doc, function(error) {
     // TODO: handle error
   });
   $(form.content).val('');
   $(form.content).css('height', 'auto');
-}
+  return true;
+};
 
 Template.channelReply.onRendered(function() {
   $("textarea.autogrow").autogrow({animate: false});
@@ -167,16 +168,18 @@ Template.channelReply.helpers({
 Template.channelReply.events({
   "keydown textarea.autogrow": function (e) {
     if (e.keyCode == 13 && !e.shiftKey && !e.ctrlKey && !e.altKey) {
-      event.preventDefault();
-      let form = event.target.form;
-      Template.channelReply._submit(form);
+      e.preventDefault();
+      let form = e.target.form;
+      return Template.channelReply._submit(form);
+    } else {
+      return true;
     }
   },
 
   "submit #send-message-form": function (event) {
     event.preventDefault();
     let form = event.target;
-    Template.channelReply._submit(form);
+    return Template.channelReply._submit(form);
   },
 
   "click .emoji-category": function(event) {
@@ -184,6 +187,7 @@ Template.channelReply.events({
     event.stopPropagation();
     let instance = Template.instance();
     instance.selectedEmojiCategory.set(this.category);
+    return true;
   },
 
   "click .emoji-item": function(event) {
@@ -191,5 +195,6 @@ Template.channelReply.events({
     let $textarea = $("#send-message-form").find("#content");
     $textarea.val($textarea.val() + code);
     $textarea.focus();
+    return true;
   }
 });
