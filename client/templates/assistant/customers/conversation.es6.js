@@ -93,6 +93,7 @@ Template.assistantCustomerConversationChannel.helpers({
 
 Template.assistantCustomerConversationChannel.events({
   "click .set-channel": function(event) {
+    event.preventDefault();
     event.stopPropagation();
     Modal.show('channelSettingsModal', this.channel);
     return true;
