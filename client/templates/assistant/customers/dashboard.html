@@ -14,13 +14,10 @@
       </div>
       <div class="task-related">
         <div class="tasks">
-          <h4>Current Requests</h4>
+          <h4>Current Requests<i class="fa fa-plus new-task-button"></i></h4>
           {{#each getTasksOfSelectedCustomer}}
             {{> assistantCustomerTaskListItem }}
           {{/each}}
-        </div>
-        <div class="new-task-button">
-          <i class="glyphicon glyphicon-plus-sign"></i>
         </div>
       </div>
     </div>
