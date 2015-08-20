@@ -204,28 +204,32 @@
       flex-direction: column;
       margin: 15px;
       border-bottom: 1px solid $double-grey3;
-      .add-preference {
-        display: flex;
-        margin-bottom: 15px;
-        .preference-message {
-          flex:1;
-          margin-right: 15px;
+      .preferences-pane {
+        .open-add-preference-form {
+          padding-left: 1em;
+          cursor : pointer;
         }
-        .submit {
-          border: 0;
-          padding: 0;
-          width: 40px;
-          height: 40px;
-          color: $double-white;
-          background-color: $double-grey2;
+        .add-preference {
+          display: flex;
+          margin-bottom: 15px;
+          .preference-message {
+            flex: 1;
+            margin-right: 15px;
+          }
+          button {
+            border: 0;
+            padding: 0;
+            background: transparent;
+            text-decoration: underline;
+          }
         }
-      }
-      .preferences {
-        flex:1;
-        .preference {
-          padding-bottom: 5px;
-          .remove {
-            cursor: pointer;
+        .preferences {
+          flex: 1;
+          .preference {
+            padding-bottom: 5px;
+            .remove {
+              cursor: pointer;
+            }
           }
         }
       }
