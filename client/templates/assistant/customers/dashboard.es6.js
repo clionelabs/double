@@ -10,8 +10,8 @@ Template.assistantCustomersDashboard.helpers({
       return currentCustomer;
     }
   },
-  getCurrentCustomer() {
-    return Template.currentData().currentCustomer;
+  getCurrentCustomerId() {
+    return Template.instance().currentCustomerId;
   },
   getSortedCustomers() {
     let currentCustomer = Template.currentData().currentCustomer;
@@ -61,3 +61,14 @@ Template.assistantCustomersDashboard.events({
     Modal.show('assistantTaskCreate', data);
   }
 });
+
+Template.assistantCustomersDashboard.onCreated(function() {
+  this.currentCustomerId = new ReactiveVar();
+});
+
+Template.assistantCustomersDashboard.onRendered(function() {
+  let ui = this;
+  ui.autorun(function() {
+    ui.currentCustomerId.set(Template.currentData().currentCustomer._id);
+  });
+})
