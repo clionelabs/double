@@ -1,0 +1,50 @@
+<Template name="adminDashboardCustomers">
+  <div class="page-header">
+    <button id="new-customer-button" type="button" class="btn btn-primary">New Customer</button>
+  </div>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title" id="panel-title">List of Customers</h3>
+    </div>
+    <div class="panel-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Assigned Assistant</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each customers}}
+            {{> adminDashboardCustomerRow}}
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Template>
+
+<Template name="adminDashboardCustomerRow">
+  <tr>
+    <td>{{profile.firstname}}</td>
+    <td>{{profile.lastname}}</td>
+    <td>
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+          {{assignedAssistantName}}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+          {{#if hasAssignedAssistant}}
+            <li role="presentation"><a role="menuitem" href="" class="unassign-assistant">--</a></li>
+          {{/if}}
+          {{#each availableAssistants}}
+          <li role="presentation"><a role="menuitem" href="#" class="assign-assistant">{{displayName}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+    </td>
+  </tr>
+</Template>
