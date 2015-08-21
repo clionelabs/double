@@ -15,6 +15,9 @@
         <li class="{{isIncomingSelected}} {{ isShownWhenLogin }}">
           <a href="{{ urlFor route='assistant.unrouted' }}">Incoming</a>
         </li>
+        <li class="{{isAdminSelected}} {{ isShownWhenAdminLogin }}">
+          <a href="{{ urlFor route='admin' }}">Admin</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right login">
         {{> loginButtons }} <!-- here -->

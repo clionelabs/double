@@ -1,71 +1,44 @@
 Template.adminDashboard.helpers({
-});
-
-Template.adminDashboardCustomerRow.helpers({
-  hasAssignedAssistant: function() {
-    let placement = Placements.findOne({ customerId: this._id });
-    return !!placement;
-  },
-  assignedAssistantName: function() {
-    // The default transform is not applied. Why?
-    let placement = Placements.findOne({ customerId: this._id }, { transform: function(doc) {
-      return _.extend(doc, Placement);
-    }}) || EmptyPlacement;
-    return placement.assistantDisplayName();
+  isAssistantsTabSelected() {
+    return Template.instance().selectedTabVar.get() === 'assistants';
   },
 
-  availableAssistants: function() {
-    let customerId = this._id;
-    let data = Router.current().data();
-    return data.assistants.map(function(assistant) {
-      return _.extend(assistant, { customerId: customerId }, User);
-    });
+  isCustomersTabSelected() {
+    return Template.instance().selectedTabVar.get() === 'customers';
+  },
+
+  isBusinessTabSelected() {
+    return Template.instance().selectedTabVar.get() === 'business';
+  },
+
+  contentTemplateName() {
+    let selectedTab = Template.instance().selectedTabVar.get();
+    if (selectedTab === 'assistants') {
+      return 'adminDashboardAssistants';
+    } else if (selectedTab === 'customers') {
+      return 'adminDashboardCustomers';
+    } else if (selectedTab === 'business') {
+      return 'adminDashboardBusiness';
+    }
   }
 });
 
-var _customerRowUpdateCallback = function(error) {
-  if (error) {
-    Notifications.error("updated failed", "");
-  } else {
-    Notifications.success("updated successful", "");
-  }
-};
 
-Template.adminDashboardCustomerRow.events({
-  "click .unassign-assistant": function() {
-    let customerId = this._id;
-    Placements.unassign(customerId, _customerRowUpdateCallback);
-  },
-  "click .assign-assistant": function(event) {
-    let customerId = this.customerId;
-    let assistantId = this._id;
-    Placements.assign(customerId, assistantId, _customerRowUpdateCallback);
-  }
+Template.adminDashboard.onCreated(function() {
+  let instance = Template.instance();
+  instance.selectedTabVar = new ReactiveVar('customers');
 });
 
 Template.adminDashboard.events({
-  "click #new-assistant-button": function() {
-    Modal.show('adminCreateAssistant');
+  "click .customers-tab": function() {
+    Template.instance().selectedTabVar.set("customers");
   },
 
-  "click #new-customer-button": function() {
-    Modal.show('customerEditForm');
-  }
-});
+  "click .assistants-tab": function() {
+    Template.instance().selectedTabVar.set("assistants");
+  },
 
-Template.adminCreateAssistant.events({
-  "submit #new-assistant-form": function (event) {
-    event.preventDefault();
-
-    let form = event.target;
-    let data = {
-      email: form.email.value,
-      firstname: form.firstname.value,
-      lastname: form.lastname.value,
-      url : '/david.jpg'
-    };
-    Meteor.call('createAssistant', data, function(error, result) {
-      Modal.hide();
-    });
+  "click .business-tab": function() {
+    Template.instance().selectedTabVar.set("business");
   }
 });
