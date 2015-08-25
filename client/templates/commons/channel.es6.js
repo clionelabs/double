@@ -166,11 +166,10 @@ Template.channelReply.helpers({
 });
 
 Template.channelReply.events({
-  "keydown textarea.autogrow": function (e) {
-    if (e.keyCode == 13 && !e.shiftKey && !e.ctrlKey && !e.altKey) {
+  "keydown textarea.autogrow": function (e, tmpl) {
+    if (e.keyCode === 13 && !e.shiftKey && !e.ctrlKey && !e.altKey) {
       e.preventDefault();
-      let form = e.target.form;
-      return Template.channelReply._submit(form);
+      tmpl.$('button[type="submit"]').click();
     } else {
       return true;
     }
@@ -179,7 +178,8 @@ Template.channelReply.events({
   "submit #send-message-form": function (event) {
     event.preventDefault();
     let form = event.target;
-    return Template.channelReply._submit(form);
+    Template.channelReply._submit(form);
+    return true;
   },
 
   "click .emoji-category": function(event) {
