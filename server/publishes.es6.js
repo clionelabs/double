@@ -76,3 +76,7 @@ Meteor.publish("invoices", function() {
     return Invoices.find();
   }
 });
+
+Meteor.publish("configs", function() {
+  return D.Configs.find();
+});
