@@ -4,11 +4,30 @@ Template.adminDashboardBusiness.onCreated(function() {
 });
 
 Template.adminDashboardBusiness.helpers({
+  timeOptions(selectedTime) {
+    let options = [];
+    for (var s = 0; s < 3600 * 24; s += 1800) {
+      let h = Math.floor(s / 3600);
+      h = h < 10? `0${h}`: h;
+      let m = (s / 1800 % 2 == 0)? '00': '30';
+      let selected = s === selectedTime;
+      options.push({value: s, display: `${h}:${m}`, selected: selected});
+    }
+    return options;
+  },
   isResponseOn() {
     return D.Configs.get(D.Configs.Keys.IS_AUTO_RESPONSE_ON);
   },
   responseMessage() {
     return D.Configs.get(D.Configs.Keys.AUTO_RESPONSE_MESSAGE);
+  },
+  startTime() {
+    let time = D.Configs.get(D.Configs.Keys.BUSINESS_START_TIME_IN_SECS);
+    return time === null? -1: parseInt(time);
+  },
+  endTime() {
+    let time = D.Configs.get(D.Configs.Keys.BUSINESS_END_TIME_IN_SECS);
+    return time === null? -1: parseInt(time);
   },
   isEditingResponseMessage() {
     let instance = Template.instance();
@@ -16,28 +35,28 @@ Template.adminDashboardBusiness.helpers({
   }
 });
 
+let _updateCallback = function(error) {
+  if (error) {
+    Notifications.error("updated failed", "");
+  } else {
+    Notifications.success("updated successful", "");
+  }
+}
+
 Template.adminDashboardBusiness.events({
   "change #start-seconds": function(event) {
     let newValue = $(event.target).val();
-    console.log("startSeconds: ", newValue);
-    //TODO
+    D.Configs.set(D.Configs.Keys.BUSINESS_START_TIME_IN_SECS, newValue, _updateCallback);
   },
 
   "change #end-seconds": function(event) {
     let newValue = $(event.target).val();
-    console.log("endSeconds: ", newValue);
-    //TODO
+    D.Configs.set(D.Configs.Keys.BUSINESS_END_TIME_IN_SECS, newValue, _updateCallback);
   },
 
   "change #is-response-on": function(event) {
     let newValue = $(event.target).is(":checked");
-    console.log("isResponseOn: ", newValue);
-    D.Configs.set(D.Configs.Keys.IS_AUTO_RESPONSE_ON, newValue);
-  },
-
-  "change #response-message": function(event) {
-    let newValue = $(event.target).val();
-    console.log("responseText: ", newValue);
+    D.Configs.set(D.Configs.Keys.IS_AUTO_RESPONSE_ON, newValue, _updateCallback);
   },
 
   "submit #add-holiday-form": function(event) {
@@ -62,13 +81,7 @@ Template.adminDashboardBusiness.events({
     instance.rIsEditingResponseMessage.set(false);
     let textarea = instance.$("#response-message");
     let content = textarea.val();
-    D.Configs.set(D.Configs.Keys.AUTO_RESPONSE_MESSAGE, content, function(error) {
-      if (error) {
-        Notifications.error("updated failed", "");
-      } else {
-        Notifications.success("updated successful", "");
-        textarea.attr("readonly", true);
-      }
-    });
+    D.Configs.set(D.Configs.Keys.AUTO_RESPONSE_MESSAGE, content, _updateCallback);
+    textarea.attr("readonly", true);
   }
 });
