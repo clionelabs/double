@@ -1,19 +1,31 @@
 <Template name="adminDashboardBusiness">
   <div class="panel panel-info">
     <div class="panel-heading">
-      <h3 class="panel-title" id="panel-title">Office Hours (Under Construction)</h3>
+      <h3 class="panel-title" id="panel-title">Office Hours</h3>
     </div>
     <div class="panel-body">
       (HKT)
       From:
       <select id="start-seconds" name="start-seconds">
-        <option value="">-</option>
-        <option value="28800">09:00</option>
+        <option value="">--</option>
+        {{#each timeOptions startTime}}
+          {{#if selected}}
+            <option value="{{value}}" selected="selected">{{display}}</option>
+          {{else}}
+            <option value="{{value}}">{{display}}</option>
+          {{/if}}
+        {{/each}}
       </select>
       To:
       <select id="end-seconds" name="end-seconds">
-        <option value="">-</option>
-        <option value="61200">18:00</option>
+        <option value="">--</option>
+        {{#each timeOptions endTime}}
+          {{#if selected}}
+            <option value="{{value}}" selected="selected">{{display}}</option>
+          {{else}}
+            <option value="{{value}}">{{display}}</option>
+          {{/if}}
+        {{/each}}
       </select>
       Mon - Fri
     </div>
@@ -35,16 +47,19 @@
     </div>
     <div class="panel-body">
       <div>
+        <p>
+          When it's OUTSIDE business hours, and out-of-office response is `Enabled`, the below message will be sent automatically on behalf of double when new incoming message is received.
+        </p>
         {{#if isResponseOn}}
           <input id="is-response-on" name="is-response-on" type="checkbox" checked="checked"/>
         {{else}}
           <input id="is-response-on" name="is-response-on" type="checkbox"/>
         {{/if}}
-        <label for="is-response-on">Turn On</label>
+        <label for="is-response-on">Enabled</label>
       </div>
       <div>
         <form id="response-message-form">
-          <textarea id="response-message" name="response-message" rows="5" cols="50" readonly="true">{{responseMessage}}</textarea>
+          <textarea id="response-message" name="response-message" class="{{#if isEditingResponseMessage}}enabled{{/if}}" readonly="true">{{responseMessage}}</textarea>
           {{#if isEditingResponseMessage}}
             <input id="response-message-update-button" type="button" value="Update" />
           {{else}}
