@@ -5,7 +5,6 @@
       <li role="presentation" class="assistants-tab {{#if isAssistantsTabSelected}} active{{/if}}"><a href="#">Assistants</a></li>
       <li role="presentation" class="business-tab {{#if isBusinessTabSelected}} active{{/if}}"><a href="#">Business</a></li>
     </ul>
+    {{> Template.dynamic template=contentTemplateName}}
   </div>
-
-  {{> Template.dynamic template=contentTemplateName}}
 </Template>
