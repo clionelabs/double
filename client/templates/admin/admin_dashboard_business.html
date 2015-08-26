@@ -1,3 +1,57 @@
 <Template name="adminDashboardBusiness">
-  Business
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title" id="panel-title">Office Hours (Under Construction)</h3>
+    </div>
+    <div class="panel-body">
+      (HKT)
+      From:
+      <select id="start-seconds" name="start-seconds">
+        <option value="">-</option>
+        <option value="28800">09:00</option>
+      </select>
+      To:
+      <select id="end-seconds" name="end-seconds">
+        <option value="">-</option>
+        <option value="61200">18:00</option>
+      </select>
+      Mon - Fri
+    </div>
+  </div>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title" id="panel-title">Holidays (Under Construction)</h3>
+      <form id="add-holiday-form">
+        <input type="date" name="date"/>
+        <input type="submit" value="add" />
+      </form>
+    </div>
+  </div>
+
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title" id="panel-title">Out-of-office Response</h3>
+    </div>
+    <div class="panel-body">
+      <div>
+        {{#if isResponseOn}}
+          <input id="is-response-on" name="is-response-on" type="checkbox" checked="checked"/>
+        {{else}}
+          <input id="is-response-on" name="is-response-on" type="checkbox"/>
+        {{/if}}
+        <label for="is-response-on">Turn On</label>
+      </div>
+      <div>
+        <form id="response-message-form">
+          <textarea id="response-message" name="response-message" rows="5" cols="50" readonly="true">{{responseMessage}}</textarea>
+          {{#if isEditingResponseMessage}}
+            <input id="response-message-update-button" type="button" value="Update" />
+          {{else}}
+            <input id="response-message-edit-button" type="button" value="Edit"/>
+          {{/if}}
+        </form>
+      </div>
+    </div>
+  </div>
 </Template>
