@@ -239,6 +239,8 @@ Template.assistantTasksCreateBillable.events({
     analytics.identify(task.requestorId);
     analytics.track('Bank Time', {
       byAssistantId : Meteor.userId(),
+      assistantName : Users.findOneAssistant(Meteor.userId()).displayName(),
+      customerName : Users.findOneCustomer(task.requestorId).displayName(),
       taskId : task._id,
       timeAdded : _.reduce(updates, function(memo, update) { return memo + update.timeToBeAdded; }, 0)
     });
