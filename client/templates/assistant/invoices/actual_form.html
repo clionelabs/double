@@ -19,6 +19,12 @@
             <div class="value">{{formatDurationPrecise roundedInSecondTotalDuration}}</div>
           </div>
           <div class="line">
+            <div class="key">Adjustment: </div>
+            <div class="value">
+              {{formatDurationPrecise totalAdjustedDuration }}
+            </div>
+          </div>
+          <div class="line">
             <div class="key">Time Credit Available: </div>
             <div class="value">
               {{formatDurationPrecise credit}}
@@ -61,6 +67,7 @@
 
       {{>Template.dynamic template=showTimeBasedItems }}
       {{>Template.dynamic template=showOneTimePurchases }}
+      {{>Template.dynamic template=showAdjustments }}
     </div>
 
     <footer>
@@ -98,6 +105,20 @@
     </tr>
     {{#each timeBasedItems}}
       {{> assistantInvoiceActualFormTimeBasedItem }}
+    {{/each}}
+  </table>
+</template>
+
+<template name="assistantsInvoiceActualFormAdjustmentsTable">
+  <table class="table table-responsive adjustments">
+    <tr>
+      <th>Requests</th>
+      <th>Date</th>
+      <th>Reason</th>
+      <th>Duration</th>
+    </tr>
+    {{#each adjustments}}
+      {{> assistantInvoiceActualFormAdjustment }}
     {{/each}}
   </table>
 </template>

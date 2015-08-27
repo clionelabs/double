@@ -157,7 +157,7 @@
     margin-bottom: 0px;
   }
 
-  .time-based-items, .one-time-purchases {
+  .time-based-items, .one-time-purchases, .adjustments {
     tr {
       th {
         background: $double-grey2;
@@ -265,7 +265,7 @@
 }
 
 .static {
-  .time-based-items {
+  .time-based-items, .adjustments {
     tr {
       th, td {
         textarea {
