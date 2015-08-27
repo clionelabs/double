@@ -245,7 +245,7 @@ Template.assistantTasksCreateBillable.events({
       timeAdded : _.reduce(updates, function(memo, update) { return memo + update.timeToBeAdded; }, 0)
     });
     analytics.identify(Meteor.userId());
-    Tasks.Steps.bankTime(task._id, updates);
+    Tasks.Steps.bankTime(Meteor.userId(), task._id, updates);
     Assistants.bankTask(Meteor.userId(), task._id);
     Modal.hide();
   },

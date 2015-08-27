@@ -1,6 +1,7 @@
 Template.assistantTasksDetail.onCreated(function() {
   Template.instance().timer = new ReactiveVar(0);
   Template.instance().timerFn = null;
+  Template.instance().rCurrentTaskId = new ReactiveVar();
   Template.instance().showTitleEdit = new ReactiveVar(false);
 });
 
@@ -23,6 +24,7 @@ Template.assistantTasksDetail.onRendered(function() {
       Modal.hide();
     }
 
+    instance.rCurrentTaskId.set(task._id);
   });
   if (instance.timer.get() !== 0) {
     _updateTimer(instance.timer);
@@ -71,6 +73,9 @@ Template.assistantTasksDetail.helpers({
     return _.reduce(this.steps, function(memo, step) {
       return memo + step.duration(weekBeforeTimestamp, moment().valueOf());
     }, 0);
+  },
+  getRCurrentTaskId() {
+    return Template.instance().rCurrentTaskId;
   }
 });
 
