@@ -15,6 +15,16 @@ Template.adminDashboardBusiness.helpers({
     }
     return options;
   },
+  timezoneOffsetOptions(selectedTimezoneOffset) {
+    let options = [];
+    for (var o = -12; o <= 12; o++) {
+      let value = o * 60;
+      let display = o < 0? o: `+${o}`;
+      let selected = selectedTimezoneOffset === value;
+      options.push({value: value, display: display, selected: selected});
+    }
+    return options;
+  },
   isResponseOn() {
     return D.Configs.get(D.Configs.Keys.IS_AUTO_RESPONSE_ON);
   },
@@ -28,6 +38,15 @@ Template.adminDashboardBusiness.helpers({
   endTime() {
     let time = D.Configs.get(D.Configs.Keys.BUSINESS_END_TIME_IN_SECS);
     return time === null? -1: parseInt(time);
+  },
+  timezoneOffset() {
+    let timezoneOffset = D.Configs.get(D.Configs.Keys.BUSINESS_TIMEZONE_OFFSET_IN_MINS);
+    return timezoneOffset === null? -1: parseInt(timezoneOffset);
+  },
+  holidays() {
+    let holidays = D.Configs.get(D.Configs.Keys.BUSINESS_HOLIDAYS) || [];
+    holidays = _.sortBy(holidays, 'date');
+    return holidays;
   },
   isEditingResponseMessage() {
     let instance = Template.instance();
@@ -54,6 +73,11 @@ Template.adminDashboardBusiness.events({
     D.Configs.set(D.Configs.Keys.BUSINESS_END_TIME_IN_SECS, newValue, _updateCallback);
   },
 
+  "change #timezone-offset": function(event) {
+    let newValue = $(event.target).val();
+    D.Configs.set(D.Configs.Keys.BUSINESS_TIMEZONE_OFFSET_IN_MINS, newValue, _updateCallback);
+  },
+
   "change #is-response-on": function(event) {
     let newValue = $(event.target).is(":checked");
     D.Configs.set(D.Configs.Keys.IS_AUTO_RESPONSE_ON, newValue, _updateCallback);
@@ -63,8 +87,29 @@ Template.adminDashboardBusiness.events({
     event.preventDefault();
     let form = event.target;
     let date = form.date.value;
-    console.log("submit add holiday form", date);
-    //TODO
+    let title = form.title.value;
+
+    if (!/^\d{4}-\d{1,2}-\d{1,2}$/.test(date)) {
+      Notifications.error("Incorrect date form - Please use yyyy-mm-dd");
+      return;
+    }
+    if (!title) {
+      Notifications.error("Missing holiday title - Please enter a title");
+      return;
+    }
+
+    let holidays = D.Configs.get(D.Configs.Keys.BUSINESS_HOLIDAYS) || [];
+    let found = _.reduce(holidays, function(memo, holiday) {
+      return memo | holiday.date === date;
+    }, false);
+    if (found) {
+      Notifications.error("Date already existed");
+      return;
+    }
+    holidays.push({date: date, title: title});
+    D.Configs.set(D.Configs.Keys.BUSINESS_HOLIDAYS, holidays, _updateCallback);
+    form.date.value = '';
+    form.title.value = '';
   },
 
   "click #response-message-edit-button": function(event) {
@@ -83,5 +128,14 @@ Template.adminDashboardBusiness.events({
     let content = textarea.val();
     D.Configs.set(D.Configs.Keys.AUTO_RESPONSE_MESSAGE, content, _updateCallback);
     textarea.attr("readonly", true);
+  },
+
+  "click .remove-holiday": function(event) {
+    let date = this.date;
+    let holidays = D.Configs.get(D.Configs.Keys.BUSINESS_HOLIDAYS) || [];
+    holidays = _.reject(holidays, function(holiday) {
+      return holiday.date === date;
+    });
+    D.Configs.set(D.Configs.Keys.BUSINESS_HOLIDAYS, holidays, _updateCallback);
   }
 });
