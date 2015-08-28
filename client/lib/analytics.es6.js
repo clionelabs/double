@@ -2,10 +2,6 @@ Analytics = {
   bankTimeInMinutes(task, userId, durationMoment, reason) {
     let assistant = Users.findOne(userId);
     let customer = Users.findOneCustomer(task.requestorId);
-    analytics.identify(task.requestorId, {
-      email: customer.emails[0].address,
-      name: customer.displayName()
-    });
     let properties = {
       byAssistantId : userId,
       assistantName : assistant.displayName(),
@@ -19,9 +15,5 @@ Analytics = {
       _.extend(properties, { reason : reason });
     }
     analytics.track('Bank Time in Minutes', properties);
-    analytics.identify(userId, {
-      email: assistant.emails[0].address,
-      name: assistant.displayName()
-    });
   }
 };
