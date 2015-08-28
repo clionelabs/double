@@ -10,6 +10,7 @@ Analytics = {
       byAssistantId : userId,
       assistantName : assistant.displayName(),
       customerName : customer.displayName(),
+      name: customer.displayName(),
       taskTitle : task.title,
       taskId : task._id,
       reason : reason,
