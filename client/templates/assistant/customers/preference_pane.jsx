@@ -33,7 +33,9 @@ AssistantCustomerPreferencePane = ReactMeteor.createClass({
   },
   getPreferences() {
     var user = this.state.customer;
-    return _.map(user.getPreferences(), function(preference) { return _.extend({}, preference, { userId : user._id }); });
+    return user
+        ? _.map(user.getPreferences(), function(preference) { return _.extend({}, preference, { userId : user._id }); })
+        : [];
   },
   toggle() {
     this.setState({ isAdding : !this.state.isAdding});
