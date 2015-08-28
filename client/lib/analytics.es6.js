@@ -9,7 +9,7 @@ Analytics = {
       taskTitle : task.title,
       taskId : task._id,
       reason : reason,
-      minutesAdded : durationMoment.valueOf() / 1000 / 60
+      minutesAdded : Math.ceil(durationMoment.valueOf() / 1000 / 60)
     };
     if (reason) {
       _.extend(properties, { reason : reason });
