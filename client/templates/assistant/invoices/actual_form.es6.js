@@ -33,8 +33,9 @@ Template.assistantsInvoiceActualFormOneTimePurchasesTable.helpers({
     let oneTimePurchases = this.oneTimePurchases;
     return _(oneTimePurchases)
         .chain()
-        .sortBy('amount')
+        .sortBy('requests')
         .sortBy('title')
+        .sortBy('amount')
         .sortBy('date').value();
   }
 });

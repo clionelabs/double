@@ -236,14 +236,14 @@
           min-width : 120px;
         }
         &:nth-child(2) {
-          width: 55%;
+          width: 25%;
         }
         &:nth-child(3) {
-          width: 25%;
+          width: 35%;
 
         }
         &:last-child {
-          width: 10%;
+          width: 15%;
           min-width : 80px;
         }
       }
@@ -297,13 +297,18 @@
     tr {
       th, td {
         &:nth-child(1) {
-          width: 15%;
+          width: 25%;
         }
         &:nth-child(2) {
-          width: 70%;
+          width: 15%;
+          min-width: 120px;
         }
         &:nth-child(3) {
-          width: 15%;
+          width: 50%;
+        }
+        &:nth-child(4) {
+          width: 10%;
+          min-width: 120px;
           display : table-cell;
           text-align: right;
         }
