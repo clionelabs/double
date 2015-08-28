@@ -236,15 +236,12 @@ Template.assistantTasksCreateBillable.events({
     }), function(update) {
       return update.timeToBeAdded;
     });
-    analytics.identify(task.requestorId);
-    analytics.track('Bank Time', {
-      byAssistantId : Meteor.userId(),
-      assistantName : Users.findOneAssistant(Meteor.userId()).displayName(),
-      customerName : Users.findOneCustomer(task.requestorId).displayName(),
-      taskId : task._id,
-      timeAdded : _.reduce(updates, function(memo, update) { return memo + update.timeToBeAdded; }, 0)
-    });
-    analytics.identify(Meteor.userId());
+    let duration = moment.duration(_.reduce(
+                      updates,
+                      function(memo, update) {
+                        return memo + update.timeToBeAdded;
+                      }, 0));
+    Analytics.bankTimeInMinutes(task, Meteor.userId(), duration);
     Tasks.Steps.bankTime(Meteor.userId(), task._id, updates);
     Assistants.bankTask(Meteor.userId(), task._id);
     Modal.hide();

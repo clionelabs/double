@@ -38,6 +38,8 @@ Adjustments = ReactMeteor.createClass({
     var duration = moment.duration(e.target.duration.value);
     var ui = this;
     var form = e.target.reset();
+    var task = this.state.task;
+    Analytics.bankTimeInMinutes(task, Meteor.userId(), duration, reason);
     Tasks.Adjustments.add(reason, duration.valueOf(), this.state.task._id, function() {
       ui.toggle();
     });
