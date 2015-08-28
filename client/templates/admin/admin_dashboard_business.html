@@ -1,71 +1,105 @@
 <Template name="adminDashboardBusiness">
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h3 class="panel-title" id="panel-title">Office Hours</h3>
-    </div>
-    <div class="panel-body">
-      (HKT)
-      From:
-      <select id="start-seconds" name="start-seconds">
-        <option value="">--</option>
-        {{#each timeOptions startTime}}
-          {{#if selected}}
-            <option value="{{value}}" selected="selected">{{display}}</option>
-          {{else}}
-            <option value="{{value}}">{{display}}</option>
-          {{/if}}
-        {{/each}}
-      </select>
-      To:
-      <select id="end-seconds" name="end-seconds">
-        <option value="">--</option>
-        {{#each timeOptions endTime}}
-          {{#if selected}}
-            <option value="{{value}}" selected="selected">{{display}}</option>
-          {{else}}
-            <option value="{{value}}">{{display}}</option>
-          {{/if}}
-        {{/each}}
-      </select>
-      Mon - Fri
-    </div>
-  </div>
-
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h3 class="panel-title" id="panel-title">Holidays (Under Construction)</h3>
-      <form id="add-holiday-form">
-        <input type="date" name="date"/>
-        <input type="submit" value="add" />
-      </form>
-    </div>
-  </div>
-
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h3 class="panel-title" id="panel-title">Out-of-office Response</h3>
-    </div>
-    <div class="panel-body">
-      <div>
-        <p>
-          When it's OUTSIDE business hours, and out-of-office response is `Enabled`, the below message will be sent automatically on behalf of double when new incoming message is received.
-        </p>
-        {{#if isResponseOn}}
-          <input id="is-response-on" name="is-response-on" type="checkbox" checked="checked"/>
-        {{else}}
-          <input id="is-response-on" name="is-response-on" type="checkbox"/>
-        {{/if}}
-        <label for="is-response-on">Enabled</label>
+  <div id="business-configs">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title" id="panel-title">Office Hours</h3>
       </div>
-      <div>
-        <form id="response-message-form">
-          <textarea id="response-message" name="response-message" class="{{#if isEditingResponseMessage}}enabled{{/if}}" readonly="true">{{responseMessage}}</textarea>
-          {{#if isEditingResponseMessage}}
-            <input id="response-message-update-button" type="button" value="Update" />
-          {{else}}
-            <input id="response-message-edit-button" type="button" value="Edit"/>
-          {{/if}}
+      <div class="panel-body">
+        <div>
+          Timezone:
+          <select id="timezone-offset" name="timezone-offset">
+            <option value="">--</option>
+            {{#each timezoneOffsetOptions timezoneOffset}}
+              {{#if selected}}
+                <option value="{{value}}" selected="selected">{{display}}</option>
+              {{else}}
+                <option value="{{value}}">{{display}}</option>
+              {{/if}}
+            {{/each}}
+          </select>
+          (e.g. HKT = +8)
+        </div>
+        <div>
+          From:
+          <select id="start-seconds" name="start-seconds">
+            <option value="">--</option>
+            {{#each timeOptions startTime}}
+              {{#if selected}}
+                <option value="{{value}}" selected="selected">{{display}}</option>
+              {{else}}
+                <option value="{{value}}">{{display}}</option>
+              {{/if}}
+            {{/each}}
+          </select>
+          To:
+          <select id="end-seconds" name="end-seconds">
+            <option value="">--</option>
+            {{#each timeOptions endTime}}
+              {{#if selected}}
+                <option value="{{value}}" selected="selected">{{display}}</option>
+              {{else}}
+                <option value="{{value}}">{{display}}</option>
+              {{/if}}
+            {{/each}}
+          </select>
+        </div>
+        <input type="checkbox" disabled="disabled" /> Sun
+        <input type="checkbox" disabled="disabled" checked="checked" /> Mon
+        <input type="checkbox" disabled="disabled" checked="checked" /> Tue
+        <input type="checkbox" disabled="disabled" checked="checked" /> Wed
+        <input type="checkbox" disabled="disabled" checked="checked" /> Thu
+        <input type="checkbox" disabled="disabled" checked="checked" /> Fri
+        <input type="checkbox" disabled="disabled" /> Sat
+      </div>
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title" id="panel-title">Holidays</h3>
+      </div>
+      <div class="panel-body">
+        <div>
+          {{#each holidays}}
+            <div>
+              {{date}} - {{title}}
+              <i class="fa fa-trash remove-holiday"></i>
+            </div>
+          {{/each}}
+        </div>
+        <form id="add-holiday-form">
+          <input type="date" name="date" placeholder="yyyy-mm-dd"/>
+          <input type="input" name="title" placeholder="holiday title"/>
+          <input type="submit" value="add" />
         </form>
+      </div>
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title" id="panel-title">Out-of-office Response</h3>
+      </div>
+      <div class="panel-body">
+        <div>
+          <p>
+            When it's OUTSIDE business hours, and out-of-office response is `Enabled`, the below message will be sent automatically on behalf of double when new incoming message is received.
+          </p>
+          {{#if isResponseOn}}
+            <input id="is-response-on" name="is-response-on" type="checkbox" checked="checked"/>
+          {{else}}
+            <input id="is-response-on" name="is-response-on" type="checkbox"/>
+          {{/if}}
+          <label for="is-response-on">Enabled</label>
+        </div>
+        <div>
+          <form id="response-message-form">
+            <textarea id="response-message" name="response-message" class="{{#if isEditingResponseMessage}}enabled{{/if}}" readonly="true">{{responseMessage}}</textarea>
+            {{#if isEditingResponseMessage}}
+              <input id="response-message-update-button" type="button" value="Update" />
+            {{else}}
+              <input id="response-message-edit-button" type="button" value="Edit"/>
+            {{/if}}
+          </form>
+        </div>
       </div>
     </div>
   </div>

@@ -10,12 +10,17 @@
     }
   }
 
-  #response-message {
-    width: 600px;
-    height: 100px;
-    background: $double-grey2;
-    &.enabled {
-      background: white;
+  #business-configs {
+    .remove-holiday {
+      cursor: pointer;
+    }
+    #response-message {
+      width: 600px;
+      height: 100px;
+      background: $double-grey2;
+      &.enabled {
+        background: white;
+      }
     }
   }
 }
