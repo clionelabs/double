@@ -34,14 +34,8 @@
 
 <template name="timesheetItem">
   <tr class="timesheet-item">
-    {{#if isEditing}}
-      <td><input name="date" type="date" value="{{formatDate date}}"></td>
-      <td><input name="duration" type="text" value="{{formatDurationPrecise value }}"></td>
-      <td><button class="submit">Save</button><i class="fa fa-spin fa-spinner hide loading"></i></td>
-    {{else}}
       <td>{{formatDate date}}</td>
       <td>{{formatDurationPrecise value }}</td>
-      <td><i class="hide edit fa fa-pencil"></i><i class="delete fa fa-remove"></i></td>
-    {{/if}}
+      <td><i class="{{ hideIfOverAnHourAgo }} delete fa fa-remove"></i></td>
   </tr>
 </template>

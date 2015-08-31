@@ -1,6 +1,12 @@
 Adjustment = ReactMeteor.createClass({
   handleDeleteClick() {
-
+    var taskId = this.props.taskId;
+    var adjustment = this.props.adjustment;
+    Analytics.bankTimeInMinutes(
+        Tasks.findOne(taskId),
+        Meteor.userId(),
+        moment.duration(-adjustment.duration));
+    Tasks.Adjustments.delete(adjustment._id, taskId);
   },
   render() {
     return (
@@ -10,6 +16,7 @@ Adjustment = ReactMeteor.createClass({
             <span className='reason'>{ this.props.adjustment.reason }</span>
             <span className='duration'>{ DurationFormatter.toPreciseString(this.props.adjustment.duration) }</span>
           </div>
+          <i className='delete fa fa-remove' onClick={ this.handleDeleteClick }></i>
         </div>
     )
   }
@@ -57,6 +64,7 @@ Adjustments = ReactMeteor.createClass({
     this.setState({ isAdding : !this.state.isAdding })
   },
   render() {
+    var state = this.state;
     return (
       <div className='adjustments'>
         <h4>Adjustments<i className='fa fa-plus add' onClick={ this.handleOnAddClick }></i></h4>
@@ -71,7 +79,7 @@ Adjustments = ReactMeteor.createClass({
         </form>
         <div className='adjustments-list'>
           { _.map(this.state.task.adjustments, function(adjustment) {
-            return <Adjustment adjustment={ adjustment } ></Adjustment>;
+            return <Adjustment adjustment={ adjustment } taskId={ state.task._id }></Adjustment>;
           })}
         </div>
       </div>
