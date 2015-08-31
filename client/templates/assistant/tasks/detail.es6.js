@@ -27,8 +27,9 @@ Template.assistantTasksDetail.onRendered(function() {
     instance.rCurrentTaskId.set(task._id);
   });
   if (instance.timer.get() !== 0) {
-    _updateTimer(instance.timer);
-    instance.timerFn = Meteor.setInterval(_.partial(_updateTimer, instance.timer), 1000);
+    let startedAt = Users.findOneAssistant(Meteor.userId()).currentTask().startedAt;
+    _updateTimer(instance.timer, startedAt);
+    instance.timerFn = Meteor.setInterval(_.partial(_updateTimer, instance.timer, startedAt), 1000);
   }
   instance.$('[data-toggle="tooltip"]').tooltip();
 });
@@ -80,8 +81,9 @@ Template.assistantTasksDetail.helpers({
 });
 
 
-let _updateTimer = (rTimer) => {
-  rTimer.set(rTimer.get() + 1000);
+let _updateTimer = (rTimer, startedAt) => {
+  console.log(rTimer.get());
+  rTimer.set(moment().valueOf() - startedAt);
 };
 
 let _stopTimer = (rTimer, timerFn) => {
@@ -92,8 +94,9 @@ let _stopTimer = (rTimer, timerFn) => {
 Template.assistantTasksDetail.events({
   "click .functions .play": function(e, tmpl) {
     Assistants.startTask(Meteor.userId(), this._id);
-    _updateTimer(tmpl.timer);
-    tmpl.timerFn = Meteor.setInterval(_.partial(_updateTimer, tmpl.timer), 1000);
+    let startedAt = Users.findOneAssistant(Meteor.userId()).currentTask().startedAt;
+    _updateTimer(tmpl.timer, startedAt);
+    tmpl.timerFn = Meteor.setInterval(_.partial(_updateTimer, tmpl.timer, startedAt), 1000);
   },
   "click .functions .pause": function(e, tmpl) {
     Assistants.endTask(Meteor.userId(), this._id);
