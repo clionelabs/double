@@ -8,6 +8,9 @@ Adjustment = ReactMeteor.createClass({
         moment.duration(-adjustment.duration));
     Tasks.Adjustments.delete(adjustment._id, taskId);
   },
+  hideIfOverAnHourAgo() {
+    return moment().valueOf() - this.props.adjustment.createdAt > moment.duration(1, 'hours').valueOf() ? "hide" : "";
+  },
   render() {
     return (
         <div className='adjustment'>
@@ -16,7 +19,7 @@ Adjustment = ReactMeteor.createClass({
             <span className='reason'>{ this.props.adjustment.reason }</span>
             <span className='duration'>{ DurationFormatter.toPreciseString(this.props.adjustment.duration) }</span>
           </div>
-          <i className='delete fa fa-remove' onClick={ this.handleDeleteClick }></i>
+          <i className={ this.hideIfOverAnHourAgo() + ' delete fa fa-remove' } onClick={ this.handleDeleteClick }></i>
         </div>
     )
   }
@@ -79,7 +82,7 @@ Adjustments = ReactMeteor.createClass({
         </form>
         <div className='adjustments-list'>
           { _.map(this.state.task.adjustments, function(adjustment) {
-            return <Adjustment adjustment={ adjustment } taskId={ state.task._id }></Adjustment>;
+            return <Adjustment adjustment={ adjustment } taskId={ state.task._id } key={ adjustment._id }></Adjustment>;
           })}
         </div>
       </div>
