@@ -14,6 +14,10 @@ Template.timesheetItem.events({
   "click .delete" : function(e, tmpl) {
     let duration = Template.currentData();
     let stepWithTaskId = Template.parentData();
+    Analytics.bankTimeInMinutes(
+        Tasks.findOne(stepWithTaskId.taskId),
+        Meteor.userId(),
+        moment.duration(-duration.value));
     Tasks.Steps.Durations.delete(
         stepWithTaskId.taskId, stepWithTaskId._id, duration._id,
         function () {
@@ -45,7 +49,7 @@ Template.timesheetItem.events({
 });
 
 Template.timesheetItem.helpers({
-  isEditing() {
-    return Template.instance().isEditing.get();
+  hideIfOverAnHourAgo() {
+    return moment().valueOf() - this.createdAt > moment.duration(1, 'hours').valueOf() ? "hide" : "";
   }
 });
