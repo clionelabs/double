@@ -13,6 +13,10 @@ Meteor.reactivePublish('assistants', function() {
   }
 });
 
+Meteor.publish('tags', function() {
+  return Tags.find();
+});
+
 Meteor.publish('myTasks', function() {
   return Tasks.find();
 });

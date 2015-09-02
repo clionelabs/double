@@ -67,11 +67,7 @@
     }
 
     >* {
-      border-bottom: 1px solid $double-grey2;
       margin-bottom: 20px;
-      &:last-child {
-        border-bottom : none;
-      }
     }
 
     .title-metrics {
@@ -129,6 +125,8 @@
         }
       }
     }
+
+
 
     .tagged-messages {
       h4 {
@@ -383,6 +381,25 @@
 
   .right-pane {
     padding:1em;
+    .tags {
+      margin-bottom: 2em;
+      display: inline-flex;
+      width : 100%;
+      label {
+        line-height: 22px;
+        padding: 5px 7px 5px 0px;
+        margin-bottom: 10px;
+      }
+      .bootstrap-tagsinput {
+        flex: 1;
+        vertical-align: top;
+        .tt-menu {
+          padding: 0.5em 0.8em;
+          border : 1px solid $double-grey3;
+          background: $double-white;
+        }
+      }
+    }
     .updates {
       border: 1px solid $double-light-blue2;
       background: $double-light-blue;
