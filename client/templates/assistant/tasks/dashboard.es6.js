@@ -5,6 +5,14 @@ let FILTER = {
 
 Template.assistantTasksDashboard.onCreated(function() {
   Template.instance().filter = new ReactiveVar(FILTER.CURRENT);
+  Template.instance().rCurrentTaskId = new ReactiveVar();
+});
+
+Template.assistantTasksDashboard.onRendered(function() {
+  this.autorun(function() {
+    let currentTask = Template.currentData().currentTask;
+    Template.instance().rCurrentTaskId.set(currentTask._id);
+  })
 });
 
 Template.assistantTasksDashboard.events({
@@ -17,6 +25,9 @@ Template.assistantTasksDashboard.events({
 });
 
 Template.assistantTasksDashboard.helpers({
+  getRCurrentTaskId() {
+    return Template.instance().rCurrentTaskId;
+  },
   getCurrentTask() {
     let currentTask = this.currentTask;
     return _.extend({}, {

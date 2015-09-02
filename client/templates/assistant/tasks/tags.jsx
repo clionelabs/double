@@ -5,42 +5,57 @@ AssistantTasksDetailTags = ReactMeteor.createClass({
   },
   getMeteorState() {
     return {
-      task: Tasks.findOne(this.props.taskId),
+      task: Tasks.findOne(this.props.taskId.get()),
       tags: Tags.find().fetch()
     };
   },
   getTags(query, cb) {
-    var tags = this.state.tags;
+    var tags = _.pluck(this.state.tags, 'name');
     var searcher = new Bloodhound({
       local: tags,
-      identify : function(tag) { return tag._id; },
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      datumTokenizer: Bloodhound.tokenizers.whitespace,
       queryTokenizer: Bloodhound.tokenizers.whitespace
     });
     searcher.initialize();
     var filtered = [];
-    console.log(searcher);
     searcher.search(query, function(d) { filtered = d });
     return cb(filtered);
   },
-  componentDidMount() {
-    var tags = this.state.tags;
-    console.log(tags);
-    var searcher = new Bloodhound({
-      local: [{ _id : 1, name : 'Research'}, { _id : 2, name: 'Admin'}],
-      identify : function(tag) { return tag._id; },
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-      queryTokenizer: Bloodhound.tokenizers.whitespace
+  componentWillUpdate(nextProps, nextState) {
+    var tagInputUi = $('input[data-role="tagsinput"]');
+    _.each(nextState.task.tags, function(tag){
+      tagInputUi.tagsinput('add', tag.name);
     });
-    searcher.initialize();
-    $('input[data-role="tagsinput"]').tagsinput({
+    tagInputUi.tagsinput('refresh');
+  },
+  componentDidMount() {
+    var ui = this;
+    var tags = this.getTags;
+    var tagInputUi = $('input[data-role="tagsinput"]');
+    var realInput = $('.tags .twitter-typeahead input[type="text"]');
+    tagInputUi.tagsinput({
       typeaheadjs : {
         name : 'tags',
-        displayKey : 'name',
-        valueKey : '_id',
-        source : searcher.ttAdapter()
+        source : tags,
+        limit: 10
       }
     });
+
+    tagInputUi.on('itemAdded', function(e) {
+      var item = e.item;
+      var availableTags = Tags.find({ name : e.item.toLowerCase() }).count();
+      if (!availableTags) {
+        Tags.insert({ name : item });
+      }
+      item = Tags.findOne({ name : e.item.toLowerCase() });
+      Tasks.Tags.add(item, ui.state.task._id);
+    });
+    tagInputUi.on('itemRemoved', function(e) {
+      var item = Tags.findOne({ name : e.item.toLowerCase() });
+      Tasks.Tags.delete(item, ui.state.task._id);
+    });
+
+
   },
   render() {
     return (
