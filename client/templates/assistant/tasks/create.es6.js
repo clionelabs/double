@@ -11,8 +11,10 @@ Template.assistantTaskCreate.events({
       responderId: Meteor.userId(),
       title: title
     };
-    Tasks.create(doc, function() {
+    Tasks.create(doc, function(error, _id) {
+      _.extend(doc, { _id : _id });
       Modal.hide();
+      Analytics.createRequest(doc, Meteor.userId());
     });
   }
 });
