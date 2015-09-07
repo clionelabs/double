@@ -72,8 +72,12 @@ AssistantTasksDetailTags = ReactMeteor.createClass({
       Tasks.Tags.add(tag, ui.state.task._id);
     } else {
       Tags.insert({ name : name }, function(err, _id) {
-        Tasks.Tags.add(Tags.findOne(_id), ui.state.task._id);
-        ui.toggle();
+        if (!err) {
+          Tasks.Tags.add(Tags.findOne(_id), ui.state.task._id);
+          ui.toggle();
+        } else {
+          console.log(err);
+        }
       });
     }
   },
