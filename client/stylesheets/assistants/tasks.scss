@@ -383,20 +383,49 @@
     padding:1em;
     .tags {
       margin-bottom: 2em;
-      display: inline-flex;
-      width : 100%;
-      label {
-        line-height: 22px;
-        padding: 5px 7px 5px 0px;
-        margin-bottom: 10px;
+      .header .fa {
+        margin-left: 1em;
+        cursor : pointer;
       }
-      .bootstrap-tagsinput {
-        flex: 1;
-        vertical-align: top;
-        .tt-menu {
-          padding: 0.5em 0.8em;
-          border : 1px solid $double-grey3;
-          background: $double-white;
+      form {
+        margin-bottom: 1em;
+        display: inline-flex;
+        width: 100%;
+        label {
+          padding: 5px 7px 5px 0px;
+          margin-bottom: 10px;
+        }
+        .twitter-typeahead {
+          flex: 1;
+          vertical-align: top;
+          height: 30px;
+          input {
+            width: 100%;
+          }
+          .tt-menu {
+            border: 1px solid $double-grey3;
+            width: calc(100% - 2px);
+            background: $double-white;
+            .tt-selectable {
+              padding: 0.5em 0.8em;
+              &:focus, &:hover, &.tt-cursor {
+                background: $double-light-blue2;
+              }
+            }
+          }
+        }
+        button {
+          height: 30px;
+          border : none;
+          background: transparent;
+        }
+      }
+      .list {
+        .tag {
+          margin-bottom: 0.5em;
+          .fa {
+            margin-right: 1em;
+          }
         }
       }
     }
