@@ -81,6 +81,18 @@
         }
       }
     }
+    .confirm-charge {
+      width : 80%;
+      margin : 0 auto;
+      padding : 15px;
+      .buttons {
+        display: flex;
+        button {
+          flex : 0 40%;
+          margin : 0 auto;
+        }
+      }
+    }
     .content {
       flex: 1;
       width : 80%;
