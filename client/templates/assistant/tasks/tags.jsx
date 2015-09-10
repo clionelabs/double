@@ -92,7 +92,6 @@ AssistantTasksDetailTags = ReactMeteor.createClass({
       }, false);
       return _.extend(tag, { isSelected : isSelected });
     });
-    console.log(tagsWithSelected);
     return (
         <div className="tags">
           <div className="header"><h4>Tags<i className='fa fa-plus' onClick={ this.handleOnAddClick }></i></h4></div>

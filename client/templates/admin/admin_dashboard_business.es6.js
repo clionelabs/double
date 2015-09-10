@@ -116,7 +116,6 @@ Template.adminDashboardBusiness.events({
     let instance = Template.instance();
     instance.rIsEditingResponseMessage.set(true);
     let textarea = instance.$("#response-message");
-    console.log(textarea, textarea.val());
     textarea.attr("readonly", false);
     textarea.focus();
   },
