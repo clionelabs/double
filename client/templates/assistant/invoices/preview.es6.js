@@ -7,8 +7,7 @@ Template.assistantInvoicePreview.helpers({
 Template.assistantInvoicePreview.events({
   "click .charge" : function() {
     let invoiceId = this._id;
-    Invoices.charge(invoiceId);
-    Customers.deductCreditMs(this.customerId, this.roundedInSecondTotalDuration());
+    this.issue();
   },
   "click .generate" : function() {
     Router.go(Router.current().url + "?isStatic=true");
