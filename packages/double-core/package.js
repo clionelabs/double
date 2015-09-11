@@ -23,6 +23,7 @@ Package.onUse(function(api) {
     'lib/users.es6.js',
     'lib/placements.es6.js',
     'lib/events.es6.js'
+    'lib/transactions.es6.js'
   ]);
   api.export('D');
 });
