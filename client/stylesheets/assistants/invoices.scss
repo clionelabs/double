@@ -37,13 +37,24 @@
           background: $double-white;
         }
         .status.badge {
-          font-style: italic;
           font-size: 0.88em;
-          &.issued {
+          &.failed {
+            background: $double-red2;
+          }
+          &.voided {
+            background: $double-red3;
+            color: $double-black;
+          }
+          &.charged {
             background : $double-green2;
+          }
+          &.issued {
+            background : $double-green;
+            color: $double-black;
           }
           &.draft {
             background : $double-light-blue2;
+            color: $double-black;
           }
         }
       }

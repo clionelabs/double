@@ -87,7 +87,10 @@ Meteor.methods({
     let paymentMethod = customer.getPaymentMethod();
     BrainTreeGateway.get().transaction.sale({
       paymentMethodToken : paymentMethod.token,
-      amount : amount
+      amount : amount,
+      options: {
+        submitForSettlement: true
+      }
     }, function(err, result) {
       if (!err) {
         let transactionId = result.transaction.id;
