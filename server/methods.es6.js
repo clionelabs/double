@@ -82,23 +82,5 @@ Meteor.methods({
   tagTask(messageIds, taskId) {
     return Messages.tagTask(messageIds, taskId);
   },
-  charge(invoiceId, amount) {
-    let customer = Users.findOneCustomer(invoiceId.customerId);
-    let paymentMethod = customer.getPaymentMethod();
-    BrainTreeGateway.get().transaction.sale({
-      paymentMethodToken : paymentMethod.token,
-      amount : amount,
-      options: {
-        submitForSettlement: true
-      }
-    }, function(err, result) {
-      if (!err) {
-        let transactionId = result.transaction.id;
-        Invoices.linkTransaction(invoiceId, transactionId);
-      } else {
-        console.log(err);
-      }
-    });
-  }
 
 });

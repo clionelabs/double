@@ -16,11 +16,6 @@
     "email": "admin@askdouble.com",
     "password": "1"
   },
-  "braintree" : {
-    "merchantId" : "",
-    "publicKey" : "",
-    "privateKey" : ""
-  },
   "public" : {
     "messages": {
       "defaultLimitOfSubscription": 100,

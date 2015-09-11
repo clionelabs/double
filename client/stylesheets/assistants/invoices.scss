@@ -38,19 +38,22 @@
         }
         .status.badge {
           font-size: 0.88em;
+          font-weight: 300;
+          letter-spacing: 0.4px;
+          width: 70px;
+          text-align: center;
           &.failed {
-            background: $double-red2;
+            background: $double-red;
           }
           &.voided {
-            background: $double-red3;
-            color: $double-black;
+            background: $double-red2;
           }
           &.charged {
             background : $double-green2;
           }
           &.issued {
-            background : $double-green;
-            color: $double-black;
+            background : $double-black;
+            color: $double-white;
           }
           &.draft {
             background : $double-light-blue2;

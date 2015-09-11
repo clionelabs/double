@@ -8,13 +8,3 @@ SyncedCron.add({
     TaskSchedulers.generateAllNextsIfNotExisted();
   }
 });
-
-SyncedCron.add({
-  name: 'check invoice is settled or not',
-  schedule(parser) {
-    return parser.cron('*/5 * * * *');
-  },
-  job() {
-    InvoiceScheduler.checkSettled();
-  }
-});
