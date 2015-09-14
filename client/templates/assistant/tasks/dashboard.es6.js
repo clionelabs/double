@@ -40,9 +40,9 @@ Template.assistantTasksDashboard.helpers({
   tasksWithIsCurrent() {
     let tasks = Template.instance().filter.get() === FILTER.CURRENT ? this.tasks : this.completedTasks;
     let currentTask = Template.currentData().currentTask;
-    return _.map(tasks.fetch(), function(task) {
+    return _.sortBy(_.map(tasks.fetch(), function(task) {
       return _.extend({}, { isCurrent : (currentTask._id === task._id) }, task);
-    });
+    }), function(task) { return task.lastModified; });
   },
   filterIsCurrent() {
     return Template.instance().filter.get() === FILTER.CURRENT ? "active" : "";
