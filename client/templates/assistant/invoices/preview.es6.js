@@ -10,8 +10,8 @@ Template.assistantInvoicePreview.events({
     Template.instance().$('.confirm-charge').removeClass('hide');
   },
   'click .confirm-charge .confirm' : function() {
-    let invoiceId = this._id;
-    this.issue();
+    let invoice = this;
+    invoice.issue();
     Template.instance().$('.confirm-charge').addClass('hide');
   },
   'click .confirm-charge .cancel' : function() {

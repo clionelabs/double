@@ -30,5 +30,7 @@ Meteor.startup(() => {
 
   TaskSchedulers.startup();
 
+  InvoicesStartup();
+
   setupIndexes();
 });
