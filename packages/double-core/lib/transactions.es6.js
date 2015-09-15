@@ -1,6 +1,7 @@
 D.Transaction = {
   Status : {
     NOT_SUBMITTED : 'not-submitted',
+    SUBMITTING: 'submitting',
     SUBMITTED: 'submitted',
     SETTLED: 'settled',
     FAILED: 'failed',
