@@ -81,6 +81,6 @@ Meteor.methods({
 
   tagTask(messageIds, taskId) {
     return Messages.tagTask(messageIds, taskId);
-  }
+  },
 
 });

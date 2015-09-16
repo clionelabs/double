@@ -6,6 +6,7 @@
 #ide specific
 .tern_project
 .idea/
+*.iml
 
 #test build file
 packages/*

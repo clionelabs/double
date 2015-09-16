@@ -1,3 +1,4 @@
+
 Template.assistantInvoicePreview.helpers({
   isDraft() {
     return this.status === Invoice.Status.Draft;
@@ -6,9 +7,15 @@ Template.assistantInvoicePreview.helpers({
 
 Template.assistantInvoicePreview.events({
   "click .charge" : function() {
-    let invoiceId = this._id;
-    Invoices.charge(invoiceId);
-    Customers.deductCreditMs(this.customerId, this.roundedInSecondTotalDuration());
+    Template.instance().$('.confirm-charge').removeClass('hide');
+  },
+  'click .confirm-charge .confirm' : function() {
+    let invoice = this;
+    invoice.issue();
+    Template.instance().$('.confirm-charge').addClass('hide');
+  },
+  'click .confirm-charge .cancel' : function() {
+    Template.instance().$('.confirm-charge').addClass('hide');
   },
   "click .generate" : function() {
     Router.go(Router.current().url + "?isStatic=true");

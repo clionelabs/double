@@ -82,7 +82,6 @@ Template.assistantTasksDetail.helpers({
 
 
 let _updateTimer = (rTimer, startedAt) => {
-  console.log(rTimer.get());
   rTimer.set(moment().valueOf() - startedAt);
 };
 

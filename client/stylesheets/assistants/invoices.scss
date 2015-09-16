@@ -37,13 +37,27 @@
           background: $double-white;
         }
         .status.badge {
-          font-style: italic;
           font-size: 0.88em;
-          &.issued {
+          font-weight: 300;
+          letter-spacing: 0.4px;
+          width: 70px;
+          text-align: center;
+          &.failed {
+            background: $double-red;
+          }
+          &.voided {
+            background: $double-red2;
+          }
+          &.charged {
             background : $double-green2;
+          }
+          &.issued {
+            background : $double-black;
+            color: $double-white;
           }
           &.draft {
             background : $double-light-blue2;
+            color: $double-black;
           }
         }
       }
@@ -78,6 +92,18 @@
         color: $double-white;
         &.btn-danger {
           background: $double-red;
+        }
+      }
+    }
+    .confirm-charge {
+      width : 80%;
+      margin : 0 auto;
+      padding : 15px;
+      .buttons {
+        display: flex;
+        button {
+          flex : 0 40%;
+          margin : 0 auto;
         }
       }
     }

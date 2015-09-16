@@ -79,6 +79,7 @@ mongo@1.1.0
 mongo-livedata@1.0.8
 mrt:later@1.6.1
 natestrauser:animate-css@3.2.6
+natestrauser:statemachine@0.1.1
 npm-bcrypt@0.7.8_2
 numeral:numeral@1.5.3
 oaf:moment-duration-format@1.3.2
@@ -86,6 +87,7 @@ observe-sequence@1.0.6
 okgrow:analytics@0.3.0
 ordered-dict@1.0.3
 package-version-parser@3.0.3
+patrickml:braintree@1.29.0
 peppelg:bootstrap-3-modal@1.0.3
 perak:markdown@1.0.5
 percolate:synced-cron@1.2.1
