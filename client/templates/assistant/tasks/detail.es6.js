@@ -72,7 +72,7 @@ Template.assistantTasksDetail.helpers({
   last7DaysTimeUsed() {
     let weekBeforeTimestamp = moment().subtract(7, 'd').valueOf();
     return _.reduce(this.steps, function(memo, step) {
-      return memo + step.duration(weekBeforeTimestamp, moment().valueOf());
+      return memo + step.duration(weekBeforeTimestamp, moment().endOf('day').valueOf() + 1);
     }, 0);
   },
   getRCurrentTaskId() {
