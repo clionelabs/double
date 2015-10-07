@@ -26,7 +26,7 @@ Template.assistantCustomersListItem.helpers({
     return this.isOnline();
   },
   tasksNotBilledTime() {
-    let lastBillDate = Invoices.findLastBilledDate(this._id);
+    let lastBillDate = Invoices.findLastBilledDate(this._id) + 1;
     let tasksOfCustomer = Tasks.find({ requestorId : this._id }).fetch();
     return _.reduce(tasksOfCustomer, function(memo, task) {
       return memo + task.totalDuration(lastBillDate);
