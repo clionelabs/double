@@ -8,7 +8,7 @@ Template.assistantInvoiceDashboard.helpers({
     let currentCustomer = this.currentCustomer;
     return _.map(
         _.sortBy(this.invoicesOfCustomer.fetch(), function(invoice) {
-            return invoice.createdAt * -1;
+            return invoice.to * -1;
           }),
         function(invoice) {
           let additionInfo = {};
