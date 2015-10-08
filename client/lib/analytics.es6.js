@@ -2,25 +2,25 @@ Analytics = {
   bankTimeInMinutes(task, assistantId, durationMoment) {
     let assistant = Users.findOne(assistantId);
     let customer = Users.findOneCustomer(task.requestorId);
-    analytics.identify(task.requestorId);
+    mixpanel.identify(task.requestorId);
     let properties = {
       taskId : task._id,
       taskTitle : task.title,
       minutesAdded : Math.ceil(durationMoment.valueOf() / 1000 / 60)
     };
-    analytics.track('Bank Time', properties);
-    analytics.identify(assistantId);
+    mixpanel.track('Bank Time', properties);
+    mixpanel.identify(assistantId);
   },
   createRequest(task, assistantId) {
     let assistant = Users.findOne(assistantId);
     let customer = Users.findOneCustomer(task.requestorId);
-    analytics.identify(task.requestorId);
+    mixpanel.identify(task.requestorId);
     let properties = {
       taskId : task._id,
       taskTitle : task.title,
     };
-    analytics.track('Create Request', properties);
-    analytics.identify(assistantId);
+    mixpanel.track('Create Request', properties);
+    mixpanel.identify(assistantId);
   }
 
 };
