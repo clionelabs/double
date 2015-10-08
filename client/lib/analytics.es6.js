@@ -4,7 +4,7 @@ Analytics = {
     let customer = Users.findOneCustomer(task.requestorId);
     analytics.identify(task.requestorId);
     let properties = {
-      byAssistantId: assistantId,
+      taskId : task._id,
       taskTitle : task.title,
       minutesAdded : Math.ceil(durationMoment.valueOf() / 1000 / 60)
     };
@@ -16,8 +16,8 @@ Analytics = {
     let customer = Users.findOneCustomer(task.requestorId);
     analytics.identify(task.requestorId);
     let properties = {
+      taskId : task._id,
       taskTitle : task.title,
-      byAssistantId : task.responderId
     };
     analytics.track('Create Request', properties);
     analytics.identify(assistantId);
