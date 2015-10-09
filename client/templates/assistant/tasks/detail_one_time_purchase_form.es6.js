@@ -22,16 +22,22 @@ Template.assistantTasksDetailOneTimePurchaseForm.helpers({
   },
   today() {
     return moment().valueOf();
-  }
+  },
   /*
   TODO add backed when there is last Bill Date for user
   isBilledStr() {
     return this.billedAt ? "billed" : "unbilled";
   },
-  hideIfBilled() {
-    return this.billedAt ? "hide" : "";
-  }
   */
+  hideIfBilled() {
+    return Invoices.findLastBilledDate(this.requestorId) > this.date ? "hide" : "";
+  },
+  oneTimePurchases() {
+    const task = this;
+    return _.map(task.oneTimePurchases, function(otp) {
+      return _.extend(otp, { requestorId : task.requestorId });
+    })
+  }
 });
 
 Template.assistantTasksDetailOneTimePurchaseForm.events({
