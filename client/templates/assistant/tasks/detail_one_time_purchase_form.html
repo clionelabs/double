@@ -4,6 +4,10 @@
     <div class="sub {{ isOneTimePurchaseFormShown }}">
       <form class="add" id="add-one-time-purchase">
         <fieldset>
+          <label for="isOnBehalf">On-Behalf: </label>
+          <input name="isOnBehalf" class="isOnBehalf" type="checkbox" />
+        </fieldset>
+        <fieldset>
           <label for="date">Date: </label>
           <input name="date" class="date" type="date" value="{{formatDate today}}" required/>
         </fieldset>
@@ -23,7 +27,8 @@
         <div class="one-time-purchase">
           <div class="main">
             <!--<span class="badge {{ isBilledStr }}">{{ isBilledStr }}</span> -->
-            <div class="title">{{formatDate date }}</div>
+            <div class="type">{{#if isOnBehalf }}On Behalf{{else}}Sales{{/if}}</div>
+            <div class="date">{{formatDate date }}</div>
             <div class="title">{{ title }}</div>
             <div class="amount">HKD {{formatAmount amount}}</div>
           </div>
