@@ -190,15 +190,17 @@
           display: flex;
 
           fieldset {
-
             &:first-child {
+              flex : 0 0 calc(15% - 16px);
+            }
+            &:first-child(2) {
               flex : 0 0 calc(25% - 16px);
             }
-            &:nth-child(2) {
-              flex : 0 0 calc(45% - 16px);
-            }
             &:nth-child(3) {
-              flex : 0 0 calc(20% - 16px);
+              flex : 0 0 calc(35% - 16px);
+            }
+            &:nth-child(4) {
+              flex : 0 0 calc(15% - 16px);
             }
             &:last-child {
               flex : 0 0 calc(10% - 16px);
@@ -234,10 +236,13 @@
               display: flex;
               flex-direction: row;
               flex: 1;
-              .title {
+              .title, .date, .type {
                 padding: 0px 1.1em;
                 color: $double-black;
                 font-weight: 700;
+              }
+              .type {
+                min-width:100px;
               }
             }
             .delete {

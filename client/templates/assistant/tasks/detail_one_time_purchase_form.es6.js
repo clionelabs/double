@@ -2,7 +2,8 @@ let _submitFn = (tmpl, form, taskId) => {
   let date = moment(form.target.date.value).valueOf();
   let title = form.target.title.value;
   let amount = Number.parseFloat(form.target.amount.value);
-  Tasks.OneTimePurchase.add(date, amount, title, taskId,
+  let isOnBehalf = form.target.isOnBehalf.checked;
+  Tasks.OneTimePurchase.add(date, amount, title, isOnBehalf, taskId,
       () => {
         tmpl.isOneTimePurchaseFormShown.set(false);
       });
