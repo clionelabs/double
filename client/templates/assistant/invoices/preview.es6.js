@@ -10,12 +10,10 @@ Template.assistantInvoicePreview.events({
     Template.instance().$('.confirm-charge').removeClass('hide');
   },
   'click .confirm-charge .confirm' : function() {
-    let invoice = this;
+    const invoice = this;
     invoice.issue();
     const userId = Meteor.userId();
-    mixpanel.identify(invoice.customerId);
-    mixpanel.people.track_charge(invoice.revenue(), { '$time' : moment(invoice.to).format('YYYY-MM-DDTHH:mm:ss')});
-    mixpanel.identify(userId);
+    Analytics.increaseRevenue(invoice, userId);
     Template.instance().$('.confirm-charge').addClass('hide');
   },
   'click .confirm-charge .cancel' : function() {

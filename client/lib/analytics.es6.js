@@ -30,5 +30,10 @@ Analytics = {
     };
     analytics.track('Create Request', properties);
     analytics.identify(assistantId);
+  },
+  increaseRevenue(invoice, assistantId) {
+    mixpanel.identify(invoice.customerId);
+    mixpanel.people.track_charge(invoice.revenue(), { '$time' : moment(invoice.to).format('YYYY-MM-DDTHH:mm:ss')});
+    mixpanel.identify(assistantId);
   }
 };
