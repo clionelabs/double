@@ -84,3 +84,11 @@ Meteor.publish("invoices", function() {
 Meteor.publish("configs", function() {
   return D.Configs.find();
 });
+
+Meteor.publish("currentUser", function() {
+  if (Meteor.userId()) {
+    return Meteor.users.find(Meteor.userId());
+  } else {
+    return null;
+  }
+});

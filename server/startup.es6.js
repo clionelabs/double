@@ -32,5 +32,7 @@ Meteor.startup(() => {
 
   InvoicesStartup();
 
+  DoubleFastRender.startup();
+
   setupIndexes();
 });
