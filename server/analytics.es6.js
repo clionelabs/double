@@ -48,9 +48,7 @@ Tasks.find({ createdAt : { $gt : serverSessionStartAt } }).observe({
   added(task) {
     if (init) {
       Analytics.createRequest(task);
-  } else {
-    console.log('testest');
-}
+    }
   }
 });
 
