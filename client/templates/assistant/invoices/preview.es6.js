@@ -13,7 +13,6 @@ Template.assistantInvoicePreview.events({
     const invoice = this;
     invoice.issue();
     const userId = Meteor.userId();
-    Analytics.increaseRevenue(invoice, userId);
     Template.instance().$('.confirm-charge').addClass('hide');
   },
   'click .confirm-charge .cancel' : function() {

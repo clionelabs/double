@@ -14,10 +14,6 @@ Template.timesheetItem.events({
   "click .delete" : function(e, tmpl) {
     let duration = Template.currentData();
     let stepWithTaskId = Template.parentData();
-    Analytics.bankTimeInMinutes(
-        Tasks.findOne(stepWithTaskId.taskId),
-        Meteor.userId(),
-        moment.duration(-duration.value));
     Tasks.Steps.Durations.delete(
         stepWithTaskId.taskId, stepWithTaskId._id, duration._id,
         function () {
