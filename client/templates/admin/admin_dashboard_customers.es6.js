@@ -20,9 +20,13 @@ Template.adminDashboardCustomerRow.helpers({
   availableAssistants: function() {
     let customerId = this._id;
     let data = Router.current().data();
-    return data.assistants.map(function(assistant) {
-      return _.extend(assistant, { customerId: customerId }, User);
-    });
+    if (data && data.assistants) {
+      return data.assistants.map(function (assistant) {
+        return _.extend(assistant, {customerId: customerId}, User);
+      });
+    } else {
+      return null;
+    }
   }
 });
 
