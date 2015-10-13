@@ -34,18 +34,27 @@ Meteor.startup(function() {
   mixpanel = Mixpanel.init(Meteor.settings.mixpanel.token);
 });
 
+var init = false; //_suppress_initial
 Invoices.find({ 'status' : 'charged' }).observe({
   added(invoice) {
-    Analytics.increaseRevenue(invoice)
+    if (init) {
+      Analytics.increaseRevenue(invoice)
+    }
   }
 });
 
-
-Tasks.find({}, { sort : { createdAt : -1 }, limit : 1 }).observe({
+var serverSessionStartAt = moment().valueOf();
+Tasks.find({ createdAt : { $gt : serverSessionStartAt } }).observe({
   added(task) {
-    Analytics.createRequest(task);
+    if (init) {
+      Analytics.createRequest(task);
+  } else {
+    console.log('testest');
+}
   }
 });
+
+init = true;
 
 Tasks.find({ completedAt : null }).observe({
   changed(newTask, oldTask) {
