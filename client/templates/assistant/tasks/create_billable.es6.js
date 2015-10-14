@@ -241,7 +241,6 @@ Template.assistantTasksCreateBillable.events({
                       function(memo, update) {
                         return memo + update.timeToBeAdded;
                       }, 0));
-    Analytics.bankTimeInMinutes(task, Meteor.userId(), duration);
     Tasks.Steps.bankTime(Meteor.userId(), task._id, updates);
     Assistants.bankTask(Meteor.userId(), task._id);
     Modal.hide();

@@ -10,8 +10,9 @@ Template.assistantInvoicePreview.events({
     Template.instance().$('.confirm-charge').removeClass('hide');
   },
   'click .confirm-charge .confirm' : function() {
-    let invoice = this;
+    const invoice = this;
     invoice.issue();
+    const userId = Meteor.userId();
     Template.instance().$('.confirm-charge').addClass('hide');
   },
   'click .confirm-charge .cancel' : function() {
