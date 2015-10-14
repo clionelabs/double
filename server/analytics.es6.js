@@ -68,23 +68,23 @@ var _bankTimeInMixpanel = function(newTask, oldTask) {
       if (_.isEqual(newStep._id, oldStep._id)) {
         const newDurations = newStep.durations;
         const oldDurations = oldStep.durations;
+        const newDurationIds = _.pluck(newDurations, '_id');
+        const oldDurationIds = _.pluck(oldDurations, '_id');
 
-        const newDurationId = _.difference(_.pluck(newDurations, '_id'), _.pluck(oldDurations, '_id'))[0];
-        if (newDurationId) {
-          //add
-          const newDuration = _.find(newDurations, function (duration) {
-            return duration._id === newDurationId
-          });
-          Analytics.bankTimeInMinutes(task, newDuration.value);
-        } else {
-          //remove
-          const deletedDurationId = _.difference(_.pluck(oldDurations, '_id'), _.pluck(newDurations, '_id'))[0];
-          if (!deletedDurationId) return;
-          const oldDuration = _.find(oldDurations, function (duration) {
-            return duration._id === deletedDurationId;
-          });
-          Analytics.bankTimeInMinutes(task, -oldDuration.value);
-        }
+        // added durations
+        _.each(newDurations, function(duration) {
+          if (_.indexOf(oldDurationIds, duration._id) === -1) {
+            Analytics.bankTimeInMinutes(task, duration.value);
+          }
+        });
+
+        // deleted durations
+        _.each(oldDurations, function(duration) {
+          if (_.indexOf(newDurationIds, duration._id) === -1) {
+            Analytics.bankTimeInMinutes(task, -duration.value);
+          }
+        });
+
       }
     });
   });
