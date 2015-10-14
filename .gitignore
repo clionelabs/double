@@ -11,6 +11,10 @@
 #test build file
 packages/*
 !packages/double-core/
+!packages/npm-container/
+packages/npm-container/.npm/
+!packages/npm-container/index.js
+!packages/npm-container/package.js
 
 #project specific
 /private/settings.json
