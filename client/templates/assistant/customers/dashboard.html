@@ -14,7 +14,16 @@
       </div>
       <div class="task-related">
         <div class="tasks">
-          <h4>Current Requests<i class="fa fa-plus new-task-button"></i></h4>
+          <h4>Requests<i class="fa fa-plus new-task-button"></i></h4>
+          <div class="is-completed-checkbox">
+              <a href="{{ urlFor
+                    route='assistant.customers.selected'
+                    data=getSelectChannelData
+                    query=getCompletedTaskToggleQuery }}">
+                  <i class="fa {{ isCompletedChecked }}"></i>
+              </a>
+              <span>Show Completed</span>
+          </div>
           {{#each getTasksOfSelectedCustomer}}
             {{> assistantCustomerTaskListItem }}
           {{/each}}
