@@ -54,3 +54,8 @@ Template.registerHelper("formatMessage", function(text) {
 Template.registerHelper('not', function(x) {
   return !x;
 });
+
+Template.registerHelper('getSelectChannelData', function () {
+  let customer = Template.currentData().currentCustomer;
+  return { _id : customer._id };
+});

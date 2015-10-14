@@ -46,14 +46,30 @@ Template.assistantCustomersDashboard.helpers({
   },
   getTasksOfSelectedCustomer() {
     let currentCustomer = Template.currentData().currentCustomer;
+    const isShowCompletedTask = Template.currentData().isShowCompletedTask;
     return _.sortBy(
         _.filter(Tasks.findRequestedBy(currentCustomer._id).fetch(),
             function(task) {
-              return task.completedAt === null;
+              if (isShowCompletedTask) {
+                return task.completedAt !== null;
+              } else {
+                return task.completedAt === null;
+              }
             }),
         function(task) {
           return task.createdAt * -1;
     });
+  },
+  isCompletedChecked() {
+    const isShowCompletedTask = Template.currentData().isShowCompletedTask;
+    return isShowCompletedTask ? 'fa-check-square-o' : 'fa-square-o';
+  },
+  getCompletedTaskToggleQuery() {
+    const channel = Template.currentData().selectedChannel;
+    const isShowCompletedTask = Template.currentData().isShowCompletedTask || false;
+    let data = { isShowCompletedTask: !isShowCompletedTask};
+
+    return channel ? _.extend({ selectedChannel: channel._id }, data) : data;
   }
 });
 

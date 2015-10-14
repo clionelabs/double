@@ -243,6 +243,9 @@
         width: 100%;
         overflow-y: scroll;
         flex : 1;
+        .is-completed-checkbox {
+          margin-bottom: 0.3em;
+        }
         .task {
           padding-bottom : 5px;
           .color-label {

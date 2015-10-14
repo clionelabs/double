@@ -38,7 +38,7 @@ Template.assistantCustomerConversation.helpers({
     let customer = this;
     return D.Channels.find({customerId: customer._id}).map(function(channel) {
       return {
-        customer: customer,
+        currentCustomer: customer,
         channel: channel
       };
     });
@@ -73,21 +73,18 @@ Template.assistantCustomerConversation.helpers({
 Template.assistantCustomerConversationChannel.helpers({
   isSelectedClass() {
     let data = Template.currentData();
-    let customerId = data.customer._id;
+    let customerId = data.currentCustomer._id;
     let channelId = data.channel._id;
-    let selectedChannelId = data.customer.selectedChannelId;
+    let selectedChannelId = data.currentCustomer.selectedChannelId;
     return channelId === selectedChannelId ? "active": "";
   },
   isNotReplied() {
     return this.channel.isNotReplied();
   },
-  getSelectChannelData() {
-    let customer = Template.currentData().customer;
-    return { _id : customer._id };
-  },
   getSelectChannelQuery() {
-    let channel = Template.currentData().channel;
-    return { selectedChannel : channel._id };
+    const channel = Template.currentData().channel;
+    const isShowCompletedTask = Template.currentData().isShowCompletedTask || false;
+    return { selectedChannel : channel._id , isShowCompletedTask : isShowCompletedTask };
   }
 });
 
