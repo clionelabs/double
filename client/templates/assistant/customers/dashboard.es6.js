@@ -39,7 +39,7 @@ Template.assistantCustomersDashboard.helpers({
       return _.extend(customer,
           {
             lastMessageTimestamp :  lastMessageTimestamp,
-            isCurrent : (customer._id === currentCustomer._id)
+            isCurrent : (currentCustomer && customer._id === currentCustomer._id)
           });
     });
     return _.sortBy(customers, function(customer) { return -1 * customer.lastMessageTimestamp; });
@@ -90,6 +90,10 @@ Template.assistantCustomersDashboard.onCreated(function() {
 Template.assistantCustomersDashboard.onRendered(function() {
   let ui = this;
   ui.autorun(function() {
-    ui.currentCustomerId.set(Template.currentData().currentCustomer._id);
+    if (Template.currentData().currentCustomer) {
+      ui.currentCustomerId.set(Template.currentData().currentCustomer._id);
+    } else {
+      ui.currentCustomerId.set(null);
+    }
   });
 })

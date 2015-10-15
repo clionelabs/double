@@ -5,6 +5,7 @@
         {{> assistantCustomersListItem }}
       {{/each }}
     </div>
+    {{#if currentCustomer }}
     <div class="conversation">
       {{> assistantCustomerConversation conversationData}}
     </div>
@@ -30,5 +31,8 @@
         </div>
       </div>
     </div>
+    {{else}}
+      <div class="no-customer">Please select a customer</div>
+    {{/if}}
   </div>
 </template>
