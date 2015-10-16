@@ -25,6 +25,12 @@ DurationFormatter = {
   }
 };
 
+DurationConverter = {
+  minutesToMs : (minute) => {
+    return minute * 60 * 1000;
+  }
+};
+
 AmountFormatter = {
   toString : function(amount) {
     return numeral(amount).format('0,0.00');

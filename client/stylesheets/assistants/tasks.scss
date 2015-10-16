@@ -583,19 +583,22 @@
       th,td {
         padding: 0.8em;
         &:first-child {
-          width : 61%;
+          width : 56%;
           text-align:left;
         }
         &:nth-child(2) {
-          width : 15%;
+          width : 20%;
           input {
-            width : 100%;
+            width : 50%;
           }
         }
         &:nth-child(3) {
           width : 19%;
         }
       }
+    }
+    #bank-time-actual {
+      display:none;
     }
     flex : 0 0 60%;
     .add-step {
