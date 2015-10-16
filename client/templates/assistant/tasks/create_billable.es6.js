@@ -223,12 +223,17 @@ Template.assistantTasksCreateBillable.helpers({
 Template.assistantTasksCreateBillable.events({
   "click .bank-time" : function(e, tmpl) {
     e.preventDefault();
+    //for some reason form.submit() doesn't trigger input validation
+    $('#bank-time-actual').click();
+  },
+  "submit #bank-time" : function(e, tmpl) {
+    e.preventDefault();
     let task = Tasks.findOne(this._id);
     let updates = _.filter(_.map(task.steps, function(step) {
       let result = {};
       let _id = step._id;
       let selector = `input.duration[data-id='${_id}']`;
-      let timeToBeAdded = moment.duration($(selector).val()).asMilliseconds();
+      let timeToBeAdded = DurationConverter.minutesToMs($(selector).val());
       return {
         stepId : step._id,
         timeToBeAdded : timeToBeAdded
@@ -237,24 +242,25 @@ Template.assistantTasksCreateBillable.events({
       return update.timeToBeAdded;
     });
     let duration = moment.duration(_.reduce(
-                      updates,
-                      function(memo, update) {
-                        return memo + update.timeToBeAdded;
-                      }, 0));
+      updates,
+      function(memo, update) {
+        return memo + update.timeToBeAdded;
+      }, 0));
     Tasks.Steps.bankTime(Meteor.userId(), task._id, updates);
     Assistants.bankTask(Meteor.userId(), task._id);
     Modal.hide();
+
   },
   "keyup input.duration, focusout input.duration" : function(e, tmpl) {
     let step = this;
     let times = [];
     $('input.duration').each(function() {
-      times.push(moment.duration($(this).val()));
+      times.push(DurationConverter.minutesToMs($(this).val()));
     });
     let totalTime = _.reduce(times, function(memo,time) {
-      return memo + time.asMilliseconds();
+      return memo + time;
     }, 0);
-    step.duration = moment.duration(tmpl.$('input.duration').val());
+    step.duration = moment.duration(DurationConverter.minutesToMs(tmpl.$('input.duration').val()));
     step.parentTotalTime.set(totalTime);
   }
 });
