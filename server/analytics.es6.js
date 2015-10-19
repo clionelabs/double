@@ -68,7 +68,9 @@ Tasks.find({ createdAt : { $gt : serverSessionStartAt } }).observe({
 
 Users.findCustomers().observe({
   added(user) {
-    Analytics.updateProfile(user);
+    if (init) {
+      Analytics.updateProfile(user);
+    }
   },
   changed(user) {
     Analytics.updateProfile(user);
@@ -97,14 +99,14 @@ var _bankTimeInMixpanel = function(newTask, oldTask) {
         // added durations
         _.each(newDurations, function(duration) {
           if (_.indexOf(oldDurationIds, duration._id) === -1) {
-            Analytics.bankTimeInMinutes(task, duration.value);
+            Analytics.bankTimeInMinutes(newTask, duration.value);
           }
         });
 
         // deleted durations
         _.each(oldDurations, function(duration) {
           if (_.indexOf(newDurationIds, duration._id) === -1) {
-            Analytics.bankTimeInMinutes(task, -duration.value);
+            Analytics.bankTimeInMinutes(newTask, -duration.value);
           }
         });
 
