@@ -14,6 +14,9 @@ DateFormatter = {
 };
 
 DurationFormatter = {
+  toMinute : (duration) => {
+    return duration / 1000 / 60;
+  },
   toString : (duration)=> {
     return duration ? moment.duration(duration).humanize() : '---';
   },
@@ -41,6 +44,7 @@ Template.registerHelper("formatDate", DateFormatter.toDateString);
 Template.registerHelper("formatDateTime", DateFormatter.toDateTimeString);
 Template.registerHelper("formatDateMonth", DateFormatter.toDateMonthString);
 Template.registerHelper('formatDateShortMonth', DateFormatter.toDateShortMonthString);
+Template.registerHelper("formatDurationToMinute", DurationFormatter.toMinute);
 Template.registerHelper("formatDuration", DurationFormatter.toString);
 Template.registerHelper("formatDurationPrecise", DurationFormatter.toPreciseString);
 Template.registerHelper("formatDurationPreciseMs", DurationFormatter.toPreciseMsString);
