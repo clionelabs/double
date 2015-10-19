@@ -45,9 +45,15 @@ Template.timesheetItem.events({
 });
 
 Template.timesheetItem.helpers({
-  hideIfOverAnHourAgo() {
+  hideIf() {
     const stepWithTaskId = Template.parentData();
     const taskOwnerId = Tasks.findOne(stepWithTaskId.taskId).requestorId;
     return moment(Invoices.findLastBilledDate(taskOwnerId)).startOf('day') > this.createdAt ? "hide" : "";
+  },
+  assistantName() {
+    const userId = this.assistantId;
+    if (userId) {
+      return Users.findOneAssistant(userId).displayName();
+    }
   }
 });
