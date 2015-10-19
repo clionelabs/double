@@ -17,7 +17,11 @@ Template.customerEditForm.events({
     }
 
     let cb = function(error, result) {
-      Modal.hide();
+      if (!error) {
+        Modal.hide();
+      } else {
+        Notifications.error(`${error.message}. Please try again.`, '');
+      }
     };
     if (isEdit) {
       Meteor.call('editCustomer', this._id, data, cb);
