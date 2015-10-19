@@ -3,6 +3,7 @@ mixpanel = null;
 Analytics = {
   bankTimeInMinutes(task, durationInMs) {
     if (!mixpanel) return;
+    console.log(`[Analytics] Task ${task._id} is banked ${durationInMs} in mixpanel.`);
     let properties = {
       distinct_id : task.requestorId,
       taskId : task._id,
@@ -13,6 +14,7 @@ Analytics = {
   },
   createRequest(task) {
     if (!mixpanel) return;
+    console.log(`[Analytics] Task ${task._id} is created in mixpanel.`);
     let properties = {
       distinct_id: task.requestorId,
       taskId: task._id,
@@ -22,10 +24,22 @@ Analytics = {
   },
   increaseRevenue(invoice) {
     if (!mixpanel) return;
+    console.log(`[Analytics] Invoice ${invoice._id} is charged in mixpanel.`);
     mixpanel.people.track_charge(
       invoice.customerId,
       invoice.revenue(),
       { '$time' : moment(invoice.to).format('YYYY-MM-DDTHH:mm:ss')});
+  },
+  updateProfile(user) {
+    if (!mixpanel) return;
+    console.log(`[Analytics] User ${user._id} has been updated in mixpanel.`);
+    mixpanel.people.set(user._id, {
+      $first_name : user.profile.firstname,
+      $last_name : user.profile.lastname,
+      $name : user.displayName(),
+      $email : user.emails[0].address,
+      $created : user.createdAt
+    });
   }
 };
 
@@ -49,6 +63,15 @@ Tasks.find({ createdAt : { $gt : serverSessionStartAt } }).observe({
     if (init) {
       Analytics.createRequest(task);
     }
+  }
+});
+
+Users.findCustomers().observe({
+  added(user) {
+    Analytics.updateProfile(user);
+  },
+  changed(user) {
+    Analytics.updateProfile(user);
   }
 });
 
