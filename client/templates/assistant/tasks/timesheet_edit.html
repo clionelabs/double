@@ -14,6 +14,7 @@
             <table class="table table-condensed">
               <thead>
                 <tr>
+                  <th>Assistants</th>
                   <th>Date</th>
                   <th>Duration</th>
                   <th></th>
@@ -34,8 +35,9 @@
 
 <template name="timesheetItem">
   <tr class="timesheet-item">
+      <td>{{assistantName}}</td>
       <td>{{formatDate date}}</td>
       <td>{{formatDurationPrecise value }}</td>
-      <td><i class="{{ hideIfOverAnHourAgo }} delete fa fa-remove"></i></td>
+      <td><i class="{{ hideIf }} delete fa fa-remove"></i></td>
   </tr>
 </template>
