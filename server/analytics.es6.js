@@ -3,7 +3,7 @@ mixpanel = null;
 Analytics = {
   bankTimeInMinutes(task, durationInMs) {
     if (!mixpanel) return;
-    console.log(`Task ${task._id} is banked ${durationInMs} in mixpanel.`);
+    console.log(`[Analytics] Task ${task._id} is banked ${durationInMs} in mixpanel.`);
     let properties = {
       distinct_id : task.requestorId,
       taskId : task._id,
@@ -14,7 +14,7 @@ Analytics = {
   },
   createRequest(task) {
     if (!mixpanel) return;
-    console.log(`Task ${task._id} is created in mixpanel.`);
+    console.log(`[Analytics] Task ${task._id} is created in mixpanel.`);
     let properties = {
       distinct_id: task.requestorId,
       taskId: task._id,
@@ -24,7 +24,7 @@ Analytics = {
   },
   increaseRevenue(invoice) {
     if (!mixpanel) return;
-    console.log(`Invoice ${invoice._id} is charged in mixpanel.`);
+    console.log(`[Analytics] Invoice ${invoice._id} is charged in mixpanel.`);
     mixpanel.people.track_charge(
       invoice.customerId,
       invoice.revenue(),
@@ -32,8 +32,7 @@ Analytics = {
   },
   updateProfile(user) {
     if (!mixpanel) return;
-    console.log(`User ${user._id} has been updated in mixpanel.`);
-    console.log(user);
+    console.log(`[Analytics] User ${user._id} has been updated in mixpanel.`);
     mixpanel.people.set(user._id, {
       $first_name : user.profile.firstname,
       $last_name : user.profile.lastname,
