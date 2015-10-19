@@ -9,7 +9,7 @@ Template.customerEditForm.events({
       firstname: form.firstname.value,
       lastname: form.lastname.value,
       hourlyRate : form.hourlyRate.value,
-      creditMs : moment.duration(form.creditMs.value).asMilliseconds()
+      creditMs : form.creditMs.value
     };
 
     if (!isEdit) {

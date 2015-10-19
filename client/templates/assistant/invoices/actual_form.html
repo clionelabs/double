@@ -67,7 +67,6 @@
 
       {{>Template.dynamic template=showTimeBasedItems }}
       {{>Template.dynamic template=showOneTimePurchases }}
-      {{>Template.dynamic template=showAdjustments }}
     </div>
 
     <footer>
@@ -106,20 +105,6 @@
     </tr>
     {{#each timeBasedItems}}
       {{> assistantInvoiceActualFormTimeBasedItem }}
-    {{/each}}
-  </table>
-</template>
-
-<template name="assistantsInvoiceActualFormAdjustmentsTable">
-  <table class="table table-responsive adjustments">
-    <tr>
-      <th>Requests</th>
-      <th>Date</th>
-      <th>Reason</th>
-      <th>Duration</th>
-    </tr>
-    {{#each adjustments}}
-      {{> assistantInvoiceActualFormAdjustment }}
     {{/each}}
   </table>
 </template>
