@@ -21,11 +21,6 @@ Meteor.publish('myTasks', function() {
   return Tasks.find();
 });
 
-Meteor.publish('myInProcessTasks', function() {
-  let selector = { completedAt : null };
-  return Tasks.find(selector);
-});
-
 Meteor.publish('customers', function() {
   let selector = {};
   return Users.findCustomers(selector);
