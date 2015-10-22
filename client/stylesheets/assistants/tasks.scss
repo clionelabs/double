@@ -20,9 +20,11 @@
         flex: 0 0 50%;
         width:50%;
         text-align: center;
+        color : $double-white-half-transparent;
+        background: $double-dark-blue;
         &.active {
-          background: $double-dark-blue;
           color: $double-white;
+          font-weight: 700;
         }
       }
     }
@@ -33,7 +35,7 @@
         .task {
           padding: 15px;
           cursor: pointer;
-          .last-modified {
+          .last-modified, .completed {
             font-style: italic;
             font-size: 0.88em;
           }

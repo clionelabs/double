@@ -42,7 +42,13 @@ Template.assistantTasksDashboard.helpers({
     let currentTask = Template.currentData().currentTask;
     return _.sortBy(_.map(tasks.fetch(), function(task) {
       return _.extend({}, { isCurrent : (currentTask._id === task._id) }, task);
-    }), function(task) { return task.lastModified; });
+    }), function(task) {
+      if (task.completedAt) {
+        return task.completedAt;
+      } else {
+        return task.lastModified;
+      }
+    });
   },
   filterIsCurrent() {
     return Template.instance().filter.get() === FILTER.CURRENT ? "active" : "";

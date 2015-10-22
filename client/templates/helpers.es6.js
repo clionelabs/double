@@ -18,7 +18,7 @@ DurationFormatter = {
     return duration / 1000 / 60;
   },
   toString : (duration)=> {
-    return duration ? moment.duration(duration).humanize() : '---';
+    return duration ? moment.duration(duration).humanize(true) : '---';
   },
   toPreciseString : (duration) => {
     return moment.duration(duration).format('hh:mm:ss', { trim : false });
