@@ -7,7 +7,7 @@ Template.assistantTasksListItem.helpers({
     return "offline";
   },
   getLastModified() {
-    return moment().subtract(moment(this.lastModified));
+    return moment().valueOf() - this.lastModified;
   },
   getRouteData() {
     return { _id : this._id };
