@@ -22,6 +22,7 @@ callback-hook@1.0.4
 cfs:http-methods@0.0.30
 check@1.0.6
 chuangbo:cookie@1.1.0
+clionelabs:slacklog@0.0.5
 coffeescript@1.0.10
 d3@1.0.0
 ddp@1.2.2

@@ -59,6 +59,12 @@ Template.assistantTasksDetail.helpers({
   ifTaskCompleted() {
     return this.isCompleted() ? "completed" : "not-completed";
   },
+  isNotSent() {
+    return this.feedbackSent();
+  },
+  showIfTaskCompleted() {
+    return this.isCompleted() ? "" : "hide";
+  },
   getLatestStatus() {
     return this.getLatestStatus(Meteor.userId());
   },
@@ -104,8 +110,13 @@ Template.assistantTasksDetail.events({
   'click .functions .complete' : function(e) {
     Tasks.complete(this._id);
   },
-  'click .functions .edit' : function(e, tmpl) {
+  'click .title .edit' : function(e, tmpl) {
     tmpl.showTitleEdit.set(true);
+  },
+  'click .functions .email' : function(e) {
+    const task = this;
+    const rTaskId = new ReactiveVar(task._id);
+    Modal.show('assistantTasksSendFeedbackEmail', { rTaskId : rTaskId });
   },
   'keyup .title-bar [name="title"]' : function(e, tmpl) {
     if (e.keyCode === 27) {

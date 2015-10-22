@@ -76,6 +76,14 @@ Meteor.publish("invoices", function() {
   }
 });
 
+Meteor.publish('feedbacks', function() {
+  if (!(Users.isAdmin(this.userId))) {
+    return null;
+  } else {
+    return Feedbacks.find();
+  }
+})
+
 Meteor.publish("configs", function() {
   return D.Configs.find();
 });
@@ -87,3 +95,4 @@ Meteor.publish("currentUser", function() {
     return null;
   }
 });
+
