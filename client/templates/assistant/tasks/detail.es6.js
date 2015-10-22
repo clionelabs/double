@@ -59,9 +59,6 @@ Template.assistantTasksDetail.helpers({
   ifTaskCompleted() {
     return this.isCompleted() ? "completed" : "not-completed";
   },
-  isNotSent() {
-    return this.feedbackSent();
-  },
   showIfTaskCompleted() {
     return this.isCompleted() ? "" : "hide";
   },
