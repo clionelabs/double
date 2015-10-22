@@ -65,6 +65,10 @@ Template.registerHelper('not', function(x) {
   return !x;
 });
 
+Template.registerHelper('isAdmin', function() {
+  return Meteor.userId() && Users.isAdmin(Meteor.userId());
+})
+
 Template.registerHelper('getSelectChannelData', function () {
   let customer = Template.currentData().currentCustomer;
   return { _id : customer._id };

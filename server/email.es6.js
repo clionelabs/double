@@ -1,4 +1,4 @@
-Email.from = "david@askdouble.com";
+Email.from = "founders@double.co";
 
 Email.shouldSendRealEmail = () => {
   let onProduction = (process.env.NODE_ENV === 'production');

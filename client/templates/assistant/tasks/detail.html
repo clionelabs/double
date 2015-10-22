@@ -5,13 +5,14 @@
         <div class="title-bar">
           <h4>
             <span class ="functions">
+              {{#if not isAdmin }}
               <i class="function work {{isStartOrPause}}">
                 <i class="fa fa-{{isStartOrPause}}"></i>
                 <span class="timer {{#if not isWorking}}hide{{/if}}">{{formatDurationPrecise timer}}</span>
               </i>
-              <i class="function complete fa fa-check {{ ifTaskCompleted }}"></i>
-              <i class="function edit fa fa-pencil"></i>
+              {{/if }}
             </span>
+            <span class="total-time-used">{{formatDurationPrecise totalDuration }}</span>
             {{#if isTitleEditShown }}
               <form id="title-edit">
                 <input name="title"
@@ -19,9 +20,14 @@
                 <button class="save" action="submit"><i class="fa fa-check"></i></button>
               </form>
             {{else}}
-              <span class="title">{{ title }}</span>
+              <span class="title">{{ title }}<i class="edit fa fa-pencil"></i></span>
             {{/if}}
-            <span class="total-time-used">{{formatDurationPrecise totalDuration }}</span>
+            <span class="functions">
+              <i class="function complete fa fa-check {{ ifTaskCompleted }}"></i>
+              {{#if isAdmin }}
+                <i class="function email fa fa-envelope {{ showIfTaskCompleted }}" data-toggle="modal" data-target="#send-feedback-email"></i>
+              {{/if}}
+            </span>
           </h4>
         </div>
         <div class="metrics">
@@ -48,5 +54,7 @@
 
   </div>
 
+  {{> assistantTasksSendFeedbackEmail rTaskId=getRCurrentTaskId }}
 </template>
+
 
