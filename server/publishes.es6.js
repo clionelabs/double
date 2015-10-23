@@ -32,12 +32,14 @@ Meteor.publish('placements', function() {
   } else if (Users.isAssistant(this.userId)) {
     return Placements.find({ assistantId: this.userId });
   } else {
+    //return empty array coz return null will not terminate waitOn in prod
     return [];
   }
 });
 
 Meteor.publish('unroutedChannels', function() {
   if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    //return empty array coz return null will not terminate waitOn in prod
     return [];
   }
   return D.Channels.find({customerId: {$exists: false}});
@@ -45,6 +47,7 @@ Meteor.publish('unroutedChannels', function() {
 
 Meteor.publish('routedChannels', function() {
   if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    //return empty array coz return null will not terminate waitOn in prod
     return [];
   }
   return D.Channels.find({customerId: {$exists: true}});
@@ -52,7 +55,8 @@ Meteor.publish('routedChannels', function() {
 
 Meteor.publish('channelMessagesSorted', function(channelId, limit = 10) {
   if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
-    return null;
+    //return empty array coz return null will not terminate waitOn in prod
+    return [];
   }
   return [
     D.Messages.find({ channelId: channelId }, { limit : +limit, sort : { timestamp : -1 }})
@@ -61,7 +65,8 @@ Meteor.publish('channelMessagesSorted', function(channelId, limit = 10) {
 
 Meteor.publish('taskTaggedMessages', function(taskId) {
   if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
-    return null;
+    //return empty array coz return null will not terminate waitOn in prod
+    return [];
   }
   return [
     D.Messages.find({ taggedTaskIds: {$in: [taskId]} })
@@ -70,7 +75,8 @@ Meteor.publish('taskTaggedMessages', function(taskId) {
 
 Meteor.publish("invoices", function() {
   if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
-    return null;
+    //return empty array coz return null will not terminate waitOn in prod
+    return [];
   } else {
     return Invoices.find();
   }
@@ -78,7 +84,8 @@ Meteor.publish("invoices", function() {
 
 Meteor.publish('feedbacks', function() {
   if (!(Users.isAdmin(this.userId))) {
-    return null;
+    //return empty array coz return null will not terminate waitOn in prod
+    return [];
   } else {
     return Feedbacks.find();
   }
@@ -92,7 +99,8 @@ Meteor.publish("currentUser", function() {
   if (Meteor.userId()) {
     return Meteor.users.find(Meteor.userId());
   } else {
-    return null;
+    //return empty array coz return null will not terminate waitOn in prod
+    return [];
   }
 });
 
