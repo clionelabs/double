@@ -44,8 +44,10 @@ Analytics = {
 };
 
 Meteor.startup(function() {
-  Mixpanel = Meteor.npmRequire('mixpanel');
-  mixpanel = Mixpanel.init(Meteor.settings.mixpanel.token);
+  if (Meteor.settings.mixpanel && Meteor.settings.mixpanel.token) {
+    Mixpanel = Meteor.npmRequire('mixpanel');
+    mixpanel = Mixpanel.init(Meteor.settings.mixpanel.token);
+  }
 });
 
 var init = false; //_suppress_initial
