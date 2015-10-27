@@ -2,14 +2,15 @@ Template.customerEditForm.events({
   "submit #customer-form": function (event) {
     event.preventDefault();
 
-    let isEdit = !!this._id;
+    const isEdit = !!this._id;
 
-    let form = event.target;
-    let data = {
+    const form = event.target;
+    const data = {
       firstname: form.firstname.value,
       lastname: form.lastname.value,
       hourlyRate : form.hourlyRate.value,
-      creditMs : DurationConverter.minutesToMs(form.creditMs.value)
+      creditMs : DurationConverter.minutesToMs(form.creditMs.value),
+      planId : form.plan.value
     };
 
     if (!isEdit) {
@@ -28,7 +29,19 @@ Template.customerEditForm.events({
     } else {
       Meteor.call('createCustomer', data, cb);
     }
+  },
+  "click .select-plan a" : function(event, tmpl) {
+    tmpl.selectedPlanName.set(this.name);
+    $('select[name="plan"]').val(this._id);
   }
+});
+
+Template.customerEditForm.onCreated(function() {
+  const instance = this;
+  instance.selectedPlanName = new ReactiveVar('');
+  instance.autorun(function() {
+    instance.selectedPlanName.set(instance.data.getCurrentPlan().name);
+  })
 });
 
 Template.customerEditForm.helpers({
@@ -37,5 +50,18 @@ Template.customerEditForm.helpers({
   },
   disabledIfEdit() {
     return this._id ? "disabled" : "";
+  },
+  plans() {
+    const plans = Plans.find().fetch();
+    const userId = this._id;
+    const result = _.map(plans, function(plan) {
+      const planParticipates = plan.getParticipates();
+      const isSelected = _.contains(planParticipates, userId);
+      return _.extend({}, { isSelected : isSelected }, plan);
+    });
+    return result;
+  },
+  getCurrentPlanName() {
+    return Template.instance().selectedPlanName.get();
   }
 });

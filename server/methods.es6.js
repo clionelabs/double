@@ -45,11 +45,12 @@ Meteor.methods({
     }
   },
   editCustomer(userId, data) {
-    let email = data.email;
-    let firstname = data.firstname;
-    let lastname = data.lastname;
-    let hourlyRate = data.hourlyRate;
-    let creditMs = data.creditMs;
+    const email = data.email;
+    const firstname = data.firstname;
+    const lastname = data.lastname;
+    const hourlyRate = data.hourlyRate;
+    const creditMs = data.creditMs;
+    const planId = data.planId;
 
     Users.editCustomer(userId,
         {
@@ -60,6 +61,10 @@ Meteor.methods({
             creditMs: creditMs
           }
         });
+    const currentPlan = Users.findOneCustomer(userId).getCurrentPlan();
+    if (planId !== currentPlan) {
+      Subscriptions.change(planId, userId);
+    }
   },
 
   requestLoginAccess(email) {

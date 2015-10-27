@@ -89,7 +89,23 @@ Meteor.publish('feedbacks', function() {
   } else {
     return Feedbacks.find();
   }
-})
+});
+
+Meteor.publish('plans', function() {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    //return empty array coz return null will not terminate waitOn in prod
+    return [];
+  }
+  return Plans.find();
+});
+
+Meteor.publish('subscriptions', function() {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    //return empty array coz return null will not terminate waitOn in prod
+    return [];
+  }
+  return Subscriptions.find();
+});
 
 Meteor.publish("configs", function() {
   return D.Configs.find();
