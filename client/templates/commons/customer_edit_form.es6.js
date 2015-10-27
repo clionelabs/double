@@ -53,13 +53,12 @@ Template.customerEditForm.helpers({
   },
   plans() {
     const plans = Plans.find().fetch();
+    plans.push(NoPlan);
     const userId = this._id;
-    const result = _.map(plans, function(plan) {
-      const planParticipates = plan.getParticipates();
-      const isSelected = _.contains(planParticipates, userId);
-      return _.extend({}, { isSelected : isSelected }, plan);
+    const currentSubscription = Subscriptions.findOne({ customerId : userId, endedAt : { $exists : true }});
+    return _.map(plans, function(plan) {
+      return _.extend({}, { isSelected : currentSubscription.planId === planId }, plan);
     });
-    return result;
   },
   getCurrentPlanName() {
     return Template.instance().selectedPlanName.get();
