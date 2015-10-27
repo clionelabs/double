@@ -49,15 +49,15 @@ Template.customerEditForm.helpers({
     return this.emails ? this.emails[0].address : null;
   },
   disabledIfEdit() {
-    return this._id ? "disabled" : "";
+    return this._id ? "disable" : "";
   },
   plans() {
     const plans = Plans.find().fetch();
-    plans.push(NoPlan);
+    plans.push(Plans.NoPlan);
     const userId = this._id;
     const currentSubscription = Subscriptions.findOne({ customerId : userId, endedAt : { $exists : true }});
     return _.map(plans, function(plan) {
-      return _.extend({}, { isSelected : currentSubscription.planId === planId }, plan);
+      return _.extend({}, { isSelected : currentSubscription.planId === plan._id }, plan);
     });
   },
   getCurrentPlanName() {
