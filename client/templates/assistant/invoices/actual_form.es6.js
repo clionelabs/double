@@ -1,7 +1,7 @@
 Template.assistantsInvoiceActualForm.helpers({
-  showOneTimePurchases() {
-    return (this.oneTimePurchases && this.oneTimePurchases.length)
-              ? "assistantsInvoiceActualFormOneTimePurchasesTable" : "";
+  showOtherCharges() {
+    return (this.otherCharges && this.otherCharges.length)
+              ? "assistantsInvoiceActualFormOtherChargesTable" : "";
   },
   showTimeBasedItems() {
     return (this.timeBasedItems && this.timeBasedItems.length)
@@ -24,10 +24,10 @@ Template.assistantsInvoiceActualFormTimeBasedItemsTable.helpers({
   }
 });
 
-Template.assistantsInvoiceActualFormOneTimePurchasesTable.helpers({
-  oneTimePurchases() {
-    let oneTimePurchases = this.oneTimePurchases;
-    return _(oneTimePurchases)
+Template.assistantsInvoiceActualFormOtherChargesTable.helpers({
+  otherCharges() {
+    let otherCharges = this.otherCharges;
+    return _(otherCharges)
         .chain()
         .sortBy('requests')
         .sortBy('title')
