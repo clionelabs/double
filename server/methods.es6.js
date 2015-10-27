@@ -62,7 +62,7 @@ Meteor.methods({
           }
         });
     const currentPlan = Users.findOneCustomer(userId).getCurrentPlan();
-    if (planId !== currentPlan) {
+    if (planId !== currentPlan._id) {
       Subscriptions.change(planId, userId);
     }
   },
