@@ -57,7 +57,7 @@ Template.assistantCustomersDashboard.helpers({
               }
             }),
         function(task) {
-          return task.createdAt * -1;
+          return task.lastModified * -1;
     });
   },
   isCompletedChecked() {

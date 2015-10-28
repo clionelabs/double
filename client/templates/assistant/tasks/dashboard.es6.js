@@ -44,9 +44,9 @@ Template.assistantTasksDashboard.helpers({
       return _.extend({}, { isCurrent : (currentTask._id === task._id) }, task);
     }), function(task) {
       if (task.completedAt) {
-        return task.completedAt;
+        return task.completedAt * -1;
       } else {
-        return task.lastModified;
+        return task.lastModified * -1;
       }
     });
   },
