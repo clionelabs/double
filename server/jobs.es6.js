@@ -13,7 +13,7 @@ SyncedCron.add({
 SyncedCron.add({
   name: '[Cron] Recharge Credit for monthly subscription',
   schedule(parser) {
-    return parser.cron('58,59 23 * * *')
+    return parser.cron('0 * * * *')
   },
   job() {
     Plans.rechargeMonthly();
