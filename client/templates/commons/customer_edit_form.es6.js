@@ -64,10 +64,7 @@ Template.customerEditForm.helpers({
     return Template.instance().selectedPlanName.get();
   },
   mySubscriptions() {
-    return _.map(Subscriptions.find({ customerId : this._id }).fetch(), function(sub) {
-      const plan = Plans.findOne(sub.planId);
-      return _.extend({}, { name : plan.name }, sub);
-    });
+    return this.getSubscriptions();
   },
   nextAt() {
     const plan = Plans.findOne(this.planId);
@@ -75,8 +72,8 @@ Template.customerEditForm.helpers({
     const dayOfMonthNow = moment().date();
     if (plan.cycle === 'month' && !this.endedAt) {
       return dayOfMonthNow > dayOfMonthToCharge
-        ? moment().add(1, 'month').subtract(dayOfMonthNow - dayOfMonthToCharge, 'day').valueOf()
-        : moment().add(dayOfMonthNow - dayOfMonthToCharge, 'day').valueOf();
+        ? moment().add(1, 'month').date(dayOfMonthToCharge).valueOf()
+        : moment().date(dayOfMonthToCharge).valueOf();
     }
   }
 });

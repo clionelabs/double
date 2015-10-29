@@ -48,7 +48,8 @@ Template.invoiceCreate.events({
     let customer = Template.currentData().customer;
     let tasks = Tasks.find({ requestorId : customer._id }).fetch();
 
-    let invoiceId = Invoices.insert(Invoice.convertFromTasks(from, to, tasks, customer._id), (err, invoiceId) => {
+    const invoice = Invoice.convertFromTasks(from, to, tasks, customer._id);
+    Invoices.insert(invoice, (err, invoiceId) => {
       tmpl.$('.loading').addClass('hide');
       Router.go('assistant.customers.invoices.selected', { customerId : customer._id, invoiceId : invoiceId });
       Modal.hide();
