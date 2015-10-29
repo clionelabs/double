@@ -8,14 +8,3 @@ SyncedCron.add({
     TaskSchedulers.generateAllNextsIfNotExisted();
   }
 });
-
-
-SyncedCron.add({
-  name: '[Cron] Recharge Credit for monthly subscription',
-  schedule(parser) {
-    return parser.cron('0 * * * *')
-  },
-  job() {
-    Plans.rechargeMonthly();
-  }
-});

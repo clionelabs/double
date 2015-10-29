@@ -57,10 +57,26 @@ Template.customerEditForm.helpers({
     const userId = this._id;
     const currentSubscription = Subscriptions.findOne({ customerId : userId, endedAt : { $exists : true }});
     return _.map(plans, function(plan) {
-      return _.extend({}, { isSelected : currentSubscription.planId === plan._id }, plan);
+      return _.extend({}, { isSelected : currentSubscription && currentSubscription.planId === plan._id }, plan);
     });
   },
   getCurrentPlanName() {
     return Template.instance().selectedPlanName.get();
+  },
+  mySubscriptions() {
+    return _.map(Subscriptions.find({ customerId : this._id }).fetch(), function(sub) {
+      const plan = Plans.findOne(sub.planId);
+      return _.extend({}, { name : plan.name }, sub);
+    });
+  },
+  nextAt() {
+    const plan = Plans.findOne(this.planId);
+    const dayOfMonthToCharge = moment(this.startedAt).date();
+    const dayOfMonthNow = moment().date();
+    if (plan.cycle === 'month' && !this.endedAt) {
+      return dayOfMonthNow > dayOfMonthToCharge
+        ? moment().add(1, 'month').subtract(dayOfMonthNow - dayOfMonthToCharge, 'day').valueOf()
+        : moment().add(dayOfMonthNow - dayOfMonthToCharge, 'day').valueOf();
+    }
   }
 });

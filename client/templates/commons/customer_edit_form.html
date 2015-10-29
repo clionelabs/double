@@ -53,6 +53,17 @@
                   <option value="{{ _id }}">{{ name }}</option>
                 {{/each}}
               </select>
+              <table class="table table-responsive">
+                <tr><th>Plan</th><th>Start Date</th><th>End Date</th><th>Next Charge Date</th></tr>
+                {{#each mySubscriptions }}
+                  <tr>
+                    <td>{{name}}</td>
+                    <td>{{formatDate startedAt }}</td>
+                    <td>{{formatDate endedAt }}</td>
+                    <td>{{formatDate nextAt}}</td>
+                  </tr>
+                {{/each}}
+              </table>
             </div>
 
             <button type="submit" class="btn btn-default">Submit</button>
