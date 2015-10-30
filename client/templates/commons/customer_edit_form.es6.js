@@ -55,7 +55,7 @@ Template.customerEditForm.helpers({
     const plans = Plans.find().fetch();
     plans.push(Plans.NoPlan);
     const userId = this._id;
-    const currentSubscription = Subscriptions.findOne({ customerId : userId, endedAt : { $exists : true }});
+    const currentSubscription = Users.findOneCustomer(userId).getCurrentSubscription();
     return _.map(plans, function(plan) {
       return _.extend({}, { isSelected : currentSubscription && currentSubscription.planId === plan._id }, plan);
     });
