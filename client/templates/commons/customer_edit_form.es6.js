@@ -40,7 +40,7 @@ Template.customerEditForm.onCreated(function() {
   const instance = this;
   instance.selectedPlanName = new ReactiveVar('');
   instance.autorun(function() {
-    instance.selectedPlanName.set(instance.data.getCurrentPlan().name);
+    instance.selectedPlanName.set(instance.data.currentPlan().name);
   })
 });
 
@@ -55,7 +55,7 @@ Template.customerEditForm.helpers({
     const plans = Plans.find().fetch();
     plans.push(Plans.NoPlan);
     const userId = this._id;
-    const currentSubscription = Users.findOneCustomer(userId).getCurrentSubscription();
+    const currentSubscription = Users.findOneCustomer(userId).currentSubscription();
     return _.map(plans, function(plan) {
       return _.extend({}, { isSelected : currentSubscription && currentSubscription.planId === plan._id }, plan);
     });

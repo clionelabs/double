@@ -61,7 +61,7 @@ Meteor.methods({
             creditMs: creditMs
           }
         });
-    const currentPlan = Users.findOneCustomer(userId).getCurrentPlan();
+    const currentPlan = Users.findOneCustomer(userId).currentPlan();
     if (planId !== currentPlan._id) {
       Subscriptions.change(planId, userId);
     }
