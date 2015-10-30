@@ -67,13 +67,6 @@ Template.customerEditForm.helpers({
     return this.getSubscriptions();
   },
   nextAt() {
-    const plan = Plans.findOne(this.planId);
-    const dayOfMonthToCharge = moment(this.startedAt).date();
-    const dayOfMonthNow = moment().date();
-    if (plan.cycle === 'month' && !this.endedAt) {
-      return dayOfMonthNow > dayOfMonthToCharge
-        ? moment().add(1, 'month').date(dayOfMonthToCharge).valueOf()
-        : moment().date(dayOfMonthToCharge).valueOf();
-    }
+    return this.nextCycleAt();
   }
 });
