@@ -73,11 +73,3 @@ Template.registerHelper('getSelectChannelData', function () {
   let customer = Template.currentData().currentCustomer;
   return { _id : customer._id };
 });
-
-Template.registerHelper('selectedIf', function(val) {
-  return val ? 'selected' : '';
-});
-
-Template.registerHelper('checkedIf', function(val) {
-  return val ? 'checked' : '';
-});
