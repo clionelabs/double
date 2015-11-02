@@ -64,7 +64,7 @@ Template.customerEditForm.helpers({
     return Template.instance().selectedPlanName.get();
   },
   mySubscriptions() {
-    return _.map(this.getSubscriptions(), function(sub) {
+    return _.map(this.subscriptions(), function(sub) {
       return _.extend({}, { name : sub.plan().name }, sub);
     });
   },
