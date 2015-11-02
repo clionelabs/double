@@ -32,9 +32,9 @@ Template.assistantTasksDetailOneTimePurchaseForm.helpers({
   hideIfBilled() {
     return Invoices.findLastBilledDate(this.requestorId) > this.date ? "hide" : "";
   },
-  oneTimePurchases() {
+  otherCharges() {
     const task = this;
-    return _.map(task.oneTimePurchases, function(otp) {
+    return _.map(task.otherCharges, function(otp) {
       return _.extend(otp, { requestorId : task.requestorId });
     })
   }

@@ -54,7 +54,7 @@
         <div class="total">
           <div class="line">
             <div class="key">Other Charges: </div>
-            <div class="value">{{formatAmount oneTimePurchasesTotal}}</div>
+            <div class="value">{{formatAmount otherChargesTotal}}</div>
           </div>
           <div class="line">
             <div class="key">Payment {{ debitedOrDue }} (HKD):</div>
@@ -66,7 +66,7 @@
     <div class="breakdown">
 
       {{>Template.dynamic template=showTimeBasedItems }}
-      {{>Template.dynamic template=showOneTimePurchases }}
+      {{>Template.dynamic template=showOtherCharges }}
     </div>
 
     <footer>
@@ -81,7 +81,7 @@
   </div>
 </template>
 
-<template name="assistantsInvoiceActualFormOneTimePurchasesTable">
+<template name="assistantsInvoiceActualFormOtherChargesTable">
   <table class="table table-responsive one-time-purchases">
     <tr>
       <th>Requests</th>
@@ -89,8 +89,8 @@
       <th>Other Charges</th>
       <th>(HKD)</th>
     </tr>
-    {{#each oneTimePurchases }}
-      {{> assistantInvoiceActualFormOneTimePurchase }}
+    {{#each otherCharges }}
+      {{> assistantInvoiceActualFormOtherCharge }}
     {{/each}}
   </table>
 </template>
