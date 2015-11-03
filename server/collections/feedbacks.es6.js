@@ -6,13 +6,14 @@ Feedback.ProtoType.sendEmail = function() {
   Email.send({
     from: emailFrom,
     to: emailTo,
-    subject: 'Make Double suit your needs more',
+    subject: 'Help make Double better',
     text : `
-Hi ${customer.profile.firstname}!
+${customer.profile.firstname},
 
-Double has just completed your request "${task.title}". From 1 - 10, how would you rate the service? 1 is worst and 10 is the best. We love feedbacks so we can make Double more useful to you. Thanks!
+Your Double recently spent ${task.totalDurationInMinutes()} minutes to complete your request, "${task.title}".
 
-Co-founder,
+How would you rate our service? Simply reply to this email with 1 - 5 (1 being very unsatisfied and 5 being very satisified). Any other feedback on how we can make Double better for you?
+
 Cary & Thomas
 `
   });
@@ -24,4 +25,3 @@ Feedbacks.find({ isSent : false }).observe({
     Feedbacks.update(feedback._id, { $set : { 'isSent' : true , sendAt : moment().valueOf() }});
   }
 });
-
