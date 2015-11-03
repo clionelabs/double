@@ -14,8 +14,12 @@ AssistantTaskSendFeedbackEmail = ReactMeteor.createClass({
   printHaveSendFeedbackEmail() {
     const task = this.state.task;
     const customer = this.state.customer;
-    const lastFeedbackEmailDateString = DateFormatter.toDateString(customer.lastFeedbackEmailSendAt());
-    return `Last feedback email was sent on ${lastFeedbackEmailDateString}.`;
+    if (customer.lastFeedbackEmailSendAt()) {
+      const lastFeedbackEmailDateString = DateFormatter.toDateString(customer.lastFeedbackEmailSendAt());
+      return `Last feedback email was sent on ${lastFeedbackEmailDateString}.`;
+    } else {
+      return `We never send email to ${customer.profile.firstname}`;
+    }
   },
   handleOnYesClick() {
     const task = this.state.task;
