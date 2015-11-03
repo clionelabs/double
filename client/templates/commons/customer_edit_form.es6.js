@@ -40,7 +40,9 @@ Template.customerEditForm.onCreated(function() {
   const instance = this;
   instance.selectedPlanName = new ReactiveVar('');
   instance.autorun(function() {
-    instance.selectedPlanName.set(instance.data.currentPlan().name);
+    if (instance.data) {
+      instance.selectedPlanName.set(instance.data.currentPlan().name);
+    }
   })
 });
 
