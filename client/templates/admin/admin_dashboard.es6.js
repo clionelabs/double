@@ -11,6 +11,10 @@ Template.adminDashboard.helpers({
     return Template.instance().selectedTabVar.get() === 'business';
   },
 
+  isServicesTabSelected() {
+    return Template.instance().selectedTabVar.get() === 'services';
+  },
+
   contentTemplateName() {
     let selectedTab = Template.instance().selectedTabVar.get();
     if (selectedTab === 'assistants') {
@@ -19,6 +23,8 @@ Template.adminDashboard.helpers({
       return 'adminDashboardCustomers';
     } else if (selectedTab === 'business') {
       return 'adminDashboardBusiness';
+    } else if (selectedTab === 'services') {
+      return 'adminDashboardServices';
     }
   }
 });
@@ -40,5 +46,9 @@ Template.adminDashboard.events({
 
   "click .business-tab": function() {
     Template.instance().selectedTabVar.set("business");
+  },
+
+  "click .services-tab": function() {
+    Template.instance().selectedTabVar.set("services");
   }
 });
