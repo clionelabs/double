@@ -1,7 +1,10 @@
 Template.invoiceCreate.onCreated(function() {
 
-  this.from = new ReactiveVar(moment().subtract(7, 'd').valueOf());
-  this.to = new ReactiveVar(moment().valueOf());
+  const customerId = this.data.customer._id;
+  const lastBilledDate = Invoices.findLastBilledDate({ customerId : customerId }) || moment().valueOf();
+  const userPlanCycleDuration = Users.findOneCustomer(customerId).currentPlan().cycleDuration();
+  this.from = new ReactiveVar(lastBilledDate + 1);
+  this.to = new ReactiveVar(moment(lastBilledDate).add(1, 'month').valueOf());
 });
 Template.invoiceCreate.onRendered(function() {
   let from = this.from;
@@ -46,9 +49,8 @@ Template.invoiceCreate.events({
     let from = tmpl.from.get();
     let to = tmpl.to.get();
     let customer = Template.currentData().customer;
-    let tasks = Tasks.find({ requestorId : customer._id }).fetch();
 
-    const invoice = Invoice.convertFromTasks(from, to, tasks, customer._id);
+    const invoice = Invoices.Generator.generate(from, to, customer._id);
     Invoices.insert(invoice, (err, invoiceId) => {
       tmpl.$('.loading').addClass('hide');
       Router.go('assistant.customers.invoices.selected', { customerId : customer._id, invoiceId : invoiceId });
