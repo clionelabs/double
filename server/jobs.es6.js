@@ -8,3 +8,14 @@ SyncedCron.add({
     TaskSchedulers.generateAllNextsIfNotExisted();
   }
 });
+
+SyncedCron.add({
+  name: "[Cron] Generate invoice for today",
+  schedule(parser) {
+    return parser.cron('0 1 * * *');
+  },
+  job() {
+    const today = moment().valueOf();
+    Invoices.Generator.generateForUsersDue(today);
+  }
+});
