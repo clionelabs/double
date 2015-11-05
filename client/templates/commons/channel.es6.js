@@ -112,6 +112,16 @@ Template.channelTitle.helpers({
   }
 });
 
+Template.channelTitleTelegram.helpers({
+  title() {
+    if (this.extra.type === 'group') {
+      return this.extra.title;
+    } else if (this.extra.type === 'private') {
+      return `${this.extra.first_name} ${this.extra.last_name}`;
+    }
+  }
+});
+
 Template.channelReply._submit = function(form) {
   let channelId = form.channelId.value;
   let content = form.content.value;
