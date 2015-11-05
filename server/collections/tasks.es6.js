@@ -7,10 +7,11 @@ Tasks.find({ completedAt : null }).observe({
   removed(oldTask) {
     const newTask = Tasks.findOne(oldTask._id);
     if (newTask && newTask.completedAt && !oldTask.completedAt) {
+      const url = Router.routes['assistant.tasks'].url({ _id : newTask._id });
       SlackLog.log('_completed_requests',
         {
           text : `
-<!channel>, ${newTask.title}(${Meteor.absoluteUrl()}assistant/tasks/${newTask._id} has been completed. Send a email to collect feedback maybe?` ,
+<!channel>, ${newTask.title}(${url}) has been completed. Send a email to collect feedback maybe?` ,
           username: 'Double A.I. Parts',
           unfurl_links: true,
           icon_emoji: ':robot_face:'
