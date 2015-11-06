@@ -21,7 +21,7 @@
               {{#each getSteps}}
                 <tr>
                   <td>{{text}}</td>
-                  <td><input data-id='{{_id}}' class="duration" placeholder="0" type='number' min="0" max="10000" step="1">min(s)</td>
+                  <td><input data-id='{{_id}}' class="duration" placeholder="0" type='number' max="10000" step="1">min(s)</td>
                   <td>+ <span class='current-duration'>{{formatDurationPrecise duration}}</span></td>
                 </tr>
               {{/each}}
