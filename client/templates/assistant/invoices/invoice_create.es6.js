@@ -47,7 +47,7 @@ Template.invoiceCreate.events({
     tmpl.$('.loading').removeClass('hide');
 
     let from = tmpl.from.get();
-    let to = tmpl.to.get();
+    let to = moment(tmpl.to.get()).endOf('day').valueOf();
     let customer = Template.currentData().customer;
 
     const invoice = Invoices.Generator.generate(from, to, customer._id);
