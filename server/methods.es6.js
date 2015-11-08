@@ -88,9 +88,9 @@ Meteor.methods({
     return Messages.tagTask(messageIds, taskId);
   },
 
-  generateInvoicesForToday() {
+  generateInvoicesFor(date) {
     if (Users.isAdmin(Meteor.userId())) {
-      return Invoices.Generator.generateForUsersDue(moment().valueOf());
+      return Invoices.Generator.generateForUsersDue(date || moment().valueOf());
     } else {
       return null;
     }
