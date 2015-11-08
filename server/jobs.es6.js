@@ -12,7 +12,7 @@ SyncedCron.add({
 SyncedCron.add({
   name: "[Cron] Generate invoice for today",
   schedule(parser) {
-    return parser.cron('0 1 * * *');
+    return parser.cron('0 17 * * *');
   },
   job() {
     const today = moment().valueOf();

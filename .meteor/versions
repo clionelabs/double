@@ -44,6 +44,7 @@ fourseven:scss@3.3.3_3
 geojson-utils@1.0.4
 gfk:notifications@1.1.4
 gilbertwat:bootstrap3-daterangepicker@1.3.21_1
+gilbertwat:moment-timezone@0.4.1
 grigio:babel@0.1.8
 harrison:babyparse@1.0.1
 hot-code-push@1.0.0
