@@ -9,10 +9,16 @@ Template.layout.helpers({
     return Router.current().route.getName().indexOf('customers') !== -1 ? "selected" : "";
   },
   isRequestSelected() {
-    return Router.current().route.getName().indexOf('tasks') !== -1 ? "selected" : "";
+    let routeName = Router.current().route.getName();
+    return routeName.indexOf('tasks') !== -1 && routeName.indexOf('tasksSummary') === -1
+      ? "selected"
+      : "";
   },
   isIncomingSelected() {
     return Router.current().route.getName().indexOf('unrouted') !== -1 ? "selected" : "";
+  },
+  isSummarySelected() {
+    return Router.current().route.getName().indexOf('tasksSummary') !== -1 ? "selected" : "";
   },
   isAdminSelected() {
     return Router.current().route.getName().indexOf('admin') !== -1 ? "selected" : "";

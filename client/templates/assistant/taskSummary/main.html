@@ -1,0 +1,42 @@
+<Template name="assistantTasksSummary">
+  <div id="assistant-dashboard-tasks-summary" class="panel panel-default">
+    <div class="panel-heading">List of on-going requests</div>
+    <div class="panel-body">
+
+      <div class="pull-right">
+        <i class="fa fa-bell alerting"></i>
+        No updates for more than 24 hours
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="col-sm-2">Title</th>
+            <th class="col-sm-2">Customer</th>
+            <th class="col-sm-2">Last Updated</th>
+            <th class="col-sm-4">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each tasks}}
+            <tr class="{{#if isAlert}}alert{{/if}}">
+              {{> assistantTasksSummaryTask}}
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Template>
+
+<Template name="assistantTasksSummaryTask">
+  <td>
+    <a href="{{taskURL}}">
+      <i class="fa fa-bell {{#if isAlert}}alerting{{/if}}"></i>
+      {{title}}
+    </a>
+  </td>
+  <td>{{customerName}}</td>
+  <td>{{formatDateTime lastModified}}</td>
+  <td>{{lastStatus}}</td>
+</Template>
