@@ -45,10 +45,10 @@ Template.invoiceCreate.helpers({
 Template.invoiceCreate.events({
   "click .generate-draft" : function(e, tmpl) {
     tmpl.$('.loading').removeClass('hide');
-
-    let from = tmpl.from.get();
-    let to = moment(tmpl.to.get()).endOf('day').valueOf();
     let customer = Template.currentData().customer;
+
+    let from = moment(tmpl.from.get()).tz(customer.timezone()).startOf('day').valueOf();
+    let to = moment(tmpl.to.get()).tz(customer.timezone()).endOf('day').valueOf();
 
     const invoice = Invoices.Generator.generate(from, to, customer._id);
     Invoices.insert(invoice, (err, invoiceId) => {
