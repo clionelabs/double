@@ -3,7 +3,7 @@ Template.assistantTasksSummary.helpers({
     return Tasks.find({completedAt: null}, {sort: {lastModified: 1}}).map(function(task) {
       let customer = D.Users.findOneCustomer(task.requestorId);
       let customerName = customer.displayName();
-      let isAlert = moment(task.lastModified).add(1, 'hours').isBefore(moment());
+      let isAlert = moment(task.lastModified).add(1, 'days').isBefore(moment());
       return _.extend(task, {
         customerName: customerName,
         isAlert: isAlert
