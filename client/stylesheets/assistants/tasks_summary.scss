@@ -1,0 +1,13 @@
+@import "../variables";
+
+#assistant-dashboard-tasks-summary {
+  .fa-bell {
+    color: $double-red;
+    visibility: hidden;
+    display: inline;
+    &.alerting {
+      visibility: visible;
+    }
+  }
+}
+
