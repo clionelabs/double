@@ -11,7 +11,7 @@ Tasks.find({ completedAt : null }).observe({
       SlackLog.log('_completed_requests',
         {
           text : `
-<!channel>, ${newTask.title}(${url}) has been completed. Send a email to collect feedback maybe?` ,
+<!channel>, ${newTask.title}(${url}) has been completed in ${newTask.totalDurationInMinutes()} minutes.` ,
           username: 'Double A.I. Parts',
           unfurl_links: true,
           icon_emoji: ':robot_face:'
@@ -19,4 +19,3 @@ Tasks.find({ completedAt : null }).observe({
     }
   }
 });
-
