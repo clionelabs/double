@@ -5,24 +5,28 @@
       <label for="show-spam-checkbox">Show Spam</label>
     </div>
 
-    <div class="channel-tabs">
-      <ul class="nav nav-pills" role="tablist">
-        {{#each channels}}
-          <li role="presentation" class="select-channel {{isSelectedClass}}">
-            <span>
-              {{> channelTitle}}
-              {{#if isNotReplied}}
-                <i class="fa fa-frown-o not-replied-channel"></i>
-              {{/if}}
-              <i class="fa fa-cog set-channel"></i>
-            </span>
-          </li>
-        {{/each}}
-      </ul>
+    <div class="row">
+      <div class="col-sm-5 channel-tabs">
+        <ul class="nav nav-pills" role="tablist">
+          {{#each channels}}
+            <li role="presentation" class="select-channel {{isSelectedClass}}">
+              <span>
+                {{> channelTitle}}
+                {{#if isNotReplied}}
+                  <i class="fa fa-frown-o not-replied-channel"></i>
+                {{/if}}
+                <i class="fa fa-cog set-channel"></i>
+              </span>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="col-sm-7 selected-channel-content">
+        {{#if getCurrentSelectedChannel}}
+          {{> channelMessages getCurrentSelectedChannel}}
+          {{> channelReply getCurrentSelectedChannel}}
+        {{/if}}
+      </div>
     </div>
-    {{#if getCurrentSelectedChannel}}
-      {{> channelMessages getCurrentSelectedChannel}}
-      {{> channelReply getCurrentSelectedChannel}}
-    {{/if}}
   </div>
 </template>

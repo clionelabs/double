@@ -73,10 +73,12 @@ Template.channelMessages.onCreated(function() {
 
 Template.channelMessages.helpers({
   messages() {
-    let selectedMessageIds = this.selectedMessageIdsVar.get();
+    let selectedMessageIds = this.selectedMessageIdsVar? this.selectedMessageIdsVar.get(): [];
+    let showSelection = !!this.selectedMessageIdsVar;
     return this.messages({sort: {timestamp: 1}}).map(function(message) {
       return _.extend(message, {
-        selected: selectedMessageIds[message._id]
+        selected: selectedMessageIds[message._id],
+        showSelection: showSelection
       });
     });
   },

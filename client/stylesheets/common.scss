@@ -89,3 +89,56 @@
     }
   }
 }
+
+.selected-channel-messages {
+  .load-more {
+    color:$double-white;
+    background: $double-grey3;
+    width:100%;
+    text-align: center;
+    cursor: pointer;
+  }
+  padding: 0px 25px 0px 25px;
+  width: 100%;
+  flex: 1;
+  overflow-y: scroll;
+  .selection {
+    cursor: pointer;
+    opacity: 0.1;
+    font-size: 1.444em;
+    margin-top: 20px;
+    padding: 0px;
+
+    &:hover {
+      opacity: 1.0;
+    }
+
+    &.selected {
+      opacity: 1.0;
+    }
+  }
+}
+
+.selected-channel-reply {
+  background: $double-grey4;
+  padding:10px 25px;
+
+  #send-message-form {
+    div.dropup {
+      position: absolute;
+      right: 60px;
+      z-index: 10;
+      button {
+        border-color: transparent;
+        background-color: transparent;
+        padding: 8px 0px;
+      }
+    }
+    textarea {
+      padding-right: 30px;
+    }
+    button.submit {
+      width: 60px;
+    }
+  }
+}
