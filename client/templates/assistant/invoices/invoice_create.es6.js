@@ -2,7 +2,6 @@ Template.invoiceCreate.onCreated(function() {
 
   const customerId = this.data.customer._id;
   const lastBilledDate = Invoices.findLastBilledDate({ customerId : customerId }) || moment().valueOf();
-  const userPlanCycleDuration = Users.findOneCustomer(customerId).currentPlan().cycleDuration();
   this.from = new ReactiveVar(lastBilledDate + 1);
   this.to = new ReactiveVar(moment(lastBilledDate).add(1, 'month').valueOf());
 });
