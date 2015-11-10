@@ -48,7 +48,7 @@ Template.timesheetItem.helpers({
   hideIf() {
     const stepWithTaskId = Template.parentData();
     const taskOwnerId = Tasks.findOne(stepWithTaskId.taskId).requestorId;
-    return moment(Invoices.findLastBilledDate(taskOwnerId)).startOf('day') > this.createdAt ? "hide" : "";
+    return moment(Invoices.findLastBilledDate(taskOwnerId)) > this.createdAt ? "hide" : "";
   },
   assistantName() {
     const userId = this.assistantId;
