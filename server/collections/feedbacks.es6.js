@@ -6,6 +6,7 @@ Feedback.ProtoType.sendEmail = function() {
   Email.send({
     from: emailFrom,
     to: emailTo,
+    bcc: [`cary@double.co`, `thomas@double.co`],
     subject: 'Help make Double better',
     text : `
 ${customer.profile.firstname},
