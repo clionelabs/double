@@ -11,7 +11,7 @@ Template.assistantsInvoiceActualForm.helpers({
     return this.isCustomerPaymentMethodAvailable ? 'Debited' : 'Due';
   },
   credit() {
-    return this.credit + (this.creditFromSubscription || 0)
+    return -1 * (this.credit + (this.creditFromSubscription || 0));
   }
 });
 
