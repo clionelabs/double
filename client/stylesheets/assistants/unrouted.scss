@@ -21,9 +21,20 @@
     }
   }
 
-  .selected-channel-messages {
-    width: 100%;
-    flex: 1;
-    overflow-y: scroll;
+  .row {
+    height: 100%;
+
+    .channel-tabs {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: scroll;
+    }
+    .selected-channel-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: scroll;
+    }
   }
 }

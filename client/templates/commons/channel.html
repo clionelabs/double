@@ -18,9 +18,11 @@
         <div class="col-xs-11">
           {{> channelMessage}}
         </div>
-        <div class="col-xs-1 selection {{#if selected}}selected{{/if}}">
-          <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-        </div>
+        {{#if showSelection}}
+          <div class="col-xs-1 selection {{#if selected}}selected{{/if}}">
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+          </div>
+        {{/if}}
       </div>
     {{/each}}
   </div>
