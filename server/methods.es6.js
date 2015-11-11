@@ -94,6 +94,9 @@ Meteor.methods({
     } else {
       return null;
     }
-  }
+  },
 
+  regenerateInvoiceToken(invoiceId) {
+    return Invoices.regenerateToken(invoiceId);
+  }
 });

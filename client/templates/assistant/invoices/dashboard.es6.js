@@ -24,8 +24,7 @@ Template.assistantInvoiceDashboard.helpers({
         {
           isCustomerPaymentMethodAvailable: currentCustomer.hasPaymentMethod(),
           customerFullName: currentCustomer.displayName(),
-          customerFirstName : currentCustomer.firstName(),
-          isEditing : new ReactiveVar(false)
+          customerFirstName : currentCustomer.firstName()
         });
   },
   assistantInvoicePreview() {
