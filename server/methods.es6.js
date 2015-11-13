@@ -40,6 +40,10 @@ Meteor.methods({
       }
     });
 
+    if (data.billingEmail) {
+      Accounts.addEmail(userId, data.billingEmail);
+    }
+
     if (Meteor.settings.defaultAccountPassword) {
       Accounts.setPassword(userId, Meteor.settings.defaultAccountPassword);
     }
@@ -54,12 +58,11 @@ Meteor.methods({
 
     Users.editCustomer(userId,
         {
-          profile: {
-            firstname: firstname,
-            lastname: lastname,
-            hourlyRate: hourlyRate,
-            creditMs: creditMs
-          }
+          firstname: firstname,
+          lastname: lastname,
+          hourlyRate: hourlyRate,
+          creditMs: creditMs,
+          billingEmail: data.billingEmail
         });
     const currentPlan = Users.findOneCustomer(userId).currentPlan();
     if (planId !== currentPlan._id) {
