@@ -2,6 +2,10 @@ let setupIndexes = function() {
   D.Messages._ensureIndex({channelId: 1});
 }
 
+let setupDConfigs = function() {
+  D.Configs.set(D.Configs.Keys.DASHBOARD_APP_URL, Meteor.absoluteUrl());
+}
+
 Meteor.startup(() => {
   if (Meteor.settings.adminAccount) {
     let email = Meteor.settings.adminAccount.email;
@@ -35,4 +39,6 @@ Meteor.startup(() => {
   DoubleFastRender.startup();
 
   setupIndexes();
+
+  setupDConfigs();
 });
