@@ -33,6 +33,7 @@ Package.onUse(function(api) {
   ]);
   api.addFiles([
     'client/variables.scss',
+    'client/invoices/actual_form.scss',
     'client/invoices/actual_form_other_charges.html',
     'client/invoices/actual_form_time_based_item.html',
     'client/invoices/actual_form.html',
