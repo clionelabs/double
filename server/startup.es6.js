@@ -2,6 +2,16 @@ let setupIndexes = function() {
   D.Messages._ensureIndex({channelId: 1});
 }
 
+let setupChannelURLs = function() {
+  // TODO: fix unbound result set in observe
+  D.Channels.find().observe({
+    added: function(channel) {
+      let dashboardURL = Router.routes['channel.default'].url({_id: channel._id});
+      D.Channels.update({_id: channel._id}, {$set: {dashboardURL: dashboardURL}});
+    }
+  });
+}
+
 Meteor.startup(() => {
   if (Meteor.settings.adminAccount) {
     let email = Meteor.settings.adminAccount.email;
@@ -35,4 +45,6 @@ Meteor.startup(() => {
   DoubleFastRender.startup();
 
   setupIndexes();
+
+  setupChannelURLs();
 });
