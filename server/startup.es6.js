@@ -2,6 +2,16 @@ let setupIndexes = function() {
   D.Messages._ensureIndex({channelId: 1});
 }
 
+let setupChannelURLs = function() {
+  // TODO: fix unbound result set in observe
+  D.Channels.find().observe({
+    added: function(channel) {
+      let dashboardURL = Router.routes['channel.default'].url({_id: channel._id});
+      D.Channels.update({_id: channel._id}, {$set: {dashboardURL: dashboardURL}});
+    }
+  });
+}
+
 let setupDConfigs = function() {
   D.Configs.set(D.Configs.Keys.DASHBOARD_APP_URL, Meteor.absoluteUrl());
 }
@@ -40,5 +50,5 @@ Meteor.startup(() => {
 
   setupIndexes();
 
-  setupDConfigs();
+  setupChannelURLs();
 });
