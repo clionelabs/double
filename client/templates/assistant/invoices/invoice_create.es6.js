@@ -64,7 +64,4 @@ Template.invoiceCreate.events({
     let toTs = moment($(e.currentTarget).val()).valueOf();
     tmpl.to.set(toTs);
   }
-
 });
-
-
