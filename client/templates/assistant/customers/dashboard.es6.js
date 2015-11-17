@@ -2,13 +2,19 @@ Template.assistantCustomersDashboard.helpers({
   conversationData() {
     let selectedChannel = Template.currentData().selectedChannel;
     let currentCustomer = Template.currentData().currentCustomer;
+    let isShowCompletedTask = Template.currentData().isShowCompletedTask;
+
+    let data = {
+      currentCustomer: currentCustomer,
+      isShowCompletedTask: isShowCompletedTask
+    };
     if (selectedChannel) {
-      return _.extend(currentCustomer,
-          { selectedChannelId: selectedChannel._id,
-            selectedMessageIdsVar: new ReactiveVar({}) });
-    } else {
-      return currentCustomer;
+      _.extend(data, {
+        selectedChannelId: selectedChannel._id,
+        selectedMessageIdsVar: new ReactiveVar({})
+      });
     }
+    return data;
   },
   getCurrentCustomerId() {
     return Template.instance().currentCustomerId;
@@ -47,18 +53,14 @@ Template.assistantCustomersDashboard.helpers({
   getTasksOfSelectedCustomer() {
     let currentCustomer = Template.currentData().currentCustomer;
     const isShowCompletedTask = Template.currentData().isShowCompletedTask;
-    return _.sortBy(
-        _.filter(Tasks.findRequestedBy(currentCustomer._id).fetch(),
-            function(task) {
-              if (isShowCompletedTask) {
-                return task.completedAt !== null;
-              } else {
-                return task.completedAt === null;
-              }
-            }),
-        function(task) {
-          return task.lastModified * -1;
-    });
+
+    let query = _.extend({}, TasksQueryBuilder)
+           .setRequestedBy(currentCustomer._id)
+           .setIsCompleted(isShowCompletedTask)
+           .setOptions({sort: {title: 1}})
+           .getQuery();
+
+    return query;
   },
   isCompletedChecked() {
     const isShowCompletedTask = Template.currentData().isShowCompletedTask;
