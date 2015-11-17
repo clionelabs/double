@@ -120,13 +120,13 @@ Meteor.publish("currentUser", function() {
   }
 });
 
-Meteor.publish('nonLoginInvoice', function(customerId, invoiceId) {
+Meteor.publish('invoiceOnly', function(customerId, invoiceId) {
   const invoice = Invoices.findOne(invoiceId);
   if (invoice.customerId === customerId) {
     return [
       Invoices.find(invoiceId),
-      Meteor.users.find(customerId, { fields : { roles : 1, profile: 1, 'payment.isAuthorized': 1}}),
-    ]
+      Users.findCustomers(customerId, { fields : Users.showDisplayOnlyOptions() })
+    ];
   } else {
     //return empty array coz return null will not terminate waitOn in prod
     return [];
