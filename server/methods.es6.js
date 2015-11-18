@@ -42,6 +42,7 @@ Meteor.methods({
 
     if (data.billingEmail) {
       Accounts.addEmail(userId, data.billingEmail);
+      Meteor.users.update(userId, { $set : { 'emails.1.isBilling' : true }});
     }
 
     if (Meteor.settings.defaultAccountPassword) {
