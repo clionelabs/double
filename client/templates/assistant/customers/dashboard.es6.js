@@ -54,11 +54,11 @@ Template.assistantCustomersDashboard.helpers({
     let currentCustomer = Template.currentData().currentCustomer;
     const isShowCompletedTask = Template.currentData().isShowCompletedTask;
 
-    let query = _.extend({}, TasksQueryBuilder)
+    let query = (new TasksQueryBuilder())
            .setRequestedBy(currentCustomer._id)
            .setIsCompleted(isShowCompletedTask)
            .setOptions({sort: {title: 1}})
-           .getQuery();
+           .getCursor();
 
     return query;
   },
