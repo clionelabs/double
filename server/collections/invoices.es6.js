@@ -13,7 +13,7 @@ init = true;
 Invoices.sendEmail = (invoice) => {
   const customer = Users.findOneCustomer(invoice.customerId);
   const externalUrl = Meteor.settings.externalUrl;
-  const email = customer.emails[1] ? customer.emails[1].address : customer.emails[0].address;
+  const email = customer.billingEmail() ? customer.billingEmail() : customer.primaryEmail();
   Email.send({
     from: Email.from,
     to: email,
