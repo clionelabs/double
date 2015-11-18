@@ -4,6 +4,7 @@ Invoices.find({ 'status' : Invoice.Status.Charged }).observe({
     if (!init) return;
 
     if (newInvoice.revenue()) {
+      Invoices.regenerateInvoiceToken(newInvoice._id);
       Invoices.sendEmail(newInvoice);
     }
   }
