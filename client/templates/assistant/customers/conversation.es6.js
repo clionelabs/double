@@ -3,31 +3,31 @@ Template.assistantCustomerConversation.onRendered(function() {
 });
 Template.assistantCustomerConversation.events({
   "click .invoices" : function() {
-    let currentCustomer = this;
+    let currentCustomer = Template.currentData().currentCustomer;
     Router.go("assistant.customers.invoices", { customerId : currentCustomer._id });
   },
   "click .profile" : function() {
-    let currentCustomer = Template.currentData();
+    let currentCustomer = Template.currentData().currentCustomer;
     Modal.show('customerEditForm', currentCustomer);
   },
   "click .show-link-payment" : function() {
-    let currentCustomer = Template.currentData();
+    let currentCustomer = Template.currentData().currentCustomer;
     Modal.show('customerPaymentLink', currentCustomer);
   },
   "click .cancel-selection": function() {
-    let currentCustomer = Template.currentData();
-    currentCustomer.selectedMessageIdsVar.set({});
+    let currentData = Template.currentData();
+    currentData.selectedMessageIdsVar.set({});
   },
   "click .tag-task": function() {
-    let currentCustomer = Template.currentData();
-    let messageIds = currentCustomer.selectedMessageIdsVar.get();
+    let currentData = Template.currentData();
+    let messageIds = currentData.selectedMessageIdsVar.get();
     let messageIdList = _.keys(messageIds);
     let taskId = this._id;
     Meteor.call('tagTask', messageIdList, taskId, function(error) {
       if (error) {
         Notifications.error("updated failed", "");
       } else {
-        currentCustomer.selectedMessageIdsVar.set({});
+        currentData.selectedMessageIdsVar.set({});
       }
     });
   }
@@ -35,7 +35,7 @@ Template.assistantCustomerConversation.events({
 
 Template.assistantCustomerConversation.helpers({
   channels() {
-    let customer = this;
+    let customer = Template.currentData().currentCustomer;
     return D.Channels.find({customerId: customer._id}).map(function(channel) {
       return {
         currentCustomer: customer,
@@ -44,29 +44,37 @@ Template.assistantCustomerConversation.helpers({
     });
   },
   selectedChannel() {
-    let customer = Template.currentData();
-    let channel = D.Channels.findOne(customer.selectedChannelId);
+    let currentData = Template.currentData();
+    let customer = Template.currentData().currentCustomer;
+    let channel = D.Channels.findOne(currentData.selectedChannelId);
     if (channel) {
       _.extend(channel, {
-        selectedMessageIdsVar: customer.selectedMessageIdsVar
+        selectedMessageIdsVar: currentData.selectedMessageIdsVar
       });
     }
     return channel;
   },
   hasPaymentMethod() {
-    return this.hasPaymentMethod();
+    let customer = Template.currentData().currentCustomer;
+    return customer.hasPaymentMethod();
   },
   isAnyMessageSelected() {
-    let customer = Template.currentData();
-    if (!customer.selectedMessageIdsVar) return false;
-    let selectedMessageIds = customer.selectedMessageIdsVar.get();
+    let currentData = Template.currentData();
+    if (!currentData.selectedMessageIdsVar) return false;
+    let selectedMessageIds = currentData.selectedMessageIdsVar.get();
     return _.keys(selectedMessageIds).length > 0;
   },
   tasks() {
-    let customer = Template.currentData();
-    return _.sortBy(Tasks.findRequestedBy(customer._id).fetch(), function(task) {
-      return task.createdAt * -1;
-    });
+    let customer = Template.currentData().currentCustomer;
+    let isShowCompletedTask = Template.currentData().isShowCompletedTask;
+
+    let query = (new TasksQueryBuilder())
+           .setRequestedBy(customer._id)
+           .setIsCompleted(isShowCompletedTask)
+           .setOptions({sort: {title: 1}})
+           .getCursor();
+
+    return query;
   }
 });
 
