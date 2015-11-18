@@ -52,7 +52,7 @@ Template.customerEditForm.helpers({
     return this.emails ? this.emails[0].address : null;
   },
   getBillingEmail() {
-    return this.emails && this.emails[1] ? this.emails[1].address : null;
+    return _.first(_.filter(this.emails, function(email) { return email.isBilling; })).address;
   },
   disabledIfEdit() {
     return this._id ? "disable" : "";
