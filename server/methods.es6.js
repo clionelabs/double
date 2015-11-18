@@ -29,6 +29,8 @@ Meteor.methods({
     let firstname = data.firstname;
     let lastname = data.lastname;
     let plan = data.plan;
+    const hourlyRate = data.hourlyRate;
+    const creditMs = data.creditMs;
 
     let userId = Users.createCustomer({
       email: email,
@@ -36,9 +38,16 @@ Meteor.methods({
       profile: {
         firstname: firstname,
         lastname: lastname,
+        hourlyRate: hourlyRate,
+        creditMs: creditMs,
         plan: plan
       }
     });
+
+    if (data.billingEmail) {
+      Accounts.addEmail(userId, data.billingEmail);
+      Meteor.users.update(userId, { $set : { 'emails.1.isBilling' : true }});
+    }
 
     if (Meteor.settings.defaultAccountPassword) {
       Accounts.setPassword(userId, Meteor.settings.defaultAccountPassword);
@@ -54,12 +63,11 @@ Meteor.methods({
 
     Users.editCustomer(userId,
         {
-          profile: {
-            firstname: firstname,
-            lastname: lastname,
-            hourlyRate: hourlyRate,
-            creditMs: creditMs
-          }
+          firstname: firstname,
+          lastname: lastname,
+          hourlyRate: hourlyRate,
+          creditMs: creditMs,
+          billingEmail: data.billingEmail
         });
     const currentPlan = Users.findOneCustomer(userId).currentPlan();
     if (planId !== currentPlan._id) {
@@ -94,6 +102,9 @@ Meteor.methods({
     } else {
       return null;
     }
-  }
+  },
 
+  regenerateInvoiceToken(invoiceId) {
+    return Invoices.regenerateToken(invoiceId);
+  }
 });

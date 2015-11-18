@@ -120,3 +120,16 @@ Meteor.publish("currentUser", function() {
   }
 });
 
+Meteor.publish('invoiceOnly', function(invoiceId) {
+  const invoice = Invoices.findOne(invoiceId);
+  if (invoice) {
+    return [
+      Invoices.find(invoiceId),
+      Users.findCustomers(invoice.customerId, { fields : Users.showDisplayOnlyOptions() })
+    ];
+  } else {
+    //return empty array coz return null will not terminate waitOn in prod
+    return [];
+  }
+});
+

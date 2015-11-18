@@ -1,5 +1,5 @@
 <template name="assistantsInvoiceActualForm">
-  <div class="invoice-printout static">
+  <div class="invoice-printout">
     <header>
       Double Usage Report: {{customerFullName}}
     </header>
@@ -18,12 +18,12 @@
             <div class="key">Time Used This Period: </div>
             <div class="value">{{formatDurationPrecise roundedInSecondTotalDuration}}</div>
           </div>
-            <div class="line">
-                <div class="key">Time Credit: </div>
-                <div class="value">
-                    {{formatDurationPrecise credit}}
-                </div>
+          <div class="line">
+            <div class="key">Time Credit: </div>
+            <div class="value">
+              {{formatDurationPrecise credit}}
             </div>
+          </div>
           <div class="line">
             <div class="key">Adjustment: </div>
             <div class="value">

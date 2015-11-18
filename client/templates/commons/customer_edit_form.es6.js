@@ -10,7 +10,8 @@ Template.customerEditForm.events({
       lastname: form.lastname.value,
       hourlyRate : form.hourlyRate.value,
       creditMs : DurationConverter.minutesToMs(form.creditMs.value),
-      planId : form.plan.value
+      planId : form.plan.value,
+      billingEmail : form['billing-email'].value
     };
 
     if (!isEdit) {
@@ -49,6 +50,9 @@ Template.customerEditForm.onCreated(function() {
 Template.customerEditForm.helpers({
   getEmail() {
     return this.emails ? this.emails[0].address : null;
+  },
+  getBillingEmail() {
+    return _.first(_.filter(this.emails, function(email) { return email.isBilling; })).address;
   },
   disabledIfEdit() {
     return this._id ? "disable" : "";
