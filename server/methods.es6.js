@@ -29,6 +29,8 @@ Meteor.methods({
     let firstname = data.firstname;
     let lastname = data.lastname;
     let plan = data.plan;
+    const hourlyRate = data.hourlyRate;
+    const creditMs = data.creditMs;
 
     let userId = Users.createCustomer({
       email: email,
@@ -36,6 +38,8 @@ Meteor.methods({
       profile: {
         firstname: firstname,
         lastname: lastname,
+        hourlyRate: hourlyRate,
+        creditMs: creditMs,
         plan: plan
       }
     });
