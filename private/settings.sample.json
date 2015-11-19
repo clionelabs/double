@@ -27,6 +27,5 @@
   },
   "slackLog" : {
     "token": "<APP_ID>"
-  },
-  "externalUrl" : "localhost:6500"
+  }
 }
