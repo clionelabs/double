@@ -1,10 +1,9 @@
 let init = false;
-Invoices.find({ 'status' : Invoice.Status.Charged }).observe({
+Invoices.find({ 'status' : Invoice.Status.Charged , 'token' : { $exists : true }}).observe({
   added(newInvoice) {
     if (!init) return;
 
     if (newInvoice.revenue()) {
-      Invoices.regenerateInvoiceToken(newInvoice._id);
       Invoices.sendEmail(newInvoice);
     }
   }
@@ -21,7 +20,7 @@ Invoices.sendEmail = (invoice) => {
     subject: 'Double: Your user report is ready',
     text: `Hi ${customer.firstName()}!
 Your usage report from ${DateFormatter.toDateShortMonthString(invoice.from)} to ${DateFormatter.toDateShortMonthString(invoice.to)} is ready.
-you can access <a href='${externalUrl}/invoices/${invoice._id}?token=${invoice.token.value}'>it</a> in five days after you receive this email.
+you can access <a href='${invoice.token.url}'>it</a> in five days after you receive this email.
 
 In case of any questions, please let us know!
 
@@ -30,4 +29,3 @@ Cary &amp; Thomas
 `
   });
 };
-
