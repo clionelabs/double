@@ -22,7 +22,10 @@
       "increase": 100
     },
     "analyticsSettings" : {
-      "Heap" : { "appId" : "858831651" }
+      "Heap" : { "appId" : "<APP_ID>" }
     }
+  },
+  "slackLog" : {
+    "token": "<APP_ID>"
   }
 }

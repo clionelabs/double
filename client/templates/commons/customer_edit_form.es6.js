@@ -51,9 +51,6 @@ Template.customerEditForm.helpers({
   getEmail() {
     return this.emails ? this.emails[0].address : null;
   },
-  getBillingEmail() {
-    return _.first(_.filter(this.emails, function(email) { return email.isBilling; })).address;
-  },
   disabledIfEdit() {
     return this._id ? "disable" : "";
   },
