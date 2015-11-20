@@ -20,13 +20,6 @@ Cary & Thomas
   });
 };
 
-Feedbacks.find({ isSent : false }).observe({
-  added(feedback) {
-    feedback.sendEmail();
-    Feedbacks.logEmailSent(feedback._id);
-  }
-});
-
 Feedbacks.logEmailSent = (feedbackId) => {
   // TODO: We should log the email address we sent to because customer can change email at anytime.
   Feedbacks.update(feedbackId, { $set : { 'isSent' : true , sendAt : moment().valueOf() }});
@@ -45,4 +38,13 @@ Feedbacks.logEmailSent = (feedbackId) => {
       icon_emoji: ':robot_face:'
     });
 
+}
+
+Feedbacks.startup = function() {
+  Feedbacks.find({ isSent : false }).observe({
+    added(feedback) {
+      feedback.sendEmail();
+      Feedbacks.logEmailSent(feedback._id);
+    }
+  });
 }

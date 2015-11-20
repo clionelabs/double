@@ -47,4 +47,8 @@ Meteor.startup(() => {
   setupIndexes();
 
   setupChannelURLs();
+
+  Feedbacks.startup();
+
+  Tasks.startup();
 });

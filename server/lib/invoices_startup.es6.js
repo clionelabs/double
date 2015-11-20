@@ -29,4 +29,16 @@ InvoicesStartup = () => {
       return false;
     }
   });
+
+  let init = false;
+  Invoices.find({ 'status' : Invoice.Status.Charged , 'token' : { $exists : true }}).observe({
+    added(newInvoice) {
+      if (!init) return;
+
+      if (newInvoice.revenue()) {
+        Invoices.sendEmail(newInvoice);
+      }
+    }
+  });
+  init = true;
 }
