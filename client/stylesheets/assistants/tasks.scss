@@ -233,17 +233,29 @@
           margin-top : 1.1em;
           .one-time-purchase {
             margin-bottom: 0.7em;
-            .billed {
-              background: $double-green;
-              color: $double-black;
-            }
-            .unbilled {
-              background: $double-red2;
-              color: $double-white;
-            }
             display: flex;
             flex-direction: row;
             justify-content: center;
+
+            .status {
+              cursor: pointer;
+              border-radius: 3px;
+              padding: 0px 0.5em;
+              &.pending {
+                background: $double-light-blue;
+              }
+              &.charging {
+                background: $double-green;
+              }
+              &.charged {
+                color: $double-white;
+                background: $double-green2;
+              }
+              &.voided, &.failed {
+                color: $double-white;
+                background: $double-red;
+              }
+            }
 
             .main {
               display: flex;
@@ -257,6 +269,10 @@
               .type {
                 min-width:100px;
               }
+            }
+            .charge {
+              padding: 0px 0.5em;
+              margin-right: 1em;
             }
             .delete {
               display: flex;
