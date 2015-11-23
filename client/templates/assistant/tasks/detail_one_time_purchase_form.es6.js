@@ -44,7 +44,11 @@ Template.assistantTasksDetailOneTimePurchaseForm.helpers({
   },
   toChargeAmount() {
     const otp = Template.instance().oneTimePurchaseToBeCharged.get();
-    return otp ? AmountFormatter.toString(otp.amount) : 0;
+    return otp ? AmountFormatter.toString(otp.totalAmount()) : 0;
+  },
+  toExtraChargeAmount() {
+    const otp = Template.instance().oneTimePurchaseToBeCharged.get();
+    return otp ? AmountFormatter.toString(otp.extraCharge()) : 0;
   },
   toChargeItem() {
     const otp = Template.instance().oneTimePurchaseToBeCharged.get();
@@ -52,7 +56,8 @@ Template.assistantTasksDetailOneTimePurchaseForm.helpers({
   },
   isCharged() {
     return (this.status !== Tasks.OneTimePurchase.Status.PENDING);
-  }
+  },
+
 });
 
 Template.assistantTasksDetailOneTimePurchaseForm.events({
