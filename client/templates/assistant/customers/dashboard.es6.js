@@ -98,4 +98,8 @@ Template.assistantCustomersDashboard.onRendered(function() {
       ui.currentCustomerId.set(null);
     }
   });
+
+  if (Template.currentData().currentCustomer) {
+    this.subscribe("customerTasks", Template.currentData().currentCustomer._id);
+  }
 })

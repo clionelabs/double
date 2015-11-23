@@ -39,12 +39,16 @@ Template.customerEditForm.events({
 
 Template.customerEditForm.onCreated(function() {
   const instance = this;
+  const customer = this.data;
   instance.selectedPlanName = new ReactiveVar('');
   instance.autorun(function() {
     if (instance.data) {
       instance.selectedPlanName.set(instance.data.currentPlan().name);
     }
   })
+
+  instance.subscribe("plans");
+  instance.subscribe("customerSubscriptions", customer._id);
 });
 
 Template.customerEditForm.helpers({

@@ -17,7 +17,38 @@ Meteor.publish('tags', function() {
   return Tags.find();
 });
 
+Meteor.publish('customerTasks', function(customerId) {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    return [];
+  }
+  return Tasks.find({requestorId: customerId});
+});
+
+Meteor.publish('customerSubscriptions', function(customerId) {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    return [];
+  }
+  return Subscriptions.find({customerId: customerId});
+});
+
+Meteor.publish("customerInvoices", function(customerId) {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    return [];
+  }
+  return Invoices.find({customerId: customerId});
+});
+
+Meteor.publish("tasks", function(selector, options) {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    return [];
+  }
+  return Tasks.find(selector, options);
+});
+
 Meteor.publish('myTasks', function() {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    return [];
+  }
   return Tasks.find();
 });
 
