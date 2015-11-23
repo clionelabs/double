@@ -29,7 +29,7 @@ Feedbacks.logEmailSent = (feedbackId) => {
   const customer = Users.findOneCustomer(feedback.customerId);
   const emailTo = customer.emails[0].address;
   const url = Router.routes['assistant.tasks'].url({ _id : task._id }); // TODO: refactor
-  SlackLog.log('_completed_requests',
+  SlackLog.log('_requests',
     {
       text : `
 <!channel>, Feedback email is sent to ${emailTo} for ${task.title} (${url})` ,

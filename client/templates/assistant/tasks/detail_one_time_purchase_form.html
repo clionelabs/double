@@ -22,16 +22,26 @@
         <button class="submit" action="submit">Add</button>
       </form>
     </div>
+    <div class="one-time-purchases charge-confirm-box {{ isOneTimePurchaseChargeFormShown }}">
+      <div class="confirm-message">Are you sure you want to charge HKD{{ toChargeAmount }}(5% surcharge: HKD {{toExtraChargeAmount}}) for
+        {{ toChargeItem }}?
+      </div>
+      <button class="btn btn-default btn-primary charge">CHARGE!</button>
+      <button class="btn btn-default cancel">No</button>
+
+    </div>
     <div class="one-time-purchases">
       {{#each oneTimePurchases }}
         <div class="one-time-purchase">
           <div class="main">
             <!--<span class="badge {{ isBilledStr }}">{{ isBilledStr }}</span> -->
+            <div class="status {{status}}">{{status}}</div>
             <div class="type">{{#if isOnBehalf }}On Behalf{{else}}Sales{{/if}}</div>
             <div class="date">{{formatDate date }}</div>
             <div class="title">{{ title }}</div>
             <div class="amount">HKD {{formatAmount amount}}</div>
           </div>
+          <button class="btn btn-default btn-danger charge {{#if isCharged }}hide{{/if}}">Charge</button>
           <div class="delete {{ hideIfBilled }}">
             <i class="fa fa-remove delete"></i>
           </div>
