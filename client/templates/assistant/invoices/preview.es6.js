@@ -11,8 +11,7 @@ Template.assistantInvoicePreview.events({
   },
   'click .confirm-charge .confirm' : function() {
     const invoice = this;
-    invoice.issue();
-    const userId = Meteor.userId();
+    Meteor.call('chargeInvoice', invoice);
     Template.instance().$('.confirm-charge').addClass('hide');
   },
   'click .confirm-charge .cancel' : function() {
