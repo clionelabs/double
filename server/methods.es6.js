@@ -96,6 +96,20 @@ Meteor.methods({
     return Messages.tagTask(messageIds, taskId);
   },
 
+  chargeOneTimePurchase(oneTimePurchase) {
+    _.extend(oneTimePurchase, Tasks.OneTimePurchase.ProtoType);
+
+    Tasks.OneTimePurchase.StateMachine(oneTimePurchase);
+    let data = {
+      oneTimePurchaseId: oneTimePurchase._id,
+      taskId: oneTimePurchase.taskId,
+      amount: oneTimePurchase.totalAmount(),
+      type : Transaction.Type.ONE_TIME_PURCHASE
+    };
+    D.Events.create('newTransaction', data); // call double.pay to create a transaction
+    oneTimePurchase.transactionCreated();
+  },
+
   generateInvoicesFor(date) {
     if (Users.isAdmin(Meteor.userId())) {
       return Invoices.Generator.generateForUsersDue(date || moment().valueOf());

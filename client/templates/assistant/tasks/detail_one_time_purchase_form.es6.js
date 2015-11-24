@@ -89,7 +89,8 @@ Template.assistantTasksDetailOneTimePurchaseForm.events({
   },
   "click .charge-confirm-box .charge" : function(e, tmpl) {
     const otpToBeCharged = tmpl.oneTimePurchaseToBeCharged.get();
-    otpToBeCharged.transactionCreated();
+    //to prevent double charged
+    Meteor.call('chargeOneTimePurchase', otpToBeCharged);
     tmpl.oneTimePurchaseToBeCharged.set(null);
   },
   "click .charge-confirm-box .cancel" : function(e, tmpl) {
