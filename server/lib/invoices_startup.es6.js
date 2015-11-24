@@ -34,6 +34,8 @@ InvoicesStartup = () => {
   });
 
   let init = false;
+
+  /*
   Invoices.find({ 'status' : Invoice.Status.Charged , 'token' : { $exists : true }}).observe({
     added(newInvoice) {
       if (!init) return;
@@ -43,5 +45,6 @@ InvoicesStartup = () => {
       }
     }
   });
+  */
   init = true;
 }
