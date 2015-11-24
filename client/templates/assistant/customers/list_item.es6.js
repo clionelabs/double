@@ -1,3 +1,7 @@
+Template.assistantCustomersListItem.onRendered(function() {
+  this.subscribe("tasks", {}, {fields: {requestorId: 1, steps: 1}});
+  this.subscribe("invoices");
+});
 
 Template.assistantCustomersListItem.events({
   "click .profile" : function() {
