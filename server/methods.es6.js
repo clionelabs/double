@@ -115,7 +115,9 @@ Meteor.methods({
     _.extend(oneTimePurchase, Tasks.OneTimePurchase.ProtoType);
     Tasks.OneTimePurchase.StateMachine(oneTimePurchase);
 
+    const task = Tasks.findOne(oneTimePurchase.taskId);
     let data = {
+      customerId : task.requestorId,
       oneTimePurchaseId: oneTimePurchase._id,
       taskId: oneTimePurchase.taskId,
       amount: oneTimePurchase.totalAmount(),
