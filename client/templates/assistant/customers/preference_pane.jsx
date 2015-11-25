@@ -20,7 +20,7 @@ AssistantCustomerPreferencePane = ReactMeteor.createClass({
     return { isAdding : false }
   },
   getMeteorState() {
-    return { customer : Users.findOneCustomer(this.props.rCustomerId.get()) };
+    return {customer: this.props.rCurrentCustomer.get()};
   },
   handleFormSubmit(e) {
     e.preventDefault();

@@ -89,6 +89,10 @@ Template.assistantCustomerConversationChannel.helpers({
   isNotReplied() {
     return this.channel.isNotReplied();
   },
+  getSelectChannelData() {
+    let data = Template.currentData();
+    return {_id: data.currentCustomer._id};
+  },
   getSelectChannelQuery() {
     const channel = Template.currentData().channel;
     const isShowCompletedTask = Template.currentData().isShowCompletedTask || false;

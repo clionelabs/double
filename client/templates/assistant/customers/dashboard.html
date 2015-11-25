@@ -11,7 +11,7 @@
     </div>
     <div class="helpers">
       <div class="customer-detail">
-        {{> assistantCustomerPreferencePane rCustomerId=getCurrentCustomerId }}
+        {{> assistantCustomerPreferencePane rCurrentCustomer=getRCurrentCustomer }}
       </div>
       <div class="task-related">
         <div class="tasks">
@@ -19,7 +19,7 @@
           <div class="is-completed-checkbox">
               <a href="{{ urlFor
                     route='assistant.customers.selected'
-                    data=getSelectChannelData
+                    data=currentCustomer
                     query=getCompletedTaskToggleQuery }}">
                   <i class="fa {{ isCompletedChecked }}"></i>
               </a>
