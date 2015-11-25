@@ -7,6 +7,7 @@ InvoicesStartup = () => {
       Invoices.findOne(invoiceId).transactionSuccess();
       return true;
     } catch (ex) {
+      console.error('[Invoice] Transaction success event err: ', ex);
       return false;
     }
   });
@@ -18,6 +19,7 @@ InvoicesStartup = () => {
       Invoices.findOne(invoiceId).transactionFailure();
       return true;
     } catch (ex) {
+      console.error('[Invoice] Transaction failed event err: ', ex);
       return false;
     }
   });
@@ -29,6 +31,7 @@ InvoicesStartup = () => {
       Invoices.findOne(invoiceId).transactionVoid();
       return true;
     } catch (ex) {
+      console.error('[Invoice] Transaction voided event err: ', ex);
       return false;
     }
   });
