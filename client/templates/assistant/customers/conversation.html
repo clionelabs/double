@@ -8,6 +8,9 @@
              data-toggle="tooltip" data-placement="bottom" title="This customer can be charged automatically"
               ></i>
         {{/if}}
+        <span class="uncharged-time">
+          Uncharged time: {{ formatDurationPrecise tasksNotBilledTime }}
+        </span>
       </div>
       <div class="functions">
         <div class="dropdown">

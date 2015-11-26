@@ -52,10 +52,13 @@ Meteor.publish('myTasks', function() {
   return Tasks.find();
 });
 
-Meteor.publish('customers', function() {
-  let selector = {};
-  return Users.findCustomers(selector);
+Meteor.publish("customers", function(selector, options) {
+  if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
+    return [];
+  }
+  return D.Users.findCustomers(selector, options);
 });
+
 
 Meteor.publish('placements', function() {
   if (Users.isAdmin(this.userId)) {
@@ -149,6 +152,10 @@ Meteor.publish("currentUser", function() {
     //return empty array coz return null will not terminate waitOn in prod
     return [];
   }
+});
+
+Meteor.publish("me", function() {
+  return Meteor.users.find(this.userId);
 });
 
 Meteor.publish('invoiceOnly', function(invoiceId) {

@@ -118,10 +118,9 @@ Template.assistantCustomersDashboard.onRendered(function() {
     instance.isShowCompletedTask = data.isShowCompletedTask;
   });
 
-  subs.subscribe("customers");
-  subs.subscribe("assistants");
-  subs.subscribe("placements");
   subs.subscribe("routedChannels");
+  // subs.subscribe("tasks", {}, {fields: {requestorId: 1, steps: 1}});
+  // subs.subscribe("invoices");
 })
 
 Template.assistantCustomersDashboard.subs = new SubsManager();

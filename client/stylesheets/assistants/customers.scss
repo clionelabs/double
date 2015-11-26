@@ -40,7 +40,7 @@
         }
         .detail {
           font-style: italic;
-          font-size: 0.88em;
+          font-size: 0.68em;
         }
       }
     }
@@ -58,6 +58,10 @@
       .customer-metrics {
         display : flex;
         justify-content: space-between;
+        .uncharged-time {
+          font-style: italic;
+          font-size: 0.6em;
+        }
         .functions {
           align-self: flex-end;
           display : flex;
