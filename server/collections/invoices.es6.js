@@ -1,6 +1,5 @@
 Invoices.sendEmail = (invoice) => {
   const customer = Users.findOneCustomer(invoice.customerId);
-  const externalUrl = Meteor.settings.externalUrl;
   const email = customer.billingEmail() ? customer.billingEmail() : customer.primaryEmail();
   Email.send({
     from: Email.from,

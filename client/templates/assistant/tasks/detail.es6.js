@@ -57,10 +57,10 @@ Template.assistantTasksDetail.helpers({
     return currentTask && currentTask.taskId === this._id ? 'pause' : 'play';
   },
   ifTaskCompleted() {
-    return this.isCompleted() ? "completed" : "not-completed";
+    return this.isCompleted && this.isCompleted() ? "completed" : "not-completed";
   },
   showIfTaskCompleted() {
-    return this.isCompleted() ? "" : "hide";
+    return  this.isCompleted && this.isCompleted() ? "" : "hide";
   },
   getLatestStatus() {
     return this.getLatestStatus(Meteor.userId());

@@ -97,35 +97,11 @@ Meteor.methods({
   },
 
   chargeInvoice(invoice) {
-    invoice = Invoice.transform(invoice);
-    Invoice.StateMachine(invoice);
-    console.log(Invoice.Prototype);
-
-    let data = {
-      invoiceId: invoice._id,
-      customerId: invoice.customerId,
-      amount: invoice.debit().toFixed(2),
-      type : Transaction.Type.INVOICE
-    };
-    D.Events.create('newTransaction', data); // call double.pay to create a transaction
-    invoice.issue();
+    InvoicePayment.issueInvoice(invoice._id);
   },
 
-  chargeOneTimePurchase(oneTimePurchase) {
-    _.extend(oneTimePurchase, Tasks.OneTimePurchase.ProtoType);
-    Tasks.OneTimePurchase.StateMachine(oneTimePurchase);
-
-    const task = Tasks.findOne(oneTimePurchase.taskId);
-    let data = {
-      customerId : task.requestorId,
-      oneTimePurchaseId: oneTimePurchase._id,
-      taskId: oneTimePurchase.taskId,
-      amount: oneTimePurchase.totalAmount(),
-      type : Transaction.Type.ONE_TIME_PURCHASE
-    };
-
-    D.Events.create('newTransaction', data); // call double.pay to create a transaction
-    oneTimePurchase.transactionCreated();
+  chargeOneTimePurchase(oneTimePurchase, taskId) {
+    Tasks.OneTimePurchases.Payment.charge(oneTimePurchase._id, taskId);
   },
 
   generateInvoicesFor(date) {
@@ -134,6 +110,6 @@ Meteor.methods({
     } else {
       return null;
     }
-  },
+  }
 
 });

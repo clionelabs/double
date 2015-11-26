@@ -40,8 +40,8 @@ Meteor.startup(() => {
 
   TaskSchedulers.startup();
 
-  InvoicesStartup();
-  OneTimePurchasesStartup();
+  InvoicePayment.startup();
+  Tasks.OneTimePurchases.Payment.startup();
 
   DoubleFastRender.startup();
 
