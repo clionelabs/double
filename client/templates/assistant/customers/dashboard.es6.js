@@ -1,8 +1,8 @@
 Template.assistantCustomersDashboard.helpers({
   conversationData() {
-    let selectedChannel = Template.currentData().selectedChannel;
-    let currentCustomer = Template.currentData().currentCustomer;
-    let isShowCompletedTask = Template.currentData().isShowCompletedTask;
+    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get('currentCustomer')();
+    let selectedChannel = Template.instance().rSelectedChannel.get();
+    let isShowCompletedTask = Template.instance().isShowCompletedTask;
 
     let data = {
       currentCustomer: currentCustomer,
@@ -16,11 +16,18 @@ Template.assistantCustomersDashboard.helpers({
     }
     return data;
   },
+  currentCustomer() {
+    return Template.assistantCustomersDashboard.__helpers.get('getRCurrentCustomer')().get();
+  },
+  getRCurrentCustomer() {
+    return Template.instance().rCurrentCustomer;
+  },
   getCurrentCustomerId() {
-    return Template.instance().currentCustomerId;
+    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get('currentCustomer')();
+    return currentCustomer? currentCustomer._id: null;
   },
   getSortedCustomers() {
-    let currentCustomer = Template.currentData().currentCustomer;
+    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get('currentCustomer')();
 
     let selector = {};
     if (!Users.isAdmin(Meteor.userId())) {
@@ -31,28 +38,27 @@ Template.assistantCustomersDashboard.helpers({
     let customers = Users.findCustomers(selector);
     if (!customers) return;
 
-    customers = _.map(customers.fetch(), (customer) => {
-      let lastMessageTimestamp = null;
-      let myDChannels = D.Channels.find({ customerId : customer._id }).fetch();
-      if (!_.isEmpty(myDChannels)) {
-        let myDChannelWithLatestReplied
-            = _.max(myDChannels, function (channel) {
-          return channel.lastMessageTimestamp();
-        });
-        lastMessageTimestamp = myDChannelWithLatestReplied.lastMessageTimestamp();
+    let last = {};
+    D.Channels.find().forEach(function(channel) {
+      let timestamp = channel.lastMessageTimestamp();
+      if (channel.customerId && timestamp) {
+        if (!last[channel.customerId] || last[channel.customerId] < timestamp) {
+          last[channel.customerId] = timestamp;
+        }
       }
-
-      return _.extend(customer,
-          {
-            lastMessageTimestamp :  lastMessageTimestamp,
-            isCurrent : (currentCustomer && customer._id === currentCustomer._id)
-          });
     });
-    return _.sortBy(customers, function(customer) { return -1 * customer.lastMessageTimestamp; });
+
+    let list = customers.map(function(customer) {
+      return _.extend(customer, {
+        lastMessageTimestamp: (last[customer._id]? last[customer._id]: 0),
+        isCurrent : (currentCustomer && customer._id === currentCustomer._id)
+      });
+    });
+    return _.sortBy(list, function(customer) { return -1 * customer.lastMessageTimestamp; });
   },
   getTasksOfSelectedCustomer() {
-    let currentCustomer = Template.currentData().currentCustomer;
-    const isShowCompletedTask = Template.currentData().isShowCompletedTask;
+    const currentCustomer = Template.instance().rCurrentCustomer.get();
+    const isShowCompletedTask = Template.instance().isShowCompletedTask;
 
     let query = (new TasksQueryBuilder())
            .setRequestedBy(currentCustomer._id)
@@ -63,12 +69,12 @@ Template.assistantCustomersDashboard.helpers({
     return query;
   },
   isCompletedChecked() {
-    const isShowCompletedTask = Template.currentData().isShowCompletedTask;
+    const isShowCompletedTask = Template.instance().isShowCompletedTask;
     return isShowCompletedTask ? 'fa-check-square-o' : 'fa-square-o';
   },
   getCompletedTaskToggleQuery() {
-    const channel = Template.currentData().selectedChannel;
-    const isShowCompletedTask = Template.currentData().isShowCompletedTask || false;
+    const channel = Template.instance().rSelectedChannel.get();
+    const isShowCompletedTask = Template.instance().isShowCompletedTask;
     let data = { isShowCompletedTask: !isShowCompletedTask};
 
     return channel ? _.extend({ selectedChannel: channel._id }, data) : data;
@@ -77,7 +83,7 @@ Template.assistantCustomersDashboard.helpers({
 
 Template.assistantCustomersDashboard.events({
   "click .new-task-button": function(e, tmpl) {
-    let currentCustomer = Template.currentData().currentCustomer;
+    let currentCustomer = Template.instance().rCurrentCustomer.get();
     let data = {
       customerId: currentCustomer._id
     };
@@ -86,20 +92,32 @@ Template.assistantCustomersDashboard.events({
 });
 
 Template.assistantCustomersDashboard.onCreated(function() {
-  this.currentCustomerId = new ReactiveVar();
+  this.rCurrentCustomer = new ReactiveVar();
+  this.rSelectedChannel = new ReactiveVar();
+  this.isShowCompletedTask = false;
 });
 
 Template.assistantCustomersDashboard.onRendered(function() {
-  let ui = this;
-  ui.autorun(function() {
-    if (Template.currentData().currentCustomer) {
-      ui.currentCustomerId.set(Template.currentData().currentCustomer._id);
+  let instance = this;
+  let subs = Template.assistantCustomersDashboard.subs;
+
+  instance.autorun(function() {
+    let data = Template.currentData();
+    if (data.currentCustomerId) {
+      instance.rCurrentCustomer.set(Users.findOneCustomer(data.currentCustomerId));
+      subs.subscribe("customerTasks", data.currentCustomerId);
     } else {
-      ui.currentCustomerId.set(null);
+      instance.rCurrentCustomer.set(null);
     }
+    if (data.selectedChannelId) {
+      instance.rSelectedChannel.set(D.Channels.findOne(data.selectedChannelId));
+    } else {
+      instance.rSelectedChannel.set(null);
+    }
+    instance.isShowCompletedTask = data.isShowCompletedTask;
   });
 
-  if (Template.currentData().currentCustomer) {
-    this.subscribe("customerTasks", Template.currentData().currentCustomer._id);
-  }
+  subs.subscribe("routedChannels");
 })
+
+Template.assistantCustomersDashboard.subs = new SubsManager();

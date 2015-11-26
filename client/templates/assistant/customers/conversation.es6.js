@@ -36,10 +36,12 @@ Template.assistantCustomerConversation.events({
 Template.assistantCustomerConversation.helpers({
   channels() {
     let customer = Template.currentData().currentCustomer;
+    let selectedChannelId = Template.currentData().selectedChannelId;
     return D.Channels.find({customerId: customer._id}).map(function(channel) {
       return {
         currentCustomer: customer,
-        channel: channel
+        channel: channel,
+        selectedChannelId: selectedChannelId
       };
     });
   },
@@ -75,6 +77,14 @@ Template.assistantCustomerConversation.helpers({
            .getCursor();
 
     return query;
+  },
+  tasksNotBilledTime() {
+    let customerId = Template.currentData().currentCustomer._id;
+    let lastBillDate = Invoices.findLastBilledDate(customerId) + 1;
+    let tasksOfCustomer = Tasks.find({ requestorId : customerId }).fetch();
+    return _.reduce(tasksOfCustomer, function(memo, task) {
+      return memo + task.totalDuration(lastBillDate);
+    }, 0);
   }
 });
 
@@ -83,11 +93,15 @@ Template.assistantCustomerConversationChannel.helpers({
     let data = Template.currentData();
     let customerId = data.currentCustomer._id;
     let channelId = data.channel._id;
-    let selectedChannelId = data.currentCustomer.selectedChannelId;
+    let selectedChannelId = data.selectedChannelId;
     return channelId === selectedChannelId ? "active": "";
   },
   isNotReplied() {
     return this.channel.isNotReplied();
+  },
+  getSelectChannelData() {
+    let data = Template.currentData();
+    return {_id: data.currentCustomer._id};
   },
   getSelectChannelQuery() {
     const channel = Template.currentData().channel;
