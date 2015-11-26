@@ -48,7 +48,9 @@ Template.customerEditForm.onCreated(function() {
   })
 
   instance.subscribe("plans");
-  instance.subscribe("customerSubscriptions", customer._id);
+  if (customer) {
+    instance.subscribe("customerSubscriptions", customer._id);
+  }
 });
 
 Template.customerEditForm.helpers({
