@@ -97,36 +97,11 @@ Meteor.methods({
   },
 
   chargeInvoice(invoice) {
-    invoice = Invoice.transform(invoice);
-    Invoice.StateMachine(invoice);
-    console.log(Invoice.Prototype);
-
-    let data = {
-      invoiceId: invoice._id,
-      customerId: invoice.customerId,
-      amount: invoice.debit().toFixed(2),
-      type : Transaction.Type.INVOICE
-    };
-    D.Events.create('newTransaction', data); // call double.pay to create a transaction
-    invoice.issue();
+    InvoicePayment.issueInvoice(invoice._id);
   },
 
-  chargeOneTimePurchase(oneTimePurchase) {
-    _.extend(oneTimePurchase, Tasks.OneTimePurchase.ProtoType);
-    Tasks.OneTimePurchase.StateMachine(oneTimePurchase);
-
-    const task = Tasks.findOne(oneTimePurchase.taskId);
-    let data = {
-      customerId : task.requestorId,
-      oneTimePurchaseId: oneTimePurchase._id,
-      taskId: oneTimePurchase.taskId,
-      amount: oneTimePurchase.totalAmount(),
-      type : Transaction.Type.ONE_TIME_PURCHASE
-    };
-
-    D.Events.create('newTransaction', data); // call double.pay to create a transaction
-    oneTimePurchase.transactionCreated();
-    Meteor.call('slackOtpTransactionCreated', oneTimePurchase);
+  chargeOneTimePurchase(oneTimePurchase, taskId) {
+    Tasks.OneTimePurchases.Payment.charge(oneTimePurchase._id, taskId);
   },
 
   generateInvoicesFor(date) {
@@ -135,59 +110,6 @@ Meteor.methods({
     } else {
       return null;
     }
-  },
+  }
 
-  slackOtpTransactionCreated(oneTimePurchase) {
-    const task = Tasks.findOne(oneTimePurchase.taskId);
-    SlackLog.log('_one_time_charge', {
-
-      text: `
-One Time Charge ${oneTimePurchase.title} of ${task.title} is charging.
-`,
-      username: 'Double A.I. Parts 2',
-      unfurl_links: true,
-      icon_emoji: ':robot_face:'
-    });
-  },
-  slackOtpTransactionSucceed(oneTimePurchase) {
-    const task = Tasks.findOne(oneTimePurchase.taskId);
-    SlackLog.log('_one_time_charges', {
-
-      text: `
-One Time Charge ${oneTimePurchase.title} of ${task.title} is successfully charged.
-`,
-      username: 'Double A.I. Parts 2',
-      unfurl_links: true,
-      icon_emoji: ':robot_face:'
-    });
-  },
-  slackOtpTransactionVoided(oneTimePurchase) {
-    const task = Tasks.findOne(oneTimePurchase.taskId);
-    SlackLog.log('_one_time_charges', {
-
-      text: `
-One Time Charge ${oneTimePurchase.title} of ${task.title} is voided.
-`,
-      username: 'Double A.I. Parts 2',
-      unfurl_links: true,
-      icon_emoji: ':robot_face:'
-    });
-  },
-  slackOtpTransactionFailed(oneTimePurchase) {
-    const task = Tasks.findOne(oneTimePurchase.taskId);
-    const url =  Router['assistant.tasks'].url({
-      _id : taskId
-    });
-SlackLog.log('_one_time_charges', {
-
-      text: `
-INSPECTION NEEDED:
-One Time Charge ${oneTimePurchase.title} of ${task.title} has failed.
-${url}
-`,
-      username: 'Double A.I. Parts 2',
-      unfurl_links: true,
-      icon_emoji: ':robot_face:'
-    });
-  },
 });
