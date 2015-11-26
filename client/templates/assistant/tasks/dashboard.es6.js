@@ -25,6 +25,9 @@ Template.assistantTasksDashboard.events({
 });
 
 Template.assistantTasksDashboard.helpers({
+  currentNumberOfTasks() {
+    return this.tasks.count();
+  },
   getRCurrentTaskId() {
     return Template.instance().rCurrentTaskId;
   },
