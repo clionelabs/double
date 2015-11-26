@@ -38,24 +38,23 @@ Template.assistantCustomersDashboard.helpers({
     let customers = Users.findCustomers(selector);
     if (!customers) return;
 
-    customers = _.map(customers.fetch(), (customer) => {
-      let lastMessageTimestamp = null;
-      let myDChannels = D.Channels.find({ customerId : customer._id }).fetch();
-      if (!_.isEmpty(myDChannels)) {
-        let myDChannelWithLatestReplied
-            = _.max(myDChannels, function (channel) {
-          return channel.lastMessageTimestamp();
-        });
-        lastMessageTimestamp = myDChannelWithLatestReplied.lastMessageTimestamp();
+    let last = {};
+    D.Channels.find().forEach(function(channel) {
+      let timestamp = channel.lastMessageTimestamp();
+      if (channel.customerId && timestamp) {
+        if (!last[channel.customerId] || last[channel.customerId] < timestamp) {
+          last[channel.customerId] = timestamp;
+        }
       }
-
-      return _.extend(customer,
-          {
-            lastMessageTimestamp :  lastMessageTimestamp,
-            isCurrent : (currentCustomer && customer._id === currentCustomer._id)
-          });
     });
-    return _.sortBy(customers, function(customer) { return -1 * customer.lastMessageTimestamp; });
+
+    let list = customers.map(function(customer) {
+      return _.extend(customer, {
+        lastMessageTimestamp: (last[customer._id]? last[customer._id]: 0),
+        isCurrent : (currentCustomer && customer._id === currentCustomer._id)
+      });
+    });
+    return _.sortBy(list, function(customer) { return -1 * customer.lastMessageTimestamp; });
   },
   getTasksOfSelectedCustomer() {
     const currentCustomer = Template.instance().rCurrentCustomer.get();
@@ -119,8 +118,6 @@ Template.assistantCustomersDashboard.onRendered(function() {
   });
 
   subs.subscribe("routedChannels");
-  // subs.subscribe("tasks", {}, {fields: {requestorId: 1, steps: 1}});
-  // subs.subscribe("invoices");
 })
 
 Template.assistantCustomersDashboard.subs = new SubsManager();
