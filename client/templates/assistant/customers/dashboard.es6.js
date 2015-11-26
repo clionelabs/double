@@ -1,6 +1,6 @@
 Template.assistantCustomersDashboard.helpers({
   conversationData() {
-    let currentCustomer = Template.instance().rCurrentCustomer.get();
+    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get('currentCustomer')();
     let selectedChannel = Template.instance().rSelectedChannel.get();
     let isShowCompletedTask = Template.instance().isShowCompletedTask;
 
@@ -17,17 +17,17 @@ Template.assistantCustomersDashboard.helpers({
     return data;
   },
   currentCustomer() {
-    return Template.instance().rCurrentCustomer.get();
+    return Template.assistantCustomersDashboard.__helpers.get('getRCurrentCustomer')().get();
   },
   getRCurrentCustomer() {
     return Template.instance().rCurrentCustomer;
   },
   getCurrentCustomerId() {
-    let currentCustomer = Template.instance().rCurrentCustomer.get();
+    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get('currentCustomer')();
     return currentCustomer? currentCustomer._id: null;
   },
   getSortedCustomers() {
-    let currentCustomer = Template.instance().rCurrentCustomer.get();
+    let currentCustomer = Template.assistantCustomersDashboard.__helpers.get('currentCustomer')();
 
     let selector = {};
     if (!Users.isAdmin(Meteor.userId())) {
