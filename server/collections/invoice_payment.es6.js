@@ -1,5 +1,5 @@
 InvoicePayment = {
-  _slackLog : (message) => {
+  _slackLog: (message) => {
 
     SlackLog.log('_invoices', {
       text: message,
@@ -8,7 +8,7 @@ InvoicePayment = {
       icon_emoji: ':robot_face:'
     });
   },
-  events : [
+  events: [
     {name: 'invoiceIssued', from: 'draft', to: 'issued'},
     {name: 'transactionSucceed', from: 'issued', to: 'charged'},
     {name: 'transactionFailed', from: 'issued', to: 'failed'},
@@ -26,7 +26,7 @@ InvoicePayment = {
         console.log(error);
         return error;
       },
-      events : this.events,
+      events: this.events,
       callbacks: {
         onenterstate: function (event, from, to) {
           if (from === 'none') return;
@@ -38,7 +38,7 @@ InvoicePayment = {
             invoiceId: invoice._id,
             customerId: invoice.customerId,
             amount: invoice.debit().toFixed(2),
-            type : Transaction.Type.INVOICE
+            type: Transaction.Type.INVOICE
           };
           D.Events.create('newTransaction', data); // call double.pay to create a transaction
         },
@@ -59,8 +59,8 @@ has been charged and an Email has been sent.
           const failedInvoice = this;
           const customer = Users.findOneCustomer(failedInvoice.customerId);
           const url = Router.routes['assistant.customers.invoices.selected'].url({
-            customerId : failedInvoice.customerId,
-            invoiceId : failedInvoice._id
+            customerId: failedInvoice.customerId,
+            invoiceId: failedInvoice._id
           });
           InvoicePayment._slackLog(`
 INSPECTION REQUIRED:<!channel>
@@ -101,9 +101,9 @@ has been voided.
     this._attachStateMachine(Invoices.findOne(invoiceId)).transactionVoided();
     return invoiceId;
   },
-  startup : () => {
+  startup: () => {
     // Listen to transactions events
-    D.Events.listen('transactionSuccess', function(data) {
+    D.Events.listen('transactionSuccess', function (data) {
       try {
         if (data.type !== Transaction.Type.INVOICE) return false;
         let invoiceId = data.invoiceId;
@@ -115,7 +115,7 @@ has been voided.
       }
     });
 
-    D.Events.listen('transactionFailure', function(data) {
+    D.Events.listen('transactionFailure', function (data) {
       try {
         if (data.type !== Transaction.Type.INVOICE) return false;
         let invoiceId = data.invoiceId;
@@ -127,7 +127,7 @@ has been voided.
       }
     });
 
-    D.Events.listen('transactionVoid', function(data) {
+    D.Events.listen('transactionVoid', function (data) {
       try {
         if (data.type !== Transaction.Type.INVOICE) return false;
         let invoiceId = data.invoiceId;
@@ -138,17 +138,18 @@ has been voided.
         return false;
       }
     });
+    let init = false;
+    Invoices.find({'status': Invoice.Status.Charged, 'token': {$exists: true}}).observe({
+      added(newInvoice) {
+        if (!init) return;
+
+        if (newInvoice.revenue()) {
+          Invoices.sendEmail(newInvoice);
+        }
+      }
+    });
+    init = true;
+
   }
 };
 
-let init = false;
-Invoices.find({ 'status' : Invoice.Status.Charged , 'token' : { $exists : true }}).observe({
-  added(newInvoice) {
-    if (!init) return;
-
-    if (newInvoice.revenue()) {
-      Invoices.sendEmail(newInvoice);
-    }
-  }
-});
-init = true;
