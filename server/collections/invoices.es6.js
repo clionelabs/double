@@ -10,7 +10,7 @@ Your usage report from ${DateFormatter.toDateShortMonthString(invoice.from)} to 
 You can access the report from the following links in the next five days.
 <a href='${invoice.token.url}'>Invoice URL</a>
 
-Your payment due in this period is ${invoice.debit()}. This amount will be debited from your credit card on file.
+Your payment due in this period is ${invoice.revenue()}. This amount will be debited from your credit card on file.
 
 Thank you for your continuous support and we welcome any feedback you may have.
 

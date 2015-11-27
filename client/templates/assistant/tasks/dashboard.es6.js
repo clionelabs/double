@@ -10,8 +10,10 @@ Template.assistantTasksDashboard.onCreated(function() {
 
 Template.assistantTasksDashboard.onRendered(function() {
   this.autorun(function() {
-    let currentTask = Template.currentData().currentTask;
-    Template.instance().rCurrentTaskId.set(currentTask._id);
+    const currentTask = Template.currentData().currentTask;
+    if (currentTask) {
+      Template.instance().rCurrentTaskId.set(currentTask._id);
+    }
   })
 });
 
