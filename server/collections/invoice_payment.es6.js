@@ -37,7 +37,7 @@ InvoicePayment = {
           let data = {
             invoiceId: invoice._id,
             customerId: invoice.customerId,
-            amount: invoice.debit().toFixed(2),
+            amount: invoice.revenue().toFixed(2),
             type: Transaction.Type.INVOICE
           };
           D.Events.create('newTransaction', data); // call double.pay to create a transaction
@@ -149,7 +149,5 @@ has been voided.
       }
     });
     init = true;
-
   }
 };
-

@@ -2,8 +2,7 @@ let _submitFn = (tmpl, form, taskId) => {
   let date = moment(form.target.date.value).valueOf();
   let title = form.target.title.value;
   let amount = Number.parseFloat(form.target.amount.value);
-  let isOnBehalf = form.target.isOnBehalf.checked;
-  Tasks.OneTimePurchases.add(date, amount, title, isOnBehalf, taskId,
+  Tasks.OneTimePurchases.add(date, amount, title, taskId,
       () => {
         tmpl.isOneTimePurchaseFormShown.set(false);
       });
@@ -34,7 +33,7 @@ Template.assistantTasksDetailOneTimePurchaseForm.helpers({
   },
   */
   hideIfBilled() {
-    return Invoices.findLastBilledDate(this.requestorId) > this.date ? "hide" : "";
+    return this.status === Tasks.OneTimePurchase.Status.PENDING ? "" : "hide";
   },
   oneTimePurchases() {
     const task = this;
