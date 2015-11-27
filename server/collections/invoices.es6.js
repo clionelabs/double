@@ -5,14 +5,16 @@ Invoices.sendEmail = (invoice) => {
     from: Email.from,
     to: email,
     subject: 'Double: Your user report is ready',
-    text: `Hi ${customer.firstName()}!
+    text: `Hi ${customer.firstName()},
 Your usage report from ${DateFormatter.toDateShortMonthString(invoice.from)} to ${DateFormatter.toDateShortMonthString(invoice.to)} is ready.
-you can access <a href='${invoice.token.url}'>it</a> in five days after you receive this email.
+You can access the report from the following links in the next five days.
+<a href='${invoice.token.url}'>Invoice URL</a>
 
-In case of any questions, please let us know!
+Your payment due in this period is ${invoice.debit()}. This amount will be debited from your credit card on file.
 
-Cheers,
-Cary &amp; Thomas
+Thank you for your continuous support and we welcome any feedback you may have.
+
+Double
 `
   });
 };
