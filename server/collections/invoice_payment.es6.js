@@ -149,7 +149,5 @@ has been voided.
       }
     });
     init = true;
-
   }
 };
-
