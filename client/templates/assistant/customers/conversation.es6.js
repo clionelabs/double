@@ -86,10 +86,10 @@ Template.assistantCustomerConversation.helpers({
       return memo + task.totalDuration(lastBillDate);
     }, 0);
   },
-  lastTasksCreatedAt() {
+  lastTaskCreatedAt() {
     const customerId = Template.currentData().currentCustomer._id;
     const tasksOfCustomer = Tasks.find({ requestorId : customerId }).fetch();
-    return _.first(_.sortBy(tasksOfCustomer, function(task) { return -1 * task.createdAt; }));
+    return _.first(_.sortBy(tasksOfCustomer, function(task) { return -1 * task.createdAt; })).createdAt;
   },
   nextBillAt() {
     const customerId = Template.currentData().currentCustomer._id;
