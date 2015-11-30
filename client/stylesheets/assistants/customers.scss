@@ -55,13 +55,9 @@
     }
     .channel-tabs {
       padding: 25px 25px 10px 25px;
-      .customer-metrics {
+      .title {
         display : flex;
         justify-content: space-between;
-        .uncharged-time {
-          font-style: italic;
-          font-size: 0.6em;
-        }
         .functions {
           align-self: flex-end;
           display : flex;
@@ -97,6 +93,11 @@
         padding-bottom: 10px;
         border-bottom: 1px solid $double-grey2;
         margin-bottom: 10px;
+      }
+      .customer-metrics {
+        .addition-info {
+          font-style: italic;
+        }
       }
       ul {
         li.select-channel {
