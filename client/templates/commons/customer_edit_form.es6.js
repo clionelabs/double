@@ -8,7 +8,7 @@ Template.customerEditForm.events({
     const data = {
       firstname: form.firstname.value,
       lastname: form.lastname.value,
-      hourlyRate : form.hourlyRate.value,
+      minuteRate : form.minuteRate.value,
       creditMs : DurationConverter.minutesToMs(form.creditMs.value),
       planId : form.plan.value,
       billingEmail : form['billing-email'].value
@@ -45,7 +45,7 @@ Template.customerEditForm.onCreated(function() {
     if (instance.data) {
       instance.selectedPlanName.set(instance.data.currentPlan().name);
     }
-  })
+  });
 
   instance.subscribe("plans");
   if (customer) {

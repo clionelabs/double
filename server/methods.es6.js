@@ -29,7 +29,7 @@ Meteor.methods({
     let firstname = data.firstname;
     let lastname = data.lastname;
     let plan = data.plan;
-    const hourlyRate = data.hourlyRate;
+    const minuteRate = data.minuteRate;
     const creditMs = data.creditMs;
 
     let userId = Users.createCustomer({
@@ -38,7 +38,7 @@ Meteor.methods({
       profile: {
         firstname: firstname,
         lastname: lastname,
-        hourlyRate: hourlyRate,
+        minuteRate: minuteRate,
         creditMs: creditMs,
         plan: plan
       }
@@ -57,7 +57,7 @@ Meteor.methods({
     const email = data.email;
     const firstname = data.firstname;
     const lastname = data.lastname;
-    const hourlyRate = data.hourlyRate;
+    const minuteRate = data.minuteRate;
     const creditMs = data.creditMs;
     const planId = data.planId;
 
@@ -65,7 +65,7 @@ Meteor.methods({
         {
           firstname: firstname,
           lastname: lastname,
-          hourlyRate: hourlyRate,
+          minuteRate: minuteRate,
           creditMs: creditMs,
           billingEmail: data.billingEmail
         });
