@@ -64,8 +64,8 @@ Template.assistantTasksDetailOneTimePurchaseForm.events({
     tmpl.isOneTimePurchaseFormShown.set(true);
   },
   'click i.delete' : function() {
-    let oneTimePurchaseId = this._id;
-    let taskId = Template.parentData().currentTask._id;
+    const oneTimePurchaseId = this._id;
+    const taskId = this.taskId;
     Tasks.OneTimePurchases.delete(oneTimePurchaseId, taskId);
   },
   "submit form.add" : function(e,tmpl) {
@@ -88,7 +88,7 @@ Template.assistantTasksDetailOneTimePurchaseForm.events({
   },
   "click .charge-confirm-box .charge" : function(e, tmpl) {
     const otpToBeCharged = tmpl.oneTimePurchaseToBeCharged.get();
-    const taskId = Template.parentData().currentTask._id;
+    const taskId = otpToBeCharged.taskId;
     //to prevent double charged
     Meteor.call('chargeOneTimePurchase', otpToBeCharged, taskId);
     tmpl.oneTimePurchaseToBeCharged.set(null);
