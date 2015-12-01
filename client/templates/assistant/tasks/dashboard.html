@@ -3,7 +3,8 @@
     <div class="left-sidebar">
       <div class="left-sidebar-header">
         <div class="filters">
-          <span class="current {{ filterIsCurrent }}">Current({{currentNumberOfTasks}})</span><span class="completed {{filterIsCompleted}}">Completed</span>
+          <span class="inprogress {{filterIsInprogress}}">Current({{inProgressTasksCount}})</span>
+          <span class="completed {{filterIsCompleted}}">Completed({{completedTasksCount}})</span>
         </div>
       </div>
       <div class="tasks">
@@ -12,19 +13,24 @@
         {{/each}}
       </div>
     </div>
+
+    {{#if isReady}}
       {{> assistantTasksDetail getCurrentTask}}
-    <div class="conversation">
-      <div class="right-pane">
-        {{> assistantTasksDetailTags taskId=getRCurrentTaskId }}
-        <div class="updates">
-          <nav>
-            <ul>
-              <li class="active">Status</li>
-            </ul>
-          </nav>
-          {{> assistantTasksDetailStatusForm getCurrentTask}}
+      <div class="conversation">
+        <div class="right-pane">
+          {{> assistantTasksDetailTags taskId=getRCurrentTaskId }}
+          <div class="updates">
+            <nav>
+              <ul>
+                <li class="active">Status</li>
+              </ul>
+            </nav>
+            {{> assistantTasksDetailStatusForm getCurrentTask}}
+          </div>
         </div>
       </div>
-    </div>
+    {{else}}
+      Loading...
+    {{/if}}
   </div>
 </Template>
