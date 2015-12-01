@@ -89,7 +89,8 @@ Template.assistantCustomerConversation.helpers({
   lastTaskCreatedAt() {
     const customerId = Template.currentData().currentCustomer._id;
     const tasksOfCustomer = Tasks.find({ requestorId : customerId }).fetch();
-    return _.first(_.sortBy(tasksOfCustomer, function(task) { return -1 * task.createdAt; })).createdAt;
+    const lastTask = _.first(_.sortBy(tasksOfCustomer, function(task) { return -1 * task.createdAt; }));
+    return lastTask? lastTask.createdAt: null;
   },
   nextBillAt() {
     const customerId = Template.currentData().currentCustomer._id;

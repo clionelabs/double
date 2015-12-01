@@ -107,12 +107,12 @@ Meteor.publish('taskTaggedMessages', function(taskId) {
   ];
 });
 
-Meteor.publish("invoices", function() {
+Meteor.publish("invoices", function(selector, options) {
   if (!(Users.isAssistant(this.userId) || Users.isAdmin(this.userId))) {
     //return empty array coz return null will not terminate waitOn in prod
     return [];
   } else {
-    return Invoices.find();
+    return Invoices.find(selector, options);
   }
 });
 
