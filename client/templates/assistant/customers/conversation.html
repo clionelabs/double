@@ -1,6 +1,6 @@
 <Template name="assistantCustomerConversation">
   <div class="channel-tabs">
-    <div class="customer-metrics">
+    <div class="title">
       <div class="name">
         {{ currentCustomer.displayName }}
         {{#if hasPaymentMethod}}
@@ -8,10 +8,8 @@
              data-toggle="tooltip" data-placement="bottom" title="This customer can be charged automatically"
               ></i>
         {{/if}}
-        <span class="uncharged-time">
-          Uncharged time: {{ formatDurationPrecise tasksNotBilledTime }}
-        </span>
       </div>
+
       <div class="functions">
         <div class="dropdown">
           <div class="btn btn-default invoices">Usage Report</div>
@@ -31,6 +29,17 @@
           </ul>
         </div>
       </div>
+    </div>
+    <div class="customer-metrics">
+      <span class="addition-info uncharged-time">
+        Uncharged time: {{ formatDuration tasksNotBilledTime }}
+      </span>
+      <span class="addition-info last-request-date">
+        Last Request Date: {{ formatDate lastTaskCreatedAt }}
+      </span>
+      <span class="addition-info next-cycle">
+        Next Payment At: {{ formatDate nextBillAt }}
+      </span>
     </div>
     <div class="row">
       <div class="col-xs-9">

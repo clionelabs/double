@@ -79,12 +79,33 @@ Template.assistantCustomerConversation.helpers({
     return query;
   },
   tasksNotBilledTime() {
-    let customerId = Template.currentData().currentCustomer._id;
-    let lastBillDate = Invoices.findLastBilledDate(customerId) + 1;
-    let tasksOfCustomer = Tasks.find({ requestorId : customerId }).fetch();
+    const customerId = Template.currentData().currentCustomer._id;
+    const lastBillDate = Invoices.findLastBilledDate(customerId) + 1;
+    const tasksOfCustomer = Tasks.find({ requestorId : customerId }).fetch();
     return _.reduce(tasksOfCustomer, function(memo, task) {
       return memo + task.totalDuration(lastBillDate);
     }, 0);
+  },
+  lastTaskCreatedAt() {
+    const customerId = Template.currentData().currentCustomer._id;
+    const tasksOfCustomer = Tasks.find({ requestorId : customerId }).fetch();
+    return _.first(_.sortBy(tasksOfCustomer, function(task) { return -1 * task.createdAt; })).createdAt;
+  },
+  nextBillAt() {
+    const customerId = Template.currentData().currentCustomer._id;
+    const customer = Users.findOneCustomer(customerId);
+    const currentSubscription = customer.currentSubscription();
+    if (currentSubscription) {
+      return currentSubscription.nextCycleAt(moment().valueOf());
+    } else {
+      const customerCreatedAtDay = moment(customer.createdAt).date();
+      const customerCreatedAtMonth = moment(customer.createdAt).month();
+      const currentMonth = moment().month();
+      return currentMonth !== customerCreatedAtMonth
+          ? moment().date(customerCreatedAtDay - 1).valueOf()
+          : moment().add(1, 'month').date(customerCreatedAtDay - 1).valueOf();
+
+    }
   }
 });
 
