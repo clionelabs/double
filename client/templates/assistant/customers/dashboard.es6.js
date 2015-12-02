@@ -118,8 +118,6 @@ Template.assistantCustomersDashboard.onRendered(function() {
     }
     instance.isShowCompletedTask = data.isShowCompletedTask;
   });
-
-  subs.subscribe("routedChannels");
 })
 
 Template.assistantCustomersDashboard.subs = new SubsManager();
