@@ -2,8 +2,9 @@ Invoices.sendEmail = (invoice) => {
   const customer = Users.findOneCustomer(invoice.customerId);
   const email = customer.billingEmail() ? customer.billingEmail() : customer.primaryEmail();
   Email.send({
-    from: Email.from,
+    from: Email.fromDouble,
     to: email,
+    bcc: ['double@double.co'],
     subject: 'Double: Your user report is ready',
     text: `Hi ${customer.firstName()},
 Your usage report from ${DateFormatter.toDateShortMonthString(invoice.from)} to ${DateFormatter.toDateShortMonthString(invoice.to)} is ready.

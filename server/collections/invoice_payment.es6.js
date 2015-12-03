@@ -41,6 +41,11 @@ InvoicePayment = {
             type: Transaction.Type.INVOICE
           };
           D.Events.create('newTransaction', data); // call double.pay to create a transaction
+          this._slackLog(`
+          ${customer.displayName()}'s invoice
+from ${DateFormatter.toDateString(chargedInvoice.from)} to ${DateFormatter.toDateString(chargedInvoice.to)}
+has been issued.
+          `)
         },
         ontransactionSucceed: function (event, from, to) {
           let chargedInvoice = this;
