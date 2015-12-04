@@ -7,7 +7,7 @@ Invoices.sendEmail = (invoice) => {
     bcc: ['double@double.co'],
     subject: 'Double: Your user report is ready',
     text: `Hi ${customer.firstName()},
-Your usage report from ${DateFormatter.toDateShortMonthString(invoice.from)} to ${DateFormatter.toDateShortMonthString(invoice.to)} is ready.
+Your usage report from ${DateFormatter.toDateShortMonthStringWithTimeZone(invoice.from, customer.timezone())} to ${DateFormatter.toDateShortMonthStringWithTimeZone(invoice.to, customer.timezone())} is ready.
 You can access the report from the following links in the next five days.
 <a href='${invoice.token.url}'>Invoice URL</a>
 

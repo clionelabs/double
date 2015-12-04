@@ -1,15 +1,44 @@
 DateFormatter = {
   toDateString : (date) => {
-    return date ? moment(date).format('YYYY-MM-DD') : '---';
+    return DateFormatter.toDateStringWithTimeZone(date);
+  },
+  toDateStringWithTimeZone : (date, timezone) => {
+    const dateMoment = date ? moment(date) : null;
+    if (date && timezone) {
+      console.log(timezone);
+      dateMoment.tz(timezone);
+    }
+    return dateMoment ? dateMoment.format('YYYY-MM-DD') : '---';
   },
   toDateTimeString : (date) => {
-    return  date ? moment(date).format('YYYY-MM-DD HH:mm:ss') : '---';
+    return DateFormatter.toDateTimeStringWithTimeZone(date);
+  },
+  toDateTimeStringWithTimeZone : (date, timezone) => {
+    const dateMoment = date ? moment(date) : null;
+    if (date && timezone) {
+      dateMoment.tz(timezone);
+    }
+    return dateMoment ? dateMoment.format('YYYY-MM-DD HH:mm:ss') : '---';
   },
   toDateMonthString : (date) => {
-    return  date ? moment(date).format('MMMM DD, YYYY') : '---';
+    return DateFormatter.toDateMonthStringWithTimeZone(date);
+  },
+  toDateMonthStringWithTimeZone : (date, timezone) => {
+    const dateMoment = date ? moment(date) : null;
+    if (date && timezone) {
+      dateMoment.tz(timezone);
+    }
+    return dateMoment ? dateMoment.format('MMMM DD, YYYY') : '---';
   },
   toDateShortMonthString : (date) => {
-    return  date ? moment(date).format('MMM DD, YYYY') : '---';
+    return DateFormatter.toDateShortMonthStringWithTimeZone(date);
+  },
+  toDateShortMonthStringWithTimeZone : (date, timezone) => {
+    const dateMoment = date ? moment(date) : null;
+    if (date && timezone) {
+      dateMoment.tz(timezone);
+    }
+    return dateMoment ? dateMoment.format('MMM DD, YYYY') : '---';
   }
 };
 

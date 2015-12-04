@@ -40,10 +40,12 @@ InvoicePayment = {
             amount: invoice.revenue().toFixed(2),
             type: Transaction.Type.INVOICE
           };
+          const customer = Users.findOneCustomer(chargedInvoice.customerId);
           D.Events.create('newTransaction', data); // call double.pay to create a transaction
           this._slackLog(`
           ${customer.displayName()}'s invoice
-from ${DateFormatter.toDateString(chargedInvoice.from)} to ${DateFormatter.toDateString(chargedInvoice.to)}
+from ${DateFormatter.toDateStringWithTimeZone(chargedInvoice.from, customer.timezone())}
+to ${DateFormatter.toDateStringWithTimeZone(chargedInvoice.to, customer.timezone())}
 has been issued.
           `)
         },
@@ -56,7 +58,8 @@ has been issued.
           const customer = Users.findOneCustomer(chargedInvoice.customerId);
           InvoicePayment._slackLog(`
 ${customer.displayName()}'s invoice
-from ${DateFormatter.toDateString(chargedInvoice.from)} to ${DateFormatter.toDateString(chargedInvoice.to)}
+from ${DateFormatter.toDateStringWithTimeZone(chargedInvoice.from, customer.timezone())}
+to ${DateFormatter.toDateStringWithTimeZone(chargedInvoice.to, customer.timezone())}
 has been charged and an Email has been sent.
 `);
         },
@@ -70,7 +73,8 @@ has been charged and an Email has been sent.
           InvoicePayment._slackLog(`
 INSPECTION REQUIRED:<!channel>
 ${customer.displayName()}'s invoice
-from ${DateFormatter.toDateString(failedInvoice.from)} to ${DateFormatter.toDateString(failedInvoice.to)}
+from ${DateFormatter.toDateStringWithTimeZone(failedInvoice.from, customer.timezone())}
+to ${DateFormatter.toDateStringWithTimeZone(failedInvoice.to, customer.timezone())}
 has failed for some reason.
 Link here: ${url}
 `);
@@ -80,7 +84,8 @@ Link here: ${url}
           const customer = Users.findOneCustomer(voidedInvoice.customerId);
           InvoicePayment._slackLog(`
 ${customer.displayName()}'s invoice
-from ${DateFormatter.toDateString(voidedInvoice.from)} to ${DateFormatter.toDateString(voidedInvoice.to)}
+from ${DateFormatter.toDateStringWithTimeZone(voidedInvoice.from, customer.timezone())}
+to ${DateFormatter.toDateStringWithTimeZone(voidedInvoice.to, customer.timezone())}
 has been voided.
 `);
         }
