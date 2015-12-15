@@ -38,7 +38,7 @@ To test the whole system on your local machine, execute the following steps:
 * If you only need to do development on dashboard, you normally need only to execute step 1).
 * If you need to do development on payment authorization, you normally need only to execute step 1) and 2).
 * If you need to do development on communication channels (e.g. slack), you normally need to execute step 1) and 3).
-* If you need to do development on the telegram communication channels, you need to execute step 1, 2 and 3.
+* If you need to do development on the telegram communication channels, you need to execute step 1, 3 and 4.
 
 * <strong>General rule, you need to execute step 1) almost everytime, and depends on the features you work on, start the relevant applications</strong>
 
