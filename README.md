@@ -16,6 +16,9 @@ Double system adapts a micro-services architecture and consists of the following
 
 Each repositories are an independent meteor applications. Although they can be run independently, it's expected that they will be connected to the same underlying mongodb to make sense of their functionalities. 
 
+Also, the applications share a common set of logic, and code for those logic is packaged as a common library called `double.core`.https://github.com/clionelabs/double.core. In the other words, `double.core` is not a standalone application, but a meteor package imported by the applications above.
+
+
 # Local testing
 To test the whole system on your local machine, execute the following steps:
 
