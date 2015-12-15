@@ -44,3 +44,17 @@ To test the whole system on your local machine, execute the following steps:
 
 #### Other Notes
 for sample SETTINGS_FILE, refer to `private/settings.sample.json` under each of the repositories.
+
+# Deployements
+
+There are many ways to deploy the whole system. In general, the three major steps are:
+
+1) Create a mongodb instance. One easy way is to use hosted database service, e.g. mongolab - http://mongolab.com/
+
+2) Deploy each of the meteor applications above (4 in total, `double`, `double.pay`, `double.services`, `double.services.telegram`). One easy way is to use hosted service, e.g. heroku - http://heroku.com
+
+  * a third party buildpack for deploying meteor apps on heroku platform: https://github.com/jordansissel/heroku-buildpack-meteor
+
+3) Update application settings for each of the applications deployed in step 2). One important configuration is the mongodb url, i.e. `MONGO_URL`. Make sure it is pointing to the mongodb instance created on step 1)
+
+
