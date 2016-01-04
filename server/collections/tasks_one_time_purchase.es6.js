@@ -34,14 +34,15 @@ Tasks.OneTimePurchases.Payment = {
         },
         ontransactionCreated(event, from, to) {
           const oneTimePurchaseWithTaskId = this;
+          const task = Tasks.findOne(oneTimePurchaseWithTaskId.taskId);
           const data = {
             oneTimePurchaseId: oneTimePurchaseWithTaskId._id,
+            customerId : task.requestorId,
             taskId: oneTimePurchaseWithTaskId.taskId,
             amount: oneTimePurchaseWithTaskId.totalAmount(),
             type : Transaction.Type.ONE_TIME_PURCHASE
           };
           D.Events.create('newTransaction', data); // call double.pay to create a transaction
-          const task = Tasks.findOne(oneTimePurchaseWithTaskId.taskId);
           Tasks.OneTimePurchases.Payment._slackLog(`One Time Charge ${oneTimePurchaseWithTaskId.title} of ${task.title} is charging.`);
         },
         ontransactionSucceed(event, from, to) {
