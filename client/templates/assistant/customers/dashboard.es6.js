@@ -107,7 +107,7 @@ Template.assistantCustomersDashboard.onRendered(function() {
       instance.rCurrentCustomer.set(Users.findOneCustomer(data.currentCustomerId));
       subs.subscribe("customers", {_id: data.currentCustomerId});
       subs.subscribe("customerTasks", data.currentCustomerId);
-      subs.subscribe("invoices", {customerId: data.currentCustomerId});
+      subs.subscribe("customerInvoices", data.currentCustomerId);
     } else {
       instance.rCurrentCustomer.set(null);
     }
