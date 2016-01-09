@@ -37,7 +37,7 @@ InvoicePayment = {
           let data = {
             invoiceId: invoice._id,
             customerId: invoice.customerId,
-            amount: invoice.revenue().toFixed(2),
+            amount: accounting.toFixed(invoice.revenue(), 2),
             type: Transaction.Type.INVOICE
           };
           const customer = Users.findOneCustomer(chargedInvoice.customerId);

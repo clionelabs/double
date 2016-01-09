@@ -45,23 +45,25 @@ D.Invoice.ProtoType = {
     return this.timePayable() / 1000 / 60;
   },
   timeBasedItemsTotal() {
-    return this.minutePayable() * this.effectiveRate;
+    return parseFloat(accounting.toFixed(this.minutePayable() * this.effectiveRate, 2));
   },
   otherChargesTotal() {
-    return _.reduce(this.otherCharges, (memo, otherCharge) => {
+    return parseFloat(accounting.toFixed(_.reduce(this.otherCharges, (memo, otherCharge) => {
       return memo + otherCharge.amount;
-    }, 0);
+    }, 0), 2));
   },
   isEditable() {
     return this.isStatic !== undefined ? false : this.status === D.Invoice.Status.Draft;
   },
   membershipsTotal() {
-    return _.reduce(this.memberships, (memo, membership) => {
+    return parseFloat(accounting.toFixed(_.reduce(this.memberships, (memo, membership) => {
       return memo +  membership.amount;
-    }, 0);
+    }, 0), 2));
   },
   revenue() {
-    return this.timeBasedItemsTotal() + this.membershipsTotal();
+    const timeBasedTotal = this.timeBasedItemsTotal();
+    const membershipsTotal = this.membershipsTotal();
+    return accounting.toFixed(timeBasedTotal + membershipsTotal, 2);
   },
 };
 
