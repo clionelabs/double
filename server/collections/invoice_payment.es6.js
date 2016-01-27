@@ -34,25 +34,28 @@ InvoicePayment = {
           let i = Invoices.update(invoice._id, {$set: {'status': to}});
         },
         oninvoiceIssued(event, from, to) {
+          let invoice = this;
+          console.log(`[Invoice] InvoiceId ${invoice._id} issued.`);
           let data = {
             invoiceId: invoice._id,
             customerId: invoice.customerId,
             amount: accounting.toFixed(invoice.revenue(), 2),
             type: Transaction.Type.INVOICE
           };
-          const customer = Users.findOneCustomer(chargedInvoice.customerId);
+          const customer = Users.findOneCustomer(invoice.customerId);
           D.Events.create('newTransaction', data); // call double.pay to create a transaction
-          this._slackLog(`
+          InvoicePayment._slackLog(`
           ${customer.displayName()}'s invoice
-from ${DateFormatter.toDateStringWithTimeZone(chargedInvoice.from, customer.timezone())}
-to ${DateFormatter.toDateStringWithTimeZone(chargedInvoice.to, customer.timezone())}
+from ${DateFormatter.toDateStringWithTimeZone(invoice.from, customer.timezone())}
+to ${DateFormatter.toDateStringWithTimeZone(invoice.to, customer.timezone())}
 has been issued.
-          `)
+          `);
         },
         ontransactionSucceed: function (event, from, to) {
           let chargedInvoice = this;
-          const msToBeDeduct = _.max([0, invoice.roundedInSecondTotalDuration() - invoice.creditFromSubscription]);
-          Customers.deductCreditMs(invoice.customerId, msToBeDeduct);
+          console.log(`[Invoice] InvoiceId ${chargedInvoice._id} transaction succeed.`);
+          const msToBeDeduct = _.max([0, chargedInvoice.roundedInSecondTotalDuration() - chargedInvoice.creditFromSubscription]);
+          Customers.deductCreditMs(chargedInvoice.customerId, msToBeDeduct);
           Invoices.generateToken(chargedInvoice._id);
           //Email is sent after the token is generated
           const customer = Users.findOneCustomer(chargedInvoice.customerId);
@@ -65,6 +68,7 @@ has been charged and an Email has been sent.
         },
         ontransactionFailed: function (event, from, to) {
           const failedInvoice = this;
+          console.log(`[Invoice] InvoiceId ${failedInvoice._id} transaction failed.`);
           const customer = Users.findOneCustomer(failedInvoice.customerId);
           const url = Router.routes['assistant.customers.invoices.selected'].url({
             customerId: failedInvoice.customerId,
@@ -81,6 +85,7 @@ Link here: ${url}
         },
         ontransactionVoided: function (event, from, to) {
           const voidedInvoice = this;
+          console.log(`[Invoice] InvoiceId ${voidedInvoice._id} transaction voided.`);
           const customer = Users.findOneCustomer(voidedInvoice.customerId);
           InvoicePayment._slackLog(`
 ${customer.displayName()}'s invoice

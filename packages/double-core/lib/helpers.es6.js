@@ -4,8 +4,7 @@ DateFormatter = {
   },
   toDateStringWithTimeZone : (date, timezone) => {
     const dateMoment = date ? moment(date) : null;
-    if (date && timezone) {
-      console.log(timezone);
+    if (dateMoment && timezone) {
       dateMoment.tz(timezone);
     }
     return dateMoment ? dateMoment.format('YYYY-MM-DD') : '---';
